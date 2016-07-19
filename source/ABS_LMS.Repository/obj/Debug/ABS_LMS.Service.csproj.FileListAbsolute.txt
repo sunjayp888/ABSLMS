@@ -1,0 +1,6 @@
+F:\work\ABS_LMS\ABS_LMS.Service\bin\Debug\ABS_LMS.Service.dll
+F:\work\ABS_LMS\ABS_LMS.Service\bin\Debug\ABS_LMS.Service.pdb
+F:\work\ABS_LMS\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.dll
+F:\work\ABS_LMS\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.pdb
+E:\OfficeApplication\ABS_LMS\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.dll
+E:\OfficeApplication\ABS_LMS\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.pdb
