@@ -10,16 +10,16 @@
 <h1>Leave Details </h1>
 @if (Model != null)
 {
-    <p>
-        @Html.ActionLink("CsvDownload", "EmployeeReportCsvDownload", new { id = HttpCurrentUser.EmployeeId }) &nbsp; &nbsp;
-        @Html.ActionLink("Create New", "Create", new { id = HttpCurrentUser.EmployeeId }) &nbsp; &nbsp;
+    <p class="Link-btn">
+        @Html.ActionLink("CsvDownload", "EmployeeReportCsvDownload", new { id = HttpCurrentUser.EmployeeId}, new { @class = "btn btn-default" }) &nbsp; &nbsp;
+        @Html.ActionLink("Create New", "Create", new { id = HttpCurrentUser.EmployeeId }, new { @class = "btn btn-default" }) &nbsp; &nbsp;
         @if (HttpCurrentUser.IsManager)
         {
-            @Html.ActionLink("Leave Pending For Approval", "LeavePendingForApproval", new { id = HttpCurrentUser.EmployeeId })
+            @Html.ActionLink("Leave Pending For Approval", "LeavePendingForApproval", new { id = HttpCurrentUser.EmployeeId }, new { @class = "btn btn-default" })
         }
         @if (HttpCurrentUser.IsHR)
         {
-            @Html.ActionLink("Employee Leave Details", "ApprovedLeaveDetails", new { id = HttpCurrentUser.EmployeeId })
+            @Html.ActionLink("Employee Leave Details", "ApprovedLeaveDetails", new { id = HttpCurrentUser.EmployeeId }, new { @class = "btn btn-default" })
         }
     </p>
     if (@Model.Any())

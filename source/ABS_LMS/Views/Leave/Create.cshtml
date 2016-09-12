@@ -48,7 +48,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.EmployeeLeaveDetails.NoOfDays, htmlAttributes: new { @class = " col-md-4" })
             <div class="col-md-8">
-                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.NoOfDays, new { htmlAttributes = new { @class = "", @readonly = true } })
+                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.NoOfDays, new { @readonly="readonly" })
                 @Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.NoOfDays, "", new { @class = "pull-left alert alert-warning " })
 
             </div>
@@ -72,7 +72,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.EmployeeLeaveDetails.ApprovedBy, new { @class = " col-md-4" })
             <div class="col-md-8">
-                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.ApprovedPersonName)
+                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.ApprovedPersonName, new { @readonly="readonly" })
                 @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedPersonName)
                 @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedBy)
             </div>

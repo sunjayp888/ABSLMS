@@ -2,7 +2,18 @@
 @import url('../../../less/_main.less');
 
 //variable for color code
-@colour1: #00abff;
+/*@colour1: #00abff;
+@colour2: #666666;
+@colour3: #0a237c;
+@colour4: #000000;
+@colour5: #FFFFFF;
+@colour6: #333333;
+@colour7: #ddd;
+@colour8: transparent;
+@colour9: #ECECEC;
+@colour10: #da6438;
+@colour11: #eb704f;*/
+@colour1: #22B500;
 @colour2: #666666;
 @colour3: #0a237c;
 @colour4: #000000;
@@ -13,6 +24,7 @@
 @colour9: #ECECEC;
 @colour10: #da6438;
 @colour11: #eb704f;
+@colour12:#FB871F;
 
 
 
@@ -21,11 +33,11 @@
 @main-color: @colour5;
 @text-color: @colour2;
 @highlighted-color: @colour1;
-@link-text: @colour1;
+@link-text: @colour12;
 @input-group-border-color: @colour2;
 @button-background-color: @colour1;
 @body-background-color: @colour5;
-@h1-color: @colour1;
+@h1-color: @colour12;
 @body-text-color: @colour2;
 @button-color: @colour5;
 @textbox-border-color: @colour7;
@@ -44,7 +56,7 @@
 
 //header colors
 @header-logo-background-color: @colour5;
-@header-top-background-color: @colour4;
+@header-top-background-color: @colour12;
 @header-color: @colour5;
 @h2-text-color: @text-color;
 
@@ -83,7 +95,10 @@
     display: block;
     border-bottom: 3px solid @highlighted-color;
     background-color: @header-color;
-
+     .user-menu li
+        {
+        width:25% !important;
+    }
 
     .logo-container {
         text-align: center;
@@ -179,6 +194,7 @@
             }
         }
     }
+   
 }
 
 input[type=text], input[type=password] {
@@ -348,7 +364,14 @@ input[type=text], input[type=password] {
     :hover,:focus {
         color: @main-color!important;
     }
+   
 }
+ .Link-btn .btn{
+            background-color: @highlighted-color;
+    color: @main-color!important;
+    border-color:@highlighted-color;
+      text-transform: uppercase!important;
+    }
 .employeelist .linktobtn
 {
        padding: 5px 12px;

@@ -6,7 +6,7 @@
 body a,
 body a:hover,
 body a:focus {
-  color: #00abff;
+  color: #FB871F;
   cursor: pointer;
 }
 body .blanklabel {
@@ -14,7 +14,7 @@ body .blanklabel {
 }
 body h1 {
   font-size: 36px;
-  color: #00abff;
+  color: #FB871F;
   text-transform: uppercase;
   font-weight: 300;
   letter-spacing: 2px;
@@ -58,7 +58,7 @@ body .minute {
   margin-left: -1px;
   line-height: 1.42857143;
   text-decoration: none;
-  background-color: #00abff;
+  background-color: #22B500;
   border: 1px solid #FFFFFF;
   color: #FFFFFF;
 }
@@ -150,7 +150,7 @@ body .minute {
 .box h2 label {
   float: none;
   font-size: 14px;
-  color: #00abff;
+  color: #22B500;
 }
 input[type="checkbox"] {
   display: inline;
@@ -186,7 +186,7 @@ div .input-group input {
   width: 260px;
 }
 .importexpense label {
-  color: #00abff;
+  color: #FB871F;
 }
 .import-expense-header h1 {
   padding-left: 10px;
@@ -219,7 +219,7 @@ div .input-group input {
   position: relative;
   overflow: hidden;
   margin: 10px;
-  background-color: #00abff;
+  background-color: #22B500;
   color: #FFFFFF;
   padding: 6px 16px;
   font-size: 12px;
@@ -287,7 +287,7 @@ form input {
   border: 0;
 }
 form button {
-  background-color: #00abff;
+  background-color: #22B500;
   color: #FFFFFF;
   padding: 5px 50px;
   font-size: 12px;
@@ -314,7 +314,7 @@ form button {
   letter-spacing: 1px;
 }
 .footer {
-  border-top: 3px solid #00abff;
+  border-top: 3px solid #22B500;
   clear: both;
   margin-top: 20px;
   padding: 20px 0;
@@ -356,8 +356,8 @@ form button {
   }
 }
 .progress-animated .bar {
-  background-color: #00abff;
-  background: #00abff;
+  background-color: #22B500;
+  background: #22B500;
   filter: none;
 }
 .progress {
@@ -365,13 +365,13 @@ form button {
 }
 .progress .bar {
   height: 20px;
-  color: #00abff;
+  color: #22B500;
   font-size: 12px;
   text-align: center;
-  background-color: #00abff;
+  background-color: #22B500;
 }
 .btn-upload {
-  background-color: #00abff;
+  background-color: #22B500;
   color: #FFFFFF !important;
   padding: 5px 50px;
   font-size: 12px;
@@ -398,7 +398,7 @@ form button {
 .alert-danger,
 .alert-warning {
   color: #FFFFFF !important;
-  background-color: #00abff;
+  background-color: #22B500;
   border-color: #000000;
 }
 .button,
@@ -406,7 +406,7 @@ button,
 input[type="submit"],
 input[type="reset"],
 input[type="button"] {
-  background-color: #00abff;
+  background-color: #22B500;
   color: #FFFFFF;
   padding: 5px 50px;
   font-size: 12px;
@@ -426,7 +426,7 @@ input[type="button"] {
   margin-bottom: 10px;
 }
 .editExpenditure .cancelButton {
-  background-color: #00abff;
+  background-color: #22B500;
   color: #FFFFFF;
   padding: 13px 15px;
   font-size: 12px;
@@ -481,7 +481,7 @@ input[type="button"] {
 }
 .table-hover tbody tr:hover td,
 .table-hover tbody tr:hover th {
-  background-color: #00abff;
+  background-color: #22B500;
   color: #FFFFFF;
 }
 .table-employees tbody tr {
@@ -519,7 +519,7 @@ input[type="button"] {
 .ui-state-active,
 .ui-state-highlight,
 .ui-state-hover {
-  background: #00abff !important;
+  background: #22B500 !important;
 }
 .mobileview {
   display: none;
@@ -793,7 +793,7 @@ input[type="button"] {
 .btnCopyExpenses {
   float: none !important;
   width: auto !important;
-  background-color: #00abff;
+  background-color: #22B500;
   color: #FFFFFF;
   font-size: 12px;
   line-height: 30px;
@@ -870,7 +870,7 @@ input[type="button"] {
   font-family: futura-pt, sans-serif !important;
 }
 .ui-autocomplete li:hover {
-  color: #00abff;
+  color: #FB871F;
   background-color: #FFFFFF;
 }
 .ui-autocomplete .ui-state-focus:hover {
@@ -883,7 +883,7 @@ input[type="button"] {
 .ui-state-focus,
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
-  color: #00abff !important;
+  color: #FB871F !important;
   background-color: #FFFFFF !important;
   background: #FFFFFF !important;
 }
@@ -923,7 +923,7 @@ html .ui-autocomplete {
 }
 .error-number {
   color: #FFFFFF;
-  background-color: #00abff;
+  background-color: #22B500;
   border-color: #000000;
   /*padding: 15px;*/
   padding: 6px 15px 0 15px !important;
@@ -943,7 +943,7 @@ html .ui-autocomplete {
   font-weight: normal;
 }
 .errormsg label {
-  color: #00abff;
+  color: #22B500;
 }
 .errormsg span {
   display: inline-block;
@@ -951,7 +951,7 @@ html .ui-autocomplete {
 }
 .select2-highlighted {
   background-color: #FFFFFF;
-  color: #00abff;
+  color: #FB871F;
 }
 h2 a {
   font-size: 14px;
@@ -1002,7 +1002,7 @@ h2 a {
 .createuser .validation-summary-errors {
   margin-left: 30%;
   color: #FFFFFF !important;
-  background-color: #00abff;
+  background-color: #22B500;
   border-color: #000000;
   padding: 15px;
   margin-bottom: 20px;
@@ -1080,6 +1080,17 @@ h2 a {
     display: block;
   }
 }
+/*@colour1: #00abff;
+@colour2: #666666;
+@colour3: #0a237c;
+@colour4: #000000;
+@colour5: #FFFFFF;
+@colour6: #333333;
+@colour7: #ddd;
+@colour8: transparent;
+@colour9: #ECECEC;
+@colour10: #da6438;
+@colour11: #eb704f;*/
 @font-face {
   font-family: 'cronos';
   src: url('../Content/Theme/AndersonGroup/fonts/Cronos-MM-webfont.eot');
@@ -1090,8 +1101,11 @@ h2 a {
 .header {
   position: relative;
   display: block;
-  border-bottom: 3px solid #00abff;
+  border-bottom: 3px solid #22B500;
   background-color: #FFFFFF;
+}
+.header .user-menu li {
+  width: 25% !important;
 }
 .header .logo-container {
   text-align: center;
@@ -1110,7 +1124,7 @@ h2 a {
   width: 100%;
   left: 0;
   display: block;
-  background-color: #000000;
+  background-color: #FB871F;
   overflow: auto;
 }
 .header .header-top div a {
@@ -1166,11 +1180,11 @@ h2 a {
   letter-spacing: 1px;
 }
 .header .navbar .nav > li > a.active {
-  background-color: #00abff;
+  background-color: #22B500;
   color: #FFFFFF;
 }
 .header .navbar .nav > li > a:hover {
-  background-color: #00abff;
+  background-color: #22B500;
   color: #FFFFFF;
 }
 input[type=text],
@@ -1179,7 +1193,7 @@ input[type=password] {
 }
 .btn:focus,
 .btn:hover {
-  background-color: #00abff !important;
+  background-color: #22B500 !important;
   color: #FFFFFF !important;
 }
 /*body {
@@ -1217,7 +1231,7 @@ input[type=password] {
     right: 0;
   }
   .header .header-top div a:hover {
-    background-color: #00abff;
+    background-color: #22B500;
     color: #FFFFFF;
   }
   .header .navbar .navbar-toggle,
@@ -1237,7 +1251,7 @@ input[type=password] {
   }
   .navbar {
     margin-bottom: 0;
-    background-color: #000000;
+    background-color: #FB871F;
     width: 100%;
   }
   .navbar .navbar-toggle {
@@ -1298,7 +1312,7 @@ input[type=password] {
   height: 40px;
 }
 .linktobtn {
-  background-color: #00abff;
+  background-color: #22B500;
   color: #FFFFFF !important;
   padding: 5px 22px;
   font-size: 12px;
@@ -1315,6 +1329,12 @@ input[type=password] {
 .linktobtn :hover,
 .linktobtn :focus {
   color: #FFFFFF !important;
+}
+.Link-btn .btn {
+  background-color: #22B500;
+  color: #FFFFFF !important;
+  border-color: #22B500;
+  text-transform: uppercase!important;
 }
 .employeelist .linktobtn {
   padding: 5px 12px;

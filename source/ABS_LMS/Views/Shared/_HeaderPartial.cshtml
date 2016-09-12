@@ -27,27 +27,27 @@
         </a>
     </div>
     <div id="navbar-menuitems" class="navbar-collapse navbar-left collapse">
-        <ul class="nav navbar-nav">
-          <li>
-                @Html.ActionLink("Home", "Index", "Home",null, new { @id = "Home" })
+        <ul class='nav navbar-nav @(HttpCurrentUser.IsUser ? "user-menu" : "")'>
+            <li>
+                @Html.ActionLink("Home", "Index", "Home", null, new {@id = "Home"})
             </li>
-     
+
             @if (Request.IsAuthenticated)
             {
-            if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
-            {
-            <li>@Html.ActionLink("Employee", "Index", "Employee" , null, new {@id = "employee"})</li>
-            }
-            <li>@Html.ActionLink("Leaves", "Index", "Leave", new { id = HttpCurrentUser.EmployeeId }, new {@Id="Leaves"})</li>
-            if (HttpCurrentUser.IsAdmin)
-            {
-            <li>
-                @Html.ActionLink("Administrator", "Index", "Administrator",null ,new {@Id="Administrator"})
+                if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
+                {
+                    <li>@Html.ActionLink("Employee", "Index", "Employee", null, new {@id = "employee"})</li>
+                }
+                <li>@Html.ActionLink("Leaves", "Index", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@Id = "Leaves"})</li>
+                if (HttpCurrentUser.IsAdmin)
+                {
+                    <li>
+                        @Html.ActionLink("Administrator", "Index", "Administrator", null, new {@Id = "Administrator"})
 
-            </li>
-            }
-     
-            <li>@Html.ActionLink("Profile", "Details", "Employee", new {id = HttpCurrentUser.EmployeeId},  new {@Id="Profile"})</li>
+                    </li>
+                }
+
+                <li>@Html.ActionLink("Profile", "Details", "Employee", new {id = HttpCurrentUser.EmployeeId}, new {@Id = "Profile"})</li>
 
 
                 if (HttpCurrentUser.IsManager || HttpCurrentUser.IsHR || HttpCurrentUser.IsUser)
