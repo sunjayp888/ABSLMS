@@ -1,0 +1,14 @@
+G:\officeWork_LMS\ABS_LMS.Service\bin\Release\ABS_LMS.Service.dll.config
+G:\officeWork_LMS\ABS_LMS.Service\bin\Release\ABS_LMS.Service.dll
+G:\officeWork_LMS\ABS_LMS.Service\bin\Release\ABS_LMS.Service.pdb
+G:\officeWork_LMS\ABS_LMS.Service\bin\Release\ABS_LMS.Data.dll
+G:\officeWork_LMS\ABS_LMS.Service\bin\Release\ABS_LMS.Repository.dll
+G:\officeWork_LMS\ABS_LMS.Service\bin\Release\EntityFramework.dll
+G:\officeWork_LMS\ABS_LMS.Service\bin\Release\EntityFramework.SqlServer.dll
+G:\officeWork_LMS\ABS_LMS.Service\bin\Release\ABS_LMS.Data.pdb
+G:\officeWork_LMS\ABS_LMS.Service\bin\Release\ABS_LMS.Repository.pdb
+G:\officeWork_LMS\ABS_LMS.Service\bin\Release\EntityFramework.xml
+G:\officeWork_LMS\ABS_LMS.Service\bin\Release\EntityFramework.SqlServer.xml
+G:\officeWork_LMS\ABS_LMS.Service\obj\Release\ABS_LMS.Service.csprojResolveAssemblyReference.cache
+G:\officeWork_LMS\ABS_LMS.Service\obj\Release\ABS_LMS.Service.dll
+G:\officeWork_LMS\ABS_LMS.Service\obj\Release\ABS_LMS.Service.pdb

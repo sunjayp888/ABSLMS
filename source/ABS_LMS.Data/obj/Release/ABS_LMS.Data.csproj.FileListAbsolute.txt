@@ -1,0 +1,10 @@
+G:\officeWork_LMS\ABS_LMS.Data\bin\Release\ABS_LMS.Data.dll.config
+G:\officeWork_LMS\ABS_LMS.Data\bin\Release\ABS_LMS.Data.dll
+G:\officeWork_LMS\ABS_LMS.Data\bin\Release\ABS_LMS.Data.pdb
+G:\officeWork_LMS\ABS_LMS.Data\bin\Release\EntityFramework.dll
+G:\officeWork_LMS\ABS_LMS.Data\bin\Release\EntityFramework.SqlServer.dll
+G:\officeWork_LMS\ABS_LMS.Data\bin\Release\EntityFramework.xml
+G:\officeWork_LMS\ABS_LMS.Data\bin\Release\EntityFramework.SqlServer.xml
+G:\officeWork_LMS\ABS_LMS.Data\obj\Release\ABS_LMS.Data.csprojResolveAssemblyReference.cache
+G:\officeWork_LMS\ABS_LMS.Data\obj\Release\ABS_LMS.Data.dll
+G:\officeWork_LMS\ABS_LMS.Data\obj\Release\ABS_LMS.Data.pdb

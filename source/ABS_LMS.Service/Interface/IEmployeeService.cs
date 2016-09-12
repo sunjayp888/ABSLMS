@@ -11,6 +11,6 @@ namespace ABS_LMS.Service.Interface
         void UpdateEmployee(int employeeId, Employee employee);
         List<Department> GetDepartments();
         List<Designation> GetDesignations();
-       void DeleteEmployee(int employeeId);
+        void DeleteEmployee(int employeeId);
     }
 }

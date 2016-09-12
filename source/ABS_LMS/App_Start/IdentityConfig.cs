@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -22,7 +24,29 @@ namespace ABS_LMS
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            var smtpusername = ConfigurationManager.AppSettings["smtpusername"];
+            var smtpfrom = ConfigurationManager.AppSettings["smtpfrom"];
+            var smtppassword = ConfigurationManager.AppSettings["smtppassword"];
+            var port =Convert.ToInt32(ConfigurationManager.AppSettings["smtpport"]);
+            var server = ConfigurationManager.AppSettings["smtpserver"];
+            // Configure the client:
+            var client = new SmtpClient(server,port)
+            {
+                Port = Convert.ToInt32(port),
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new System.Net.NetworkCredential(smtpusername, smtppassword),
+                EnableSsl = false,
+                Host = server
+            };
+            // Create the message:
+            var mail = new MailMessage(smtpfrom, message.Destination)
+            {
+                Subject = message.Subject,
+                Body = message.Body,
+                IsBodyHtml = true
+            };
+            return client.SendMailAsync(mail);
         }
     }
 

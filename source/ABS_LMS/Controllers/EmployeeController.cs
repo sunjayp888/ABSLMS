@@ -11,11 +11,12 @@ using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.IO;
+using ABS_LMS.Helper;
 
 namespace ABS_LMS.Controllers
 {
-    
-   
+
+
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
@@ -88,15 +89,13 @@ namespace ABS_LMS.Controllers
             {
                 reportingManagerName = _employeeService.GetEmployee(Convert.ToInt32(employee.ReportingManager)).FirstName.ToString() + " " + _employeeService.GetEmployee(Convert.ToInt32(employee.ReportingManager)).LastName.ToString();
             }
-          
+
             employee.Department = depatment.DeparmentName;
             employee.Designation = designation.DesignationName;
             employee.ReportingManagerName = reportingManagerName;
             var model = new EmployeeViewModel
             {
                 EmployeeDetail = employee,
-
-
             };
             return View(model);
         }
@@ -116,16 +115,14 @@ namespace ABS_LMS.Controllers
                 Value = d.DesignationId.ToString()
             }).ToList();
 
-           
+
             var model = new EmployeeViewModel
             {
                 DepartmentList = departmentlist,
                 DesignationList = designationslist,
                 ReportingManager = GetReportingManagerbyId(Convert.ToInt32(departmentlist.FirstOrDefault().Value)),
-                
+
             };
-
-
             return View(model);
         }
 
@@ -135,11 +132,11 @@ namespace ABS_LMS.Controllers
         {
             try
             {
-                var newemployee = employee.EmployeeDetail; 
+                var newemployee = employee.EmployeeDetail;
                 _employeeService.AddEmployee(newemployee);
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return View();
             }
@@ -156,7 +153,7 @@ namespace ABS_LMS.Controllers
             {
                 var aspNetUser = aspUser.Roles.ToList();
                 employee.EmployeeRole = aspNetUser[0].RoleId;
-                employee.AspNetUserId= aspNetUser[0].UserId;
+                employee.AspNetUserId = aspNetUser[0].UserId;
             }
             var departmentlist = _employeeService.GetDepartments().Select(d => new SelectListItem
             {
@@ -179,9 +176,9 @@ namespace ABS_LMS.Controllers
                 EmployeeDetail = employee,
                 DepartmentList = departmentlist,
                 DesignationList = designationslist,
-                ReportingManager = GetReportingManagerbyId(Convert.ToInt32(employee.DepartmentId??0)),
+                ReportingManager = GetReportingManagerbyId(Convert.ToInt32(employee.DepartmentId ?? 0)),
                 RoleType = role
-                 
+
             };
 
             return View(model);
@@ -220,7 +217,7 @@ namespace ABS_LMS.Controllers
         // POST: Employee/Delete/5
 
         //User method
-        public async Task<ActionResult> CreatePortalAccount(int employeeId, string firstName, string lastName, string userName ,string userRole)
+        public async Task<ActionResult> CreatePortalAccount(int employeeId, string firstName, string lastName, string userName, string userRole)
         {
             var user = new ApplicationUser
             {
@@ -228,34 +225,43 @@ namespace ABS_LMS.Controllers
                 Email = userName,
                 FirstName = firstName,
                 LastName = lastName,
-                EmployeeId = employeeId,
-
+                EmployeeId = employeeId
             };
-
-            var employeeresult = UserManager.Create(user, "Text@1234");
+            var password = firstName.ToUpper() + "a@" + Guid.NewGuid().ToString("d").Substring(1, 8);
+            var employeeresult = UserManager.Create(user, password);
 
             if (employeeresult.Succeeded)
             {
-
                 var result = await UserManager.AddToRolesAsync(user.Id, userRole);
                 _employeeLeaveService.UpdateLeaveDetails(employeeId);
                 if (!result.Succeeded)
                 {
-                    ModelState.AddModelError("", result.Errors.First());
+                    ModelState.AddModelError("", employeeresult.Errors.First());
                     ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
                     return View();
                 }
+                var template = Template.PortalAccount(firstName + " " + lastName, userName, password);
+              //  await UserManager.SendEmailAsync(userName, "Leave Management Reset Password", template);
+                SmtpHelper.Send(userName, "Leave Application", template);
+                
+            }
+
+            if (!employeeresult.Succeeded)
+            {
+                ModelState.AddModelError("", employeeresult.Errors.First());
+                ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
+                return View();
             }
             return Json("PortalAccountCreate", JsonRequestBehavior.DenyGet);
         }
 
         public async Task<ActionResult> UpdateUserRole(string aspNetUserId, string userRole)
         {
-           
-             var aspUser = await UserManager.GetRolesAsync(aspNetUserId);
-              await UserManager.RemoveFromRoleAsync(aspNetUserId, aspUser[0]);
-              await UserManager.AddToRoleAsync(aspNetUserId, userRole);
-           
+
+            var aspUser = await UserManager.GetRolesAsync(aspNetUserId);
+            await UserManager.RemoveFromRoleAsync(aspNetUserId, aspUser[0]);
+            await UserManager.AddToRoleAsync(aspNetUserId, userRole);
+
             return Json("RoleUpdate", JsonRequestBehavior.DenyGet);
         }
         [HttpPost]
@@ -271,10 +277,10 @@ namespace ABS_LMS.Controllers
             imageBytes = reader.ReadBytes((int)image.ContentLength);
             return imageBytes;
         }
+
         private IEnumerable<SelectListItem> GetReportingManagerbyId(int departmentId)
         {
             var employee = _employeeService.GetEmployees().Where(e => e.DepartmentId == departmentId).ToList();
-
             var userByRole = RoleManager.FindByName("Manager").Users.ToList();
             var employeebyUsers = (from u in UserManager.Users.ToList()
                                    join ur in userByRole on u.Id equals ur.UserId
@@ -285,13 +291,45 @@ namespace ABS_LMS.Controllers
                                        e.LastName,
                                        u.EmployeeId
                                    }).ToList();
-           
             var reportingManager = employeebyUsers.Select(m => new SelectListItem
             {
                 Text = m.FirstName + " " + m.LastName,
                 Value = m.EmployeeId.ToString(),
             }).ToList();
+            var hr = GetHr();
+            if (hr.Any())
+            {
+                reportingManager.AddRange(GetHr().Select(m => new SelectListItem
+                {
+                    Text = m.FirstName + " " + m.LastName,
+                    Value = m.EmployeeId.ToString(),
+                }).ToList());
+            }
             return reportingManager;
         }
+
+        private List<Employee> GetHr()
+        {
+            var userByHr = RoleManager.FindByName("HR").Users.ToList();
+            var employee = _employeeService.GetEmployees();
+            var hr = (from u in UserManager.Users.ToList()
+                      join ur in userByHr on u.Id equals ur.UserId
+                      join e in employee on u.EmployeeId equals e.EmployeeId
+                      select new
+                      {
+                          e.FirstName,
+                          e.LastName,
+                          u.EmployeeId,
+                          e.CompanyEmailId
+                      }).ToList();
+            return hr.Select(item => new Employee()
+            {
+                FirstName = item.FirstName,
+                LastName = item.LastName,
+                EmployeeId = item.EmployeeId,
+                CompanyEmailId = item.CompanyEmailId
+            }).ToList();
+        }
+
     }
 }

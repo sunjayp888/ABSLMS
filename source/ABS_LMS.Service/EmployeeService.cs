@@ -115,10 +115,12 @@ namespace ABS_LMS.Service
                 AadharId = e.AadharId,
                 DepartmentId=e.DepartmentId,
                 DesignationId=e.DesignationId,
-                ReportingManager=e.ReportingManager
-                
+                ReportingManager=e.ReportingManager,
+                CompanyEmailId = e.CompanyEmailId
             }).ToList();
         }
+
+        
 
         public void UpdateEmployee(int employeeId, Model.Employee employee)
         {
@@ -143,11 +145,5 @@ namespace ABS_LMS.Service
             employeedetails.ReportingManager = employee.ReportingManager;
             _unitOfWork.Complete();
         }
-
-
-
-
-
-       
     }
 }

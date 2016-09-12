@@ -240,7 +240,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\CompanyContainer.cs" />
     <Compile Include="Helper\CsvHelper.cs" />
+    <Compile Include="Helper\Template.cs" />
+    <Compile Include="Helper\LeaveType.cs" />
+    <Compile Include="Helper\SmtpHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\EmployeeLeaveViewModel.cs" />
@@ -370,6 +374,7 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <None Include="Properties\PublishProfiles\sanjay.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -386,6 +391,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Template\CreateLeave.html" />
+    <Content Include="Template\ForgotPassword.html" />
+    <Content Include="Template\PortalAccount.html" />
     <Content Include="Views\Shared\_HeaderPartial.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -427,7 +435,6 @@
     <Content Include="Views\Leave\Create.cshtml" />
     <Content Include="Views\Leave\Edit.cshtml" />
     <Content Include="Views\Leave\LeavePendingForApproval.cshtml" />
-    <Content Include="Views\HR\Index.cshtml" />
     <Content Include="Views\Leave\ApprovedLeaveDetails.cshtml" />
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />

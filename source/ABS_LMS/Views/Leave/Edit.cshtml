@@ -26,7 +26,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.StringLeaveStartDate, htmlAttributes: new { @class = "col-md-4" })
+            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStartDate, htmlAttributes: new { @class = "col-md-4" })
             <div class="col-md-8">
                 @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveStartDate, "{0:dd/MM/yyyy}", new { @class = "" })
                 @Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveStartDate, "", new { @class = "pull-left alert alert-warning" })
@@ -34,7 +34,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.StringLeaveEndDate, htmlAttributes: new { @class = "col-md-4" })
+            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveEndDate, htmlAttributes: new { @class = "col-md-4" })
             <div class="col-md-8">
                 @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveEndDate, "{0:dd/MM/yyyy}", new { @class = "" })
                 @Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveEndDate, "", new { @class = "pull-left alert alert-warning", @data_date_format= "mm/dd/yy" })
@@ -92,7 +92,7 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-4 col-md-8">
-                <input type="submit" value="Save" class="btn btn-default"/>
+                <input type="submit" value="Apply Changes" class="btn btn-default"/>
             </div>
         </div>
         <div>
@@ -110,7 +110,7 @@
         $(document).ready(function () {
             $('.nav #Leaves').addClass('active');
             $("#EmployeeLeaveDetails_LeaveStartDate").datepicker({
-                dateFormat: "mm/dd/yy",
+                dateFormat: "dd/mm/yy",
                 changeMonth: true,
                 changeYear: true,
                 constrainInput: true,
@@ -129,7 +129,7 @@
             }).val();
 
             $("#EmployeeLeaveDetails_LeaveEndDate").datepicker({
-                dateFormat: "dd/MM/yy",
+                dateFormat: "dd/mm/yy",
                 changeMonth: true,
                 changeYear: true,
                 constrainInput: true,

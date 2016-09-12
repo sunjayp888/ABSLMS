@@ -13,13 +13,15 @@ namespace ABS_LMS.Service.Model
         public int EmployeeId { get; set; }
 
         [DisplayName("Start Date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd'/'MM'/'yy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yy}")]
         [Required(ErrorMessage = "Please Enter Leave Start Date")]
+        [DataType(DataType.Date)]
         public DateTime LeaveStartDate { get; set; }
 
         [DisplayName("End Date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd'/'MM'/'yy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yy}")]
         [Required(ErrorMessage = "Please Enter Leave End Date")]
+        [DataType(DataType.Date)]
         public DateTime LeaveEndDate { get; set; }
 
         [DisplayName("Joining Date")]

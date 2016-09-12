@@ -1,0 +1,196 @@
+﻿@using System.Activities.Statements
+@using ABS_LMS.Models.Security
+@model ABS_LMS.Models.EmployeeViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row patding-left-10">
+    <h1>Employee Details</h1>
+    <div class="col-lg-5">
+
+        <table class="table">
+
+
+
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.EmployeeCode)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.EmployeeDetail.EmployeeCode)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.FirstName)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.EmployeeDetail.FirstName)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.LastName)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.EmployeeDetail.LastName)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.EmailId)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.EmployeeDetail.EmailId)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.CompanyEmailId)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.EmployeeDetail.CompanyEmailId)
+                </td>
+
+
+
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.MobileNo)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.EmployeeDetail.MobileNo)
+                </td>
+
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.Address)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.EmployeeDetail.Address)
+                </td>
+
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.DOB)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.EmployeeDetail.DateofBirth)
+                </td>
+
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.DOJ)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.EmployeeDetail.DOJ)
+                </td>
+
+
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.Department)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.EmployeeDetail.Department)
+                </td>
+
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.Designation)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.EmployeeDetail.Designation)
+                </td>
+
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.ReportingManagerName)
+                </th>
+                <td>
+
+                    @Html.DisplayFor(model => model.EmployeeDetail.ReportingManagerName)
+                </td>
+
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.LeavingDateUTC)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.EmployeeDetail.LeavingDateUTC)
+                </td>
+
+
+
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.PANCard)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.EmployeeDetail.PANCard)
+                </td>
+
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.AadharId)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.EmployeeDetail.AadharId)
+                </td>
+
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.ConfirmationDateUTC)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.EmployeeDetail.ConfirmationDateUTC)
+                </td>
+
+
+        </table>
+        <p>
+            @if(HttpCurrentUser.IsHR|| HttpCurrentUser.IsAdmin)
+            {
+            @Html.ActionLink("Edit", "Edit", new {id = Model.EmployeeDetail.EmployeeId}) @(" |")
+            }
+            @Html.ActionLink("Back to List", "Index", new {id = HttpCurrentUser.EmployeeId})
+        </p>
+
+    </div>
+</div>
+        @section scripts
+        {
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.nav #Profile').addClass('active');
+    });
+</script>
+        }

@@ -82,9 +82,6 @@ F:\officeWork_LMS\ABS_LMS.Service\bin\Debug\EntityFramework.SqlServer.xml
 F:\officeWork_LMS\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.csprojResolveAssemblyReference.cache
 F:\officeWork_LMS\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.dll
 F:\officeWork_LMS\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.pdb
-G:\officeWork_LMS\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.csprojResolveAssemblyReference.cache
-G:\officeWork_LMS\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.dll
-G:\officeWork_LMS\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.pdb
 G:\officeWork_LMS\ABS_LMS.Service\bin\Debug\ABS_LMS.Service.dll.config
 G:\officeWork_LMS\ABS_LMS.Service\bin\Debug\ABS_LMS.Service.dll
 G:\officeWork_LMS\ABS_LMS.Service\bin\Debug\ABS_LMS.Service.pdb
@@ -96,3 +93,6 @@ G:\officeWork_LMS\ABS_LMS.Service\bin\Debug\ABS_LMS.Data.pdb
 G:\officeWork_LMS\ABS_LMS.Service\bin\Debug\ABS_LMS.Repository.pdb
 G:\officeWork_LMS\ABS_LMS.Service\bin\Debug\EntityFramework.xml
 G:\officeWork_LMS\ABS_LMS.Service\bin\Debug\EntityFramework.SqlServer.xml
+G:\officeWork_LMS\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.csprojResolveAssemblyReference.cache
+G:\officeWork_LMS\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.dll
+G:\officeWork_LMS\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.pdb

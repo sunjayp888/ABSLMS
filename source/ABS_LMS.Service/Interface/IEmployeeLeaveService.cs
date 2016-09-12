@@ -21,11 +21,9 @@ namespace ABS_LMS.Service.Interface
         int GetEnumsIdByName(string enumName);
         List<EmployeeLeave> GetLeaveDetailsByApprovedId(int approvedBy);
         List<EmployeeLeave> GetApprovedLeaves();
-        
         int UpdateLeaveStatus(string status, int leaveHistoryId);
         List<LeaveSummary> GetLeaveSummary(int employeeId);
         void UpdateLeaveDetails(int employeeId);
-
 
     }
 }

@@ -7,6 +7,7 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using ABS_LMS.Helper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -86,12 +87,12 @@ namespace ABS_LMS.Controllers
                     return View("ForgotPasswordConfirmation");
                 }
 
-                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userName = user.UserName, code = code }, protocol: Request.Url.Scheme);
-                string template = callbackUrl;
-
-                string body = CreateEmailBody(LoadTemplate(template), "Fistname", "LastName", callbackUrl);
-                await UserManager.SendEmailAsync(user.Id, "AnyTime Portal Reset Password", body);
+                var link = callbackUrl;
+                var body = Template.ForgotPassword(user.Id, link);
+                //await UserManager.SendEmailAsync(user.Id, "Leave Management Reset Password", body);
+                SmtpHelper.Send(user.Email, "Leave Management Reset Password", body);
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
             return View(model);

@@ -74,3 +74,4 @@ G:\officeWork_LMS\ABS_LMS.Data\bin\Debug\EntityFramework.xml
 G:\officeWork_LMS\ABS_LMS.Data\bin\Debug\EntityFramework.SqlServer.xml
 G:\officeWork_LMS\ABS_LMS.Data\obj\Debug\ABS_LMS.Data.dll
 G:\officeWork_LMS\ABS_LMS.Data\obj\Debug\ABS_LMS.Data.pdb
+G:\officeWork_LMS\ABS_LMS.Data\obj\Debug\ABS_LMS.Data.csprojResolveAssemblyReference.cache

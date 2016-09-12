@@ -10,6 +10,26 @@ namespace ABS_LMS.Service
         {
             get { return ConfigurationManager.AppSettings["Environment"]; }
         }
+        public static string SmtpServer
+        {
+            get { return ConfigurationManager.AppSettings["smtpserver"]; }
+        }
+        public static string SmtpUsername
+        {
+            get { return ConfigurationManager.AppSettings["smtpusername"]; }
+        }
+        public static string SmtpPassword
+        {
+            get { return ConfigurationManager.AppSettings["smtppassword"]; }
+        }
+        public static string FromAddress
+        {
+            get { return ConfigurationManager.AppSettings["smtpfrom"]; }
+        }
+        public static string SmtpPort
+        {
+            get { return ConfigurationManager.AppSettings["smtpport"]; }
+        }
 
         public static string SqlConnectionString
         {
@@ -40,6 +60,11 @@ namespace ABS_LMS.Service
                 return Assembly.GetExecutingAssembly().GetName().Version.ToString();
             }
         }
-        
+
+        public static string GetSetting(string key)
+        {
+            return ConfigurationManager.AppSettings.Get(key);
+        }
+
     }
 }
