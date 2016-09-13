@@ -1,0 +1,52 @@
+﻿
+@model ABS_LMS.Models.AdminUserViewModel
+
+@{
+    ViewBag.Title = String.Format("Employee: {0} {1}", Model.FirstName, Model.LastName);
+}
+<div class="row padding-left-10">
+    <h1>User Details</h1>
+    <div class="col-lg-5">
+        <table class="table">
+            <tr>
+                <th>@Html.DisplayName("Username")</th>
+                <td>@Html.DisplayFor(model => model.UserName)</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>@Html.ActionLink("Reset Password", "ResetPassword", "Administrator", new { userName = Model.UserName }, null)</td>
+            </tr>
+            <tr>
+                <th>@Html.DisplayName("First Name")</th>
+                <td>@Html.DisplayFor(model => model.FirstName)</td>
+            </tr>
+            <tr>
+                <th>@Html.DisplayName("Last Name")</th>
+                <td>@Html.DisplayFor(model => model.LastName)</td>
+            </tr>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                <td>@Html.DisplayFor(model => model.Email)</td>
+            </tr>
+
+          
+
+        </table>
+
+
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { Username = Model.UserName }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </div>
+
+</div>
+@section scripts
+{
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('.nav #Administrator').addClass('active');
+        });
+</script>
+}

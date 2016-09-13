@@ -264,6 +264,11 @@ namespace ABS_LMS.Service
 
             return leaveSummary.ToList();
         }
+        public string GetLeaveTypeNameById(int leaveTypeId)
+        {
+            var LeaveTypeName = _unitOfWork.LeaveType.GetAll().FirstOrDefault(s => s.LeaveTypeId == leaveTypeId).Name;
+            return LeaveTypeName;
+        }
 
         public string GetEnumsNameById(int enumId)
         {

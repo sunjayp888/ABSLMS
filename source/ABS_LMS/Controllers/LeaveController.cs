@@ -325,10 +325,11 @@ namespace ABS_LMS.Controllers
 
         private void SendMailToEmployee(Employee employee, EmployeeLeave employeeLeave)
         {
+          //  var leaveType=e
             var employeeName = employee.FirstName + " " + employee.LastName;
-            var employeetemplate = Template.CreateLeaveTemplate(employeeName, CompanyContainer.CompanyName, employeeLeave.LeaveTypeName, employeeLeave.NoOfDays.ToString(),
-                                                employeeLeave.LeaveStartDate.ToString(CultureInfo.InvariantCulture),
-                                                employeeLeave.LeaveEndDate.ToString(CultureInfo.InvariantCulture), employeeLeave.Reason, employeeLeave.LeaveStatus.ToString());
+            var employeetemplate = Template.CreateLeaveTemplate(employeeName, CompanyContainer.CompanyName,_employeeLeaveService.GetLeaveTypeNameById(Convert.ToInt32(employeeLeave.LeaveTypeId)), employeeLeave.NoOfDays.ToString(),
+                                                employeeLeave.LeaveStartDate.ToString("dd/MM/yyyy"),
+                                                employeeLeave.LeaveEndDate.ToString("dd/MM/yyyy"), employeeLeave.Reason, _employeeLeaveService.GetEnumsNameById(Convert.ToInt32(employeeLeave.LeaveStatus)));
 
             SmtpHelper.Send(employee.CompanyEmailId, Subject.Leave, employeetemplate);
         }
@@ -339,9 +340,9 @@ namespace ABS_LMS.Controllers
                                                             " ", "").ToLower());
             var employeeName = employee.FirstName + " " + employee.LastName;
             var managerName = manager?.FirstName + " " + manager?.LastName;
-            var employeetemplate = Template.CreateLeaveTemplate(managerName, employeeName, employeeLeave.LeaveTypeName, employeeLeave.NoOfDays.ToString(),
-                                                employeeLeave.LeaveStartDate.ToString(CultureInfo.InvariantCulture),
-                                                employeeLeave.LeaveEndDate.ToString(CultureInfo.InvariantCulture), employeeLeave.Reason, employeeLeave.LeaveStatus.ToString());
+            var employeetemplate = Template.CreateLeaveTemplate(managerName, employeeName, _employeeLeaveService.GetLeaveTypeNameById(Convert.ToInt32(employeeLeave.LeaveTypeId)), employeeLeave.NoOfDays.ToString(),
+                                                employeeLeave.LeaveStartDate.ToString("dd/MM/yyyy"),
+                                                employeeLeave.LeaveEndDate.ToString("dd/MM/yyyy"), employeeLeave.Reason, _employeeLeaveService.GetEnumsNameById(Convert.ToInt32(employeeLeave.LeaveStatus)));
 
             SmtpHelper.Send(manager?.CompanyEmailId, Subject.Leave, employeetemplate);
         }
@@ -352,9 +353,9 @@ namespace ABS_LMS.Controllers
             if (hr.Any())
             {
                 var hrName = hr.FirstOrDefault()?.FirstName + " " + hr.FirstOrDefault()?.LastName;
-                var employeetemplate = Template.CreateLeaveTemplate(hrName, employeeName, employeeLeave.LeaveTypeName, employeeLeave.NoOfDays.ToString(),
-                                              employeeLeave.LeaveStartDate.ToString(CultureInfo.InvariantCulture),
-                                              employeeLeave.LeaveEndDate.ToString(CultureInfo.InvariantCulture), employeeLeave.Reason, employeeLeave.LeaveStatus.ToString());
+                var employeetemplate = Template.CreateLeaveTemplate(hrName, employeeName, _employeeLeaveService.GetLeaveTypeNameById(Convert.ToInt32(employeeLeave.LeaveTypeId)), employeeLeave.NoOfDays.ToString(),
+                                              employeeLeave.LeaveStartDate.ToString("dd/MM/yyyy"),
+                                              employeeLeave.LeaveEndDate.ToString("dd/MM/yyyy"), employeeLeave.Reason, _employeeLeaveService.GetEnumsNameById(Convert.ToInt32(employeeLeave.LeaveStatus)));
 
                 SmtpHelper.Send(hr.FirstOrDefault()?.CompanyEmailId, Subject.Leave, employeetemplate);
             }
