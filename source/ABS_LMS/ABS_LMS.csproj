@@ -355,7 +355,7 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\themes\LMS\css\LMSMain.css" />
     <Content Include="Content\themes\LMS\css\LMSMain.min.css" />
-    <Content Include="Content\themes\LMS\images\andersonBPO_logo.jpg" />
+    <Content Include="Content\themes\LMS\images\andersonBPO_logo.png" />
     <Content Include="Content\themes\LMS\images\New-logo.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -375,6 +375,7 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <None Include="Properties\PublishProfiles\pankaj.pubxml" />
     <None Include="Properties\PublishProfiles\sanjay.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

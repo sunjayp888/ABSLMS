@@ -1,0 +1,103 @@
+﻿@model ABS_LMS.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Add New Client";
+}
+@using (Html.BeginForm("Create", "Administrator", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="row textboxsize col-md-6 ">
+        <h1>Create User</h1>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "alert alert-warning" })
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserName, htmlAttributes: new { @class = " col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(m => m.UserName, new { @class = " " })
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "pull-left alert alert-warning " })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.FirstName, htmlAttributes: new { @class = " col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(m => m.FirstName, new { @class = " " })
+                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "pull-left alert alert-warning " })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.LastName, htmlAttributes: new { @class = " col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(m => m.LastName, new { @class = " " })
+                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "pull-left alert alert-warning " })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, htmlAttributes: new { @class = " col-md-5" })
+            <div class="col-md-7">
+                @Html.TextBoxFor(m => m.Email, new { @class = " " })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "pull-left alert alert-warning " })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, htmlAttributes: new { @class = " col-md-5" })
+            <div class="col-md-7">
+                @Html.PasswordFor(m => m.Password, new { @class = " " })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "pull-left alert alert-warning " })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ConfirmPassword, htmlAttributes: new { @class = " col-md-5" })
+          
+            <div class="col-md-7">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = " " })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "pull-left alert alert-warning " })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Select Role", htmlAttributes: new { @class = "col-md-5" })
+            <div class="col-md-7">
+                @foreach (var item in (SelectList)ViewBag.RoleId)
+                {
+                    <div class="col-md-6 role">
+                        <input type="radio" name="SelectedRoles" checked="@(item.Value.ToLower() == "user" ? "true" : "")" value="@item.Value" class="checkbox-inline" />
+                        @Html.Label(item.Value, new { @class = "" })
+                    </div>
+                }
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <p class="col-md-5">
+                @Html.ActionLink("Back to list", "Index")
+            </p>
+            <div class="col-md-7">
+                <input type="submit" value="Submit" class="btn btn-default "/> &nbsp;&nbsp;
+
+            </div>
+        </div>
+
+     
+
+
+    </div>
+}
+
+@section scripts
+{
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('.nav #Administrator').addClass('active');
+        });
+</script>
+}

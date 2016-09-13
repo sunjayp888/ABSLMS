@@ -1,0 +1,72 @@
+﻿@using ABS_LMS.Models.Security
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="row padding-left-10">
+    <h1 id="headerText">Welcome to Anderson BPO</h1>
+    <div class="sixcol indexpage">
+        <div class="field">
+            <div class="col-lg-12">
+                <table class="table table-align">
+
+
+                    @if (Request.IsAuthenticated)
+                    {
+                    if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
+                    {
+                    <tr> <td>  To view employees @Html.ActionLink("click here", "Index", "Employee" , null, new {@id = "employee"})</td></tr>
+                    }
+                    <tr>
+                        <td>
+                            To view leaves @Html.ActionLink("click here", "Index", "Leave", new { id = HttpCurrentUser.EmployeeId }, new {@Id="Leaves"})
+                        </td>
+                    </tr>
+                    if (HttpCurrentUser.IsAdmin)
+                    {
+                    <tr>
+                        <td>
+                            To view administrator @Html.ActionLink("click here" , "Index", "Administrator",null ,new {@Id="Administrator"})
+
+                        </td>
+                    </tr>
+                    }
+                    @*if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
+                    {
+                    <tr>
+                        <td>
+                            @Html.ActionLink("Employee Create", "create", "Employee")
+
+                            </li>
+                            }*@
+
+                    <tr>
+                        <td>
+                            To view profile @Html.ActionLink("click here", "Details", "Employee", new {id = HttpCurrentUser.EmployeeId},  new {@Id="Profile"})
+                        </td>
+                    </tr>
+
+
+                    
+
+                            <tr><td>  To reset password @Html.ActionLink("click here", "ResetPassword", "Administrator", new {userName = HttpCurrentUser.Name}, new {@Id = "ResetPassword"})</td></tr>
+                        
+
+                    }
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+        {
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.nav #Home').addClass('active');
+    });
+</script>
+        }
