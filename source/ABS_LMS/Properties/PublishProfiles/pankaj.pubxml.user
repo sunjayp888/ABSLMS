@@ -13,28 +13,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/12/2016 14:32:14</publishTime>
     </File>
     <File Include="bin/ABS_LMS.Data.dll">
-      <publishTime>09/12/2016 14:41:21</publishTime>
+      <publishTime>09/13/2016 13:03:10</publishTime>
     </File>
     <File Include="bin/ABS_LMS.Data.pdb">
-      <publishTime>09/12/2016 14:41:21</publishTime>
+      <publishTime>09/13/2016 13:03:10</publishTime>
     </File>
     <File Include="bin/ABS_LMS.dll">
-      <publishTime>09/12/2016 17:14:30</publishTime>
+      <publishTime>09/13/2016 16:12:39</publishTime>
     </File>
     <File Include="bin/ABS_LMS.pdb">
-      <publishTime>09/12/2016 17:14:29</publishTime>
+      <publishTime>09/13/2016 16:12:39</publishTime>
     </File>
     <File Include="bin/ABS_LMS.Repository.dll">
-      <publishTime>09/12/2016 14:41:22</publishTime>
+      <publishTime>09/13/2016 13:03:11</publishTime>
     </File>
     <File Include="bin/ABS_LMS.Repository.pdb">
-      <publishTime>09/12/2016 14:41:22</publishTime>
+      <publishTime>09/13/2016 13:03:11</publishTime>
     </File>
     <File Include="bin/ABS_LMS.Service.dll">
-      <publishTime>09/12/2016 14:41:23</publishTime>
+      <publishTime>09/13/2016 15:43:15</publishTime>
     </File>
     <File Include="bin/ABS_LMS.Service.pdb">
-      <publishTime>09/12/2016 14:41:23</publishTime>
+      <publishTime>09/13/2016 15:43:15</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>09/12/2016 14:32:34</publishTime>
@@ -513,6 +513,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/themes/LMS/images/andersonBPO_logo.jpg">
       <publishTime>09/12/2016 12:39:19</publishTime>
     </File>
+    <File Include="Content/themes/LMS/images/andersonBPO_logo.png">
+      <publishTime>09/12/2016 14:48:22</publishTime>
+    </File>
     <File Include="Content/themes/LMS/images/New-logo.jpg">
       <publishTime>09/12/2016 14:56:42</publishTime>
     </File>
@@ -709,10 +712,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/12/2016 14:32:14</publishTime>
     </File>
     <File Include="Views/Shared/_HeaderPartial.cshtml">
-      <publishTime>09/12/2016 16:06:00</publishTime>
+      <publishTime>09/13/2016 16:14:27</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>09/12/2016 15:08:32</publishTime>
+      <publishTime>09/13/2016 13:13:01</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>09/12/2016 14:32:14</publishTime>

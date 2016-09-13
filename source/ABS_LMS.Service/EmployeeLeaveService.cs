@@ -100,7 +100,8 @@ namespace ABS_LMS.Service
                 CreatedBy = leaveDetails.CreatedBy,
                 UpdatedDateUTC = leaveDetails.UpdatedDateUTC,
                 UpdatedBy = leaveDetails.CreatedBy,
-                ApprovedPersonName = leaveDetails.ApprovedPersonName
+                ApprovedPersonName = leaveDetails.ApprovedPersonName,
+                LeaveTypeId = leaveDetails.LeaveTypeId
              
             };
         }
