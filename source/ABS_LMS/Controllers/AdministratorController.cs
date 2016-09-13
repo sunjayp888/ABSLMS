@@ -248,7 +248,7 @@ namespace ABS_LMS.Controllers
                 ModelState.AddModelError("", NameToUsername);
             }
         }
-        [Authorize(Roles = "Admin,User,Manager,HR")]
+        [Authorize(Roles = "Admin,User,Manager,Hr")]
         public ActionResult ResetPassword(string userName)
         {
             var model = new ResetPasswordViewModel

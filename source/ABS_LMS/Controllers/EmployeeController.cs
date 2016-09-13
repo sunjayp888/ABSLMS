@@ -52,26 +52,13 @@ namespace ABS_LMS.Controllers
         }
 
         // GET: Employee
-        [Authorize(Roles = "Admin, HR")]
+        [Authorize(Roles = "Admin, Hr")]
         public ActionResult Index()
         {
             var employees = _employeeService.GetEmployees();
-            //var depatmentlist = _employeeService.GetDepartments().Select(d => new SelectListItem
-            //{
-            //    Text = d.DeparmentName,
-            //    Value = d.DepartmentId.ToString()
-            //}).ToList();
-            //var designationList = _employeeService.GetDesignations().Select(d => new SelectListItem
-            //{
-            //    Text = d.DesignationName,
-            //    Value = d.DesignationId.ToString()
-            //}).ToList();
             var model = employees.Select(employee => new EmployeeViewModel
             {
                 EmployeeDetail = employee,
-                //DepartmentList = depatmentlist,
-                //DesignationList=designationList
-
             });
 
             return View(model);
@@ -101,7 +88,7 @@ namespace ABS_LMS.Controllers
         }
 
         // GET: Employee/Create
-        [Authorize(Roles = "Admin, HR")]
+        [Authorize(Roles = "Admin, Hr")]
         public ActionResult Create()
         {
             var departmentlist = _employeeService.GetDepartments().Select(d => new SelectListItem
@@ -143,7 +130,7 @@ namespace ABS_LMS.Controllers
         }
 
         // GET: Employee/Edit/5
-        [Authorize(Roles = "Admin, HR")]
+        [Authorize(Roles = "Admin, Hr")]
         public ActionResult Edit(int id)
         {
 
@@ -200,7 +187,7 @@ namespace ABS_LMS.Controllers
         }
 
         // GET: Employee/Delete/5
-        [Authorize(Roles = "Admin, HR")]
+        [Authorize(Roles = "Admin, Hr")]
         public ActionResult Delete(int id)
         {
             try

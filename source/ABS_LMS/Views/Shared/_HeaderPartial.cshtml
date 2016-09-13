@@ -27,7 +27,7 @@
         </a>
     </div>
     <div id="navbar-menuitems" class="navbar-collapse navbar-left collapse">
-        <ul class='nav navbar-nav @(HttpCurrentUser.IsUser ? "user-menu" : "")'>
+        <ul class='nav navbar-nav @(HttpCurrentUser.IsUser || HttpCurrentUser.IsManager? "user-menu" : "")'>
             <li>
                 @Html.ActionLink("Home", "Index", "Home", null, new {@id = "Home"})
             </li>

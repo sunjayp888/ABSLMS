@@ -89,7 +89,7 @@ namespace ABS_LMS.Controllers
         }
 
 
-        [Authorize(Roles = "HR")]
+        [Authorize(Roles = "Hr")]
         public ActionResult ApprovedLeaveDetails(int id)
         {
 
@@ -249,12 +249,25 @@ namespace ABS_LMS.Controllers
         {
             return View();
         }
+      
         public ActionResult LeaveStatus(string status, int historyid)
         {
             int result = _employeeLeaveService.UpdateLeaveStatus(status, historyid);
+            if (result > 0)
+            {
+                var employeeleave = _employeeLeaveService.GetLeavedetails(historyid);
+                var employee = _employeeService.GetEmployee(employeeleave.EmployeeId);
+                //send email
+                //To Employee
+                SendMailToEmployee(employee, employeeleave);
+                //To Manager
+                SendMailToManager(employee, employeeleave);
+                //To Hr
+                SendMailToHr(employee, employeeleave);
+
+            }
             return Json(result, JsonRequestBehavior.DenyGet);
         }
-
         public ActionResult EmployeeReportCsvDownload(int id)
         {
             var leaveDetails = _employeeLeaveService.GetEmployeeLeaveDetails(id);
@@ -262,15 +275,7 @@ namespace ABS_LMS.Controllers
             return File(leaveDetails.ToDataTable().ToCsvStream(), "text/csv",
                 string.Format("Employees-{0:yyyy-MM-dd-hh-mm-ss}.csv", DateTime.Now));
         }
-        //public string GetEnumsNameById(int enumId)
-        //{
-        //    LeaveStatus enumDisplayStatus = (LeaveStatus)enumId;
-        //    string stringValue = enumDisplayStatus.ToString();
-        //    return stringValue;
-        //}
-
-
-        //[HttpPost]
+    
         public ActionResult GetActualLeaveDaysCount(DateTime? startDate, DateTime? endDate)
         {
             var result = _holidayService.GetActualLeaveDaysCount(Convert.ToDateTime(startDate), Convert.ToDateTime(endDate));

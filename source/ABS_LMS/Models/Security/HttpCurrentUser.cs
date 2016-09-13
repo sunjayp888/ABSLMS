@@ -20,7 +20,7 @@ namespace ABS_LMS.Models.Security
         public static bool IsAdmin => ((ClaimsPrincipal)HttpContext.Current.User).IsInRole("Admin");
         public static bool IsUser => ((ClaimsPrincipal)HttpContext.Current.User).IsInRole("User");
         public static bool IsManager => ((ClaimsPrincipal)HttpContext.Current.User).IsInRole("Manager");
-        public static bool IsHR => ((ClaimsPrincipal)HttpContext.Current.User).IsInRole("HR");
+        public static bool IsHR => ((ClaimsPrincipal)HttpContext.Current.User).IsInRole("Hr");
 
         public static string Name => HttpContext.Current.User?.Identity.Name;
         public static string Id => UserManager.Users.FirstOrDefault(e => e.UserName == Name)?.Id;
