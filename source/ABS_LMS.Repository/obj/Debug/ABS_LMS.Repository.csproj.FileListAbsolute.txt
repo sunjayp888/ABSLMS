@@ -94,3 +94,15 @@ F:\work\Office_Work_folder\ABSLMS\source\ABS_LMS.Repository\bin\Debug\EntityFram
 F:\work\Office_Work_folder\ABSLMS\source\ABS_LMS.Repository\obj\Debug\ABS_LMS.Repository.csprojResolveAssemblyReference.cache
 F:\work\Office_Work_folder\ABSLMS\source\ABS_LMS.Repository\obj\Debug\ABS_LMS.Repository.dll
 F:\work\Office_Work_folder\ABSLMS\source\ABS_LMS.Repository\obj\Debug\ABS_LMS.Repository.pdb
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Repository\bin\Debug\ABS_LMS.Repository.dll.config
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Repository\bin\Debug\ABS_LMS.Repository.dll
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Repository\bin\Debug\ABS_LMS.Repository.pdb
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Repository\bin\Debug\ABS_LMS.Data.dll
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Repository\bin\Debug\EntityFramework.dll
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Repository\bin\Debug\EntityFramework.SqlServer.dll
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Repository\bin\Debug\ABS_LMS.Data.pdb
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Repository\bin\Debug\EntityFramework.xml
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Repository\bin\Debug\EntityFramework.SqlServer.xml
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Repository\obj\Debug\ABS_LMS.Repository.csprojResolveAssemblyReference.cache
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Repository\obj\Debug\ABS_LMS.Repository.dll
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Repository\obj\Debug\ABS_LMS.Repository.pdb

@@ -110,3 +110,17 @@ F:\work\Office_Work_folder\ABSLMS\source\ABS_LMS.Service\bin\Debug\EntityFramewo
 F:\work\Office_Work_folder\ABSLMS\source\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.csprojResolveAssemblyReference.cache
 F:\work\Office_Work_folder\ABSLMS\source\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.dll
 F:\work\Office_Work_folder\ABSLMS\source\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.pdb
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Service\bin\Debug\ABS_LMS.Service.dll.config
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Service\bin\Debug\ABS_LMS.Service.dll
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Service\bin\Debug\ABS_LMS.Service.pdb
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Service\bin\Debug\ABS_LMS.Data.dll
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Service\bin\Debug\ABS_LMS.Repository.dll
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Service\bin\Debug\EntityFramework.dll
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Service\bin\Debug\EntityFramework.SqlServer.dll
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Service\bin\Debug\ABS_LMS.Data.pdb
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Service\bin\Debug\ABS_LMS.Repository.pdb
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Service\bin\Debug\EntityFramework.xml
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Service\bin\Debug\EntityFramework.SqlServer.xml
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.csprojResolveAssemblyReference.cache
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.dll
+G:\ABSLMSWorkArea\ABSLMS\source\ABS_LMS.Service\obj\Debug\ABS_LMS.Service.pdb
