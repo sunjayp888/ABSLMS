@@ -5,7 +5,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h1>Edit</h1>
 
 
 @using (Html.BeginForm("Edit", "Leave", FormMethod.Post))
@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStartDate, htmlAttributes: new { @class = "col-md-4" })
             <div class="col-md-8">
-                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveStartDate, "{0:dd/MM/yyyy}", new { @class = "" })
+                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveStartDate, "{0:dd-MMM-yyyy}", new { @class = "" })
                 @Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveStartDate, "", new { @class = "pull-left alert alert-warning" })
             </div>
         </div>
@@ -36,7 +36,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveEndDate, htmlAttributes: new { @class = "col-md-4" })
             <div class="col-md-8">
-                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveEndDate, "{0:dd/MM/yyyy}", new { @class = "" })
+                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveEndDate, "{0:dd-MMM-yyyy}", new { @class = "" })
                 @Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveEndDate, "", new { @class = "pull-left alert alert-warning", @data_date_format= "mm/dd/yy" })
             </div>
         </div>
@@ -110,7 +110,7 @@
         $(document).ready(function () {
             $('.nav #Leaves').addClass('active');
             $("#EmployeeLeaveDetails_LeaveStartDate").datepicker({
-                dateFormat: "dd/mm/yy",
+                dateFormat: "dd-M-yy",
                 changeMonth: true,
                 changeYear: true,
                 constrainInput: true,
@@ -129,7 +129,7 @@
             }).val();
 
             $("#EmployeeLeaveDetails_LeaveEndDate").datepicker({
-                dateFormat: "dd/mm/yy",
+                dateFormat: "dd-M-yy",
                 changeMonth: true,
                 changeYear: true,
                 constrainInput: true,

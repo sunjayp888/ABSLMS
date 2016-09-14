@@ -74,10 +74,10 @@ namespace ABS_LMS.Service.Model
 
         public string Gender { get; set; }
 
-        [DisplayName("Reporting Manager")]
+        [DisplayName("Line Manager")]
         public int ? ReportingManager { get; set; }
 
-        [DisplayName("Reporting Manager")]
+        [DisplayName("Line Manager")]
         public string ReportingManagerName { get; set; }
 
         [DisplayName("Role")]
