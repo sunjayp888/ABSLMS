@@ -42,8 +42,9 @@ namespace ABS_LMS.Service.Model
         [DisplayName("Leave Status")]
         public int LeaveStatus { get; set; }
         public string LeaveStatusName { get; set; }
+        public string LeaveStatusDisplayName { get; set; }
 
-        [DisplayName("Approved By")]
+        [DisplayName("Line Manager")]
         public int? ApprovedBy { get; set; }
         public string ApprovedPersonName { get; set; }
 

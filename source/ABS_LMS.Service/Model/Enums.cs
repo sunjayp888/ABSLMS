@@ -1,4 +1,6 @@
-﻿namespace ABS_LMS.Service.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ABS_LMS.Service.Model
 {
     public enum Frequency
     {
@@ -16,10 +18,15 @@
 
     public enum LeaveStatus
     {
-        Draft=1,
-        Submit=2,
-        Approve=3,
-        Reject=4,
-        Cancel=5
+        [Display(Name = "Draft")]
+        Draft =1,
+        [Display(Name = "Submitted")]
+        Submit =2,
+        [Display(Name = "Approved")]
+        Approve =3,
+        [Display(Name = "Rejected")]
+        Reject =4,
+        [Display(Name = "Cancelled")]
+        Cancel =5
     }
 }

@@ -11,7 +11,7 @@
 @if (Model != null)
 {
     <p class="Link-btn">
-        @Html.ActionLink("CsvDownload", "EmployeeReportCsvDownload", new { id = HttpCurrentUser.EmployeeId}, new { @class = "btn btn-default" }) &nbsp; &nbsp;
+        @Html.ActionLink("Csv Download", "EmployeeReportCsvDownload", new { id = HttpCurrentUser.EmployeeId}, new { @class = "btn btn-default" }) &nbsp; &nbsp;
         @Html.ActionLink("Create New", "Create", new { id = HttpCurrentUser.EmployeeId }, new { @class = "btn btn-default" }) &nbsp; &nbsp;
         @if (HttpCurrentUser.IsManager)
         {
@@ -57,14 +57,14 @@
                         <td>
                             @*@if (item.EmployeeLeaveDetails.LeaveStartDate.HasValue)
                                 {*@
-                            @item.EmployeeLeaveDetails.LeaveStartDate.ToString("dd/MM/yyyy")
+                            @item.EmployeeLeaveDetails.LeaveStartDate.ToString("dd-MMM-yyyy")
                             @*}*@
                         </td>
                         <td>
 
                             @*@if (item.EmployeeLeaveDetails.LeaveEndDate.HasValue)
                                 {*@
-                            @item.EmployeeLeaveDetails.LeaveEndDate.ToString("dd/MM/yyyy")
+                            @item.EmployeeLeaveDetails.LeaveEndDate.ToString("dd-MMM-yyyy")
                             @*}*@
                         </td>
                         <td>
@@ -77,16 +77,15 @@
                             @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.Reason)
                         </td>
                         <td id="@item.EmployeeLeaveDetails.EmployeeLeaveHistoryId">
-                            @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.LeaveStatusName)
+                            @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.LeaveStatusDisplayName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.ApprovedPersonName)
                         </td>
                         <td class="Linkbtn">
 
-                            @if (item.EmployeeLeaveDetails.LeaveStatusName != LeaveStatus.Reject.ToString() && item.EmployeeLeaveDetails.LeaveStatusName != LeaveStatus.Cancel.ToString())
+                        @if (item.EmployeeLeaveDetails.LeaveStatusName != LeaveStatus.Reject.ToString() && item.EmployeeLeaveDetails.LeaveStatusName != LeaveStatus.Cancel.ToString())
                         {
-
                                 <table class="@item.EmployeeLeaveDetails.EmployeeLeaveHistoryId Linkbtn" style="@(item.EmployeeLeaveDetails.LeaveStatusName == LeaveStatus.Cancel.ToString() ? " display:none": "display:block" )">
                                     <tr>
                                         @if (item.EmployeeLeaveDetails.LeaveStatusName != LeaveStatus.Approve.ToString())

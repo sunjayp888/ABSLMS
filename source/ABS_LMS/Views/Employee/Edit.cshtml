@@ -216,12 +216,31 @@ $(".reportingmanager").html("");
     }
         $(document).ready(function () {
             $('.nav #employee').addClass('active');
-            $("#EmployeeDetail_DOJ").datepicker({ dateFormat: "dd/mm/yy", constrainInput: true }).val();
-            $("#EmployeeDetail_DOB").datepicker({ dateFormat: "dd/mm/yy", constrainInput: true }).val();
-            $("#EmployeeDetail_ConfirmationDateUTC").datepicker({ dateFormat: "dd/mm/yy", constrainInput: true }).val();
-            $("#EmployeeDetail_LeavingDateUTC").datepicker({ dateFormat: "dd/mm/yy", constrainInput: true }).val();
-
-
+            $("#EmployeeDetail_DOJ").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                constrainInput: true
+            }).val();
+            $("#EmployeeDetail_DOB").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+                constrainInput: true
+            }).val();
+            $("#EmployeeDetail_ConfirmationDateUTC").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                constrainInput: true
+            }).val();
+            $("#EmployeeDetail_LeavingDateUTC").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                constrainInput: true
+            }).val();
                  $(document)
                 .on("click", ".CreatePortalAccount", function () {
                      var row = $(this),

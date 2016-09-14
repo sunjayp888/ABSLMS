@@ -10,7 +10,7 @@
     @Html.AntiForgeryToken()
 
     <div class="row col-md-6 textboxsize">
-        <h4>Create Leave</h4>
+        <h1>Create Leave</h1>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = " alert alert-warning" })
         @Html.HiddenFor(m => m.IsSave)
@@ -166,7 +166,7 @@
             });
 
             $("#EmployeeLeaveDetails_LeaveStartDate").datepicker({
-                dateFormat: "dd-mm-yy",
+                dateFormat: 'dd-M-yy',
                 changeMonth: true,
                 changeYear: true,
                 constrainInput: true,
@@ -185,7 +185,7 @@
             }).val();
 
             $("#EmployeeLeaveDetails_LeaveEndDate").datepicker({
-                dateFormat: "dd-mm-yy",
+                dateFormat: "dd-M-yy",
                 changeMonth: true,
                 changeYear: true,
                 constrainInput: true,

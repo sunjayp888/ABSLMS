@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ABS_LMS.Data;
@@ -66,6 +69,7 @@ namespace ABS_LMS.Service
                 UpdatedBy = employeeLeaveDetails.CreatedBy,
                 LeaveTypeId = employeeLeaveDetails.LeaveTypeId,
                 LeaveStatusName = GetEnumsNameById(Convert.ToInt32(employeeLeaveDetails.LeaveStatus)),
+                LeaveStatusDisplayName = GetEnumsDisplayNameById(Convert.ToInt32(employeeLeaveDetails.LeaveStatus)),
                 LeaveTypeName = leaveTypeList.FirstOrDefault(l => l.LeaveTypeId == employeeLeaveDetails.LeaveTypeId).Name.ToString(),
                 ApprovedPersonName = employeeLeaveDetails.ApprovedPersonName
 
@@ -276,6 +280,18 @@ namespace ABS_LMS.Service
             LeaveStatus enumDisplayStatus = (LeaveStatus)enumId;
             string stringValue = enumDisplayStatus.ToString();
             return stringValue;
+        }
+
+        public string GetEnumsDisplayNameById(int enumId)
+        {
+            var enumLeaveStatus = (LeaveStatus)enumId;
+            var fieldInfo = enumLeaveStatus.GetType().GetField(enumLeaveStatus.ToString());
+            var attrs = fieldInfo.GetCustomAttributes(typeof(DisplayAttribute), false);
+            var outString = "";
+            if (!attrs.Any()) return outString;
+            var displayAttr = ((DisplayAttribute)attrs[0]);
+            outString = displayAttr.Name;
+            return outString;
         }
 
         public int GetEnumsIdByName(string enumName)

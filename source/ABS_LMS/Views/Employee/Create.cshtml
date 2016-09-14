@@ -170,8 +170,19 @@
     <script>
 
         $(document).ready(function () {
-            $("#EmployeeDetail_DOJ").datepicker({ dateFormat: "dd/mm/yy", constrainInput: true }).val();
-            $("#EmployeeDetail_DOB").datepicker({ dateFormat: "dd/mm/yy", constrainInput: true }).val();
+            $("#EmployeeDetail_DOJ").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                constrainInput: true
+            }).val();
+            $("#EmployeeDetail_DOB").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+0",
+                constrainInput: true
+            }).val();
 
             $('.nav #employee').addClass('active');
 

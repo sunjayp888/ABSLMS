@@ -18,6 +18,7 @@ namespace ABS_LMS.Service.Interface
         EmployeeLeave GetLeavedetails(int leavedetailId);
         List<LeaveType> GetLeaves();
         string GetEnumsNameById(int enumId);
+        string GetEnumsDisplayNameById(int enumId);
         int GetEnumsIdByName(string enumName);
         List<EmployeeLeave> GetLeaveDetailsByApprovedId(int approvedBy);
         List<EmployeeLeave> GetApprovedLeaves();

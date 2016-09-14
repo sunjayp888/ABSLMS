@@ -268,9 +268,20 @@ namespace ABS_LMS.Controllers
             }
             return Json(result, JsonRequestBehavior.DenyGet);
         }
+
         public ActionResult EmployeeReportCsvDownload(int id)
         {
-            var leaveDetails = _employeeLeaveService.GetEmployeeLeaveDetails(id);
+            var leaveDetails = _employeeLeaveService.GetEmployeeLeaveDetails(id)
+                .Select(e => new
+                {
+                    StartDate = e.LeaveStartDate.ToString("dd-MMM-yyyy"),
+                    EndDate = e.LeaveEndDate.ToString("dd-MMM-yyyy"),
+                    LeaveType= e.LeaveTypeName,
+                    e.NoOfDays,
+                    e.Reason,
+                    LeaveStatus = e.LeaveStatusDisplayName,
+                    LineManager = e.ApprovedPersonName
+                }).ToList();
 
             return File(leaveDetails.ToDataTable().ToCsvStream(), "text/csv",
                 string.Format("Employees-{0:yyyy-MM-dd-hh-mm-ss}.csv", DateTime.Now));
