@@ -67,5 +67,7 @@ namespace ABS_LMS.Service
         }
 
         public static string PortalUrl => ConfigurationManager.AppSettings["PortalURL"];
+        public static string HrEmail => ConfigurationManager.AppSettings["HrEmail"];
+
     }
 }
