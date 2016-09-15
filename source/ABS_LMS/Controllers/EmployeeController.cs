@@ -15,8 +15,6 @@ using ABS_LMS.Helper;
 
 namespace ABS_LMS.Controllers
 {
-
-
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;
@@ -91,6 +89,31 @@ namespace ABS_LMS.Controllers
         [Authorize(Roles = "Admin, Hr")]
         public ActionResult Create()
         {
+            var employeeViewModel = new EmployeeViewModel();
+            var model = GetAllDropDownValues(employeeViewModel);
+            return View(model);
+        }
+
+        // POST: Employee/Create
+        [HttpPost]
+        public ActionResult Create(EmployeeViewModel employee)
+        {
+            try
+            {
+                employee = GetAllDropDownValues(employee);
+                if (!ModelState.IsValid) return View(employee);
+                var newemployee = employee.EmployeeDetail;
+                _employeeService.AddEmployee(newemployee);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        private EmployeeViewModel GetAllDropDownValues(EmployeeViewModel employeeViewModel)
+        {
             var departmentlist = _employeeService.GetDepartments().Select(d => new SelectListItem
             {
                 Text = d.DeparmentName,
@@ -102,31 +125,17 @@ namespace ABS_LMS.Controllers
                 Value = d.DesignationId.ToString()
             }).ToList();
 
-
-            var model = new EmployeeViewModel
+            var role = RoleManager.Roles.Select(r => new SelectListItem
             {
-                DepartmentList = departmentlist,
-                DesignationList = designationslist,
-                ReportingManager = GetReportingManagerbyId(Convert.ToInt32(departmentlist.FirstOrDefault().Value)),
+                Text = r.Name,
+                Value = r.Id
+            }).ToList();
 
-            };
-            return View(model);
-        }
-
-        // POST: Employee/Create
-        [HttpPost]
-        public ActionResult Create(EmployeeViewModel employee)
-        {
-            try
-            {
-                var newemployee = employee.EmployeeDetail;
-                _employeeService.AddEmployee(newemployee);
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                return View();
-            }
+            employeeViewModel.DepartmentList = departmentlist;
+            employeeViewModel.DesignationList = designationslist;
+            employeeViewModel.ReportingManager = GetReportingManagerbyId(Convert.ToInt32(departmentlist.FirstOrDefault().Value));
+            employeeViewModel.RoleType = role;
+            return employeeViewModel;
         }
 
         // GET: Employee/Edit/5
@@ -165,7 +174,6 @@ namespace ABS_LMS.Controllers
                 DesignationList = designationslist,
                 ReportingManager = GetReportingManagerbyId(Convert.ToInt32(employee.DepartmentId ?? 0)),
                 RoleType = role
-
             };
 
             return View(model);
@@ -177,6 +185,8 @@ namespace ABS_LMS.Controllers
         {
             try
             {
+                employee = GetAllDropDownValues(employee);
+                if (!ModelState.IsValid) return View(employee);
                 _employeeService.UpdateEmployee(id, employee.EmployeeDetail);
                 return RedirectToAction("Index");
             }
@@ -228,9 +238,8 @@ namespace ABS_LMS.Controllers
                     return View();
                 }
                 var template = Template.PortalAccount(firstName + " " + lastName, userName, password);
-              //  await UserManager.SendEmailAsync(userName, "Leave Management Reset Password", template);
-                SmtpHelper.Send(userName, "Leave Application", template);
-                
+                //await UserManager.SendEmailAsync(userName, "Leave Management Reset Password", template);
+                SmtpHelper.Send(userName, "LMS Portal Account Created Successfully", template);
             }
 
             if (!employeeresult.Succeeded)

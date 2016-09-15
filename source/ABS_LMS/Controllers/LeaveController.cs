@@ -60,10 +60,7 @@ namespace ABS_LMS.Controllers
 
                 var model = leaveDetails.Select(employeeLeave => new EmployeeLeaveViewModel
                 {
-
                     EmployeeLeaveDetails = employeeLeave,
-
-
                 }).ToList();
 
                 return View(model);
@@ -80,19 +77,15 @@ namespace ABS_LMS.Controllers
 
                 var model = leaveDetails.Select(employeeLeave => new EmployeeLeaveViewModel
                 {
-
                     EmployeeLeaveDetails = employeeLeave,
-
                 }).ToList();
                 return View(model);
             });
         }
 
-
         [Authorize(Roles = "Hr")]
         public ActionResult ApprovedLeaveDetails(int id)
         {
-
             return Authorization.HasAccess(Convert.ToString(id), () =>
             {
                 var leaveDetails = _employeeLeaveService.GetApprovedLeaves();
@@ -106,14 +99,12 @@ namespace ABS_LMS.Controllers
         }
         public ActionResult Create(int id)
         {
-
-            return Authorization.HasAccess(Convert.ToString(id), () =>
+           return Authorization.HasAccess(Convert.ToString(id), () =>
            {
                var leavetype = _employeeLeaveService.GetLeaves().Select(l => new SelectListItem
                {
                    Text = l.Name,
                    Value = l.LeaveTypeId.ToString()
-
                });
 
                var enumValues = Enum.GetValues(typeof(LeaveStatus)) as LeaveStatus[];
@@ -170,7 +161,7 @@ namespace ABS_LMS.Controllers
                 var employee = _employeeService.GetEmployee(newleave.EmployeeId);
                 var leaveDetails = employeeleave.EmployeeLeaveDetails;
                 //Send mail
-
+                
                 if (!employeeleave.IsSave)
                 {
                     //To Employee
@@ -178,7 +169,7 @@ namespace ABS_LMS.Controllers
                     //To Manager
                     SendMailToManager(employee, leaveDetails);
                     //To Hr
-                    SendMailToHr(employee, leaveDetails);
+                    //SendMailToHr(employee, leaveDetails);
                 }
                 return RedirectToAction("Index/" + id + "");
             }
@@ -227,15 +218,15 @@ namespace ABS_LMS.Controllers
                 _employeeLeaveService.UpdateEmployeeLeaveDetails(leaveId, leaveDetails);
                 var employee = _employeeService.GetEmployee(leaveDetails.EmployeeId);
                 var leaveTemplate = string.Format("Leave applied from {0} to {1} ",
-                  employeeleave.EmployeeLeaveDetails.LeaveStartDate.ToShortDateString(),
-                  employeeleave.EmployeeLeaveDetails.LeaveEndDate.ToShortDateString());
+                employeeleave.EmployeeLeaveDetails.LeaveStartDate.ToShortDateString(),
+                employeeleave.EmployeeLeaveDetails.LeaveEndDate.ToShortDateString());
 
                 //To Employee
                 SendMailToEmployee(employee, leaveDetails);
                 //To Manager
                 SendMailToManager(employee, leaveDetails);
                 //To Hr
-                SendMailToHr(employee, leaveDetails);
+                //SendMailToHr(employee, leaveDetails);
 
                 return RedirectToAction("Index", new { id = employeeleave.EmployeeLeaveDetails.EmployeeId });
             }
@@ -252,19 +243,18 @@ namespace ABS_LMS.Controllers
       
         public ActionResult LeaveStatus(string status, int historyid)
         {
-            int result = _employeeLeaveService.UpdateLeaveStatus(status, historyid);
+            var result = _employeeLeaveService.UpdateLeaveStatus(status, historyid);
             if (result > 0)
             {
                 var employeeleave = _employeeLeaveService.GetLeavedetails(historyid);
                 var employee = _employeeService.GetEmployee(employeeleave.EmployeeId);
-                //send email
                 //To Employee
                 SendMailToEmployee(employee, employeeleave);
                 //To Manager
                 SendMailToManager(employee, employeeleave);
                 //To Hr
-                SendMailToHr(employee, employeeleave);
-
+                if(Service.Model.LeaveStatus.Approve.ToString().ToLower().Equals(status.ToLower()))
+                    SendMailToHr(employee, employeeleave);
             }
             return Json(result, JsonRequestBehavior.DenyGet);
         }
@@ -280,7 +270,8 @@ namespace ABS_LMS.Controllers
                     e.NoOfDays,
                     e.Reason,
                     LeaveStatus = e.LeaveStatusDisplayName,
-                    LineManager = e.ApprovedPersonName
+                    LineManager = e.ApprovedPersonName,
+                    CreatedDate = e.CreatedDateUTC?.ToString("dd-MMM-yyyy"),
                 }).ToList();
 
             return File(leaveDetails.ToDataTable().ToCsvStream(), "text/csv",
@@ -344,8 +335,8 @@ namespace ABS_LMS.Controllers
           //  var leaveType=e
             var employeeName = employee.FirstName + " " + employee.LastName;
             var employeetemplate = Template.CreateLeaveTemplate(employeeName, CompanyContainer.CompanyName,_employeeLeaveService.GetLeaveTypeNameById(Convert.ToInt32(employeeLeave.LeaveTypeId)), employeeLeave.NoOfDays.ToString(),
-                                                employeeLeave.LeaveStartDate.ToString("dd/MM/yyyy"),
-                                                employeeLeave.LeaveEndDate.ToString("dd/MM/yyyy"), employeeLeave.Reason, _employeeLeaveService.GetEnumsNameById(Convert.ToInt32(employeeLeave.LeaveStatus)));
+                                                employeeLeave.LeaveStartDate.ToString("dd-MMM-yyyy"),
+                                                employeeLeave.LeaveEndDate.ToString("dd-MMM-yyyy"), employeeLeave.Reason, _employeeLeaveService.GetEnumsNameById(Convert.ToInt32(employeeLeave.LeaveStatus)));
 
             SmtpHelper.Send(employee.CompanyEmailId, Subject.Leave, employeetemplate);
         }
@@ -357,8 +348,8 @@ namespace ABS_LMS.Controllers
             var employeeName = employee.FirstName + " " + employee.LastName;
             var managerName = manager?.FirstName + " " + manager?.LastName;
             var employeetemplate = Template.CreateLeaveTemplate(managerName, employeeName, _employeeLeaveService.GetLeaveTypeNameById(Convert.ToInt32(employeeLeave.LeaveTypeId)), employeeLeave.NoOfDays.ToString(),
-                                                employeeLeave.LeaveStartDate.ToString("dd/MM/yyyy"),
-                                                employeeLeave.LeaveEndDate.ToString("dd/MM/yyyy"), employeeLeave.Reason, _employeeLeaveService.GetEnumsNameById(Convert.ToInt32(employeeLeave.LeaveStatus)));
+                                                employeeLeave.LeaveStartDate.ToString("dd-MMM-yyyy"),
+                                                employeeLeave.LeaveEndDate.ToString("dd-MMM-yyyy"), employeeLeave.Reason, _employeeLeaveService.GetEnumsNameById(Convert.ToInt32(employeeLeave.LeaveStatus)));
 
             SmtpHelper.Send(manager?.CompanyEmailId, Subject.Leave, employeetemplate);
         }
@@ -370,8 +361,8 @@ namespace ABS_LMS.Controllers
             {
                 var hrName = hr.FirstOrDefault()?.FirstName + " " + hr.FirstOrDefault()?.LastName;
                 var employeetemplate = Template.CreateLeaveTemplate(hrName, employeeName, _employeeLeaveService.GetLeaveTypeNameById(Convert.ToInt32(employeeLeave.LeaveTypeId)), employeeLeave.NoOfDays.ToString(),
-                                              employeeLeave.LeaveStartDate.ToString("dd/MM/yyyy"),
-                                              employeeLeave.LeaveEndDate.ToString("dd/MM/yyyy"), employeeLeave.Reason, _employeeLeaveService.GetEnumsNameById(Convert.ToInt32(employeeLeave.LeaveStatus)));
+                                              employeeLeave.LeaveStartDate.ToString("dd-MMM-yyyy"),
+                                              employeeLeave.LeaveEndDate.ToString("dd-MMM-yyyy"), employeeLeave.Reason, _employeeLeaveService.GetEnumsNameById(Convert.ToInt32(employeeLeave.LeaveStatus)));
 
                 SmtpHelper.Send(hr.FirstOrDefault()?.CompanyEmailId, Subject.Leave, employeetemplate);
             }

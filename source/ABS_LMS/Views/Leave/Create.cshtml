@@ -76,23 +76,17 @@
                 @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedPersonName)
                 @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedBy)
             </div>
-
         </div>
-
 
         <div class="form-group">
             <div class="col-md-offset-4 col-md-8">
-                @*<input type="submit" value="Save" class="btn btn-default save" />*@ &nbsp;&nbsp;<input type="submit" value="Apply" class="btn btn-default savesubmit" />
+                &nbsp;&nbsp;<input type="submit" value="Apply" class="btn btn-default savesubmit" />
             </div>
         </div>
         <div>
             @Html.ActionLink("Back to List", "Index", new { id = HttpCurrentUser.EmployeeId })
-
         </div>
     </div>
-
-
-
     //Leave summary
 
     @*<div class="form-horizontal col-md-6 ">

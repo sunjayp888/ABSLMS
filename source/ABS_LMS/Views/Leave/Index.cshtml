@@ -48,6 +48,9 @@
                     <th>
                         @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.ApprovedBy)
                     </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.CreatedDateUTC)
+                    </th>
                     <th></th>
                 </tr>
 
@@ -55,17 +58,10 @@
                 {
                     <tr>
                         <td>
-                            @*@if (item.EmployeeLeaveDetails.LeaveStartDate.HasValue)
-                                {*@
                             @item.EmployeeLeaveDetails.LeaveStartDate.ToString("dd-MMM-yyyy")
-                            @*}*@
                         </td>
                         <td>
-
-                            @*@if (item.EmployeeLeaveDetails.LeaveEndDate.HasValue)
-                                {*@
                             @item.EmployeeLeaveDetails.LeaveEndDate.ToString("dd-MMM-yyyy")
-                            @*}*@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.LeaveTypeName)
@@ -81,6 +77,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.ApprovedPersonName)
+                        </td>
+                        <td>
+                            @string.Format("{0:dd-MMM-yyyy}", item.EmployeeLeaveDetails.CreatedDateUTC)
                         </td>
                         <td class="Linkbtn">
 
@@ -121,20 +120,14 @@
                             @Html.LabelFor(modelItem => item.EmployeeLeaveDetails.LeaveStartDate)
                         </div>
                         <div class="setfloat">
-                            @*@if (item.EmployeeLeaveDetails.LeaveStartDate.HasValue)
-                                {*@
-                            @item.EmployeeLeaveDetails.LeaveStartDate.ToString("dd/MM/yyyy")
-                            @*}*@
+                            @item.EmployeeLeaveDetails.LeaveStartDate.ToString("dd-MMM-yyyy")
                         </div>
                         <div class="setfloat ">
                             @Html.LabelFor(modelItem => item.EmployeeLeaveDetails.LeaveEndDate)
                         </div>
 
                         <div class="setfloat ">
-                            @*@if (item.EmployeeLeaveDetails.LeaveEndDate.HasValue)
-                                {*@
-                            @item.EmployeeLeaveDetails.LeaveEndDate.ToString("dd/MM/yyyy")
-                            @*}*@
+                            @item.EmployeeLeaveDetails.LeaveEndDate.ToString("dd-MMM-yyyy")
                         </div>
 
 
@@ -164,7 +157,7 @@
                         </div>
 
                         <div class="setfloat  @item.EmployeeLeaveDetails.EmployeeLeaveHistoryId ">
-                            @item.EmployeeLeaveDetails.LeaveStatusName
+                            @item.EmployeeLeaveDetails.LeaveStatusDisplayName
                         </div>
                         <div class="setfloat ">
                             @Html.LabelFor(modelItem => item.EmployeeLeaveDetails.ApprovedPersonName)
@@ -173,7 +166,13 @@
                         <div class="setfloat ">
                             @item.EmployeeLeaveDetails.ApprovedPersonName
                         </div>
-                    </div>
+                        <div class="setfloat ">
+                            @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.CreatedDateUTC)
+                        </div>
+                        <div class="setfloat ">
+                          @string.Format("{0:dd-MMM-yyyy}", item.EmployeeLeaveDetails.CreatedDateUTC)
+                        </div>
+                </div>
 
                     <div class="col-md-6">
                         <div class="setfloat link-align">

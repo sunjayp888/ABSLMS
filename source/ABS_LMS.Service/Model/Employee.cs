@@ -27,6 +27,7 @@ namespace ABS_LMS.Service.Model
         public string EmailId { get; set; }
 
         [DisplayName("Company Email Id")]
+        [Required(ErrorMessage = "Please Enter Company Email Id")]
         public string CompanyEmailId { get; set; }
 
         [DisplayName("Mobile Number")]
@@ -60,6 +61,8 @@ namespace ABS_LMS.Service.Model
         //[DisplayName("Photo")]
         //public string Photo_Byte_ { get; set; }
 
+        [Required(ErrorMessage = "Please Enter PAN")]
+        [DisplayName("PAN")]
         public string PANCard { get; set; }
 
         [DisplayName("Aadhar Id")]
@@ -82,7 +85,6 @@ namespace ABS_LMS.Service.Model
 
         [DisplayName("Role")]
         public string EmployeeRole { get; set; }
-
         
         public string AspNetUserId { get; set; }
         

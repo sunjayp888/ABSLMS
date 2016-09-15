@@ -66,5 +66,6 @@ namespace ABS_LMS.Service
             return ConfigurationManager.AppSettings.Get(key);
         }
 
+        public static string PortalUrl => ConfigurationManager.AppSettings["PortalURL"];
     }
 }
