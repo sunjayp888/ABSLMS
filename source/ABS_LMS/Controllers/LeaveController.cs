@@ -9,6 +9,7 @@ using ABS_LMS.Models;
 using ABS_LMS.Service.Interface;
 using ABS_LMS.Service.Model;
 using ABS_LMS.Models.Security;
+using ABS_LMS.Service;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
@@ -99,55 +100,55 @@ namespace ABS_LMS.Controllers
         }
         public ActionResult Create(int id)
         {
-           return Authorization.HasAccess(Convert.ToString(id), () =>
-           {
-               var leavetype = _employeeLeaveService.GetLeaves().Select(l => new SelectListItem
-               {
-                   Text = l.Name,
-                   Value = l.LeaveTypeId.ToString()
-               });
+            return Authorization.HasAccess(Convert.ToString(id), () =>
+            {
+                var leavetype = _employeeLeaveService.GetLeaves().Select(l => new SelectListItem
+                {
+                    Text = l.Name,
+                    Value = l.LeaveTypeId.ToString()
+                });
 
-               var enumValues = Enum.GetValues(typeof(LeaveStatus)) as LeaveStatus[];
-               if (enumValues == null)
-                   return null;
+                var enumValues = Enum.GetValues(typeof(LeaveStatus)) as LeaveStatus[];
+                if (enumValues == null)
+                    return null;
 
-               var leaveStatus = enumValues.Select(enumValue => new SelectListItem
-               {
+                var leaveStatus = enumValues.Select(enumValue => new SelectListItem
+                {
 
-                   Value = ((int)enumValue).ToString(),
-                   Text = _employeeLeaveService.GetEnumsNameById(Convert.ToInt32(enumValue))
-               }).ToList();
-               var manager = (from e in _employeeService.GetEmployees()
-                              join m in _employeeService.GetEmployees() on e.ReportingManager equals m.EmployeeId
-                              where e.EmployeeId.Equals(id)
-                              select new
-                              {
-                                  managerId = e.ReportingManager,
-                                  managerName = m.FirstName + " " + m.LastName,
-                              }).ToList();
-               var model = new EmployeeLeaveViewModel
-               {
-                   EmployeeLeaveDetails = new EmployeeLeave { EmployeeId = id },
-                   LeaveType = leavetype,
-                   LeaveStatusEnums = leaveStatus
+                    Value = ((int)enumValue).ToString(),
+                    Text = _employeeLeaveService.GetEnumsNameById(Convert.ToInt32(enumValue))
+                }).ToList();
+                var manager = (from e in _employeeService.GetEmployees()
+                               join m in _employeeService.GetEmployees() on e.ReportingManager equals m.EmployeeId
+                               where e.EmployeeId.Equals(id)
+                               select new
+                               {
+                                   managerId = e.ReportingManager,
+                                   managerName = m.FirstName + " " + m.LastName,
+                               }).ToList();
+                var model = new EmployeeLeaveViewModel
+                {
+                    EmployeeLeaveDetails = new EmployeeLeave { EmployeeId = id },
+                    LeaveType = leavetype,
+                    LeaveStatusEnums = leaveStatus
                    //    LeaveSummaries = _employeeLeaveService.GetLeaveSummary(id)
                };
 
-               var firstOrDefault = manager.FirstOrDefault();
-               if (firstOrDefault != null)
-               {
-                   model.EmployeeLeaveDetails.ApprovedPersonName = firstOrDefault?.managerName ?? "";
-                   model.EmployeeLeaveDetails.ApprovedBy = firstOrDefault?.managerId;
-               }
-               else
-               {
-                   var hr = GetHr();
-                   model.EmployeeLeaveDetails.ApprovedPersonName = hr.FirstOrDefault().FirstName + " " +
-                                                                   hr.FirstOrDefault().LastName;
-                   model.EmployeeLeaveDetails.ApprovedBy = hr.FirstOrDefault().EmployeeId;
-               }
-               return View(model);
-           });
+                var firstOrDefault = manager.FirstOrDefault();
+                if (firstOrDefault != null)
+                {
+                    model.EmployeeLeaveDetails.ApprovedPersonName = firstOrDefault?.managerName ?? "";
+                    model.EmployeeLeaveDetails.ApprovedBy = firstOrDefault?.managerId;
+                }
+                else
+                {
+                    var hr = GetHr();
+                    model.EmployeeLeaveDetails.ApprovedPersonName = hr.FirstOrDefault().FirstName + " " +
+                                                                    hr.FirstOrDefault().LastName;
+                    model.EmployeeLeaveDetails.ApprovedBy = hr.FirstOrDefault().EmployeeId;
+                }
+                return View(model);
+            });
         }
 
         // POST: Employee/Create
@@ -161,7 +162,7 @@ namespace ABS_LMS.Controllers
                 var employee = _employeeService.GetEmployee(newleave.EmployeeId);
                 var leaveDetails = employeeleave.EmployeeLeaveDetails;
                 //Send mail
-                
+
                 if (!employeeleave.IsSave)
                 {
                     //To Employee
@@ -240,7 +241,7 @@ namespace ABS_LMS.Controllers
         {
             return View();
         }
-      
+
         public ActionResult LeaveStatus(string status, int historyid)
         {
             var result = _employeeLeaveService.UpdateLeaveStatus(status, historyid);
@@ -251,9 +252,9 @@ namespace ABS_LMS.Controllers
                 //To Employee
                 SendMailToEmployee(employee, employeeleave);
                 //To Manager
-                SendMailToManager(employee, employeeleave);
+                //SendMailToManager(employee, employeeleave);
                 //To Hr
-                if(Service.Model.LeaveStatus.Approve.ToString().ToLower().Equals(status.ToLower()))
+                if (Service.Model.LeaveStatus.Approve.ToString().ToLower().Equals(status.ToLower()))
                     SendMailToHr(employee, employeeleave);
             }
             return Json(result, JsonRequestBehavior.DenyGet);
@@ -266,7 +267,7 @@ namespace ABS_LMS.Controllers
                 {
                     StartDate = e.LeaveStartDate.ToString("dd-MMM-yyyy"),
                     EndDate = e.LeaveEndDate.ToString("dd-MMM-yyyy"),
-                    LeaveType= e.LeaveTypeName,
+                    LeaveType = e.LeaveTypeName,
                     e.NoOfDays,
                     e.Reason,
                     LeaveStatus = e.LeaveStatusDisplayName,
@@ -277,7 +278,7 @@ namespace ABS_LMS.Controllers
             return File(leaveDetails.ToDataTable().ToCsvStream(), "text/csv",
                 string.Format("Employees-{0:yyyy-MM-dd-hh-mm-ss}.csv", DateTime.Now));
         }
-    
+
         public ActionResult GetActualLeaveDaysCount(DateTime? startDate, DateTime? endDate)
         {
             var result = _holidayService.GetActualLeaveDaysCount(Convert.ToDateTime(startDate), Convert.ToDateTime(endDate));
@@ -332,9 +333,9 @@ namespace ABS_LMS.Controllers
 
         private void SendMailToEmployee(Employee employee, EmployeeLeave employeeLeave)
         {
-          //  var leaveType=e
+            //  var leaveType=e
             var employeeName = employee.FirstName + " " + employee.LastName;
-            var employeetemplate = Template.CreateLeaveTemplate(employeeName, CompanyContainer.CompanyName,_employeeLeaveService.GetLeaveTypeNameById(Convert.ToInt32(employeeLeave.LeaveTypeId)), employeeLeave.NoOfDays.ToString(),
+            var employeetemplate = Template.CreateLeaveTemplate(employeeName, CompanyContainer.CompanyName, _employeeLeaveService.GetLeaveTypeNameById(Convert.ToInt32(employeeLeave.LeaveTypeId)), employeeLeave.NoOfDays.ToString(),
                                                 employeeLeave.LeaveStartDate.ToString("dd-MMM-yyyy"),
                                                 employeeLeave.LeaveEndDate.ToString("dd-MMM-yyyy"), employeeLeave.Reason, _employeeLeaveService.GetEnumsNameById(Convert.ToInt32(employeeLeave.LeaveStatus)));
 
@@ -356,16 +357,11 @@ namespace ABS_LMS.Controllers
         private void SendMailToHr(Employee employee, EmployeeLeave employeeLeave)
         {
             var employeeName = employee.FirstName + " " + employee.LastName;
-            var hr = GetHr();
-            if (hr.Any())
-            {
-                var hrName = hr.FirstOrDefault()?.FirstName + " " + hr.FirstOrDefault()?.LastName;
-                var employeetemplate = Template.CreateLeaveTemplate(hrName, employeeName, _employeeLeaveService.GetLeaveTypeNameById(Convert.ToInt32(employeeLeave.LeaveTypeId)), employeeLeave.NoOfDays.ToString(),
-                                              employeeLeave.LeaveStartDate.ToString("dd-MMM-yyyy"),
-                                              employeeLeave.LeaveEndDate.ToString("dd-MMM-yyyy"), employeeLeave.Reason, _employeeLeaveService.GetEnumsNameById(Convert.ToInt32(employeeLeave.LeaveStatus)));
+            var employeetemplate = Template.CreateLeaveTemplate("", employeeName, _employeeLeaveService.GetLeaveTypeNameById(Convert.ToInt32(employeeLeave.LeaveTypeId)), employeeLeave.NoOfDays.ToString(),
+                                          employeeLeave.LeaveStartDate.ToString("dd-MMM-yyyy"),
+                                          employeeLeave.LeaveEndDate.ToString("dd-MMM-yyyy"), employeeLeave.Reason, _employeeLeaveService.GetEnumsNameById(Convert.ToInt32(employeeLeave.LeaveStatus)));
 
-                SmtpHelper.Send(hr.FirstOrDefault()?.CompanyEmailId, Subject.Leave, employeetemplate);
-            }
+            SmtpHelper.Send(ConfigHelper.HrEmail, Subject.Leave, employeetemplate);
         }
     }
 }
