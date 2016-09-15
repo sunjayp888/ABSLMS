@@ -47,8 +47,7 @@ namespace ABS_LMS.Service
 
         public List<EmployeeLeave> GetEmployeeLeaveDetails(int employeeId)
         {
-
-
+            
             var employeedetails = _unitOfWork.EmployeeLeave.GetEmployeeLeaveDetails(employeeId);
             var leaveTypeList = _unitOfWork.LeaveType.GetAll();
 
@@ -72,10 +71,7 @@ namespace ABS_LMS.Service
                 LeaveStatusDisplayName = GetEnumsDisplayNameById(Convert.ToInt32(employeeLeaveDetails.LeaveStatus)),
                 LeaveTypeName = leaveTypeList.FirstOrDefault(l => l.LeaveTypeId == employeeLeaveDetails.LeaveTypeId).Name.ToString(),
                 ApprovedPersonName = employeeLeaveDetails.ApprovedPersonName
-
-
-
-            }).ToList();
+            }).OrderByDescending(o => o.CreatedDateUTC).ToList();
 
         }
 
@@ -143,22 +139,15 @@ namespace ABS_LMS.Service
             {
                 _unitOfWork.LeaveDetails.Add(new Data.LeaveDetail
                 {
-
                     EmployeeId = employeeId,
-                    LeaveTypeId = item.LeaveTypeId,
-
-
+                    LeaveTypeId = item.LeaveTypeId
                 });
-            }
-            
+            }           
             _unitOfWork.Complete();
-
         }
 
         public List<EmployeeLeave> GetLeaveDetailsByApprovedId(int approvedBy)
         {
-
-
 
             var employeedetails = _unitOfWork.EmployeeLeave.GetLeaveDetailsByApprovedId(approvedBy);
             var leaveTypeList = _unitOfWork.LeaveType.GetAll();
@@ -180,28 +169,21 @@ namespace ABS_LMS.Service
                 UpdatedDateUTC = employeeLeaveDetails.UpdatedDateUTC,
                 UpdatedBy = employeeLeaveDetails.CreatedBy,
                 LeaveTypeId = employeeLeaveDetails.LeaveTypeId,
+                LeaveStatusDisplayName = GetEnumsDisplayNameById(Convert.ToInt32(employeeLeaveDetails.LeaveStatus)),
                 LeaveStatusName = GetEnumsNameById(Convert.ToInt32(employeeLeaveDetails.LeaveStatus)),
                 LeaveTypeName = leaveTypeList.FirstOrDefault(l => l.LeaveTypeId == employeeLeaveDetails.LeaveTypeId)?.Name.ToString(),
                 EmployeeName = employedetails.SingleOrDefault(e => e.EmployeeId == employeeLeaveDetails.EmployeeId)?.FirstName + " " + employedetails.SingleOrDefault(e => e.EmployeeId == employeeLeaveDetails.EmployeeId)?.LastName,
-
                 //ApprovedPersonName = employeeLeaveDetails.ApprovedPersonName
-
-
-
-            }).ToList();
+            }).OrderByDescending(o => o.CreatedDateUTC).ToList();
 
         }
         public List<EmployeeLeave> GetApprovedLeaves()
         {
-
-
-
             var employeedetails = _unitOfWork.EmployeeLeave.GetApprovedLeave();
             var leaveTypeList = _unitOfWork.LeaveType.GetAll();
             var employedetails = _unitOfWork.Employee.GetAll().ToList();
             return employeedetails.Select(employeeLeaveDetails => new EmployeeLeave
             {
-
                 EmployeeLeaveHistoryId = employeeLeaveDetails.EmployeeLeaveHistoryId,
                 EmployeeId = employeeLeaveDetails.EmployeeId,
                 LeaveStartDate = employeeLeaveDetails.LeaveStartDate,
@@ -216,14 +198,11 @@ namespace ABS_LMS.Service
                 UpdatedDateUTC = employeeLeaveDetails.UpdatedDateUTC,
                 UpdatedBy = employeeLeaveDetails.CreatedBy,
                 LeaveTypeId = employeeLeaveDetails.LeaveTypeId,
+                LeaveStatusDisplayName = GetEnumsDisplayNameById(Convert.ToInt32(employeeLeaveDetails.LeaveStatus)),
                 LeaveStatusName = GetEnumsNameById(Convert.ToInt32(employeeLeaveDetails.LeaveStatus)),
                 LeaveTypeName = leaveTypeList.FirstOrDefault(l => l.LeaveTypeId == employeeLeaveDetails.LeaveTypeId)?.Name.ToString(),
-                EmployeeName = employedetails.SingleOrDefault(e => e.EmployeeId == employeeLeaveDetails.EmployeeId)?.FirstName + " " + employedetails.SingleOrDefault(e => e.EmployeeId == employeeLeaveDetails.EmployeeId)?.LastName,
-
+                EmployeeName = employedetails.SingleOrDefault(e => e.EmployeeId == employeeLeaveDetails.EmployeeId)?.FirstName + " " + employedetails.SingleOrDefault(e => e.EmployeeId == employeeLeaveDetails.EmployeeId)?.LastName
                 //ApprovedPersonName = employeeLeaveDetails.ApprovedPersonName
-
-
-
             }).ToList();
 
         }

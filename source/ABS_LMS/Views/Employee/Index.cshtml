@@ -24,13 +24,12 @@
                 <th>
                     @Html.DisplayNameFor(model => model.EmployeeDetail.LastName)
                 </th>
-                @*
                 <th>
-                    @Html.DisplayNameFor(model => model.EmployeeDetail.EmailId)
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.CompanyEmailId)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.EmployeeDetail.MobileNo)
-                </th>*@
+                    @Html.DisplayNameFor(model => model.EmployeeDetail.Designation)
+                </th>
                 <th></th>
             </tr>
 
@@ -50,16 +49,13 @@
                 <td>
                     @item.EmployeeDetail.LastName
                 </td>
-                @*
                 <td>
-                    @Html.Display(item.EmployeeDetail.EmailId)
+                    @item.EmployeeDetail.CompanyEmailId
                 </td>
                 <td>
-                    @Html.Display(item.EmployeeDetail.MobileNo)
-                </td>*@
-                <td>
-                   
-                    
+                    @item.EmployeeDetail.Designation
+                </td>
+                <td> 
                     @Html.ActionLink("Delete", "Delete", new {id = item.EmployeeDetail.EmployeeId} ,new {onclick = "return confirm('Are you sure you wish to delete " + item.EmployeeDetail.FirstName + "?');",@class="linktobtn"})
                     @Html.ActionLink("Details", "Details", new {id = item.EmployeeDetail.EmployeeId},new {@class="linktobtn"}) 
                     @Html.ActionLink("Edit", "Edit", new {id = item.EmployeeDetail.EmployeeId},new {@class="linktobtn editbtnlink"}) 

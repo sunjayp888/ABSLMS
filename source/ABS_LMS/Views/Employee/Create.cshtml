@@ -16,14 +16,14 @@
         @*<h4>EmployeeViewModel</h4>*@
         <hr />
 
-        @Html.ValidationSummary(true, "", new { @class = "alert alert-warning" })
+        @Html.ValidationSummary(false, "", new { @class = "alert alert-warning" })
 
         <div class="col-md-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.EmployeeDetail.EmployeeCode, htmlAttributes: new { @class = " col-md-4" })
                 <div class="col-md-8">
                     @Html.EditorFor(model => model.EmployeeDetail.EmployeeCode, new { htmlAttributes = new { @class = "" } })
-                    @Html.ValidationMessageFor(model => model.EmployeeDetail.EmployeeCode, "", new { @class = "pull-left alert alert-warning" })
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.EmployeeCode, "", new { @class = "pull-left alert alert-warning" })*@
                 </div>
             </div>
 
@@ -31,7 +31,7 @@
                 @Html.LabelFor(model => model.EmployeeDetail.FirstName, htmlAttributes: new { @class = " col-md-4" })
                 <div class="col-md-8">
                     @Html.EditorFor(model => model.EmployeeDetail.FirstName, new { htmlAttributes = new { @class = "" } })
-                    @Html.ValidationMessageFor(model => model.EmployeeDetail.FirstName, "", new { @class = "pull-left alert alert-warning" })
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.FirstName, "", new { @class = "pull-left alert alert-warning" })*@
                 </div>
             </div>
 
@@ -39,7 +39,7 @@
                 @Html.LabelFor(model => model.EmployeeDetail.LastName, htmlAttributes: new { @class = " col-md-4" })
                 <div class="col-md-8">
                     @Html.EditorFor(model => model.EmployeeDetail.LastName, new { htmlAttributes = new { @class = "" } })
-                    @Html.ValidationMessageFor(model => model.EmployeeDetail.LastName, "", new { @class = "pull-left alert alert-warning" })
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.LastName, "", new { @class = "pull-left alert alert-warning" })*@
                 </div>
             </div>
 
@@ -47,21 +47,21 @@
                 @Html.LabelFor(model => model.EmployeeDetail.EmailId, htmlAttributes: new { @class = " col-md-4" })
                 <div class="col-md-8">
                     @Html.EditorFor(model => model.EmployeeDetail.EmailId, new { htmlAttributes = new { @class = "" } })
-                    @Html.ValidationMessageFor(model => model.EmployeeDetail.EmailId, "", new { @class = "pull-left alert alert-warning" })
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.EmailId, "", new { @class = "pull-left alert alert-warning" })*@
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.EmployeeDetail.CompanyEmailId, htmlAttributes: new { @class = " col-md-4" })
                 <div class="col-md-8">
                     @Html.EditorFor(model => model.EmployeeDetail.CompanyEmailId, new { htmlAttributes = new { @class = "" } })
-                    @Html.ValidationMessageFor(model => model.EmployeeDetail.CompanyEmailId, "", new { @class = "pull-left alert alert-warning" })
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.CompanyEmailId, "", new { @class = "pull-left alert alert-warning" })*@
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.EmployeeDetail.MobileNo, htmlAttributes: new { @class = " col-md-4" })
                 <div class="col-md-8">
                     @Html.EditorFor(model => model.EmployeeDetail.MobileNo, new { htmlAttributes = new { @class = "" } })
-                    @Html.ValidationMessageFor(model => model.EmployeeDetail.MobileNo, "", new { @class = "pull-left alert alert-warning" })
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.MobileNo, "", new { @class = "pull-left alert alert-warning" })*@
                 </div>
             </div>
 
@@ -69,7 +69,7 @@
                 @Html.LabelFor(model => model.EmployeeDetail.Address, htmlAttributes: new { @class = " col-md-4" })
                 <div class="col-md-8">
                     @Html.EditorFor(model => model.EmployeeDetail.Address, new { htmlAttributes = new { @class = "", @cols = 80, @rows = 5 } })
-                    @Html.ValidationMessageFor(model => model.EmployeeDetail.Address, "", new { @class = "pull-left alert alert-warning" })
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.Address, "", new { @class = "pull-left alert alert-warning" })*@
                 </div>
             </div>
 
@@ -82,7 +82,7 @@
                 @Html.LabelFor(model => model.EmployeeDetail.DOB, htmlAttributes: new {@class = " col-md-4"})
                 <div class="col-md-8">
                     @Html.TextBoxFor(model => model.EmployeeDetail.DOB, new {@class = ""})
-                    @Html.ValidationMessageFor(model => model.EmployeeDetail.DOB, "", new {@class = "pull-left alert alert-warning"})
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.DOB, "", new {@class = "pull-left alert alert-warning"})*@
                 </div>
             </div>
 
@@ -90,7 +90,7 @@
                 @Html.LabelFor(model => model.EmployeeDetail.DOJ, htmlAttributes: new {@class = " col-md-4"})
                 <div class="col-md-8">
                     @Html.TextBoxFor(model => model.EmployeeDetail.DOJ, new {@class = ""})
-                    @Html.ValidationMessageFor(model => model.EmployeeDetail.DOJ, "", new {@class = "pull-left alert alert-warning"})
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.DOJ, "", new {@class = "pull-left alert alert-warning"})*@
                 </div>
             </div>
 
@@ -109,14 +109,6 @@
 
                 </div>
             </div>
-
-            @*<div class="form-group">
-                @Html.LabelFor(model => model.EmployeeDetail.LeavingDateUTC, htmlAttributes: new {@class = " col-md-4"})
-                <div class="col-md-8">
-                    @Html.TextBoxFor(model => model.EmployeeDetail.LeavingDateUTC, new {@class = ""})
-                    @Html.ValidationMessageFor(model => model.EmployeeDetail.LeavingDateUTC, "", new {@class = "pull-left alert alert-warning"})
-                </div>
-            </div>*@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.EmployeeDetail.PANCard, htmlAttributes: new {@class = " col-md-4"})
@@ -144,8 +136,6 @@
                 @Html.LabelFor(model => model.EmployeeDetail.ReportingManager, htmlAttributes: new {@class = " col-md-4"})
                 <div class="col-md-8">
                     @Html.DropDownListFor(model => model.EmployeeDetail.ReportingManager, Model.ReportingManager, new {@class = " form-control  reportingmanager"})
-
-
                 </div>
             </div>
         </div>

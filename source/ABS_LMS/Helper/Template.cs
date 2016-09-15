@@ -4,12 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Hosting;
+using ABS_LMS.Service;
 
 namespace ABS_LMS.Helper
 {
     public static class Template
     {
-
         public static string CreateLeaveTemplate(string to, string regards, string leaveType, string days, string fromDate, string toDate, string reason, string status)
         {
             var reader = new StreamReader(HttpContext.Current.Server.MapPath("~/Template/CreateLeave.html"));
@@ -33,6 +33,7 @@ namespace ABS_LMS.Helper
             var readFile = reader.ReadToEnd();
             var strContent = "";
             strContent = readFile;
+            strContent = strContent.Replace("[URL]", ConfigHelper.PortalUrl);
             strContent = strContent.Replace("[EmployeeName]", employeeName);
             strContent = strContent.Replace("[Username]", username);
             strContent = strContent.Replace("[Password]", password);

@@ -113,11 +113,12 @@ namespace ABS_LMS.Service
                 FirstName = e.FirstName,
                 LastName = e.LastName,
                 AadharId = e.AadharId,
-                DepartmentId=e.DepartmentId,
-                DesignationId=e.DesignationId,
-                ReportingManager=e.ReportingManager,
+                DepartmentId = e.DepartmentId,
+                DesignationId = e.DesignationId,
+                Designation = e.Designation.Name,
+                ReportingManager =e.ReportingManager,
                 CompanyEmailId = e.CompanyEmailId
-            }).ToList();
+            }).OrderBy(o => o.EmployeeCode).ToList();
         }
 
         
