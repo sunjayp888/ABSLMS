@@ -52,14 +52,22 @@ namespace ABS_LMS.Controllers
 
         // GET: Employee
         [Authorize(Roles = "Admin, Hr")]
-        public ActionResult Index(int pagenumber = 1, int pagesize = 10)
+        public ActionResult Index(string searchKeyword = "", string sortOrder = null, bool sortOrderDesc = false, int pagenumber = 1, int pagesize = 10)
         {
+            ViewBag.SortOrderDesc = !sortOrderDesc;
+            ViewBag.SortOrder = sortOrder ?? string.Empty;
             var employees = _employeeService.GetEmployees();
+            if (!string.IsNullOrEmpty(searchKeyword))
+                employees = employees.Where( e => e.EmployeeCode.Contains(searchKeyword.Trim())
+                                            || (e.FirstName + " " + e.LastName).ToLower().Contains(searchKeyword.Trim().ToLower())).ToList();
+
             var model = new EmployeeIndexViewModel
             {
-                EmployeeDetail = employees.ToPagedList(pagenumber, pagesize)
+                SearchKeyword = searchKeyword,
+                EmployeeDetail = string.IsNullOrEmpty(sortOrder)
+                        ? employees.OrderByDescending(e => e.EmployeeCode).ToPagedList(pagenumber, pagesize)
+                        : GetSortedEmployees(sortOrder, sortOrderDesc, employees).ToPagedList(pagenumber, pagesize)
             };
-
             return View(model);
         }
 
@@ -328,5 +336,28 @@ namespace ABS_LMS.Controllers
             }).ToList();
         }
 
+        private List<Employee> GetSortedEmployees(string sortOrder, bool sortOrderDesc, IEnumerable<Employee> employees)
+        {
+            var sortedDocuments = new List<Employee>();
+            switch (sortOrder.ToLower().Trim())
+            {
+                case "employeecode":
+                    sortedDocuments = sortOrderDesc ? employees.OrderByDescending(s => s.EmployeeCode).ToList() : employees.OrderBy(s => s.EmployeeCode).ToList();
+                    break;
+                case "firstname":
+                    sortedDocuments = sortOrderDesc ? employees.OrderByDescending(s => s.FirstName).ToList() : employees.OrderBy(s => s.FirstName).ToList();
+                    break;
+                case "lastname":
+                    sortedDocuments = sortOrderDesc ? employees.OrderByDescending(s => s.LastName).ToList() : employees.OrderBy(s => s.LastName).ToList();
+                    break;
+                case "designation":
+                    sortedDocuments = sortOrderDesc ? employees.OrderByDescending(s => s.Designation).ToList() : employees.OrderBy(s => s.Designation).ToList();
+                    break;
+                case "companyemailid":
+                    sortedDocuments = sortOrderDesc ? employees.OrderByDescending(s => s.EmailId).ToList() : employees.OrderBy(s => s.EmailId).ToList();
+                    break;
+            }
+            return sortedDocuments;
+        }
     }
 }

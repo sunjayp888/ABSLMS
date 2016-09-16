@@ -148,23 +148,15 @@
 
                 //alert($("#EmployeeLeaveDetails_LeaveStartDate").val());
             });
-          
-            $('.savesubmit').submit(function () {
-                if ($(this).valid()) {
-                    alert('the form is valid');
-                } else {
-                    alert('the form is InValid');
-                }
-            });
 
-            //$(".savesubmit").click(function() {
-            //    //alert("save and submit click called");
-            //    if (confirm("Are you sure, you want to apply for leave?")) {
-            //        $("#EmployeeLeaveDetails_LeaveStatus").val("2");
-            //        return true;
-            //    }
-            //    return false;
-            //});
+            $(".savesubmit").click(function() {
+                //alert("save and submit click called");
+                if (confirm("Are you sure, you want to apply for leave?")) {
+                    $("#EmployeeLeaveDetails_LeaveStatus").val("2");
+                    return true;
+                }
+                return false;
+            });
 
             $("#EmployeeLeaveDetails_JoiningDate").datepicker().on("changeDate", function(e) {
                 $(this).datepicker("hide");
@@ -179,12 +171,14 @@
                     $("#EmployeeLeaveDetails_NoOfDays").val("");
                     var start = $("#EmployeeLeaveDetails_LeaveStartDate").datepicker("getDate");
                     var end = $("#EmployeeLeaveDetails_LeaveEndDate").datepicker("getDate");
+                  
                     if (end == null)
                         return;
                     if (end >= start) {
                         GetActualLeave();
                     } else {
                         alert("Start Date is greater than End Date");
+                        $("#EmployeeLeaveDetails_LeaveStartDate").val("");
                     }
                 }
             }).val();
@@ -203,6 +197,7 @@
                     if (end >= start) {
                         GetActualLeave();
                     } else {
+                        $("#EmployeeLeaveDetails_LeaveEndDate").val("");
                         alert("Start Date is greater than End Date");
                     }
                 }
