@@ -20,9 +20,9 @@ namespace ABS_LMS.Repository.Repositories
         {
           return AbsContext.EmployeeLeaveHistories.Where(e => e.EmployeeId == employeeId);
         }
-        public IEnumerable<EmployeeLeaveHistory> GetLeaveDetailsByApprovedId(int approvedBy)
+        public IEnumerable<EmployeeLeaveHistory> GetLeaveDetailsPendingForApproval(int approvedBy)
         {
-            return AbsContext.EmployeeLeaveHistories.Where(e => e.ApprovedBy == approvedBy && (e.LeaveStatus==2 || e.LeaveStatus==3 || e.LeaveStatus==4));
+            return AbsContext.EmployeeLeaveHistories.Where(e => e.ApprovedBy == approvedBy && e.LeaveStatus == 2);
         }
         public IEnumerable<EmployeeLeaveHistory> GetApprovedLeave()
         {

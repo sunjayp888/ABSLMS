@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.IO;
 using ABS_LMS.Helper;
+using PagedList;
 
 namespace ABS_LMS.Controllers
 {
@@ -51,13 +52,13 @@ namespace ABS_LMS.Controllers
 
         // GET: Employee
         [Authorize(Roles = "Admin, Hr")]
-        public ActionResult Index()
+        public ActionResult Index(int pagenumber = 1, int pagesize = 10)
         {
             var employees = _employeeService.GetEmployees();
-            var model = employees.Select(employee => new EmployeeViewModel
+            var model = new EmployeeIndexViewModel
             {
-                EmployeeDetail = employee,
-            });
+                EmployeeDetail = employees.ToPagedList(pagenumber, pagesize)
+            };
 
             return View(model);
         }

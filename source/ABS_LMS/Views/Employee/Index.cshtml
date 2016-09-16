@@ -1,76 +1,88 @@
-﻿@model IEnumerable<ABS_LMS.Models.EmployeeViewModel>
+﻿@using ABS_LMS.Models.Security
+@using PagedList.Mvc
+@model ABS_LMS.Models.EmployeeIndexViewModel
 
-    @{
+@{
     ViewBag.Title = "Index";
-    }
-    <div class="row padding-left-10 employeelist">
-        <h2>Index</h2>
+}
+<div class="row padding-left-10 employeelist">
+    <h2>Index</h2>
 
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
-        <table class="table">
-            <tr>
-                @*
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeDetail.FirstOrDefault().EmployeeCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeDetail.FirstOrDefault().FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeDetail.FirstOrDefault().LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeDetail.FirstOrDefault().CompanyEmailId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeDetail.FirstOrDefault().Designation)
+            </th>
+            @*<th>
+                    @Html.ActionLink("EmployeeCode", "Index", new { sortOrder = "EmployeeCode", sortOrderDesc = ViewBag.SortOrderDesc })
+                </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.EmployeeDetail.EmployeeId)
+                    @Html.ActionLink("FirstName", "Index", new { sortOrder = "FirstName", sortOrderDesc = ViewBag.SortOrderDesc })
+                </th>
+                <th>
+                    @Html.ActionLink("LastName", "LastName", new { sortOrder = "title", sortOrderDesc = ViewBag.SortOrderDesc })
+                </th>
+                <th>
+                    @Html.ActionLink("CompanyEmailId", "CompanyEmailId", new { sortOrder = "CompanyEmailId", sortOrderDesc = ViewBag.SortOrderDesc })
+                </th>
+                <th>
+                    @Html.ActionLink("Designation", "Designation", new { sortOrder = "Designation", sortOrderDesc = ViewBag.SortOrderDesc })
                 </th>*@
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeDetail.EmployeeCode)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeDetail.FirstName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeDetail.LastName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeDetail.CompanyEmailId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeDetail.Designation)
-                </th>
-                <th></th>
-            </tr>
+            <th></th>
+        </tr>
 
-            @foreach (var item in Model)
-            {
+        @foreach (var item in Model.EmployeeDetail)
+        {
             <tr>
-                @*
                 <td>
-                    @item.EmployeeDetail.EmployeeId.ToString()
-                </td>*@
-                <td>
-                    @item.EmployeeDetail.EmployeeCode
+                    @item.EmployeeCode
                 </td>
                 <td>
-                    @item.EmployeeDetail.FirstName
+                    @item.FirstName
                 </td>
                 <td>
-                    @item.EmployeeDetail.LastName
+                    @item.LastName
                 </td>
                 <td>
-                    @item.EmployeeDetail.CompanyEmailId
+                    @item.CompanyEmailId
                 </td>
                 <td>
-                    @item.EmployeeDetail.Designation
+                    @item.Designation
                 </td>
-                <td> 
-                    @Html.ActionLink("Delete", "Delete", new {id = item.EmployeeDetail.EmployeeId} ,new {onclick = "return confirm('Are you sure you wish to delete " + item.EmployeeDetail.FirstName + "?');",@class="linktobtn"})
-                    @Html.ActionLink("Details", "Details", new {id = item.EmployeeDetail.EmployeeId},new {@class="linktobtn"}) 
-                    @Html.ActionLink("Edit", "Edit", new {id = item.EmployeeDetail.EmployeeId},new {@class="linktobtn editbtnlink"}) 
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeId }, new { onclick = "return confirm('Are you sure you wish to delete " + item.FirstName + "?');", @class = "linktobtn" })
+                    @Html.ActionLink("Details", "Details", new { id = item.EmployeeId }, new { @class = "linktobtn" })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }, new { @class = "linktobtn editbtnlink" })
                 </td>
             </tr>
-            }
-
-        </table>
+        }
+    </table>
+    <div>
+        Page @(Model.EmployeeDetail.PageCount < Model.EmployeeDetail.PageNumber ? 0 : Model.EmployeeDetail.PageNumber) of @Model.EmployeeDetail.PageCount
     </div>
-    @section scripts
-    {
+    @Html.PagedListPager(Model.EmployeeDetail, pagenumber => Url.Action("Index", new { id = HttpCurrentUser.EmployeeId, pagenumber }))
+</div>
 
+@section scripts
+{
     <script type="text/javascript">
         $(document).ready(function () {
             $('.nav #employee').addClass('active');
         });
     </script>
-    }
+}
