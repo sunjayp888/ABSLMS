@@ -146,10 +146,10 @@ namespace ABS_LMS.Service
             _unitOfWork.Complete();
         }
 
-        public List<EmployeeLeave> GetLeaveDetailsByApprovedId(int approvedBy)
+        public List<EmployeeLeave> GetLeaveDetailsPendingForApproval(int approvedBy)
         {
 
-            var employeedetails = _unitOfWork.EmployeeLeave.GetLeaveDetailsByApprovedId(approvedBy);
+            var employeedetails = _unitOfWork.EmployeeLeave.GetLeaveDetailsPendingForApproval(approvedBy);
             var leaveTypeList = _unitOfWork.LeaveType.GetAll();
             var employedetails = _unitOfWork.Employee.GetAll().ToList();
             return employeedetails.Select(employeeLeaveDetails => new EmployeeLeave

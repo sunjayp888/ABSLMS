@@ -37,7 +37,7 @@ body .minute {
   z-index: 2;
   color: #FFFFFF;
   cursor: default;
-  background-color: #0a237c;
+  background-color: #FB871F;
   border-color: #FFFFFF;
 }
 .pagination > .active > a:focus,
@@ -47,7 +47,7 @@ body .minute {
   z-index: 2;
   color: #FFFFFF;
   cursor: default;
-  background-color: #0a237c;
+  background-color: #FB871F;
   border-color: #FFFFFF;
 }
 .pagination > li > a,
@@ -66,7 +66,7 @@ body .minute {
 .pagination > li > span:hover,
 .pagination > li > a:focus,
 .pagination > li > span:focus {
-  background-color: #0a237c !important;
+  background-color: #FB871F !important;
 }
 .pagination > .disabled > a {
   border: 1px solid #FFFFFF !important;

@@ -20,7 +20,7 @@ namespace ABS_LMS.Service.Interface
         string GetEnumsNameById(int enumId);
         string GetEnumsDisplayNameById(int enumId);
         int GetEnumsIdByName(string enumName);
-        List<EmployeeLeave> GetLeaveDetailsByApprovedId(int approvedBy);
+        List<EmployeeLeave> GetLeaveDetailsPendingForApproval(int approvedBy);
         List<EmployeeLeave> GetApprovedLeaves();
         int UpdateLeaveStatus(string status, int leaveHistoryId);
         List<LeaveSummary> GetLeaveSummary(int employeeId);

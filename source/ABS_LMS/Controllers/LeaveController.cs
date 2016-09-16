@@ -12,7 +12,7 @@ using ABS_LMS.Models.Security;
 using ABS_LMS.Service;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-
+using PagedList;
 
 namespace ABS_LMS.Controllers
 {
@@ -53,33 +53,33 @@ namespace ABS_LMS.Controllers
         }
 
         // GET: Leave
-        public ActionResult Index(int id)
+
+        public ActionResult Index(int id,int pagenumber = 1, int pagesize = 10)
         {
             return Authorization.HasAccess(Convert.ToString(id), () =>
             {
                 var leaveDetails = _employeeLeaveService.GetEmployeeLeaveDetails(id);
 
-                var model = leaveDetails.Select(employeeLeave => new EmployeeLeaveViewModel
+                var model = new EmployeeLeaveIndexViewModel
                 {
-                    EmployeeLeaveDetails = employeeLeave,
-                }).ToList();
+                    EmployeeLeaveDetails = leaveDetails.ToPagedList(pagenumber, pagesize)
+                };
 
                 return View(model);
             });
         }
+
         // GET: Leave
-
-        public ActionResult LeavePendingForApproval(int id)
+        public ActionResult LeavePendingForApproval(int id, int pagenumber = 1, int pagesize = 10)
         {
-
             return Authorization.HasAccess(Convert.ToString(id), () =>
             {
-                var leaveDetails = _employeeLeaveService.GetLeaveDetailsByApprovedId(id);
+                var leaveDetails = _employeeLeaveService.GetLeaveDetailsPendingForApproval(id);
 
-                var model = leaveDetails.Select(employeeLeave => new EmployeeLeaveViewModel
+                var model = new EmployeeLeaveIndexViewModel
                 {
-                    EmployeeLeaveDetails = employeeLeave,
-                }).ToList();
+                    EmployeeLeaveDetails = leaveDetails.ToPagedList(pagenumber, pagesize)
+                };
                 return View(model);
             });
         }
@@ -157,6 +157,23 @@ namespace ABS_LMS.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    employeeleave.LeaveType = _employeeLeaveService.GetLeaves().Select(l => new SelectListItem
+                    {
+                        Text = l.Name,
+                        Value = l.LeaveTypeId.ToString()
+                    });
+                    var enumValues = Enum.GetValues(typeof(LeaveStatus)) as LeaveStatus[];
+                    employeeleave.LeaveStatusEnums = enumValues?.Select(enumValue => new SelectListItem
+                    {
+
+                        Value = ((int)enumValue).ToString(),
+                        Text = _employeeLeaveService.GetEnumsNameById(Convert.ToInt32(enumValue))
+                    }).ToList();
+                    return View(employeeleave);
+                }
+
                 var newleave = employeeleave.EmployeeLeaveDetails;
                 _employeeLeaveService.AddEmployeeLeaveDetails(newleave);
                 var employee = _employeeService.GetEmployee(newleave.EmployeeId);
