@@ -6,5 +6,6 @@ namespace ABS_LMS.Models
     public class EmployeeIndexViewModel
     {
         public IPagedList<Employee> EmployeeDetail { get; set; }
+        public string SearchKeyword { get; set; }
     }
 }
