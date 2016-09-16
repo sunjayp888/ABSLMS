@@ -247,6 +247,8 @@
     <Compile Include="Helper\SmtpHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\EmployeeIndexViewModel.cs" />
+    <Compile Include="Models\EmployeeLeaveIndexViewModel.cs" />
     <Compile Include="Models\EmployeeLeaveViewModel.cs" />
     <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -482,7 +484,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54304</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:54304/</IISUrl>
+          <IISUrl>http://localhost:54305/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
