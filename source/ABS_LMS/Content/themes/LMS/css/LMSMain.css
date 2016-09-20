@@ -1360,3 +1360,24 @@ input[type=password] {
   padding: 5px 30px !important;
   width: 242px!important;
 }
+#quote-carousel .carousel-indicators li {
+  background: #c0c0c0;
+}
+#quote-carousel .carousel-indicators .active {
+  background: #333333;
+}
+.table-bordered > tbody > tr:nth-child(even) > td {
+  background: #f9f9f9;
+}
+/*.panel-default 
+{
+        border-color:@panel-border-color;
+    
+  
+}
+.panel-heading
+{
+        border-color:@panel-border-color !important;
+            color:@colour5!important;
+    background-color: @panel-border-color!important;
+}*/

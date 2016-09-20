@@ -18,8 +18,8 @@ namespace ABS_LMS.Data
         public Employee()
         {
             this.AspNetUsers = new HashSet<AspNetUser>();
-            this.LeaveDetails = new HashSet<LeaveDetail>();
             this.EmployeeLeaveHistories = new HashSet<EmployeeLeaveHistory>();
+            this.LeaveDetails = new HashSet<LeaveDetail>();
         }
     
         public int EmployeeId { get; set; }
@@ -42,14 +42,15 @@ namespace ABS_LMS.Data
         public Nullable<System.DateTime> ConfirmationDateUTC { get; set; }
         public Nullable<int> ReportingManager { get; set; }
         public string Gender { get; set; }
+        public byte[] EmployeeImage { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
         public virtual Department Department { get; set; }
         public virtual Designation Designation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
+        public virtual ICollection<EmployeeLeaveHistory> EmployeeLeaveHistories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeaveDetail> LeaveDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EmployeeLeaveHistory> EmployeeLeaveHistories { get; set; }
     }
 }

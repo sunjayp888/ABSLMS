@@ -251,6 +251,7 @@
     <Compile Include="Models\EmployeeLeaveIndexViewModel.cs" />
     <Compile Include="Models\EmployeeLeaveViewModel.cs" />
     <Compile Include="Models\EmployeeViewModel.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Security\Authorization.cs" />
@@ -359,6 +360,7 @@
     <Content Include="Content\themes\LMS\css\LMSMain.min.css" />
     <Content Include="Content\themes\LMS\images\andersonBPO_logo.png" />
     <Content Include="Content\themes\LMS\images\New-logo.jpg" />
+    <Content Include="Content\themes\LMS\images\profile-img.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

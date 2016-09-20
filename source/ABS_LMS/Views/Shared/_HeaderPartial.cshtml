@@ -6,9 +6,9 @@
     <div>
         @if (Request.IsAuthenticated)
         {
-        <a href="#" class="userName" style="width: 34%">@HttpCurrentUser.FirstName </a>
+        <a href="#" class="userName" style="width: 34%">WELLCOME @HttpCurrentUser.FirstName </a>
         }
-        <a href="tel:12345678" class="tel">Call 12345678</a>
+        @*<a href="tel:12345678" class="tel">Call 12345678</a>*@
         @Html.Partial("_LoginPartial")
     </div>
 </div>

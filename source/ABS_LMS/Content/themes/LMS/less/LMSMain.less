@@ -80,7 +80,9 @@
 //table
 @table-hover-background-color: @colour1;
 @table-hover-text-color: @colour5;
-
+//panel
+@panel-border-color:@colour12;
+@panel-header-color:@colour5;
 @font-face {
     font-family: 'cronos';
     src: url('../Content/Theme/AndersonGroup/fonts/Cronos-MM-webfont.eot');
@@ -393,3 +395,29 @@ input[type=text], input[type=password] {
     padding:5px 30px !important;
     width:242px!important;
 }
+
+//new slider css
+#quote-carousel .carousel-indicators li
+                                     {
+                                      background:#c0c0c0;   
+                                     }
+#quote-carousel .carousel-indicators .active
+{
+     background:#333333;   
+}
+.table-bordered>tbody>tr:nth-child(even) > td
+               {
+                      background: #f9f9f9; 
+               }
+/*.panel-default 
+{
+        border-color:@panel-border-color;
+    
+  
+}
+.panel-heading
+{
+        border-color:@panel-border-color !important;
+            color:@colour5!important;
+    background-color: @panel-border-color!important;
+}*/
