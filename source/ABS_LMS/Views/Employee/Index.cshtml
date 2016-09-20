@@ -11,38 +11,37 @@
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
+
+    @using (Html.BeginForm())
+    {
+        <div class="table">
+            <div class="col-md-4 pull-left">
+                <input type="text" name="searchKeyword" placeholder="Search Employees" value="@Model.SearchKeyword" />
+            </div>
+            <div class="col-md-2">
+                <input type="submit" id="btnsearch" value="Search">
+            </div>
+        </div>
+
+    }
+
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.EmployeeDetail.FirstOrDefault().EmployeeCode)
+                @Html.ActionLink("Employee Code", "Index", new { sortOrder = "EmployeeCode", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword  })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EmployeeDetail.FirstOrDefault().FirstName)
+                @Html.ActionLink("First Name", "Index", new { sortOrder = "FirstName", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EmployeeDetail.FirstOrDefault().LastName)
+                @Html.ActionLink("Last Name", "Index", new { sortOrder = "LastName", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EmployeeDetail.FirstOrDefault().CompanyEmailId)
+                @Html.ActionLink("Company Email Id", "Index", new { sortOrder = "CompanyEmailId", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EmployeeDetail.FirstOrDefault().Designation)
+                @Html.ActionLink("Designation", "Index", new { sortOrder = "Designation", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
             </th>
-            @*<th>
-                    @Html.ActionLink("EmployeeCode", "Index", new { sortOrder = "EmployeeCode", sortOrderDesc = ViewBag.SortOrderDesc })
-                </th>
-                <th>
-                    @Html.ActionLink("FirstName", "Index", new { sortOrder = "FirstName", sortOrderDesc = ViewBag.SortOrderDesc })
-                </th>
-                <th>
-                    @Html.ActionLink("LastName", "LastName", new { sortOrder = "title", sortOrderDesc = ViewBag.SortOrderDesc })
-                </th>
-                <th>
-                    @Html.ActionLink("CompanyEmailId", "CompanyEmailId", new { sortOrder = "CompanyEmailId", sortOrderDesc = ViewBag.SortOrderDesc })
-                </th>
-                <th>
-                    @Html.ActionLink("Designation", "Designation", new { sortOrder = "Designation", sortOrderDesc = ViewBag.SortOrderDesc })
-                </th>*@
             <th></th>
         </tr>
 
@@ -75,7 +74,7 @@
     <div>
         Page @(Model.EmployeeDetail.PageCount < Model.EmployeeDetail.PageNumber ? 0 : Model.EmployeeDetail.PageNumber) of @Model.EmployeeDetail.PageCount
     </div>
-    @Html.PagedListPager(Model.EmployeeDetail, pagenumber => Url.Action("Index", new { id = HttpCurrentUser.EmployeeId, pagenumber }))
+    @Html.PagedListPager(Model.EmployeeDetail, pagenumber => Url.Action("Index", new { id = HttpCurrentUser.EmployeeId, searchKeyword = Model.SearchKeyword, sortOrder = ViewBag.SortOrder, sortOrderDesc = !ViewBag.SortOrderDesc, pagenumber }))
 </div>
 
 @section scripts
