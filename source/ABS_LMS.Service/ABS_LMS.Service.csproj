@@ -53,9 +53,11 @@
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="EmployeeLeaveService.cs" />
     <Compile Include="EmployeeService.cs" />
+    <Compile Include="EventService.cs" />
     <Compile Include="HolidayService.cs" />
     <Compile Include="Interface\IEmployeeLeaveService.cs" />
     <Compile Include="Interface\IEmployeeService.cs" />
+    <Compile Include="Interface\IEventService.cs" />
     <Compile Include="Interface\IHolidayService.cs" />
     <Compile Include="Interface\IUnitOfWork.cs" />
     <Compile Include="Model\Department.cs" />
@@ -63,6 +65,7 @@
     <Compile Include="Model\Employee.cs" />
     <Compile Include="Model\EmployeeLeave.cs" />
     <Compile Include="Model\Enums.cs" />
+    <Compile Include="Model\Event.cs" />
     <Compile Include="Model\Holiday.cs" />
     <Compile Include="Model\Leave.cs" />
     <Compile Include="Model\LeaveSummary.cs" />

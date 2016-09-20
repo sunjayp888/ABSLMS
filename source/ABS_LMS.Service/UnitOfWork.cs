@@ -19,6 +19,7 @@ namespace ABS_LMS.Service
             Designation = new DesignationRepository(_context);
             LeaveType = new LeaveTypeRepository(_context);
             Holiday = new HolidayRepository(_context);
+            Event = new EventRepository(_context);
 
         }
 
@@ -29,6 +30,7 @@ namespace ABS_LMS.Service
         public IDesignationRepository Designation { get; private set; }
         public ILeaveTypeRepository LeaveType { get; private set; }
         public IHolidayRepository Holiday { get; private set; }
+        public IEventRepository Event { get; private set; }
 
         public int Complete()
         {

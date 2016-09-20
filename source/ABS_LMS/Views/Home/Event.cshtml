@@ -1,0 +1,74 @@
+﻿@model ABS_LMS.Models.Event
+
+@{
+    ViewBag.Title = "Event";
+}
+
+<h2>Event</h2>
+
+<div class="row col-md-6 textboxsize">
+    <h1>Create Leave</h1>
+    <hr />
+    @Html.ValidationSummary(false, "", new { @class = " alert alert-warning" })
+    @Html.HiddenFor(m => m.IsSave)
+    <div class="form-group" style="display: none;">
+        @Html.Label(model => model.EmployeeLeaveDetails.EmployeeId, htmlAttributes: new { @class = " col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.EmployeeLeaveDetails.EmployeeId, new { htmlAttributes = new { @class = "" } })
+            @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.EmployeeId, "", new { @class = "pull-left alert alert-warning " })*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStartDate, htmlAttributes: new { @class = " col-md-4" })
+        <div class="col-md-8">
+            @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveStartDate, new { @class = "", @Value = "" })
+            @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveStartDate, "", new { @class = "pull-left alert alert-warning " })*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveEndDate, htmlAttributes: new { @class = " col-md-4" })
+        <div class="col-md-8">
+            @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveEndDate, new { @class = "", @Value = "" })
+            @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveEndDate, "", new { @class = "pull-left alert alert-warning " })*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveTypeId, htmlAttributes: new { @class = " col-md-4" })
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveTypeId, Model.LeaveType, new { @class = "form-control" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EmployeeLeaveDetails.Reason, htmlAttributes: new { @class = " col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.EmployeeLeaveDetails.Reason, new { htmlAttributes = new { @class = "", @cols = 80, @rows = 5 } })
+        </div>
+    </div>
+
+    <div class="form-group" style="display: none;">
+        @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStatus, htmlAttributes: new { @class = " col-md-4" })
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveStatus, Model.LeaveStatusEnums, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EmployeeLeaveDetails.ApprovedBy, new { @class = " col-md-4" })
+        <div class="col-md-8">
+            @Html.TextBoxFor(model => model.EmployeeLeaveDetails.ApprovedPersonName, new { @readonly = "readonly" })
+            @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedPersonName)
+            @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedBy)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-8">
+            &nbsp;&nbsp;<input type="submit" value="Apply" class="btn btn-default savesubmit" />
+        </div>
+    </div>
+</div>

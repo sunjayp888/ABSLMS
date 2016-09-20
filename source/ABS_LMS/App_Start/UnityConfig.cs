@@ -41,6 +41,7 @@ namespace ABS_LMS.App_Start
             container.RegisterType<IEmployeeService, EmployeeService>();
             container.RegisterType<IEmployeeLeaveService, EmployeeLeaveService>();
             container.RegisterType<IHolidayService, HolidayService>();
+            container.RegisterType<IEventService, EventService>();
         }
     }
 }

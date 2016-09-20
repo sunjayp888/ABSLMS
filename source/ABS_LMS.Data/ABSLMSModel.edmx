@@ -4,9 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Alias="Self" Namespace="ABSLMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ABS_LMS.dbo.AspNetUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+    <Schema Namespace="ABSLMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AspNetUsers">
           <Key>
             <PropertyRef Name="Id" />
@@ -19,106 +17,118 @@ warning 6002: The table/view 'ABS_LMS.dbo.AspNetUsers' does not have a primary k
             <PropertyRef Name="EmployeeId" />
             <PropertyRef Name="IsDeleted" />
           </Key>
-          <Property Name="Id" Nullable="false" MaxLength="128" Type="nvarchar" />
-          <Property Name="Email" MaxLength="256" Type="nvarchar" />
-          <Property Name="EmailConfirmed" Nullable="false" Type="bit" />
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
           <Property Name="PasswordHash" Type="nvarchar(max)" />
           <Property Name="SecurityStamp" Type="nvarchar(max)" />
           <Property Name="PhoneNumber" Type="nvarchar(max)" />
-          <Property Name="PhoneNumberConfirmed" Nullable="false" Type="bit" />
-          <Property Name="TwoFactorEnabled" Nullable="false" Type="bit" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
           <Property Name="LockoutEndDateUtc" Type="datetime" />
-          <Property Name="LockoutEnabled" Nullable="false" Type="bit" />
-          <Property Name="AccessFailedCount" Nullable="false" Type="int" />
-          <Property Name="UserName" Nullable="false" MaxLength="256" Type="nvarchar" />
-          <Property Name="EmployeeId" Nullable="false" Type="int" />
-          <Property Name="FirstName" MaxLength="256" Type="nvarchar" />
-          <Property Name="LastName" MaxLength="256" Type="nvarchar" />
-          <Property Name="IsDeleted" Nullable="false" Type="bit" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="256" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="256" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
             <PropertyRef Name="DepartmentId" />
           </Key>
-          <Property Name="DepartmentId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="DeparmentName" MaxLength="255" Type="nvarchar" />
+          <Property Name="DepartmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeparmentName" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Designation">
           <Key>
             <PropertyRef Name="DesignationId" />
           </Key>
-          <Property Name="DesignationId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="Name" MaxLength="255" Type="nvarchar" />
+          <Property Name="DesignationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="EmployeeId" />
           </Key>
-          <Property Name="EmployeeId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="EmployeeCode" Nullable="false" MaxLength="50" Type="nvarchar" />
-          <Property Name="FirstName" MaxLength="255" Type="nvarchar" />
-          <Property Name="LastName" MaxLength="255" Type="nvarchar" />
-          <Property Name="EmailId" MaxLength="255" Type="nvarchar" />
-          <Property Name="MobileNo" MaxLength="255" Type="nvarchar" />
-          <Property Name="Address" MaxLength="255" Type="nvarchar" />
+          <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="255" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="255" />
+          <Property Name="EmailId" Type="nvarchar" MaxLength="255" />
+          <Property Name="CompanyEmailId" Type="nvarchar" MaxLength="255" />
+          <Property Name="MobileNo" Type="nvarchar" MaxLength="255" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
           <Property Name="DOB" Type="datetime" />
           <Property Name="DOJ" Type="datetime" />
           <Property Name="DepartmentId" Type="int" />
           <Property Name="DesignationId" Type="int" />
-          <Property Name="UserName" MaxLength="255" Type="nvarchar" />
-          <Property Name="Password" MaxLength="255" Type="nvarchar" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" />
           <Property Name="LeavingDateUTC" Type="datetime" />
-          <!--<Property Name="Photo(Byte)" Type="nvarchar(max)" />-->
-          <Property Name="PANCard" MaxLength="255" Type="nvarchar" />
-          <Property Name="AadharId" MaxLength="255" Type="nvarchar" />
+          <Property Name="PANCard" Type="nvarchar" MaxLength="255" />
+          <Property Name="AadharId" Type="nvarchar" MaxLength="255" />
           <Property Name="ConfirmationDateUTC" Type="datetime" />
           <Property Name="ReportingManager" Type="int" />
-          <Property Name="Gender" MaxLength="255" Type="nvarchar" />
-          <Property Name="CompanyEmailId" MaxLength="255" Type="nvarchar" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="EmployeeLeaveHistory">
           <Key>
             <PropertyRef Name="EmployeeLeaveHistoryId" />
           </Key>
-          <Property Name="EmployeeLeaveHistoryId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="EmployeeId" Nullable="false" Type="int" />
-          <Property Name="LeaveStartDate" Nullable="false" Type="datetime" />
-          <Property Name="LeaveEndDate" Nullable="false" Type="datetime" />
+          <Property Name="EmployeeLeaveHistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="LeaveStartDate" Type="datetime" Nullable="false" />
+          <Property Name="LeaveEndDate" Type="datetime" Nullable="false" />
           <Property Name="JoiningDate" Type="datetime" />
           <Property Name="LeaveTypeId" Type="int" />
           <Property Name="NoOfDays" Type="int" />
-          <Property Name="Reason" MaxLength="1000" Type="nvarchar" />
-          <Property Name="LeaveStatus" Nullable="false" Type="int" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="1000" />
+          <Property Name="LeaveStatus" Type="int" Nullable="false" />
           <Property Name="ApprovedBy" Type="int" />
           <Property Name="CreatedDateUTC" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="UpdatedDateUTC" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
-          <Property Name="ApprovedPersonName" MaxLength="500" Type="nvarchar" />
+          <Property Name="ApprovedPersonName" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="Title" Type="varchar" MaxLength="4000" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="OrganiseDate" Type="datetime" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Holiday">
           <Key>
             <PropertyRef Name="HolidayId" />
           </Key>
-          <Property Name="HolidayId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="HolidayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="datetime" />
-          <Property Name="Day" Nullable="false" MaxLength="10" Type="nvarchar" />
-          <Property Name="Type" Nullable="false" MaxLength="1" Type="char" />
-          <Property Name="Description" MaxLength="250" Type="nvarchar" />
+          <Property Name="Day" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Type" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="LeaveDetails">
           <Key>
             <PropertyRef Name="LeaveDetailsId" />
           </Key>
-          <Property Name="LeaveDetailsId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="EmployeeId" Nullable="false" Type="int" />
-          <Property Name="LeaveTypeId" Nullable="false" Type="int" />
-          <Property Name="OpeningBalance" Precision="18" Scale="2" Type="decimal" />
-          <Property Name="Earned" Precision="18" Scale="2" Type="decimal" />
-          <Property Name="LeaveTaken" Precision="18" Scale="2" Type="decimal" />
-          <Property Name="Approved" Precision="18" Scale="2" Type="decimal" />
-          <Property Name="CarryForward" Precision="18" Scale="2" Type="decimal" />
-          <Property Name="Balance" Precision="18" Scale="2" Type="decimal" />
+          <Property Name="LeaveDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="LeaveTypeId" Type="int" Nullable="false" />
+          <Property Name="OpeningBalance" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Earned" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="LeaveTaken" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Approved" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CarryForward" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Balance" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Year" Type="int" />
           <Property Name="Month" Type="int" />
         </EntityType>
@@ -126,17 +136,17 @@ warning 6002: The table/view 'ABS_LMS.dbo.AspNetUsers' does not have a primary k
           <Key>
             <PropertyRef Name="LeaveTypeId" />
           </Key>
-          <Property Name="LeaveTypeId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="Name" MaxLength="255" Type="nvarchar" />
-          <Property Name="Count" Precision="18" Scale="2" Type="decimal" />
-          <Property Name="Frequency" MaxLength="50" Type="nvarchar" />
-          <Property Name="EmployeeType" MaxLength="255" Type="nvarchar" />
+          <Property Name="LeaveTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Count" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Frequency" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmployeeType" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <Association Name="FK_AspNetUsers_Employee">
-          <End Type="Self.Employee" Multiplicity="1" Role="Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="Self.AspNetUsers" Multiplicity="*" Role="AspNetUsers" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="EmployeeId" />
@@ -147,8 +157,8 @@ warning 6002: The table/view 'ABS_LMS.dbo.AspNetUsers' does not have a primary k
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Department_Department">
-          <End Type="Self.Department" Multiplicity="1" Role="Department" />
-          <End Type="Self.Department" Multiplicity="0..1" Role="Department1" />
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Department1" Type="Self.Department" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Department">
               <PropertyRef Name="DepartmentId" />
@@ -159,10 +169,8 @@ warning 6002: The table/view 'ABS_LMS.dbo.AspNetUsers' does not have a primary k
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employee_Department">
-          <End Type="Self.Department" Multiplicity="0..1" Role="Department">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Self.Employee" Multiplicity="*" Role="Employee" />
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Department">
               <PropertyRef Name="DepartmentId" />
@@ -173,10 +181,8 @@ warning 6002: The table/view 'ABS_LMS.dbo.AspNetUsers' does not have a primary k
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employee_Designation">
-          <End Type="Self.Designation" Multiplicity="0..1" Role="Designation">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Self.Employee" Multiplicity="*" Role="Employee" />
+          <End Role="Designation" Type="Self.Designation" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Designation">
               <PropertyRef Name="DesignationId" />
@@ -187,10 +193,10 @@ warning 6002: The table/view 'ABS_LMS.dbo.AspNetUsers' does not have a primary k
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EmployeeLeaveHistory_Employee">
-          <End Type="Self.Employee" Multiplicity="1" Role="Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="Self.EmployeeLeaveHistory" Multiplicity="*" Role="EmployeeLeaveHistory" />
+          <End Role="EmployeeLeaveHistory" Type="Self.EmployeeLeaveHistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="EmployeeId" />
@@ -201,10 +207,10 @@ warning 6002: The table/view 'ABS_LMS.dbo.AspNetUsers' does not have a primary k
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EmployeeLeaveHistory_LeaveType">
-          <End Type="Self.LeaveType" Multiplicity="0..1" Role="LeaveType">
+          <End Role="LeaveType" Type="Self.LeaveType" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="Self.EmployeeLeaveHistory" Multiplicity="*" Role="EmployeeLeaveHistory" />
+          <End Role="EmployeeLeaveHistory" Type="Self.EmployeeLeaveHistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LeaveType">
               <PropertyRef Name="LeaveTypeId" />
@@ -215,10 +221,10 @@ warning 6002: The table/view 'ABS_LMS.dbo.AspNetUsers' does not have a primary k
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LeaveDetails_Employee">
-          <End Type="Self.Employee" Multiplicity="1" Role="Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="Self.LeaveDetails" Multiplicity="*" Role="LeaveDetails" />
+          <End Role="LeaveDetails" Type="Self.LeaveDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="EmployeeId" />
@@ -229,10 +235,10 @@ warning 6002: The table/view 'ABS_LMS.dbo.AspNetUsers' does not have a primary k
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LeaveDetails_LeaveType">
-          <End Type="Self.LeaveType" Multiplicity="1" Role="LeaveType">
+          <End Role="LeaveType" Type="Self.LeaveType" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="Self.LeaveDetails" Multiplicity="*" Role="LeaveDetails" />
+          <End Role="LeaveDetails" Type="Self.LeaveDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LeaveType">
               <PropertyRef Name="LeaveTypeId" />
@@ -242,68 +248,47 @@ warning 6002: The table/view 'ABS_LMS.dbo.AspNetUsers' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="sp_LeaveSummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="EmployeeId" Type="int" Mode="In" />
-        </Function>
         <EntityContainer Name="ABSLMSModelStoreContainer">
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Designation" EntityType="Self.Designation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeLeaveHistory" EntityType="Self.EmployeeLeaveHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Holiday" EntityType="Self.Holiday" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveDetails" EntityType="Self.LeaveDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveType" EntityType="Self.LeaveType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [AspNetUsers].[Id] AS [Id], 
-    [AspNetUsers].[Email] AS [Email], 
-    [AspNetUsers].[EmailConfirmed] AS [EmailConfirmed], 
-    [AspNetUsers].[PasswordHash] AS [PasswordHash], 
-    [AspNetUsers].[SecurityStamp] AS [SecurityStamp], 
-    [AspNetUsers].[PhoneNumber] AS [PhoneNumber], 
-    [AspNetUsers].[PhoneNumberConfirmed] AS [PhoneNumberConfirmed], 
-    [AspNetUsers].[TwoFactorEnabled] AS [TwoFactorEnabled], 
-    [AspNetUsers].[LockoutEndDateUtc] AS [LockoutEndDateUtc], 
-    [AspNetUsers].[LockoutEnabled] AS [LockoutEnabled], 
-    [AspNetUsers].[AccessFailedCount] AS [AccessFailedCount], 
-    [AspNetUsers].[UserName] AS [UserName], 
-    [AspNetUsers].[EmployeeId] AS [EmployeeId], 
-    [AspNetUsers].[FirstName] AS [FirstName], 
-    [AspNetUsers].[LastName] AS [LastName], 
-    [AspNetUsers].[IsDeleted] AS [IsDeleted]
-    FROM [dbo].[AspNetUsers] AS [AspNetUsers]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_AspNetUsers_Employee" Association="Self.FK_AspNetUsers_Employee">
-            <End EntitySet="Employee" Role="Employee" />
-            <End EntitySet="AspNetUsers" Role="AspNetUsers" />
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <AssociationSet Name="FK_Department_Department" Association="Self.FK_Department_Department">
-            <End EntitySet="Department" Role="Department" />
-            <End EntitySet="Department" Role="Department1" />
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Department1" EntitySet="Department" />
           </AssociationSet>
           <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
-            <End EntitySet="Department" Role="Department" />
-            <End EntitySet="Employee" Role="Employee" />
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_Employee_Designation" Association="Self.FK_Employee_Designation">
-            <End EntitySet="Designation" Role="Designation" />
-            <End EntitySet="Employee" Role="Employee" />
+            <End Role="Designation" EntitySet="Designation" />
+            <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_EmployeeLeaveHistory_Employee" Association="Self.FK_EmployeeLeaveHistory_Employee">
-            <End EntitySet="Employee" Role="Employee" />
-            <End EntitySet="EmployeeLeaveHistory" Role="EmployeeLeaveHistory" />
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeLeaveHistory" EntitySet="EmployeeLeaveHistory" />
           </AssociationSet>
           <AssociationSet Name="FK_EmployeeLeaveHistory_LeaveType" Association="Self.FK_EmployeeLeaveHistory_LeaveType">
-            <End EntitySet="LeaveType" Role="LeaveType" />
-            <End EntitySet="EmployeeLeaveHistory" Role="EmployeeLeaveHistory" />
+            <End Role="LeaveType" EntitySet="LeaveType" />
+            <End Role="EmployeeLeaveHistory" EntitySet="EmployeeLeaveHistory" />
           </AssociationSet>
           <AssociationSet Name="FK_LeaveDetails_Employee" Association="Self.FK_LeaveDetails_Employee">
-            <End EntitySet="Employee" Role="Employee" />
-            <End EntitySet="LeaveDetails" Role="LeaveDetails" />
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="LeaveDetails" EntitySet="LeaveDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_LeaveDetails_LeaveType" Association="Self.FK_LeaveDetails_LeaveType">
-            <End EntitySet="LeaveType" Role="LeaveType" />
-            <End EntitySet="LeaveDetails" Role="LeaveDetails" />
+            <End Role="LeaveType" EntitySet="LeaveType" />
+            <End Role="LeaveDetails" EntitySet="LeaveDetails" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -482,6 +467,7 @@ warning 6002: The table/view 'ABS_LMS.dbo.AspNetUsers' does not have a primary k
             <End Role="LeaveType" EntitySet="LeaveTypes" />
             <End Role="EmployeeLeaveHistory" EntitySet="EmployeeLeaveHistories" />
           </AssociationSet>
+          <EntitySet Name="Events" EntityType="ABSLMSModel.Event" />
         </EntityContainer>
         <EntityType Name="LeaveType">
           <Key>
@@ -612,6 +598,19 @@ warning 6002: The table/view 'ABS_LMS.dbo.AspNetUsers' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="Title" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrganiseDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -693,21 +692,6 @@ warning 6002: The table/view 'ABS_LMS.dbo.AspNetUsers' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_LeaveSummary" FunctionName="ABSLMSModel.Store.sp_LeaveSummary">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ABSLMSModel.sp_LeaveSummary_Result">
-                <ScalarProperty Name="LeaveTypeId" ColumnName="LeaveTypeId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Count" ColumnName="Count" />
-                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
-                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="LeaveTaken" ColumnName="LeaveTaken" />
-                <ScalarProperty Name="CarryForward" ColumnName="CarryForward" />
-                <ScalarProperty Name="Balance" ColumnName="Balance" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="Holidays">
             <EntityTypeMapping TypeName="ABSLMSModel.Holiday">
               <MappingFragment StoreEntitySet="Holiday">
@@ -754,6 +738,20 @@ warning 6002: The table/view 'ABS_LMS.dbo.AspNetUsers' does not have a primary k
                 <ScalarProperty Name="LeaveStartDate" ColumnName="LeaveStartDate" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="EmployeeLeaveHistoryId" ColumnName="EmployeeLeaveHistoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="ABSLMSModel.Event">
+              <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="OrganiseDate" ColumnName="OrganiseDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

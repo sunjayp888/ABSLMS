@@ -82,6 +82,9 @@
     <Compile Include="EmployeeLeaveHistory.cs">
       <DependentUpon>ABSLMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Event.cs">
+      <DependentUpon>ABSLMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Holiday.cs">
       <DependentUpon>ABSLMSModel.tt</DependentUpon>
     </Compile>

@@ -35,6 +35,7 @@ namespace ABS_LMS.Data
         public virtual DbSet<Holiday> Holidays { get; set; }
         public virtual DbSet<LeaveDetail> LeaveDetails { get; set; }
         public virtual DbSet<EmployeeLeaveHistory> EmployeeLeaveHistories { get; set; }
+        public virtual DbSet<Event> Events { get; set; }
     
         public virtual ObjectResult<sp_LeaveSummary_Result> sp_LeaveSummary(Nullable<int> employeeId)
         {

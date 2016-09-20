@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Interface\IDesignationRepository.cs" />
     <Compile Include="Interface\IEmployeeLeaveRepository.cs" />
+    <Compile Include="Interface\IEventRepository.cs" />
     <Compile Include="Interface\IHolidayRepository.cs" />
     <Compile Include="Interface\ILeaveRepository.cs" />
     <Compile Include="Interface\IDepartmentRepository.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Repositories\DesignationRepository.cs" />
     <Compile Include="Repositories\EmployeeLeaveRepository.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
+    <Compile Include="Repositories\EventRepository.cs" />
     <Compile Include="Repositories\HolidayRepository.cs" />
     <Compile Include="Repositories\LeaveRepository.cs" />
     <Compile Include="Repositories\LeaveTypeRepository.cs" />
