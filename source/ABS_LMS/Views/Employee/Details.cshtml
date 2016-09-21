@@ -14,6 +14,24 @@
             <table class="table">
                 <tr>
                     <th>
+                        @Html.DisplayNameFor(model => model.EmployeeDetail.EmployeeImage)
+                    </th>
+
+                    <td>
+                        @if (Model.EmployeeDetail.EmployeeImage != null && Model.EmployeeDetail.EmployeeImage.Length > 0)
+                        {
+                        string imageBase64 = Convert.ToBase64String(Model.EmployeeDetail.EmployeeImage);
+                        string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+                        <img id="user_img" height="100" width="90" src="@imageSrc" style="border: solid" />
+
+                        }
+                        else{<img class="img-circle" src="~/Content/themes/LMS/images/profile-img.jpg" height="100" width="90" style="border: solid">}
+                    </td>
+                </tr>
+                <tr>
+
+                   
+                    <th>
                         @Html.DisplayNameFor(model => model.EmployeeDetail.EmployeeCode)
                     </th>
 
@@ -46,12 +64,12 @@
                     </td>
                 </tr>
                 <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeDetail.CompanyEmailId)
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.EmployeeDetail.CompanyEmailId)
-                </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EmployeeDetail.CompanyEmailId)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.EmployeeDetail.CompanyEmailId)
+                    </td>
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.EmployeeDetail.MobileNo)
