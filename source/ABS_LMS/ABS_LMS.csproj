@@ -361,6 +361,7 @@
     <Content Include="Content\themes\LMS\css\LMSMain.css" />
     <Content Include="Content\themes\LMS\css\LMSMain.min.css" />
     <Content Include="Content\themes\LMS\images\andersonBPO_logo.png" />
+    <Content Include="Content\themes\LMS\images\Blank_flag_large.PNG" />
     <Content Include="Content\themes\LMS\images\New-logo.jpg" />
     <Content Include="Content\themes\LMS\images\profile-img.jpg" />
     <Content Include="favicon.ico" />

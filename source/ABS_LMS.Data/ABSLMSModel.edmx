@@ -5,6 +5,24 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ABSLMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
             <PropertyRef Name="Id" />
@@ -250,6 +268,8 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ABSLMSModelStoreContainer">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Designation" EntityType="Self.Designation" Schema="dbo" store:Type="Tables" />
@@ -296,94 +316,27 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ABSLMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Department">
-          <Key>
-            <PropertyRef Name="DepartmentId" />
-          </Key>
-          <Property Name="DepartmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DeparmentName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Department1" Relationship="Self.FK_Department_Department" FromRole="Department" ToRole="Department1" />
-          <NavigationProperty Name="Department2" Relationship="Self.FK_Department_Department" FromRole="Department1" ToRole="Department" />
-          <NavigationProperty Name="Employees" Relationship="ABSLMSModel.FK_Employee_Department" FromRole="Department" ToRole="Employee" />
-        </EntityType>
-        <EntityType Name="Designation">
-          <Key>
-            <PropertyRef Name="DesignationId" />
-          </Key>
-          <Property Name="DesignationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Employees" Relationship="ABSLMSModel.FK_Employee_Designation" FromRole="Designation" ToRole="Employee" />
-        </EntityType>
-        <EntityType Name="AspNetUser">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="EmailConfirmed" />
-            <PropertyRef Name="PhoneNumberConfirmed" />
-            <PropertyRef Name="TwoFactorEnabled" />
-            <PropertyRef Name="LockoutEnabled" />
-            <PropertyRef Name="AccessFailedCount" />
-            <PropertyRef Name="UserName" />
-            <PropertyRef Name="EmployeeId" />
-            <PropertyRef Name="IsDeleted" />
-          </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
-          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
-          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
-          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="ABSLMSModel.FK_AspNetUsers_Employee" FromRole="AspNetUser" ToRole="Employee" />
-        </EntityType>
-        <Association Name="FK_Department_Department">
-          <End Role="Department" Type="Self.Department" Multiplicity="1" />
-          <End Role="Department1" Type="Self.Department" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Department">
-              <PropertyRef Name="DepartmentId" />
-            </Principal>
-            <Dependent Role="Department1">
-              <PropertyRef Name="DepartmentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="ABSLMSEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Departments" EntityType="Self.Department" />
-          <EntitySet Name="Designations" EntityType="Self.Designation" />
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <AssociationSet Name="FK_Department_Department" Association="Self.FK_Department_Department">
-            <End Role="Department" EntitySet="Departments" />
-            <End Role="Department1" EntitySet="Departments" />
-          </AssociationSet>
-          <EntitySet Name="LeaveTypes" EntityType="ABSLMSModel.LeaveType" />
           <FunctionImport Name="sp_LeaveSummary" ReturnType="Collection(ABSLMSModel.sp_LeaveSummary_Result)">
           <Parameter Name="EmployeeId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="AspNetRoles" EntityType="ABSLMSModel.AspNetRole" />
+          <EntitySet Name="AspNetUserLogins" EntityType="ABSLMSModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="ABSLMSModel.AspNetUser" />
+          <EntitySet Name="Departments" EntityType="ABSLMSModel.Department" />
+          <EntitySet Name="Designations" EntityType="ABSLMSModel.Designation" />
+          <EntitySet Name="Employees" EntityType="ABSLMSModel.Employee" />
+          <EntitySet Name="EmployeeLeaveHistories" EntityType="ABSLMSModel.EmployeeLeaveHistory" />
           <EntitySet Name="Holidays" EntityType="ABSLMSModel.Holiday" />
           <EntitySet Name="LeaveDetails" EntityType="ABSLMSModel.LeaveDetail" />
-          <AssociationSet Name="FK_LeaveDetails_LeaveType" Association="ABSLMSModel.FK_LeaveDetails_LeaveType">
-            <End Role="LeaveType" EntitySet="LeaveTypes" />
-            <End Role="LeaveDetail" EntitySet="LeaveDetails" />
-          </AssociationSet>
-          <EntitySet Name="EmployeeLeaveHistories" EntityType="ABSLMSModel.EmployeeLeaveHistory" />
-          <AssociationSet Name="FK_EmployeeLeaveHistory_LeaveType" Association="ABSLMSModel.FK_EmployeeLeaveHistory_LeaveType">
-            <End Role="LeaveType" EntitySet="LeaveTypes" />
-            <End Role="EmployeeLeaveHistory" EntitySet="EmployeeLeaveHistories" />
-          </AssociationSet>
-          <EntitySet Name="Events" EntityType="ABSLMSModel.Event" />
-          <EntitySet Name="Employees" EntityType="ABSLMSModel.Employee" />
+          <EntitySet Name="LeaveTypes" EntityType="ABSLMSModel.LeaveType" />
           <AssociationSet Name="FK_AspNetUsers_Employee" Association="ABSLMSModel.FK_AspNetUsers_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Department_Department" Association="ABSLMSModel.FK_Department_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Department1" EntitySet="Departments" />
           </AssociationSet>
           <AssociationSet Name="FK_Employee_Department" Association="ABSLMSModel.FK_Employee_Department">
             <End Role="Department" EntitySet="Departments" />
@@ -401,19 +354,16 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="LeaveDetail" EntitySet="LeaveDetails" />
           </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="LeaveType">
-          <Key>
-            <PropertyRef Name="LeaveTypeId" />
-          </Key>
-          <Property Name="LeaveTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Count" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Frequency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EmployeeType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LeaveDetails" Relationship="ABSLMSModel.FK_LeaveDetails_LeaveType" FromRole="LeaveType" ToRole="LeaveDetail" />
-          <NavigationProperty Name="EmployeeLeaveHistories" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_LeaveType" FromRole="LeaveType" ToRole="EmployeeLeaveHistory" />
-        </EntityType>
+          <AssociationSet Name="FK_EmployeeLeaveHistory_LeaveType" Association="ABSLMSModel.FK_EmployeeLeaveHistory_LeaveType">
+            <End Role="LeaveType" EntitySet="LeaveTypes" />
+            <End Role="EmployeeLeaveHistory" EntitySet="EmployeeLeaveHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveDetails_LeaveType" Association="ABSLMSModel.FK_LeaveDetails_LeaveType">
+            <End Role="LeaveType" EntitySet="LeaveTypes" />
+            <End Role="LeaveDetail" EntitySet="LeaveDetails" />
+          </AssociationSet>
+          <EntitySet Name="Events" EntityType="ABSLMSModel.Event" />
+          </EntityContainer>
         <ComplexType Name="sp_LeaveSummary_Result">
           <Property Type="Int32" Name="LeaveTypeId" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="true" MaxLength="255" />
@@ -425,84 +375,72 @@
           <Property Type="Decimal" Name="CarryForward" Nullable="false" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="Balance" Nullable="false" Precision="18" Scale="2" />
         </ComplexType>
-        <EntityType Name="Holiday">
+        <EntityType Name="AspNetRole">
           <Key>
-            <PropertyRef Name="HolidayId" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="HolidayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Precision="3" />
-          <Property Name="Day" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Discriminator" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="LeaveDetail">
+        <EntityType Name="AspNetUserLogin">
           <Key>
-            <PropertyRef Name="LeaveDetailsId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="LeaveDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="EmailConfirmed" />
+            <PropertyRef Name="PhoneNumberConfirmed" />
+            <PropertyRef Name="TwoFactorEnabled" />
+            <PropertyRef Name="LockoutEnabled" />
+            <PropertyRef Name="AccessFailedCount" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
-          <Property Name="LeaveTypeId" Type="Int32" Nullable="false" />
-          <Property Name="OpeningBalance" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Earned" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="LeaveTaken" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Approved" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CarryForward" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Balance" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Year" Type="Int32" />
-          <Property Name="Month" Type="Int32" />
-          <NavigationProperty Name="LeaveType" Relationship="ABSLMSModel.FK_LeaveDetails_LeaveType" FromRole="LeaveDetail" ToRole="LeaveType" />
-          <NavigationProperty Name="Employee" Relationship="ABSLMSModel.FK_LeaveDetails_Employee" FromRole="LeaveDetail" ToRole="Employee" />
+          <Property Name="FirstName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="ABSLMSModel.FK_AspNetUsers_Employee" FromRole="AspNetUser" ToRole="Employee" />
         </EntityType>
-        <Association Name="FK_LeaveDetails_LeaveType">
-          <End Type="ABSLMSModel.LeaveType" Role="LeaveType" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ABSLMSModel.LeaveDetail" Role="LeaveDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LeaveType">
-              <PropertyRef Name="LeaveTypeId" />
-            </Principal>
-            <Dependent Role="LeaveDetail">
-              <PropertyRef Name="LeaveTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="EmployeeLeaveHistory">
+        <EntityType Name="Department">
           <Key>
-            <PropertyRef Name="EmployeeLeaveHistoryId" />
+            <PropertyRef Name="DepartmentId" />
           </Key>
-          <Property Name="EmployeeLeaveHistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
-          <Property Name="LeaveStartDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LeaveEndDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="JoiningDate" Type="DateTime" Precision="3" />
-          <Property Name="LeaveTypeId" Type="Int32" />
-          <Property Name="NoOfDays" Type="Int32" />
-          <Property Name="Reason" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="LeaveStatus" Type="Int32" Nullable="false" />
-          <Property Name="ApprovedBy" Type="Int32" />
-          <Property Name="CreatedDateUTC" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="UpdatedDateUTC" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="ApprovedPersonName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LeaveType" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_LeaveType" FromRole="EmployeeLeaveHistory" ToRole="LeaveType" />
-          <NavigationProperty Name="Employee" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_Employee" FromRole="EmployeeLeaveHistory" ToRole="Employee" />
+          <Property Name="DepartmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeparmentName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Department1" Relationship="ABSLMSModel.FK_Department_Department" FromRole="Department" ToRole="Department1" />
+          <NavigationProperty Name="Department2" Relationship="ABSLMSModel.FK_Department_Department" FromRole="Department1" ToRole="Department" />
+          <NavigationProperty Name="Employees" Relationship="ABSLMSModel.FK_Employee_Department" FromRole="Department" ToRole="Employee" />
         </EntityType>
-        <Association Name="FK_EmployeeLeaveHistory_LeaveType">
-          <End Type="ABSLMSModel.LeaveType" Role="LeaveType" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ABSLMSModel.EmployeeLeaveHistory" Role="EmployeeLeaveHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LeaveType">
-              <PropertyRef Name="LeaveTypeId" />
-            </Principal>
-            <Dependent Role="EmployeeLeaveHistory">
-              <PropertyRef Name="LeaveTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="Designation">
+          <Key>
+            <PropertyRef Name="DesignationId" />
+          </Key>
+          <Property Name="DesignationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="ABSLMSModel.FK_Employee_Designation" FromRole="Designation" ToRole="Employee" />
+        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="EmployeeId" />
@@ -534,6 +472,68 @@
           <NavigationProperty Name="EmployeeLeaveHistories" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_Employee" FromRole="Employee" ToRole="EmployeeLeaveHistory" />
           <NavigationProperty Name="LeaveDetails" Relationship="ABSLMSModel.FK_LeaveDetails_Employee" FromRole="Employee" ToRole="LeaveDetail" />
         </EntityType>
+        <EntityType Name="EmployeeLeaveHistory">
+          <Key>
+            <PropertyRef Name="EmployeeLeaveHistoryId" />
+          </Key>
+          <Property Name="EmployeeLeaveHistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="LeaveStartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LeaveEndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="JoiningDate" Type="DateTime" Precision="3" />
+          <Property Name="LeaveTypeId" Type="Int32" />
+          <Property Name="NoOfDays" Type="Int32" />
+          <Property Name="Reason" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="LeaveStatus" Type="Int32" Nullable="false" />
+          <Property Name="ApprovedBy" Type="Int32" />
+          <Property Name="CreatedDateUTC" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedDateUTC" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="ApprovedPersonName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_Employee" FromRole="EmployeeLeaveHistory" ToRole="Employee" />
+          <NavigationProperty Name="LeaveType" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_LeaveType" FromRole="EmployeeLeaveHistory" ToRole="LeaveType" />
+        </EntityType>
+        <EntityType Name="Holiday">
+          <Key>
+            <PropertyRef Name="HolidayId" />
+          </Key>
+          <Property Name="HolidayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Day" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LeaveDetail">
+          <Key>
+            <PropertyRef Name="LeaveDetailsId" />
+          </Key>
+          <Property Name="LeaveDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="LeaveTypeId" Type="Int32" Nullable="false" />
+          <Property Name="OpeningBalance" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Earned" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LeaveTaken" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Approved" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CarryForward" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Balance" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="Month" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="ABSLMSModel.FK_LeaveDetails_Employee" FromRole="LeaveDetail" ToRole="Employee" />
+          <NavigationProperty Name="LeaveType" Relationship="ABSLMSModel.FK_LeaveDetails_LeaveType" FromRole="LeaveDetail" ToRole="LeaveType" />
+        </EntityType>
+        <EntityType Name="LeaveType">
+          <Key>
+            <PropertyRef Name="LeaveTypeId" />
+          </Key>
+          <Property Name="LeaveTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Frequency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EmployeeLeaveHistories" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_LeaveType" FromRole="LeaveType" ToRole="EmployeeLeaveHistory" />
+          <NavigationProperty Name="LeaveDetails" Relationship="ABSLMSModel.FK_LeaveDetails_LeaveType" FromRole="LeaveType" ToRole="LeaveDetail" />
+        </EntityType>
         <Association Name="FK_AspNetUsers_Employee">
           <End Type="ABSLMSModel.Employee" Role="Employee" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -545,6 +545,18 @@
             </Principal>
             <Dependent Role="AspNetUser">
               <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Department_Department">
+          <End Type="ABSLMSModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="ABSLMSModel.Department" Role="Department1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentId" />
+            </Principal>
+            <Dependent Role="Department1">
+              <PropertyRef Name="DepartmentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -600,6 +612,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EmployeeLeaveHistory_LeaveType">
+          <End Type="ABSLMSModel.LeaveType" Role="LeaveType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ABSLMSModel.EmployeeLeaveHistory" Role="EmployeeLeaveHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveType">
+              <PropertyRef Name="LeaveTypeId" />
+            </Principal>
+            <Dependent Role="EmployeeLeaveHistory">
+              <PropertyRef Name="LeaveTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveDetails_LeaveType">
+          <End Type="ABSLMSModel.LeaveType" Role="LeaveType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ABSLMSModel.LeaveDetail" Role="LeaveDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveType">
+              <PropertyRef Name="LeaveTypeId" />
+            </Principal>
+            <Dependent Role="LeaveDetail">
+              <PropertyRef Name="LeaveTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="Event">
           <Key>
             <PropertyRef Name="EventId" />
@@ -613,58 +653,113 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ABSLMSModelStoreContainer" CdmEntityContainer="ABSLMSEntities">
-          <EntitySetMapping Name="Departments">
-            <EntityTypeMapping TypeName="ABSLMSModel.Department">
-              <MappingFragment StoreEntitySet="Department">
-                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
-                <ScalarProperty Name="DeparmentName" ColumnName="DeparmentName" />
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="ABSLMSModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Designations">
-            <EntityTypeMapping TypeName="ABSLMSModel.Designation">
-              <MappingFragment StoreEntitySet="Designation">
-                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="ABSLMSModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="ABSLMSModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LeaveTypes">
-            <EntityTypeMapping TypeName="ABSLMSModel.LeaveType">
-              <MappingFragment StoreEntitySet="LeaveType">
-                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
-                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
-                <ScalarProperty Name="Count" ColumnName="Count" />
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="ABSLMSModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="DeparmentName" ColumnName="DeparmentName" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Designations">
+            <EntityTypeMapping TypeName="ABSLMSModel.Designation">
+              <MappingFragment StoreEntitySet="Designation">
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="ABSLMSModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeImage" ColumnName="EmployeeImage" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="ReportingManager" ColumnName="ReportingManager" />
+                <ScalarProperty Name="ConfirmationDateUTC" ColumnName="ConfirmationDateUTC" />
+                <ScalarProperty Name="AadharId" ColumnName="AadharId" />
+                <ScalarProperty Name="PANCard" ColumnName="PANCard" />
+                <ScalarProperty Name="LeavingDateUTC" ColumnName="LeavingDateUTC" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="CompanyEmailId" ColumnName="CompanyEmailId" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeLeaveHistories">
+            <EntityTypeMapping TypeName="ABSLMSModel.EmployeeLeaveHistory">
+              <MappingFragment StoreEntitySet="EmployeeLeaveHistory">
+                <ScalarProperty Name="ApprovedPersonName" ColumnName="ApprovedPersonName" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDateUTC" ColumnName="UpdatedDateUTC" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDateUTC" ColumnName="CreatedDateUTC" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="LeaveStatus" ColumnName="LeaveStatus" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="NoOfDays" ColumnName="NoOfDays" />
                 <ScalarProperty Name="LeaveTypeId" ColumnName="LeaveTypeId" />
+                <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+                <ScalarProperty Name="LeaveEndDate" ColumnName="LeaveEndDate" />
+                <ScalarProperty Name="LeaveStartDate" ColumnName="LeaveStartDate" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="EmployeeLeaveHistoryId" ColumnName="EmployeeLeaveHistoryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -696,24 +791,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="EmployeeLeaveHistories">
-            <EntityTypeMapping TypeName="ABSLMSModel.EmployeeLeaveHistory">
-              <MappingFragment StoreEntitySet="EmployeeLeaveHistory">
-                <ScalarProperty Name="ApprovedPersonName" ColumnName="ApprovedPersonName" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDateUTC" ColumnName="UpdatedDateUTC" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDateUTC" ColumnName="CreatedDateUTC" />
-                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
-                <ScalarProperty Name="LeaveStatus" ColumnName="LeaveStatus" />
-                <ScalarProperty Name="Reason" ColumnName="Reason" />
-                <ScalarProperty Name="NoOfDays" ColumnName="NoOfDays" />
+          <EntitySetMapping Name="LeaveTypes">
+            <EntityTypeMapping TypeName="ABSLMSModel.LeaveType">
+              <MappingFragment StoreEntitySet="LeaveType">
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
+                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="LeaveTypeId" ColumnName="LeaveTypeId" />
-                <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
-                <ScalarProperty Name="LeaveEndDate" ColumnName="LeaveEndDate" />
-                <ScalarProperty Name="LeaveStartDate" ColumnName="LeaveStartDate" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="EmployeeLeaveHistoryId" ColumnName="EmployeeLeaveHistoryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -728,30 +813,6 @@
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
-          <EntitySetMapping Name="Employees">
-            <EntityTypeMapping TypeName="ABSLMSModel.Employee">
-              <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="EmployeeImage" ColumnName="EmployeeImage" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="ReportingManager" ColumnName="ReportingManager" />
-                <ScalarProperty Name="ConfirmationDateUTC" ColumnName="ConfirmationDateUTC" />
-                <ScalarProperty Name="AadharId" ColumnName="AadharId" />
-                <ScalarProperty Name="PANCard" ColumnName="PANCard" />
-                <ScalarProperty Name="LeavingDateUTC" ColumnName="LeavingDateUTC" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
-                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
-                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
-                <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
-                <ScalarProperty Name="CompanyEmailId" ColumnName="CompanyEmailId" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -17,6 +17,7 @@ namespace ABS_LMS.Controllers
         }
 
         // GET: Event
+        [Authorize(Roles = "Admin")]
         public ActionResult Index(int pagenumber = 1, int pagesize = 10)
         {
             var leaveDetails = _eventService.GetEvents();

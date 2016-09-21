@@ -27,14 +27,16 @@ namespace ABS_LMS.Data
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Designation> Designations { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<LeaveType> LeaveTypes { get; set; }
+        public virtual DbSet<EmployeeLeaveHistory> EmployeeLeaveHistories { get; set; }
         public virtual DbSet<Holiday> Holidays { get; set; }
         public virtual DbSet<LeaveDetail> LeaveDetails { get; set; }
-        public virtual DbSet<EmployeeLeaveHistory> EmployeeLeaveHistories { get; set; }
+        public virtual DbSet<LeaveType> LeaveTypes { get; set; }
         public virtual DbSet<Event> Events { get; set; }
     
         public virtual ObjectResult<sp_LeaveSummary_Result> sp_LeaveSummary(Nullable<int> employeeId)

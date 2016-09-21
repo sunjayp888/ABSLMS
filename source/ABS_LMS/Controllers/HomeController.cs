@@ -9,17 +9,17 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace ABS_LMS.Controllers
 {
-    
+
     public class HomeController : Controller
     {
         private readonly IEmployeeService _employeeService;
-        private readonly IEmployeeLeaveService _employeeLeaveService;
+        private readonly IEventService _eventService;
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
-        public HomeController(IEmployeeService employeeService, IEmployeeLeaveService employeeLeaveService)
+        public HomeController(IEmployeeService employeeService, IEmployeeLeaveService employeeLeaveService, IEventService eventService)
         {
             _employeeService = employeeService;
-            _employeeLeaveService = employeeLeaveService;
+            _eventService = eventService;
         }
         private ApplicationUserManager UserManager
         {
@@ -34,15 +34,19 @@ namespace ABS_LMS.Controllers
 
         public ActionResult Index()
         {
-            DateTime today = DateTime.Today;
-            var employees = _employeeService.GetEmployees().Where(s=>Convert.ToDateTime(s.DOB).Day== today.Day && Convert.ToDateTime(s.DOB).Month==today.Month);
+            var today = DateTime.Today;
+            var events = _eventService.GetEvents();//.Where(e => e.DisplayStartDate >= DateTime.Now && e.DisplayEndDate <= DateTime.Now).ToList();
+            var employees = _employeeService.GetEmployees().Where(s => Convert.ToDateTime(s.DOB).Day == today.Day
+                            && Convert.ToDateTime(s.DOB).Month == today.Month && !s.LeavingDateUTC.HasValue
+                            ).ToList();
+
             var model = new HomeViewModel
             {
-                EmployeeBirthday = employees.ToList()
-              
+                EmployeeBirthday = employees,
+                Events = events
             };
             return View(model);
-           
+
         }
 
         public ActionResult About()
@@ -58,6 +62,7 @@ namespace ABS_LMS.Controllers
 
             return View();
         }
+
 
     }
 }

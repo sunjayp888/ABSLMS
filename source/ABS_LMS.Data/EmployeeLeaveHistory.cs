@@ -30,7 +30,7 @@ namespace ABS_LMS.Data
         public Nullable<int> UpdatedBy { get; set; }
         public string ApprovedPersonName { get; set; }
     
-        public virtual LeaveType LeaveType { get; set; }
         public virtual Employee Employee { get; set; }
+        public virtual LeaveType LeaveType { get; set; }
     }
 }

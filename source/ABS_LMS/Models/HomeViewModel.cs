@@ -9,5 +9,6 @@ namespace ABS_LMS.Models
     public class HomeViewModel
     {
         public List<Employee> EmployeeBirthday { get; set; }
+        public List<Event> Events { get; set; }
     }
 }

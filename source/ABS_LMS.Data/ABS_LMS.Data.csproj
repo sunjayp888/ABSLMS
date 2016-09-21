@@ -67,7 +67,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ABSLMSModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="AspNetRole.cs">
+      <DependentUpon>ABSLMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="AspNetUser.cs">
+      <DependentUpon>ABSLMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserLogin.cs">
       <DependentUpon>ABSLMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Department.cs">

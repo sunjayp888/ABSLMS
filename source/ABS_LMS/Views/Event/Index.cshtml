@@ -17,7 +17,7 @@
     if (@Model.Events.Any())
     {<div class="leaveHistory">
         <div class="desktopview">
-            <table class="table">
+            <table class="table table-bordered">
                 <tr>
                     <th>
                         Title
@@ -38,8 +38,7 @@
                         Created By
                     </th>
                     <th></th>
-                    <th></th>
-                    <th></th>
+                    
                 </tr>
 
                 @foreach (var item in Model.Events)
@@ -81,7 +80,7 @@
                                         @Html.ActionLink("Edit", "Edit", new { id = item.EventId }, new { @class = "linktobtn" })
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.EventId }, new { @class = "linktobtn", @id="DeleteButton" })
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.EventId }, new { @class = "linktobtn", @id="DeleteButton" , @style= "padding: 5px 15px;" })
                                     </td>
                                 </tr>
                             </table>
