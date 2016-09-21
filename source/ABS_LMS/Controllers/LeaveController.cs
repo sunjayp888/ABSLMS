@@ -56,9 +56,10 @@ namespace ABS_LMS.Controllers
 
         public ActionResult Index(int id,int pagenumber = 1, int pagesize = 10)
         {
+            DateTime today = DateTime.Today;
             return Authorization.HasAccess(Convert.ToString(id), () =>
             {
-                var leaveDetails = _employeeLeaveService.GetEmployeeLeaveDetails(id);
+                var leaveDetails = _employeeLeaveService.GetEmployeeLeaveDetails(id).Where(s=>s.LeaveStartDate.Month==today.Month && s.LeaveStartDate.Year==today.Year);
 
                 var model = new EmployeeLeaveIndexViewModel
                 {
@@ -68,7 +69,20 @@ namespace ABS_LMS.Controllers
                 return View(model);
             });
         }
+        public ActionResult History(int id, int pagenumber = 1, int pagesize = 10)
+        {
+            return Authorization.HasAccess(Convert.ToString(id), () =>
+            {
+                var leaveDetails = _employeeLeaveService.GetEmployeeLeaveDetails(id);
 
+                var model = new EmployeeLeaveIndexViewModel
+                {
+                    EmployeeLeaveDetails = leaveDetails.ToPagedList(pagenumber, pagesize)
+                };
+
+                return View("Index",model);
+            });
+        }
         // GET: Leave
         public ActionResult LeavePendingForApproval(int id, int pagenumber = 1, int pagesize = 10)
         {
