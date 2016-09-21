@@ -45,7 +45,7 @@ namespace ABS_LMS.Controllers
 
         public ActionResult Edit(int id)
         {
-            var model = _eventService.GetEvents().Where(e => e.EventId == id);
+            var model = _eventService.GetEvents().FirstOrDefault(e => e.EventId == id);
             TempData["Event"] = model;
             return RedirectToAction("Create", model);
         }

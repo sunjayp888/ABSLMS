@@ -15,29 +15,33 @@
         <hr />
         @Html.ValidationSummary(false, "", new { @class = " alert alert-warning" })
 
-        <div class="form-group">
-            <label>Title</label>
+
+        <div class="form-group hidden">
+            <label>Event Id</label>
             <div class="col-md-8">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "" } })
+                @Html.EditorFor(model => model.EventId, new { htmlAttributes = new { @class = "" } })
                 @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.EmployeeId, "", new { @class = "pull-left alert alert-warning " })*@
             </div>
         </div>
 
         <div class="form-group">
-            @*@Html.Label("Display Start Date", htmlAttributes: new { @class = " col-md-4" })*@
-            <label>Display Start Date</label>
+            <label>Title</label>
             <div class="col-md-8">
-                @Html.TextBoxFor(model => model.DisplayStartDate, new { @class = "", @Value = "" })
-                @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveStartDate, "", new { @class = "pull-left alert alert-warning " })*@
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "" } })
             </div>
         </div>
 
         <div class="form-group">
+            <label>Display Start Date</label>
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.DisplayStartDate, "{0:dd-MMM-yyyy}", new { @class = "" })
+            </div>
+        </div>
 
+        <div class="form-group">
             <label>Display End Date</label>
             <div class="col-md-8">
-                @Html.TextBoxFor(model => model.DisplayEndDate, new { @class = "", @Value = "" })
-                @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveEndDate, "", new { @class = "pull-left alert alert-warning " })*@
+                @Html.TextBoxFor(model => model.DisplayEndDate, "{0:dd-MMM-yyyy}", new { @class = "" })
             </div>
         </div>
 
@@ -45,7 +49,7 @@
 
             <label>Organise Date</label>
             <div class="col-md-8">
-                @Html.TextBoxFor(model => model.OrganiseDate, new { @class = "", @Value = "" })
+                @Html.TextBoxFor(model => model.OrganiseDate, "{0:dd-MMM-yyyy}", new { @class = "" })
             </div>
         </div>
 
@@ -53,14 +57,14 @@
             @*@Html.Label("Description", htmlAttributes: new { @class = " col-md-4" })*@
             <label>Description</label>
             <div class="col-md-8">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "" } })
+                @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "" } })
                 @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.NoOfDays, "", new { @class = "pull-left alert alert-warning " })*@
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-4 col-md-8">
-                &nbsp;&nbsp;<input type="submit" value="Create" class="btn btn-default savesubmit" />
+                &nbsp;&nbsp;<input type="submit" value="Save" class="btn btn-default savesubmit" />
             </div>
         </div>
 

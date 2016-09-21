@@ -56,7 +56,7 @@
                     }
                     if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
                     {
-                        <li>@Html.ActionLink("Manage Event", "Index", "Event")</li>
+                        <li>@Html.ActionLink("Manage Event", "Index", "Event", new { @Id = "ManageEvent" })</li>
                     }
                 }
 

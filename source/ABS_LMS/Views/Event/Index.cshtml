@@ -9,6 +9,8 @@
 
 @if (Model != null)
 {
+    <br />
+    <br />
     <p class="Link-btn">
         @Html.ActionLink("Add Event", "Create", new { @class = "btn btn-default" }) &nbsp; &nbsp;
     </p>
@@ -21,14 +23,17 @@
                         Title
                     </th>
                     <th>
-                        Organise Date
+                        Description
                     </th>
                     <th>
+                        OrganiseDate
+                    </th>
+                    @*<th>
                         Display Start Date
                     </th>
                     <th>
                         Display End Date
-                    </th>
+                    </th>*@
                     <th>
                         Created By
                     </th>
@@ -44,12 +49,15 @@
                             @item.Title
                         </td>
                         <td>
+                            @item.Description
+                        </td>
+                        <td>
                             @if (item.OrganiseDate != null)
                             {
                                 @item.OrganiseDate.Value.ToString("dd-MMM-yyyy")
                             }
                         </td>
-                        <td>
+                        @*<td>
                             @if (item.DisplayStartDate != null)
                             {
                                 @item.DisplayStartDate.Value.ToString("dd-MMM-yyyy")
@@ -60,7 +68,7 @@
                             {
                                 @item.DisplayEndDate.Value.ToString("dd-MMM-yyyy")
                             }
-                        </td>
+                        </td>*@
                         <td>
                             @item.CreatedBy
                         </td>
@@ -69,12 +77,11 @@
 
                             <table class="@item.EventId Linkbtn">
                                 <tr>
-
                                     <td>
                                         @Html.ActionLink("Edit", "Edit", new { id = item.EventId }, new { @class = "linktobtn" })
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.EventId }, new { @class = "linktobtn" })
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.EventId }, new { @class = "linktobtn", @id="DeleteButton" })
                                     </td>
                                 </tr>
                             </table>
@@ -91,4 +98,21 @@
         @Html.PagedListPager(Model.Events, pagenumber => Url.Action("Index", new { pagenumber }))
     </div>
     }
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.nav #ManageEvent').addClass('active');
+            $("#DeleteButton").click(function () {
+                //alert("save and submit click called");
+                if (confirm("Are you sure, you want to delete?")) {
+                    return true;
+                }
+                return false;
+            });
+        });
+        
+    </script>
 }
