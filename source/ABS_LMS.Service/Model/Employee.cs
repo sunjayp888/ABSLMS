@@ -92,6 +92,8 @@ namespace ABS_LMS.Service.Model
         {
             get { return DOB.GetValueOrDefault().ToShortDateString(); }
         }
+        [DisplayName("Employee Image")]
+        public byte[] EmployeeImage { get; set; }
     }
 
 }
