@@ -104,14 +104,17 @@
                     @Html.DisplayFor(model => model.EmployeeDetail.ReportingManagerName)
                 </td>
             </tr>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeDetail.LeavingDateUTC)
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.EmployeeDetail.LeavingDateUTC)
-                </td>
-            </tr>
+@if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
+{
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeDetail.LeavingDateUTC)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.EmployeeDetail.LeavingDateUTC)
+        </td>
+    </tr>
+}
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.EmployeeDetail.PANCard)
@@ -128,13 +131,17 @@
                     @Html.DisplayFor(model => model.EmployeeDetail.AadharId)
                 </td>
             </tr>
+@if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
+            {
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.EmployeeDetail.ConfirmationDateUTC)
                 </th>
-                <td>
-                    @Html.DisplayFor(model => model.EmployeeDetail.ConfirmationDateUTC)
-                </td>
+            <td>
+                @Html.DisplayFor(model => model.EmployeeDetail.ConfirmationDateUTC)
+            </td>
+            </tr>
+}
         </table>
         <p>
             @if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)

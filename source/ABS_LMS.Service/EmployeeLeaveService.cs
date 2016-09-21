@@ -39,8 +39,8 @@ namespace ABS_LMS.Service
                 CreatedBy = employeeLeaveDetails.CreatedBy,
                 UpdatedDateUTC = DateTime.UtcNow,
                 UpdatedBy = employeeLeaveDetails.CreatedBy,
-                ApprovedPersonName = employeeLeaveDetails.ApprovedPersonName
-
+                ApprovedPersonName = employeeLeaveDetails.ApprovedPersonName,
+                HalfDayDateUTC =  employeeLeaveDetails.HalfDayDateUTC 
             });
             _unitOfWork.Complete();
         }
@@ -70,7 +70,8 @@ namespace ABS_LMS.Service
                 LeaveStatusName = GetEnumsNameById(Convert.ToInt32(employeeLeaveDetails.LeaveStatus)),
                 LeaveStatusDisplayName = GetEnumsDisplayNameById(Convert.ToInt32(employeeLeaveDetails.LeaveStatus)),
                 LeaveTypeName = leaveTypeList.FirstOrDefault(l => l.LeaveTypeId == employeeLeaveDetails.LeaveTypeId).Name.ToString(),
-                ApprovedPersonName = employeeLeaveDetails.ApprovedPersonName
+                ApprovedPersonName = employeeLeaveDetails.ApprovedPersonName,
+                HalfDayDateUTC = employeeLeaveDetails.HalfDayDateUTC
             }).OrderByDescending(o => o.CreatedDateUTC).ToList();
 
         }
@@ -101,8 +102,9 @@ namespace ABS_LMS.Service
                 UpdatedDateUTC = leaveDetails.UpdatedDateUTC,
                 UpdatedBy = leaveDetails.CreatedBy,
                 ApprovedPersonName = leaveDetails.ApprovedPersonName,
-                LeaveTypeId = leaveDetails.LeaveTypeId
-             
+                LeaveTypeId = leaveDetails.LeaveTypeId,
+                HalfDayDateUTC = leaveDetails.HalfDayDateUTC
+
             };
         }
 
@@ -129,6 +131,7 @@ namespace ABS_LMS.Service
             leaveDetails.UpdatedDateUTC = DateTime.UtcNow;
             leaveDetails.CreatedBy = employeeLeaveDetails.UpdatedBy;
             leaveDetails.ApprovedPersonName = employeeLeaveDetails.ApprovedPersonName;
+            leaveDetails.HalfDayDateUTC = employeeLeaveDetails.HalfDayDateUTC;
             _unitOfWork.Complete();
 
         }
@@ -174,6 +177,8 @@ namespace ABS_LMS.Service
                 LeaveTypeName = leaveTypeList.FirstOrDefault(l => l.LeaveTypeId == employeeLeaveDetails.LeaveTypeId)?.Name.ToString(),
                 EmployeeName = employedetails.SingleOrDefault(e => e.EmployeeId == employeeLeaveDetails.EmployeeId)?.FirstName + " " + employedetails.SingleOrDefault(e => e.EmployeeId == employeeLeaveDetails.EmployeeId)?.LastName,
                 //ApprovedPersonName = employeeLeaveDetails.ApprovedPersonName
+                HalfDayDateUTC = employeeLeaveDetails.HalfDayDateUTC
+
             }).OrderByDescending(o => o.CreatedDateUTC).ToList();
 
         }
@@ -201,8 +206,9 @@ namespace ABS_LMS.Service
                 LeaveStatusDisplayName = GetEnumsDisplayNameById(Convert.ToInt32(employeeLeaveDetails.LeaveStatus)),
                 LeaveStatusName = GetEnumsNameById(Convert.ToInt32(employeeLeaveDetails.LeaveStatus)),
                 LeaveTypeName = leaveTypeList.FirstOrDefault(l => l.LeaveTypeId == employeeLeaveDetails.LeaveTypeId)?.Name.ToString(),
-                EmployeeName = employedetails.SingleOrDefault(e => e.EmployeeId == employeeLeaveDetails.EmployeeId)?.FirstName + " " + employedetails.SingleOrDefault(e => e.EmployeeId == employeeLeaveDetails.EmployeeId)?.LastName
+                EmployeeName = employedetails.SingleOrDefault(e => e.EmployeeId == employeeLeaveDetails.EmployeeId)?.FirstName + " " + employedetails.SingleOrDefault(e => e.EmployeeId == employeeLeaveDetails.EmployeeId)?.LastName,
                 //ApprovedPersonName = employeeLeaveDetails.ApprovedPersonName
+                HalfDayDateUTC = employeeLeaveDetails.HalfDayDateUTC
             }).ToList();
 
         }

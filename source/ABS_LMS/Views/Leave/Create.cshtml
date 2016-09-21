@@ -11,66 +11,78 @@
 
     <div class="row col-md-6 textboxsize">
         <h1>Create Leave</h1>
-        <hr />
-        @Html.ValidationSummary(false, "", new { @class = " alert alert-warning" })
+        <hr/>
+        @Html.ValidationSummary(false, "", new {@class = " alert alert-warning"})
         @Html.HiddenFor(m => m.IsSave)
         <div class="form-group" style="display: none;">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.EmployeeId, htmlAttributes: new { @class = " col-md-4" })
+            @Html.LabelFor(model => model.EmployeeLeaveDetails.EmployeeId, htmlAttributes: new {@class = " col-md-4"})
             <div class="col-md-8">
-                @Html.EditorFor(model => model.EmployeeLeaveDetails.EmployeeId, new { htmlAttributes = new { @class = "" } })
+                @Html.EditorFor(model => model.EmployeeLeaveDetails.EmployeeId, new {htmlAttributes = new {@class = ""}})
                 @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.EmployeeId, "", new { @class = "pull-left alert alert-warning " })*@
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStartDate, htmlAttributes: new { @class = " col-md-4" })
+            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStartDate, htmlAttributes: new {@class = " col-md-4"})
             <div class="col-md-8">
-                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveStartDate, new { @class = "", @Value = "" })
+                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveStartDate, new {@class = "", @Value = ""})
                 @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveStartDate, "", new { @class = "pull-left alert alert-warning " })*@
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveEndDate, htmlAttributes: new { @class = " col-md-4" })
+            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveEndDate, htmlAttributes: new {@class = " col-md-4"})
             <div class="col-md-8">
-                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveEndDate, new { @class = "", @Value = "" })
+                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveEndDate, new {@class = "", @Value = ""})
                 @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveEndDate, "", new { @class = "pull-left alert alert-warning " })*@
             </div>
         </div>
 
+
+
         <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveTypeId, htmlAttributes: new { @class = " col-md-4" })
+            @Html.Label("Half Day", htmlAttributes: new {@class = " col-md-4"})
             <div class="col-md-8">
-                @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveTypeId, Model.LeaveType, new { @class = "form-control" })
+                @Html.CheckBoxFor(model => model.EmployeeLeaveDetails.IsHalfDay)
+                @*@Html.CheckBox("isHalfDay", Model.EmployeeLeaveDetails.IsHalfDay, htmlAttributes: new {@id = "isHalfDay"})*@
+                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.HalfDayDateUTC, new {@class = "", @Value = ""})
+                @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.HalfDayDateUTC, "", new { @class = "pull-left alert alert-warning " })*@
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.NoOfDays, htmlAttributes: new { @class = " col-md-4" })
+            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveTypeId, htmlAttributes: new {@class = " col-md-4"})
             <div class="col-md-8">
-                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.NoOfDays, new { @readonly="readonly" })
+                @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveTypeId, Model.LeaveType, new {@class = "form-control"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmployeeLeaveDetails.NoOfDays, htmlAttributes: new {@class = " col-md-4"})
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.NoOfDays, new {@readonly = "readonly"})
                 @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.NoOfDays, "", new { @class = "pull-left alert alert-warning " })*@
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.Reason, htmlAttributes: new { @class = " col-md-4" })
+            @Html.LabelFor(model => model.EmployeeLeaveDetails.Reason, htmlAttributes: new {@class = " col-md-4"})
             <div class="col-md-8">
-                @Html.EditorFor(model => model.EmployeeLeaveDetails.Reason, new { htmlAttributes = new { @class = "", @cols = 80, @rows = 5 } })
+                @Html.EditorFor(model => model.EmployeeLeaveDetails.Reason, new {htmlAttributes = new {@class = "", @cols = 80, @rows = 5}})
             </div>
         </div>
 
         <div class="form-group" style="display: none;">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStatus, htmlAttributes: new { @class = " col-md-4" })
+            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStatus, htmlAttributes: new {@class = " col-md-4"})
             <div class="col-md-8">
-                @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveStatus, Model.LeaveStatusEnums, new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveStatus, Model.LeaveStatusEnums, new {@class = "form-control"})
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.ApprovedBy, new { @class = " col-md-4" })
+            @Html.LabelFor(model => model.EmployeeLeaveDetails.ApprovedBy, new {@class = " col-md-4"})
             <div class="col-md-8">
-                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.ApprovedPersonName, new { @readonly="readonly" })
+                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.ApprovedPersonName, new {@readonly = "readonly"})
                 @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedPersonName)
                 @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedBy)
             </div>
@@ -78,13 +90,31 @@
 
         <div class="form-group">
             <div class="col-md-offset-4 col-md-8">
-                &nbsp;&nbsp;<input type="submit" value="Apply" class="btn btn-default savesubmit" />
+                &nbsp;&nbsp;<input type="button" value="Apply" class="btn btn-default leaveApply"/>
             </div>
         </div>
         <div>
-            @Html.ActionLink("Back to List", "Index", new { id = HttpCurrentUser.EmployeeId })
+            @Html.ActionLink("Back to List", "Index", new {id = HttpCurrentUser.EmployeeId})
+        </div>
+
+        <div class="modal fade" id="leaveModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Confirmation</h4>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure, you want to apply for leave?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
+                        <button type="button" id="btnCancel" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <div id="divLoading"></div>
     //Leave summary
 
     @*<div class="form-horizontal col-md-6 ">
@@ -141,23 +171,30 @@
 
         $(document).ready(function() {
             $('.nav #Leaves').addClass('active');
-            $(".save").click(function() {
-                $("#EmployeeLeaveDetails_LeaveStatus").val("1");
-                document.getElementById('IsSave').value = true;
-                alert(document.getElementById('IsSave').value);
-
-                //alert($("#EmployeeLeaveDetails_LeaveStartDate").val());
+            $("#EmployeeLeaveDetails_HalfDayDateUTC").hide();
+            $(".leaveApply").click(function () {
+                $("#leaveModal").modal('show');
             });
 
-            $(".savesubmit").click(function() {
-                //alert("save and submit click called");
-                if (confirm("Are you sure, you want to apply for leave?")) {
-                    $("#EmployeeLeaveDetails_LeaveStatus").val("2");
-                    return true;
+            $("#btnOK").click(function () {
+                $("#leaveModal").modal('hide');
+                $("#EmployeeLeaveDetails_LeaveStatus").val("2");
+                $("#divLoading").html('<image src="../../Content/Base/images/spinner.gif" alt="processing...."/>').show();
+            });
+
+            $("#btnCancel").click(function () {
+                $("#smsModal").modal('hide');
+            });
+
+            $('#EmployeeLeaveDetails_IsHalfDay').click(function () {
+                if ($(this).is(':checked')) {
+                    $("#EmployeeLeaveDetails_HalfDayDateUTC").show();
+                } else {
+                    $("#EmployeeLeaveDetails_HalfDayDateUTC").hide();
+                    $("#EmployeeLeaveDetails_HalfDayDateUTC").val('');
                 }
-                return false;
             });
-
+            
             $("#EmployeeLeaveDetails_JoiningDate").datepicker().on("changeDate", function(e) {
                 $(this).datepicker("hide");
             });
@@ -201,6 +238,14 @@
                         alert("Start Date is greater than End Date");
                     }
                 }
+            }).val();
+
+
+            $("#EmployeeLeaveDetails_HalfDayDateUTC").datepicker({
+                dateFormat: 'dd-M-yy',
+                changeMonth: true,
+                changeYear: true,
+                constrainInput: true
             }).val();
         });
 
