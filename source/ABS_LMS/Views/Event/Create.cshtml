@@ -57,7 +57,7 @@
             @*@Html.Label("Description", htmlAttributes: new { @class = " col-md-4" })*@
             <label>Description</label>
             <div class="col-md-8">
-                @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "" } })
+                @Html.TextAreaFor(model => model.Description, new { @class = "",@rows="6" } )
                 @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.NoOfDays, "", new { @class = "pull-left alert alert-warning " })*@
             </div>
         </div>
