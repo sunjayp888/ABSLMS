@@ -350,6 +350,9 @@ namespace ABS_LMS.Controllers
                 case "lastname":
                     sortedDocuments = sortOrderDesc ? employees.OrderByDescending(s => s.LastName).ToList() : employees.OrderBy(s => s.LastName).ToList();
                     break;
+                case "gender":
+                    sortedDocuments = sortOrderDesc ? employees.OrderByDescending(s => s.Gender).ToList() : employees.OrderBy(s => s.Gender).ToList();
+                    break;
                 case "designation":
                     sortedDocuments = sortOrderDesc ? employees.OrderByDescending(s => s.Designation).ToList() : employees.OrderBy(s => s.Designation).ToList();
                     break;

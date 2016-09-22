@@ -26,7 +26,7 @@ namespace ABS_LMS.Data
         public Nullable<int> Year { get; set; }
         public Nullable<int> Month { get; set; }
     
-        public virtual Employee Employee { get; set; }
         public virtual LeaveType LeaveType { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

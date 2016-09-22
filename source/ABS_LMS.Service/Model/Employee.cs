@@ -34,8 +34,15 @@ namespace ABS_LMS.Service.Model
         [Required(ErrorMessage = "Please Enter Mobile Number")]
         public string MobileNo { get; set; }
 
-        [DataType(DataType.MultilineText)]
-        public string Address { get; set; }
+        
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string Address3 { get; set; }
+        public string Address4 { get; set; }
+        public string PostCode { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Country { get; set; }
 
         [Required(ErrorMessage = "Please Enter Date Of Birth")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]

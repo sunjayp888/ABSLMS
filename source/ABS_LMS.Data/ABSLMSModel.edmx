@@ -77,7 +77,14 @@
           <Property Name="EmailId" Type="nvarchar" MaxLength="255" />
           <Property Name="CompanyEmailId" Type="nvarchar" MaxLength="255" />
           <Property Name="MobileNo" Type="nvarchar" MaxLength="255" />
-          <Property Name="Address" Type="nvarchar" MaxLength="255" />
+          <Property Name="Address1" Type="nvarchar(max)" />
+          <Property Name="Address2" Type="nvarchar(max)" />
+          <Property Name="Address3" Type="nvarchar(max)" />
+          <Property Name="Address4" Type="nvarchar(max)" />
+          <Property Name="Postcode" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="500" />
+          <Property Name="State" Type="varchar" MaxLength="500" />
+          <Property Name="Country" Type="varchar" MaxLength="500" />
           <Property Name="DOB" Type="datetime" />
           <Property Name="DOJ" Type="datetime" />
           <Property Name="DepartmentId" Type="int" />
@@ -325,18 +332,27 @@
           <EntitySet Name="AspNetUsers" EntityType="ABSLMSModel.AspNetUser" />
           <EntitySet Name="Departments" EntityType="ABSLMSModel.Department" />
           <EntitySet Name="Designations" EntityType="ABSLMSModel.Designation" />
-          <EntitySet Name="Employees" EntityType="ABSLMSModel.Employee" />
           <EntitySet Name="EmployeeLeaveHistories" EntityType="ABSLMSModel.EmployeeLeaveHistory" />
           <EntitySet Name="Holidays" EntityType="ABSLMSModel.Holiday" />
           <EntitySet Name="LeaveDetails" EntityType="ABSLMSModel.LeaveDetail" />
           <EntitySet Name="LeaveTypes" EntityType="ABSLMSModel.LeaveType" />
-          <AssociationSet Name="FK_AspNetUsers_Employee" Association="ABSLMSModel.FK_AspNetUsers_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-          </AssociationSet>
           <AssociationSet Name="FK_Department_Department" Association="ABSLMSModel.FK_Department_Department">
             <End Role="Department" EntitySet="Departments" />
             <End Role="Department1" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeLeaveHistory_LeaveType" Association="ABSLMSModel.FK_EmployeeLeaveHistory_LeaveType">
+            <End Role="LeaveType" EntitySet="LeaveTypes" />
+            <End Role="EmployeeLeaveHistory" EntitySet="EmployeeLeaveHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveDetails_LeaveType" Association="ABSLMSModel.FK_LeaveDetails_LeaveType">
+            <End Role="LeaveType" EntitySet="LeaveTypes" />
+            <End Role="LeaveDetail" EntitySet="LeaveDetails" />
+          </AssociationSet>
+          <EntitySet Name="Events" EntityType="ABSLMSModel.Event" />
+          <EntitySet Name="Employees" EntityType="ABSLMSModel.Employee" />
+          <AssociationSet Name="FK_AspNetUsers_Employee" Association="ABSLMSModel.FK_AspNetUsers_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
           <AssociationSet Name="FK_Employee_Department" Association="ABSLMSModel.FK_Employee_Department">
             <End Role="Department" EntitySet="Departments" />
@@ -354,15 +370,6 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="LeaveDetail" EntitySet="LeaveDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_EmployeeLeaveHistory_LeaveType" Association="ABSLMSModel.FK_EmployeeLeaveHistory_LeaveType">
-            <End Role="LeaveType" EntitySet="LeaveTypes" />
-            <End Role="EmployeeLeaveHistory" EntitySet="EmployeeLeaveHistories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LeaveDetails_LeaveType" Association="ABSLMSModel.FK_LeaveDetails_LeaveType">
-            <End Role="LeaveType" EntitySet="LeaveTypes" />
-            <End Role="LeaveDetail" EntitySet="LeaveDetails" />
-          </AssociationSet>
-          <EntitySet Name="Events" EntityType="ABSLMSModel.Event" />
           </EntityContainer>
         <ComplexType Name="sp_LeaveSummary_Result">
           <Property Type="Int32" Name="LeaveTypeId" Nullable="false" />
@@ -441,37 +448,6 @@
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employees" Relationship="ABSLMSModel.FK_Employee_Designation" FromRole="Designation" ToRole="Employee" />
         </EntityType>
-        <EntityType Name="Employee">
-          <Key>
-            <PropertyRef Name="EmployeeId" />
-          </Key>
-          <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="EmailId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyEmailId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="MobileNo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="DOB" Type="DateTime" Precision="3" />
-          <Property Name="DOJ" Type="DateTime" Precision="3" />
-          <Property Name="DepartmentId" Type="Int32" />
-          <Property Name="DesignationId" Type="Int32" />
-          <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="LeavingDateUTC" Type="DateTime" Precision="3" />
-          <Property Name="PANCard" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AadharId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="ConfirmationDateUTC" Type="DateTime" Precision="3" />
-          <Property Name="ReportingManager" Type="Int32" />
-          <Property Name="Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="EmployeeImage" Type="Binary" MaxLength="500" FixedLength="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="ABSLMSModel.FK_AspNetUsers_Employee" FromRole="Employee" ToRole="AspNetUser" />
-          <NavigationProperty Name="Department" Relationship="ABSLMSModel.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
-          <NavigationProperty Name="Designation" Relationship="ABSLMSModel.FK_Employee_Designation" FromRole="Employee" ToRole="Designation" />
-          <NavigationProperty Name="EmployeeLeaveHistories" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_Employee" FromRole="Employee" ToRole="EmployeeLeaveHistory" />
-          <NavigationProperty Name="LeaveDetails" Relationship="ABSLMSModel.FK_LeaveDetails_Employee" FromRole="Employee" ToRole="LeaveDetail" />
-        </EntityType>
         <EntityType Name="EmployeeLeaveHistory">
           <Key>
             <PropertyRef Name="EmployeeLeaveHistoryId" />
@@ -491,8 +467,8 @@
           <Property Name="UpdatedDateUTC" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="ApprovedPersonName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Employee" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_Employee" FromRole="EmployeeLeaveHistory" ToRole="Employee" />
           <NavigationProperty Name="LeaveType" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_LeaveType" FromRole="EmployeeLeaveHistory" ToRole="LeaveType" />
+          <NavigationProperty Name="Employee" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_Employee" FromRole="EmployeeLeaveHistory" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Holiday">
           <Key>
@@ -519,8 +495,8 @@
           <Property Name="Balance" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Year" Type="Int32" />
           <Property Name="Month" Type="Int32" />
-          <NavigationProperty Name="Employee" Relationship="ABSLMSModel.FK_LeaveDetails_Employee" FromRole="LeaveDetail" ToRole="Employee" />
           <NavigationProperty Name="LeaveType" Relationship="ABSLMSModel.FK_LeaveDetails_LeaveType" FromRole="LeaveDetail" ToRole="LeaveType" />
+          <NavigationProperty Name="Employee" Relationship="ABSLMSModel.FK_LeaveDetails_Employee" FromRole="LeaveDetail" ToRole="Employee" />
         </EntityType>
         <EntityType Name="LeaveType">
           <Key>
@@ -534,6 +510,97 @@
           <NavigationProperty Name="EmployeeLeaveHistories" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_LeaveType" FromRole="LeaveType" ToRole="EmployeeLeaveHistory" />
           <NavigationProperty Name="LeaveDetails" Relationship="ABSLMSModel.FK_LeaveDetails_LeaveType" FromRole="LeaveType" ToRole="LeaveDetail" />
         </EntityType>
+        <Association Name="FK_Department_Department">
+          <End Type="ABSLMSModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="ABSLMSModel.Department" Role="Department1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentId" />
+            </Principal>
+            <Dependent Role="Department1">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeLeaveHistory_LeaveType">
+          <End Type="ABSLMSModel.LeaveType" Role="LeaveType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ABSLMSModel.EmployeeLeaveHistory" Role="EmployeeLeaveHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveType">
+              <PropertyRef Name="LeaveTypeId" />
+            </Principal>
+            <Dependent Role="EmployeeLeaveHistory">
+              <PropertyRef Name="LeaveTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveDetails_LeaveType">
+          <End Type="ABSLMSModel.LeaveType" Role="LeaveType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ABSLMSModel.LeaveDetail" Role="LeaveDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveType">
+              <PropertyRef Name="LeaveTypeId" />
+            </Principal>
+            <Dependent Role="LeaveDetail">
+              <PropertyRef Name="LeaveTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="Title" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrganiseDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyEmailId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Postcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="DOJ" Type="DateTime" Precision="3" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="DesignationId" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LeavingDateUTC" Type="DateTime" Precision="3" />
+          <Property Name="PANCard" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AadharId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmationDateUTC" Type="DateTime" Precision="3" />
+          <Property Name="ReportingManager" Type="Int32" />
+          <Property Name="Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeImage" Type="Binary" MaxLength="500" FixedLength="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="ABSLMSModel.FK_AspNetUsers_Employee" FromRole="Employee" ToRole="AspNetUser" />
+          <NavigationProperty Name="Department" Relationship="ABSLMSModel.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
+          <NavigationProperty Name="Designation" Relationship="ABSLMSModel.FK_Employee_Designation" FromRole="Employee" ToRole="Designation" />
+          <NavigationProperty Name="EmployeeLeaveHistories" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_Employee" FromRole="Employee" ToRole="EmployeeLeaveHistory" />
+          <NavigationProperty Name="LeaveDetails" Relationship="ABSLMSModel.FK_LeaveDetails_Employee" FromRole="Employee" ToRole="LeaveDetail" />
+        </EntityType>
         <Association Name="FK_AspNetUsers_Employee">
           <End Type="ABSLMSModel.Employee" Role="Employee" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -545,18 +612,6 @@
             </Principal>
             <Dependent Role="AspNetUser">
               <PropertyRef Name="EmployeeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Department_Department">
-          <End Type="ABSLMSModel.Department" Role="Department" Multiplicity="1" />
-          <End Type="ABSLMSModel.Department" Role="Department1" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Department">
-              <PropertyRef Name="DepartmentId" />
-            </Principal>
-            <Dependent Role="Department1">
-              <PropertyRef Name="DepartmentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -612,47 +667,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EmployeeLeaveHistory_LeaveType">
-          <End Type="ABSLMSModel.LeaveType" Role="LeaveType" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ABSLMSModel.EmployeeLeaveHistory" Role="EmployeeLeaveHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LeaveType">
-              <PropertyRef Name="LeaveTypeId" />
-            </Principal>
-            <Dependent Role="EmployeeLeaveHistory">
-              <PropertyRef Name="LeaveTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LeaveDetails_LeaveType">
-          <End Type="ABSLMSModel.LeaveType" Role="LeaveType" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ABSLMSModel.LeaveDetail" Role="LeaveDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LeaveType">
-              <PropertyRef Name="LeaveTypeId" />
-            </Principal>
-            <Dependent Role="LeaveDetail">
-              <PropertyRef Name="LeaveTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Event">
-          <Key>
-            <PropertyRef Name="EventId" />
-          </Key>
-          <Property Name="EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Precision="3" />
-          <Property Name="Title" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="OrganiseDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -712,33 +726,6 @@
               <MappingFragment StoreEntitySet="Designation">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Employees">
-            <EntityTypeMapping TypeName="ABSLMSModel.Employee">
-              <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="EmployeeImage" ColumnName="EmployeeImage" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="ReportingManager" ColumnName="ReportingManager" />
-                <ScalarProperty Name="ConfirmationDateUTC" ColumnName="ConfirmationDateUTC" />
-                <ScalarProperty Name="AadharId" ColumnName="AadharId" />
-                <ScalarProperty Name="PANCard" ColumnName="PANCard" />
-                <ScalarProperty Name="LeavingDateUTC" ColumnName="LeavingDateUTC" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
-                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
-                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
-                <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
-                <ScalarProperty Name="CompanyEmailId" ColumnName="CompanyEmailId" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -813,6 +800,40 @@
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="ABSLMSModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeImage" ColumnName="EmployeeImage" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="ReportingManager" ColumnName="ReportingManager" />
+                <ScalarProperty Name="ConfirmationDateUTC" ColumnName="ConfirmationDateUTC" />
+                <ScalarProperty Name="AadharId" ColumnName="AadharId" />
+                <ScalarProperty Name="PANCard" ColumnName="PANCard" />
+                <ScalarProperty Name="LeavingDateUTC" ColumnName="LeavingDateUTC" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+                <ScalarProperty Name="Address4" ColumnName="Address4" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="CompanyEmailId" ColumnName="CompanyEmailId" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

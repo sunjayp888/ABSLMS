@@ -39,7 +39,7 @@
                                         <div class="panel-heading">@eventitem.Title</div>
                                         <img src="~/Content/themes/LMS/images/Blank_flag_large.PNG" alt="Flower">
                                         <div class="carousel-caption">
-                                            <h3>@eventitem.OrganiseDate</h3>
+                                            <h3>@eventitem.OrganiseDate.Value.ToShortDateString()</h3>
                                             <p>@eventitem.Description</p>
                                         </div>
 

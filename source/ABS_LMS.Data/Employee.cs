@@ -29,7 +29,14 @@ namespace ABS_LMS.Data
         public string EmailId { get; set; }
         public string CompanyEmailId { get; set; }
         public string MobileNo { get; set; }
-        public string Address { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string Address3 { get; set; }
+        public string Address4 { get; set; }
+        public string Postcode { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Country { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
         public Nullable<System.DateTime> DOJ { get; set; }
         public Nullable<int> DepartmentId { get; set; }
