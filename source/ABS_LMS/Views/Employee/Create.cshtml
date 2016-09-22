@@ -73,12 +73,55 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.EmployeeDetail.Address, htmlAttributes: new { @class = " col-md-4" })
+                @Html.LabelFor(model => model.EmployeeDetail.Address1, htmlAttributes: new {@class = " col-md-4"})
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.EmployeeDetail.Address, new { htmlAttributes = new { @class = "", @cols = 80, @rows = 5 } })
+                    @Html.EditorFor(model => model.EmployeeDetail.Address1, new {htmlAttributes = new {@class = "", @cols = 80, @rows = 5}})
                     @*@Html.ValidationMessageFor(model => model.EmployeeDetail.Address, "", new { @class = "pull-left alert alert-warning" })*@
                 </div>
             </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeDetail.Address2, htmlAttributes: new {@class = " col-md-4"})
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.EmployeeDetail.Address2, new {htmlAttributes = new {@class = "", @cols = 80, @rows = 5}})
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.Address, "", new { @class = "pull-left alert alert-warning" })*@
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeDetail.Address3, htmlAttributes: new {@class = " col-md-4"})
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.EmployeeDetail.Address3, new {htmlAttributes = new {@class = "", @cols = 80, @rows = 5}})
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.Address, "", new { @class = "pull-left alert alert-warning" })*@
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeDetail.Address4, htmlAttributes: new {@class = " col-md-4"})
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.EmployeeDetail.Address4, new {htmlAttributes = new {@class = "", @cols = 80, @rows = 5}})
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.Address, "", new { @class = "pull-left alert alert-warning" })*@
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeDetail.PostCode, htmlAttributes: new {@class = " col-md-4"})
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.EmployeeDetail.City, new {htmlAttributes = new {@class = "", @cols = 80, @rows = 5}})
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.Address, "", new { @class = "pull-left alert alert-warning" })*@
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeDetail.State, htmlAttributes: new {@class = " col-md-4"})
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.EmployeeDetail.State, new {htmlAttributes = new {@class = "", @cols = 80, @rows = 5}})
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.Address, "", new { @class = "pull-left alert alert-warning" })*@
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeDetail.Country, htmlAttributes: new {@class = " col-md-4"})
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.EmployeeDetail.Country, new {htmlAttributes = new {@class = "", @cols = 80, @rows = 5}})
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.Address, "", new { @class = "pull-left alert alert-warning" })*@
+                </div>
+            </div>
+
 
 
         </div>
