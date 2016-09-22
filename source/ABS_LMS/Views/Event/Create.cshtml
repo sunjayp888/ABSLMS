@@ -10,152 +10,166 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="row col-md-6 textboxsize">
-        <h1>Add Event</h1>
-        <hr />
-        @Html.ValidationSummary(false, "", new { @class = " alert alert-warning" })
+<div class="row col-md-6 textboxsize">
+    @if(@Request.Params["EventId"]!=null)
+    {<h1>Edit Event</h1>
+    }
+    else
+{<h1>Add Event</h1>}
+  
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            @if(@Request.Params["EventId"]!=null)
+            {<div>Edit Event</div>
+            }
+            else
+            {<div>Add Event</div>}</div>
+        <div class="panel-body">
+            @Html.ValidationSummary(false, "", new {@class = " alert alert-warning"})
 
 
-        <div class="form-group hidden">
-            <label>Event Id</label>
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.EventId, new { htmlAttributes = new { @class = "" } })
-                @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.EmployeeId, "", new { @class = "pull-left alert alert-warning " })*@
+            <div class="form-group hidden">
+                <label>Event Id</label>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.EventId, new {htmlAttributes = new {@class = ""}})
+                    @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.EmployeeId, "", new { @class = "pull-left alert alert-warning " })*@
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Title</label>
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "" } })
+            <div class="form-group">
+                <label>Title</label>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Title, new {htmlAttributes = new {@class = ""}})
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Display Start Date</label>
-            <div class="col-md-8">
-                @Html.TextBoxFor(model => model.DisplayStartDate, "{0:dd-MMM-yyyy}", new { @class = "" })
+            <div class="form-group">
+                <label>Display Start Date</label>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.DisplayStartDate, "{0:dd-MMM-yyyy}", new {@class = ""})
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Display End Date</label>
-            <div class="col-md-8">
-                @Html.TextBoxFor(model => model.DisplayEndDate, "{0:dd-MMM-yyyy}", new { @class = "" })
+            <div class="form-group">
+                <label>Display End Date</label>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.DisplayEndDate, "{0:dd-MMM-yyyy}", new {@class = ""})
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
+            <div class="form-group">
 
-            <label>Organise Date</label>
-            <div class="col-md-8">
-                @Html.TextBoxFor(model => model.OrganiseDate, "{0:dd-MMM-yyyy}", new { @class = "" })
+                <label>Organise Date</label>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.OrganiseDate, "{0:dd-MMM-yyyy}", new {@class = ""})
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @*@Html.Label("Description", htmlAttributes: new { @class = " col-md-4" })*@
-            <label>Description</label>
-            <div class="col-md-8">
-                @Html.TextAreaFor(model => model.Description, new { @class = "",@rows="6" } )
-                @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.NoOfDays, "", new { @class = "pull-left alert alert-warning " })*@
+            <div class="form-group">
+                @*@Html.Label("Description", htmlAttributes: new { @class = " col-md-4" })*@
+                <label>Description</label>
+                <div class="col-md-8">
+                    @Html.TextAreaFor(model => model.Description, new {@class = "", @rows = "6"})
+                    @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.NoOfDays, "", new { @class = "pull-left alert alert-warning " })*@
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-4 col-md-8">
-                &nbsp;&nbsp;<input type="submit" value="Save" class="btn btn-default savesubmit" />
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-8">
+                    &nbsp;&nbsp;<input type="submit" value="Save" class="btn btn-default savesubmit" />
+                </div>
             </div>
         </div>
 
     </div>
-}
+</div>
+        }
 
 
-@section Scripts {
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        @section Scripts {
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
-    <script>
+<script>
 
-        $(document).ready(function() {
-            $('.nav #Leaves').addClass('active');
-            $(".save").click(function() {
-                $("#EmployeeLeaveDetails_LeaveStatus").val("1");
-                document.getElementById('IsSave').value = true;
-                alert(document.getElementById('IsSave').value);
+    $(document).ready(function () {
+        $('.nav #ManageEvent').addClass('active');
+        $(".save").click(function () {
+            $("#EmployeeLeaveDetails_LeaveStatus").val("1");
+            document.getElementById('IsSave').value = true;
+            alert(document.getElementById('IsSave').value);
 
-                //alert($("#EmployeeLeaveDetails_LeaveStartDate").val());
-            });
+            //alert($("#EmployeeLeaveDetails_LeaveStartDate").val());
+        });
 
-            $('.savesubmit').submit(function () {
-                if ($(this).valid()) {
-                    alert('the form is valid');
-                } else {
-                    alert('the form is InValid');
-                }
-            });
-
-          
-            $("#DisplayStartDate").datepicker({
-                dateFormat: 'dd-M-yy',
-                changeMonth: true,
-                changeYear: true,
-                constrainInput: true,
-                onSelect: function() {
-                    var start = $("#DisplayStartDate").datepicker("getDate");
-                    var end = $("#DisplayEndDate").datepicker("getDate");
-                    if (end == null)
-                        return;
-                    if (end >= start) {
-                    } else {
-                        alert("Start Date is greater than End Date");
-                    }
-                }
-            }).val();
-
-            $("#DisplayEndDate").datepicker({
-                dateFormat: "dd-M-yy",
-                changeMonth: true,
-                changeYear: true,
-                constrainInput: true,
-                onSelect: function() {
-                    $("#EmployeeLeaveDetails_NoOfDays").val("");
-                    var start = $("#DisplayStartDate").datepicker("getDate");
-                    var end = $("#DisplayEndDate").datepicker("getDate");
-                    if (start == null)
-                        return;
-                    if (end >= start) {
-                    } else {
-                        alert("Start Date is greater than End Date");
-                    }
-                }
-            }).val();
-
-            $("#OrganiseDate").datepicker({
-                dateFormat: "dd-M-yy",
-                changeMonth: true,
-                changeYear: true,
-                constrainInput: true,
-                onSelect: function () {
-                    $("#EmployeeLeaveDetails_NoOfDays").val("");
-                    var start = $("#DisplayStartDate").datepicker("getDate");
-                    var end = $("#DisplayEndDate").datepicker("getDate");
-                    if (start == null)
-                        return;
-                    if (end >= start) {
-                    } else {
-                        alert("Start Date is greater than End Date");
-                    }
-                }
-            }).val();
+        $('.savesubmit').submit(function () {
+            if ($(this).valid()) {
+                alert('the form is valid');
+            } else {
+                alert('the form is InValid');
+            }
         });
 
 
-        function formattedDate(date) {
-            var data = date.split("-");
-            return data[1] + "/" + data[0] + "/" + data[2];
-        }
+        $("#DisplayStartDate").datepicker({
+            dateFormat: 'dd-M-yy',
+            changeMonth: true,
+            changeYear: true,
+            constrainInput: true,
+            onSelect: function () {
+                var start = $("#DisplayStartDate").datepicker("getDate");
+                var end = $("#DisplayEndDate").datepicker("getDate");
+                if (end == null)
+                    return;
+                if (end >= start) {
+                } else {
+                    alert("Start Date is greater than End Date");
+                }
+            }
+        }).val();
 
-    </script>
-}
+        $("#DisplayEndDate").datepicker({
+            dateFormat: "dd-M-yy",
+            changeMonth: true,
+            changeYear: true,
+            constrainInput: true,
+            onSelect: function () {
+                $("#EmployeeLeaveDetails_NoOfDays").val("");
+                var start = $("#DisplayStartDate").datepicker("getDate");
+                var end = $("#DisplayEndDate").datepicker("getDate");
+                if (start == null)
+                    return;
+                if (end >= start) {
+                } else {
+                    alert("Start Date is greater than End Date");
+                }
+            }
+        }).val();
+
+        $("#OrganiseDate").datepicker({
+            dateFormat: "dd-M-yy",
+            changeMonth: true,
+            changeYear: true,
+            constrainInput: true,
+            onSelect: function () {
+                $("#EmployeeLeaveDetails_NoOfDays").val("");
+                var start = $("#DisplayStartDate").datepicker("getDate");
+                var end = $("#DisplayEndDate").datepicker("getDate");
+                if (start == null)
+                    return;
+                if (end >= start) {
+                } else {
+                    alert("Start Date is greater than End Date");
+                }
+            }
+        }).val();
+    });
+
+
+    function formattedDate(date) {
+        var data = date.split("-");
+        return data[1] + "/" + data[0] + "/" + data[2];
+    }
+
+</script>
+        }

@@ -8,11 +8,13 @@
 }
 
 <h1>Leave Pending For Approval</h1>
-
-@if (Model != null)
-{
-    if (@Model.EmployeeLeaveDetails.Any())
-    {
+<div class="panel panel-default">
+    <div class="panel-heading">Leave Pending For Approval</div>
+    <div class="panel-body">
+        @if (Model != null)
+        {
+        if (@Model.EmployeeLeaveDetails.Any())
+        {
         <div class="desktopview">
             <table class="table table-bordered ">
                 <tr>
@@ -37,7 +39,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().LeaveStatus)
                     </th>
-                   
+
                     <th>
                         @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().CreatedDateUTC)
                     </th>
@@ -46,45 +48,46 @@
 
                 @foreach (var item in Model.EmployeeLeaveDetails)
                 {
-                    <tr>
-                        <td>
-                            @item.EmployeeName
-                        </td>
-                        <td>
-                            @item.LeaveStartDate.ToString("dd-MMM-yyyy")
-                        </td>
-                        <td>
-                            @item.LeaveEndDate.ToString("dd-MMM-yyyy")
-                        </td>
-                        @*<td>
-                            @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.JoiningDate)
-                        </td>*@
-                        <td>
-                            @item.LeaveTypeName
-                        </td>
-                        <td>
-                            @item.NoOfDays
-                        </td>
-                        <td>
-                            @item.Reason
-                        </td>
-                        <td class="@item.EmployeeLeaveHistoryId">
-                            @item.LeaveStatusDisplayName
-                        </td>
-                        <td>
-                           @string.Format("{0:dd-MMM-yyyy}", item.CreatedDateUTC)
-                        </td>
-                        <td>
-                            @if (item.LeaveStatusName != LeaveStatus.Reject.ToString() && item.LeaveStatusName != LeaveStatus.Approve.ToString())
-                            {
-                                <div id="@item.EmployeeLeaveHistoryId" class="pendingLeave">
-                                    <input type="button" value="@LeaveStatus.Approve.ToString()" data-status="@LeaveStatus.Approve.ToString()" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default" />
-                                    &nbsp; &nbsp;
-                                    <input type="button" value="@LeaveStatus.Reject.ToString()" data-status="@LeaveStatus.Reject.ToString()" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default" />
-                                </div>
-                            }
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @item.EmployeeName
+                    </td>
+                    <td>
+                        @item.LeaveStartDate.ToString("dd-MMM-yyyy")
+                    </td>
+                    <td>
+                        @item.LeaveEndDate.ToString("dd-MMM-yyyy")
+                    </td>
+                    @*
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.JoiningDate)
+                    </td>*@
+                    <td>
+                        @item.LeaveTypeName
+                    </td>
+                    <td>
+                        @item.NoOfDays
+                    </td>
+                    <td>
+                        @item.Reason
+                    </td>
+                    <td class="@item.EmployeeLeaveHistoryId">
+                        @item.LeaveStatusDisplayName
+                    </td>
+                    <td>
+                        @string.Format("{0:dd-MMM-yyyy}", item.CreatedDateUTC)
+                    </td>
+                    <td>
+                        @if (item.LeaveStatusName != LeaveStatus.Reject.ToString() && item.LeaveStatusName != LeaveStatus.Approve.ToString())
+                        {
+                        <div id="@item.EmployeeLeaveHistoryId" class="pendingLeave">
+                            <input type="button" value="@LeaveStatus.Approve.ToString()" data-status="@LeaveStatus.Approve.ToString()" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default" />
+                            &nbsp; &nbsp;
+                            <input type="button" value="@LeaveStatus.Reject.ToString()" data-status="@LeaveStatus.Reject.ToString()" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default" />
+                        </div>
+                        }
+                    </td>
+                </tr>
 
                 }
 
@@ -94,85 +97,85 @@
         <div class="row mobileview">
             @foreach (var item in Model.EmployeeLeaveDetails)
             {
-                <div class="col-md-12 main">
-                    <div class="col-md-6 ">
-                        <div class="setfloat">
-                            @Html.LabelFor(modelItem => item.EmployeeName)
-                        </div>
-                        <div class="setfloat">
-                            @item.EmployeeName
-                        </div>
-                        <div class="setfloat ">
-                            @Html.LabelFor(modelItem => item.LeaveStartDate)
-                        </div>
-
-                        <div class="setfloat ">
-                            @item.LeaveStartDate.ToString("dd-MMM-yyyy")
-                        </div>
-                        <div class="setfloat ">
-                            @Html.LabelFor(modelItem => item.LeaveEndDate)
-                        </div>
-
-                        <div class="setfloat ">
-                            @item.LeaveEndDate.ToString("dd-MMM-yyyy")
-                        </div>
-                        @*<div class="setfloat ">
-                            @Html.LabelFor(modelItem => item.EmployeeLeaveDetails.JoiningDate)
-                        </div>
-                        <div class="setfloat ">
-                            @item.EmployeeLeaveDetails.JoiningDate
-                        </div>*@
-                        <div class="setfloat ">
-                            @Html.LabelFor(modelItem => item.LeaveTypeName)
-                        </div>
-
-                        <div class="setfloat ">
-                            @item.LeaveTypeName
-                        </div>
-                        <div class="setfloat ">
-                            @Html.LabelFor(modelItem => item.NoOfDays)
-                        </div>
-
-                        <div class="setfloat ">
-                            @item.NoOfDays
-                        </div>
-                        <div class="setfloat ">
-                            @Html.LabelFor(modelItem => item.Reason)
-                        </div>
-
-                        <div class="setfloat ">
-                            @item.Reason
-                        </div>
-                        <div class="setfloat ">
-                            @Html.LabelFor(modelItem => item.LeaveStatusName)
-                        </div>
-
-                        <div class="setfloat  @item.EmployeeLeaveHistoryId ">
-                            @item.LeaveStatusDisplayName
-                        </div>
-
-                        <div class="setfloat ">
-                            @Html.LabelFor(modelItem => item.CreatedDateUTC)
-                        </div>
-
-                        <div class="setfloat ">
-                            @string.Format("{0:dd-MMM-yyyy}", item.CreatedDateUTC)
-                        </div>
+            <div class="col-md-12 main">
+                <div class="col-md-6 ">
+                    <div class="setfloat">
+                        @Html.LabelFor(modelItem => item.EmployeeName)
+                    </div>
+                    <div class="setfloat">
+                        @item.EmployeeName
+                    </div>
+                    <div class="setfloat ">
+                        @Html.LabelFor(modelItem => item.LeaveStartDate)
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="setfloat link-align">
-                            @if (item.LeaveStatusName != LeaveStatus.Reject.ToString() && item.LeaveStatusName != LeaveStatus.Approve.ToString())
-                            {
-                                <div id="@item.EmployeeLeaveHistoryId">
-                                    <input type="button" value="@LeaveStatus.Approve.ToString()" data-status="@LeaveStatus.Approve.ToString()" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default"/>
+                    <div class="setfloat ">
+                        @item.LeaveStartDate.ToString("dd-MMM-yyyy")
+                    </div>
+                    <div class="setfloat ">
+                        @Html.LabelFor(modelItem => item.LeaveEndDate)
+                    </div>
 
-                                    <input type="button" value="@LeaveStatus.Reject.ToString()" data-status="@LeaveStatus.Reject.ToString()" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default"/>
-                                </div>
-                            }
-                        </div>
+                    <div class="setfloat ">
+                        @item.LeaveEndDate.ToString("dd-MMM-yyyy")
+                    </div>
+                    @*<div class="setfloat ">
+                        @Html.LabelFor(modelItem => item.EmployeeLeaveDetails.JoiningDate)
+                    </div>
+                    <div class="setfloat ">
+                        @item.EmployeeLeaveDetails.JoiningDate
+                    </div>*@
+                    <div class="setfloat ">
+                        @Html.LabelFor(modelItem => item.LeaveTypeName)
+                    </div>
+
+                    <div class="setfloat ">
+                        @item.LeaveTypeName
+                    </div>
+                    <div class="setfloat ">
+                        @Html.LabelFor(modelItem => item.NoOfDays)
+                    </div>
+
+                    <div class="setfloat ">
+                        @item.NoOfDays
+                    </div>
+                    <div class="setfloat ">
+                        @Html.LabelFor(modelItem => item.Reason)
+                    </div>
+
+                    <div class="setfloat ">
+                        @item.Reason
+                    </div>
+                    <div class="setfloat ">
+                        @Html.LabelFor(modelItem => item.LeaveStatusName)
+                    </div>
+
+                    <div class="setfloat  @item.EmployeeLeaveHistoryId ">
+                        @item.LeaveStatusDisplayName
+                    </div>
+
+                    <div class="setfloat ">
+                        @Html.LabelFor(modelItem => item.CreatedDateUTC)
+                    </div>
+
+                    <div class="setfloat ">
+                        @string.Format("{0:dd-MMM-yyyy}", item.CreatedDateUTC)
                     </div>
                 </div>
+
+                <div class="col-md-6">
+                    <div class="setfloat link-align">
+                        @if (item.LeaveStatusName != LeaveStatus.Reject.ToString() && item.LeaveStatusName != LeaveStatus.Approve.ToString())
+                        {
+                        <div id="@item.EmployeeLeaveHistoryId">
+                            <input type="button" value="@LeaveStatus.Approve.ToString()" data-status="@LeaveStatus.Approve.ToString()" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default" />
+
+                            <input type="button" value="@LeaveStatus.Reject.ToString()" data-status="@LeaveStatus.Reject.ToString()" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default" />
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
             }
         </div>
         <div id="divLoading"></div>
@@ -180,43 +183,45 @@
             Page @(Model.EmployeeLeaveDetails.PageCount < Model.EmployeeLeaveDetails.PageNumber ? 0 : Model.EmployeeLeaveDetails.PageNumber) of @Model.EmployeeLeaveDetails.PageCount
         </div>
         @Html.PagedListPager(Model.EmployeeLeaveDetails, pagenumber => Url.Action("LeavePendingForApproval", new { pagenumber }))
-    }
-}
-<div>
-    @Html.ActionLink("Back", "Index", new { id = HttpCurrentUser.EmployeeId })
+        }
+        }
+        <div>
+            @Html.ActionLink("Back", "Index", new {id = HttpCurrentUser.EmployeeId})
+        </div>
+    </div>
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script>
-        $(document).ready(function () {
-            $('.nav #Leaves').addClass('active');
-            $(document).on("click", ".btn", function () {
-                var row = $(this),
-                    status = row.data("status"),
-                    historyid = row.data("historyid");
-                if (confirm('Are you sure?')) {
-                    $("#divLoading").html('<image src="../../Content/Base/images/spinner.gif" alt="processing...."/>').show();
-                    $.ajax({
-                        type: "POST",
-                        url: "/Leave/LeaveStatus",
-                        data: { status: status, historyid: historyid },
-                        dataType: 'json',
-                        success: function (response) {
-                            if (parseInt(response) > 0) {
-                                $("#divLoading").html("").hide();
-                                var url = '@Url.Action("LeavePendingForApproval", "Leave", new { id = @Model.EmployeeLeaveDetails.FirstOrDefault()?.ApprovedBy })';
-                                window.location.href = url;
-                            }
-                        },
-                        error: function () {
+<script>
+    $(document).ready(function () {
+        $('.nav #Leaves').addClass('active');
+        $(document).on("click", ".btn", function () {
+            var row = $(this),
+                status = row.data("status"),
+                historyid = row.data("historyid");
+            if (confirm('Are you sure?')) {
+                $("#divLoading").html('<image src="../../Content/Base/images/spinner.gif" alt="processing...."/>').show();
+                $.ajax({
+                    type: "POST",
+                    url: "/Leave/LeaveStatus",
+                    data: { status: status, historyid: historyid },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (parseInt(response) > 0) {
                             $("#divLoading").html("").hide();
+                            var url = '@Url.Action("LeavePendingForApproval", "Leave", new { id = @Model.EmployeeLeaveDetails.FirstOrDefault()?.ApprovedBy })';
+                            window.location.href = url;
                         }
-                    });
-                }
-            });
+                    },
+                    error: function () {
+                        $("#divLoading").html("").hide();
+                    }
+                });
+            }
         });
+    });
 
-    </script>
+</script>
 
 }
 

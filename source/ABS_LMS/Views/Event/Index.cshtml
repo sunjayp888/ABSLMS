@@ -9,109 +9,177 @@
 
 @if (Model != null)
 {
-    <br />
-    <br />
-    <p class="Link-btn">
-        @Html.ActionLink("Add Event", "Create", new { @class = "btn btn-default" }) &nbsp; &nbsp;
-    </p>
-    if (@Model.Events.Any())
-    {<div class="leaveHistory">
-        <div class="desktopview">
-            <table class="table table-bordered">
-                <tr>
-                    <th>
-                        Title
-                    </th>
-                    <th>
-                        Description
-                    </th>
-                    <th>
-                        OrganiseDate
-                    </th>
-                    @*<th>
-                        Display Start Date
-                    </th>
-                    <th>
-                        Display End Date
-                    </th>*@
-                    <th>
-                        Created By
-                    </th>
-                    <th></th>
-                    
-                </tr>
+    <h1>Event</h1>
 
-                @foreach (var item in Model.Events)
-                {
-                    <tr>
-                        <td>
-                            @item.Title
-                        </td>
-                        <td>
-                            @item.Description
-                        </td>
-                        <td>
-                            @if (item.OrganiseDate != null)
+    <div class="panel panel-default">
+        <div class="panel-heading">Event</div>
+        <div class="panel-body">
+            <p class="addevent">
+                @Html.ActionLink("Add Event", "Create", "", new {@class = "btn btn-default linktobtn"}) &nbsp; &nbsp;
+              
+            </p>
+            <br/>
+
+            @if (@Model.Events.Any())
+            {
+                <div class="leaveHistory">
+                    <div class="desktopview">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>
+                                    Title
+                                </th>
+                                <th>
+                                    Description
+                                </th>
+                                <th>
+                                    OrganiseDate
+                                </th>
+                                @*
+                        <th>
+                            Display Start Date
+                        </th>
+                        <th>
+                            Display End Date
+                        </th>*@
+                                <th>
+                                    Created By
+                                </th>
+                                <th></th>
+
+                            </tr>
+
+                            @foreach (var item in Model.Events)
                             {
-                                @item.OrganiseDate.Value.ToString("dd-MMM-yyyy")
-                            }
-                        </td>
-                        @*<td>
+                                <tr>
+                                    <td>
+                                        @item.Title
+                                    </td>
+                                    <td>
+                                        @item.Description
+                                    </td>
+                                    <td>
+                                        @if (item.OrganiseDate != null)
+                                        {
+                                            @item.OrganiseDate.Value.ToString("dd-MMM-yyyy")
+                                        }
+                                    </td>
+                                    @*
+                        <td>
                             @if (item.DisplayStartDate != null)
                             {
-                                @item.DisplayStartDate.Value.ToString("dd-MMM-yyyy")
+                            @item.DisplayStartDate.Value.ToString("dd-MMM-yyyy")
                             }
                         </td>
                         <td>
                             @if (item.DisplayEndDate != null)
                             {
-                                @item.DisplayEndDate.Value.ToString("dd-MMM-yyyy")
+                            @item.DisplayEndDate.Value.ToString("dd-MMM-yyyy")
                             }
                         </td>*@
-                        <td>
-                            @item.CreatedBy
-                        </td>
-
-                        <td class="Linkbtn">
-
-                            <table class="@item.EventId Linkbtn">
-                                <tr>
                                     <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.EventId }, new { @class = "linktobtn" })
+                                        @item.CreatedBy
                                     </td>
-                                    <td>
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.EventId }, new { @class = "linktobtn", @id="DeleteButton" , @style= "padding: 5px 15px;" })
+
+                                    <td class="Linkbtn">
+
+                                        <table class="@item.EventId Linkbtn">
+                                            <tr>
+                                                <td>
+                                                    @Html.ActionLink("Edit", "Edit", new {id = item.EventId}, new {@class = "linktobtn"})
+                                                </td>
+                                                <td>
+                                                    @*@Html.ActionLink("Delete", "Delete", new {id = item.EventId}, new {@class = "linktobtn deleteEvent", @id = "DeleteButton", @style = "padding: 5px 15px;"})*@
+                                                    <input type="button" value="Delete" id="@item.EventId"  onclick="deleteEvent(@item.EventId)" class="deleteEvent btn btn-default"/>
+                                                     <input type="text" id="eventIdvalue" style="display: none;"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+
                                     </td>
                                 </tr>
-                            </table>
+                            }
+                        </table>
+                    </div>
 
-                        </td>
-                    </tr>
-                }
-            </table>
-        </div>
+                    <div>
+                        Page @(Model.Events.PageCount < Model.Events.PageNumber ? 0 : Model.Events.PageNumber) of @Model.Events.PageCount
+                    </div>
+                    @Html.PagedListPager(Model.Events, pagenumber => Url.Action("Index", new {pagenumber}))
+                </div>
+            }
 
-        <div>
-            Page @(Model.Events.PageCount < Model.Events.PageNumber ? 0 : Model.Events.PageNumber) of @Model.Events.PageCount
         </div>
-        @Html.PagedListPager(Model.Events, pagenumber => Url.Action("Index", new { pagenumber }))
     </div>
-    }
-}
+<div class="modal fade" id="EventModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                Are you sure, you want to delete?
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
+                <button type="button" id="btnCancel" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+   }
+        @section scripts
+        {
+            <script src="~/Scripts/bootbox.js"></script>
+            <script type="text/javascript">
+                $("#btnOK").click(function() {
+                    $("#EventModal").modal('hide');
+                    var eventId = $('#eventIdvalue').text();
+                 
+                    $.ajax({
+                        type: "POST",
+                        url: "/Event/Delete",
+                        data: { id: eventId},
+                        dataType: 'json',
+                        success: function (response) {
+                            if (parseInt(response) > 0) {
+                                window.location.reload();
+                            }
+                        },
+                        error: function () {
 
-@section scripts
-{
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.nav #ManageEvent').addClass('active');
-            $("#DeleteButton").click(function () {
-                //alert("save and submit click called");
-                if (confirm("Are you sure, you want to delete?")) {
-                    return true;
-                }
-                return false;
+                        }
+                    });
+                });
+
+                $("#btnCancel").click(function() {
+                    $("#EventModal").modal('hide');
+
+                });
+                var resultmodel = false;
+                $(document).ready(function() {
+                    $('.nav #ManageEvent').addClass('active');
+                    //$("#DeleteButton").click(function () {
+                    //    //alert("save and submit click called");
+                    //    if (confirm("Are you sure, you want to delete?")) {
+                    //        return true;
+                    //    }
+                    //    return false;
+                    //});
+                  
+                   
             });
-        });
-        
-    </script>
-}
+
+                function  deleteEvent(eventobj) {
+                
+                    $('#eventIdvalue').text('');
+                    $('#eventIdvalue').text(eventobj);
+                 
+                    $("#EventModal").modal('show');
+                }
+                       
+                          
+                        
+                 
+            </script>
+        }
