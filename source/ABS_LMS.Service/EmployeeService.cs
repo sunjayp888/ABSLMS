@@ -111,8 +111,8 @@ namespace ABS_LMS.Service
                 PANCard = employee.PANCard,
                 LeavingDateUTC = employee.LeavingDateUTC,
                 DOJ = employee.DOJ,
-               // Photo_Byte_ = employee.Photo_Byte_,
-                ReportingManager=employee.ReportingManager
+               EmployeeImage = employee.EmployeeImage,
+            ReportingManager =employee.ReportingManager
                 
             };
         }
@@ -131,7 +131,7 @@ namespace ABS_LMS.Service
                 DesignationId = e.DesignationId,
                 Designation = e.Designation.Name,
                 ReportingManager =e.ReportingManager,
-                EmployeeImage = new[] { Convert.ToByte(e.EmployeeImage) },
+                EmployeeImage = e.EmployeeImage,
                 DOB = e.DOB,
                 CompanyEmailId = e.CompanyEmailId
             }).OrderBy(o => o.EmployeeCode).ToList();
@@ -165,7 +165,7 @@ namespace ABS_LMS.Service
             employeedetails.PANCard = employee.PANCard;
             employeedetails.LeavingDateUTC = employee.LeavingDateUTC;
             employeedetails.DOJ = employee.DOJ;
-           // employeedetails.Photo_Byte_ = employee.Photo_Byte_;
+            employeedetails.EmployeeImage = employee.EmployeeImage;
             employeedetails.ReportingManager = employee.ReportingManager;
             _unitOfWork.Complete();
         }

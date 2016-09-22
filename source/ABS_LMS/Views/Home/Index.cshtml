@@ -7,202 +7,203 @@
 
 <div class="row padding-left-10">
     <h1 id="headerText">Welcome to Anderson BPO</h1>
-    
+
 
     <div class="row">
 
         @if (Request.IsAuthenticated)
         {
-            <div class="col-lg-9">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Upcoming Event</div>
-                    <div class="panel-body">
-                        @if (Model.Events.Count > 0)
-                        {
-                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                                <!-- Indicators -->
-                                <ol class="carousel-indicators">
-                                @for (int k = 0; k<= Model.Events.Count - 1; k++)
-                                {
-                                <li data-target="#myCarousel" data-slide-to="@k" class='@(k==0 ? "active":"")'></li>
+        <div class="col-lg-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">Upcoming Event</div>
+                <div class="panel-body">
+                    @if (Model.Events.Count > 0)
+                    {
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            @for (int k = 0; k<= Model.Events.Count - 1; k++)
+                            {
+                            <li data-target="#myCarousel" data-slide-to="@k" class='@(k==0 ? "active":"")'></li>
 
-                                }
-                                </ol>
+                            }
+                        </ol>
 
-                                <!-- Wrapper for slides -->
-                                <div class="carousel-inner user-carousel" role="listbox">
-                                @{int l = 0;}
-                                @foreach (var eventitem in Model.Events)
-                                {
-                                <div class="item  @(l == 0 ? "active" : "")">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">@eventitem.Title</div>
-                                        <img src="~/Content/themes/LMS/images/Blank_flag_large.PNG" alt="Flower">
-                                        <div class="carousel-caption">
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner user-carousel" role="listbox">
+                            @{int l = 0;}
+                            @foreach (var eventitem in Model.Events)
+                            {
+                            <div class='item  @(l == 0 ? "active" : "")'>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">@eventitem.Title</div>
+                                    <img src="~/Content/themes/LMS/images/Blank_flag_large.PNG" alt="Flower">
+                                    <div class="carousel-caption">
                                             <h3>@eventitem.OrganiseDate.Value.ToShortDateString()</h3>
-                                            <p>@eventitem.Description</p>
-                                        </div>
-
+                                        <p>@eventitem.Description</p>
                                     </div>
 
                                 </div>
-                                    l++;
-                                }
-                                </div>
 
-                                <!-- Left and right controls -->
-                                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
                             </div>
-                                        }
-                                        else
-                                        {
-                                            <div>No record found</div>
-                                        }
+                            l++;
+                            }
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
                     </div>
+                    }
+                    else
+                    {
+                    <div>No record found</div>
+                    }
+                </div>
+
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Birthday</div>
+                <div class="panel-body">
+                    @if (Model.EmployeeBirthday.Count > 0)
+                    {
+
+                    <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+                        <!-- Bottom Carousel Indicators -->
+                        <ol class="carousel-indicators">
+                            @for (int i = 0; i <= Model.EmployeeBirthday.Count - 1; i++)
+                            {
+
+                            <li data-target="#quote-carousel" data-slide-to="@i" class='@(i==0 ? "active":"")'></li>
+
+
+                            }
+                        </ol>
+
+                        <!-- Carousel Slides / Quotes -->
+                        <div class="carousel-inner">
+
+                            <!-- Quote 1 -->
+                            @{int j = 0;}
+                            @foreach (var item in Model.EmployeeBirthday)
+                            {
+                              <div class='item  @(j == 0 ? "active" : "")'>
+                                <blockquote>
+                                    <div class="row">
+                                        <div class="col-sm-3 text-center">
+                                            @{
+
+
+                                            if (item.EmployeeImage != null  && item.EmployeeImage.Length > 0)
+                                            {
+                                            string imageBase64 = Convert.ToBase64String(item.EmployeeImage);
+                                            string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+                                          
+                                            <img class="img-circle" src="@imageSrc" style="width: 100px; height: 100px;">
+                                            }
+                                            else
+                                            {
+                                            <img class="img-circle" src="~/Content/themes/LMS/images/profile-img.jpg" style="width: 100px; height: 100px;">
+
+                                            }
+
+                                            }
+
+
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p>@item.FirstName @item.LastName</p>
+                                            <small>@item.Designation</small>
+                                        </div>
+                                    </div>
+                                </blockquote>
+                            </div>
+                            j++;
+                            }
+
+                        </div>
+
+                        <!-- Carousel Buttons Next/Prev -->
+                        <a data-slide="prev" href="#quote-carousel" class="left carousel-control"><i class="fa fa-chevron-left"></i></a>
+                        <a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right"></i></a>
+                    </div>
+                    }
+                    else
+                    {
+                    <div>No record found</div>
+                    }
 
                 </div>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">Birthday</div>
-                    <div class="panel-body">
-                        @if (Model.EmployeeBirthday.Count > 0)
-                        {
+            </div>
 
-                            <div class="carousel slide" data-ride="carousel" id="quote-carousel">
-                                <!-- Bottom Carousel Indicators -->
-                                <ol class="carousel-indicators">
-                                    @for (int i = 0; i <= Model.EmployeeBirthday.Count - 1; i++)
+        </div>
+
+        <div class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Other Link</div>
+                <div class="panel-body">
+                    <div class="sixcol indexpage">
+                        <div class="field">
+                            <div class="col-lg-12">
+                                <table class="table table-align">
+
+                                    @if (Request.IsAuthenticated)
                                     {
+                                    if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
+                                    {
+                                    <tr> <td>  To view employees @Html.ActionLink("click here", "Index", "Employee" , null, new {@id = "employee"})</td></tr>
+                                    }
+                                    <tr>
+                                        <td>
+                                            To view leaves @Html.ActionLink("click here", "Index", "Leave", new { id = HttpCurrentUser.EmployeeId }, new {@Id="Leaves"})
+                                        </td>
+                                    </tr>
+                                    if (HttpCurrentUser.IsAdmin)
+                                    {
+                                    <tr>
+                                        <td>
+                                            To view administrator @Html.ActionLink("click here" , "Index", "Administrator",null ,new {@Id="Administrator"})
 
-                                        <li data-target="#quote-carousel" data-slide-to="@i" class='@(i==0 ? "active":"")'></li>
+                                        </td>
+                                    </tr>
+                                    }
+
+                                    <tr>
+                                        <td>
+                                            To view profile @Html.ActionLink("click here", "Details", "Employee", new {id = HttpCurrentUser.EmployeeId},  new {@Id="Profile"})
+                                        </td>
+                                    </tr>
+
+
+
+
+                                    <tr><td>  To reset password @Html.ActionLink("click here", "ResetPassword", "Administrator", new {userName = HttpCurrentUser.Name}, new {@Id = "ResetPassword"})</td></tr>
 
 
                                     }
-                                </ol>
-
-                                <!-- Carousel Slides / Quotes -->
-                                <div class="carousel-inner">
-
-                                    <!-- Quote 1 -->
-                                    @{int j = 0;}
-                                    @foreach (var item in Model.EmployeeBirthday)
-                                    {
-
-                                        <div class='item  @(j == 0 ? "active" : "")'>
-                                            <blockquote>
-                                                <div class="row">
-                                                    <div class="col-sm-3 text-center">
-                                                        @{
-                                                            string imageBase64 = Convert.ToBase64String(item.EmployeeImage);
-                                                            string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
-                                                            if (string.IsNullOrEmpty(imageBase64) || imageBase64 == "AA==")
-                                                            {
-                                                                <img class="img-circle" src="~/Content/themes/LMS/images/profile-img.jpg" style="width: 100px; height: 100px;">
-
-                                                            }
-                                                            else
-                                                            {
-                                                                <img class="img-circle" src="@imageSrc" style="width: 100px; height: 100px;">
-
-                                                            }
-
-                                                        }
 
 
-                                                    </div>
-                                                    <div class="col-sm-9">
-                                                        <p>@item.FirstName @item.LastName</p>
-                                                        <small>@item.Designation</small>
-                                                    </div>
-                                                </div>
-                                            </blockquote>
-                                        </div>
-                                                                j++;
-                                                            }
 
-                                </div>
-
-                                <!-- Carousel Buttons Next/Prev -->
-                                <a data-slide="prev" href="#quote-carousel" class="left carousel-control"><i class="fa fa-chevron-left"></i></a>
-                                <a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right"></i></a>
+                                </table>
                             </div>
-                                                            }
-                                                            else
-                                                            {
-                                                                <div>No record found</div>
-                                                            }
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="col-lg-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Other Link</div>
-                    <div class="panel-body">
-                        <div class="sixcol indexpage">
-                            <div class="field">
-                                <div class="col-lg-12">
-                                    <table class="table table-align">
 
 
-                                        @if (Request.IsAuthenticated)
-                                        {
-                                            if (HttpCurrentUser.IsAdmin)
-                                            {
-                                                <tr> <td> To view employees @Html.ActionLink("click here", "Index", "Employee", null, new { @id = "employee" })</td></tr>
-
-                                                <tr>
-                                                    <td>
-                                                        To view leaves @Html.ActionLink("click here", "Index", "Leave", new { id = HttpCurrentUser.EmployeeId }, new { @Id = "Leaves" })
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        To view administrator @Html.ActionLink("click here", "Index", "Administrator", null, new { @Id = "Administrator" })
-
-                                                    </td>
-                                                </tr>
-
-
-                                                <tr>
-                                                    <td>
-                                                        To view profile @Html.ActionLink("click here", "Details", "Employee", new { id = HttpCurrentUser.EmployeeId }, new { @Id = "Profile" })
-                                                    </td>
-                                                </tr>
-
-
-
-
-                                                <tr><td> To reset password @Html.ActionLink("click here", "ResetPassword", "Administrator", new { userName = HttpCurrentUser.Name }, new { @Id = "ResetPassword" })</td></tr>
-                                                //NEW CHANGES
-                                            }
-
-                                        }
-
-
-                                    </table>
-                                </div>
-
-
-                            </div>
                         </div>
                     </div>
-
                 </div>
 
             </div>
-                                                            }
+
+        </div>
+        }
     </div>
 
 
@@ -210,14 +211,14 @@
 @section scripts
         {
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.nav #Home').addClass('active');
-            $('#quote-carousel').carousel({
-                pause: true,
-                interval: 4000
-            });
-         
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.nav #Home').addClass('active');
+        $('#quote-carousel').carousel({
+            pause: true,
+            interval: 4000
         });
-    </script>
+
+    });
+</script>
 }
