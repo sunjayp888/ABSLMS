@@ -190,70 +190,71 @@
                 </tr>
             </table>
         </div>
-        <div class="panel panel-default">
-            <div class="col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Other Details</div>
-                    <div class="panel-body">
-                        <table class="table">
-                            <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.EmployeeDetail.PANCard)
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.EmployeeDetail.PANCard)
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.EmployeeDetail.AadharId)
-                                </th>
-                                <td>
-                                    @Html.DisplayFor(model => model.EmployeeDetail.AadharId)
-                                </td>
-                            </tr>
-                            @if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
+    </div>
+        
+                <div class="col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Other Details</div>
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EmployeeDetail.PANCard)
+                                    </th>
+                                    <td>
+                                        @Html.DisplayFor(model => model.EmployeeDetail.PANCard)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EmployeeDetail.AadharId)
+                                    </th>
+                                    <td>
+                                        @Html.DisplayFor(model => model.EmployeeDetail.AadharId)
+                                    </td>
+                                </tr>
+                                @if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
                             {
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.EmployeeDetail.LeavingDateUTC)
-                                    </th>
-                                    <td>
-                                        @Html.DisplayFor(model => model.EmployeeDetail.LeavingDateUTC)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.EmployeeDetail.ConfirmationDateUTC)
-                                    </th>
-                                    <td>
-                                        @Html.DisplayFor(model => model.EmployeeDetail.ConfirmationDateUTC)
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.EmployeeDetail.LeavingDateUTC)
+                                        </th>
+                                        <td>
+                                            @Html.DisplayFor(model => model.EmployeeDetail.LeavingDateUTC)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.EmployeeDetail.ConfirmationDateUTC)
+                                        </th>
+                                        <td>
+                                            @Html.DisplayFor(model => model.EmployeeDetail.ConfirmationDateUTC)
+                                        </td>
+                                    </tr>
                             }
-                        </table>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+         
+          
+       
+</div>
+<div class="row patding-left-10">
+    <div class="col-lg-12">
+        <p>
+            @if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = Model.EmployeeDetail.EmployeeId })
+                @(" |")
+            }
+            @Html.ActionLink("Back to List", "Index", new { id = HttpCurrentUser.EmployeeId })
+        </p>
 
-
-        <div class="row patding-left-10">
-            <div class="col-lg-12">
-                <p>
-                    @if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
-                    {
-                        @Html.ActionLink("Edit", "Edit", new { id = Model.EmployeeDetail.EmployeeId })
-                        @(" |")
-                    }
-                    @Html.ActionLink("Back to List", "Index", new { id = HttpCurrentUser.EmployeeId })
-                </p>
-
-            </div>
-        </div>
     </div>
 </div>
-}
+
+
 
 @section scripts
         {
