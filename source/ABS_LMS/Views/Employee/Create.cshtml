@@ -8,7 +8,7 @@
 
 <div class="row employeecreate">
     <h1>Create Employee</h1>
-    @using (Html.BeginForm("Create", "Employee", FormMethod.Post))
+    @using (Html.BeginForm("Create", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
     @Html.AntiForgeryToken()
 
@@ -64,7 +64,14 @@
                     @*@Html.ValidationMessageFor(model => model.EmployeeDetail.MobileNo, "", new { @class = "pull-left alert alert-warning" })*@
                 </div>
             </div>
-
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeDetail.Gender, htmlAttributes: new {@class = " col-md-4"})
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.EmployeeDetail.Gender, Model.Gender, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(model => model.EmployeeDetail.Gender, "", new {@class = "pull-left alert alert-warning"})
+                </div>
+            </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.EmployeeDetail.Address, htmlAttributes: new { @class = " col-md-4" })
                 <div class="col-md-8">
@@ -78,6 +85,18 @@
 
 
         <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeDetail.EmployeeImage, htmlAttributes: new {@class = " col-md-4"})
+                <div class="col-md-8">
+                    <div>
+                        <img id="user_img" height="100" width="90" style="border: solid;" />
+                    </div>
+                    <div>
+                        <input type="file" title="Upload image" style="float:left" id="userimage" name="userimage" onchange="show(this) " />
+
+                    </div>
+                </div>
+            </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.EmployeeDetail.DOB, htmlAttributes: new {@class = " col-md-4"})
                 <div class="col-md-8">
@@ -109,15 +128,6 @@
 
                 </div>
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.EmployeeDetail.PANCard, htmlAttributes: new {@class = " col-md-4"})
-                <div class="col-md-8">
-                    @Html.EditorFor(model => model.EmployeeDetail.PANCard, new {htmlAttributes = new {@class = ""}})
-                    @Html.ValidationMessageFor(model => model.EmployeeDetail.PANCard, "", new {@class = "pull-left alert alert-warning"})
-                </div>
-            </div>
-
             <div class="form-group">
                 @Html.LabelFor(model => model.EmployeeDetail.AadharId, htmlAttributes: new {@class = " col-md-4"})
                 <div class="col-md-8">
@@ -126,12 +136,14 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.EmployeeDetail.Gender, htmlAttributes: new {@class = " col-md-4"})
+                @Html.LabelFor(model => model.EmployeeDetail.PANCard, htmlAttributes: new {@class = " col-md-4"})
                 <div class="col-md-8">
-                    @Html.DropDownListFor(model => model.EmployeeDetail.Gender, Model.Gender, new {@class = "form-control"})
-                    @Html.ValidationMessageFor(model => model.EmployeeDetail.Gender, "", new {@class = "pull-left alert alert-warning"})
+                    @Html.EditorFor(model => model.EmployeeDetail.PANCard, new {htmlAttributes = new {@class = ""}})
+                    @Html.ValidationMessageFor(model => model.EmployeeDetail.PANCard, "", new {@class = "pull-left alert alert-warning"})
                 </div>
             </div>
+
+            
             <div class="form-group">
                 @Html.LabelFor(model => model.EmployeeDetail.ReportingManager, htmlAttributes: new {@class = " col-md-4"})
                 <div class="col-md-8">
@@ -155,51 +167,68 @@
     </div>
 </div>
     @section Scripts {
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script>
+        <script src="~/Scripts/jquery.validate.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script>
 
-        $(document).ready(function () {
-            $("#EmployeeDetail_DOJ").datepicker({
-                dateFormat: "dd/mm/yy",
-                changeMonth: true,
-                changeYear: true,
-                constrainInput: true
-            }).val();
-            $("#EmployeeDetail_DOB").datepicker({
-                dateFormat: "dd/mm/yy",
-                changeMonth: true,
-                changeYear: true,
-                yearRange: "-100:+0",
-                constrainInput: true
-            }).val();
-
-            $('.nav #employee').addClass('active');
-
-        });
-
-        function GetReportingManager() {
-            var url = "/Employee/GetReportingManager/";
-            var departmentId = $('#EmployeeDetail_DepartmentId').val();
-
-            $.ajax({
-                url: url,
-                data: { departmentId: departmentId },
-                cache: false,
-                type: "POST",
-                success: function (data) {
-                    var markup = "<option value='0'>Reporting Manager</option>";
-                    for (var x = 0; x < data.length; x++) {
-                        markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+            function show(input) {
+                if ($('#' + input.id).val() != '') {
+                    var ext = $('#userimage').val().split('.').pop().toLowerCase();
+                    if ($.inArray(ext, ['JPG', 'JPEG', 'jpg', 'jpeg']) == -1) {
+                        $('#' + input.id).val('');
+                        alert('Only jpg,jpge file!');
+                    } else {
+                        var filerdr = new FileReader();
+                        filerdr.onload = function (e) {
+                            $('#user_img').attr('src', e.target.result);
+                        }
+                        filerdr.readAsDataURL(input.files[0]);
                     }
-                    $(".reportingmanager").html("");
-                    $(".reportingmanager").html(markup).show();
-                },
-                error: function (reponse) {
-                    alert("error : " + reponse);
-                }
+                  
+                    } 
+            }
+
+            $(document).ready(function() {
+                $("#EmployeeDetail_DOJ").datepicker({
+                    dateFormat: "dd/mm/yy",
+                    changeMonth: true,
+                    changeYear: true,
+                    constrainInput: true
+                }).val();
+                $("#EmployeeDetail_DOB").datepicker({
+                    dateFormat: "dd/mm/yy",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "-100:+0",
+                    constrainInput: true
+                }).val();
+
+                $('.nav #employee').addClass('active');
+
             });
 
-        }
-    </script>
+            function GetReportingManager() {
+                var url = "/Employee/GetReportingManager/";
+                var departmentId = $('#EmployeeDetail_DepartmentId').val();
+
+                $.ajax({
+                    url: url,
+                    data: { departmentId: departmentId },
+                    cache: false,
+                    type: "POST",
+                    success: function(data) {
+                        var markup = "<option value='0'>Reporting Manager</option>";
+                        for (var x = 0; x < data.length; x++) {
+                            markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                        }
+                        $(".reportingmanager").html("");
+                        $(".reportingmanager").html(markup).show();
+                    },
+                    error: function(reponse) {
+                        alert("error : " + reponse);
+                    }
+                });
+
+            }
+        </script>
     }

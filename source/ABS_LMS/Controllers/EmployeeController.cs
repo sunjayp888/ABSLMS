@@ -109,8 +109,11 @@ namespace ABS_LMS.Controllers
         {
             try
             {
+                HttpPostedFileBase file = Request.Files["userimage"];
+                var getbyte = ConvertToBytes(file);
                 employee = GetAllDropDownValues(employee);
                 if (!ModelState.IsValid) return View(employee);
+                employee.EmployeeDetail.EmployeeImage = getbyte;
                 var newemployee = employee.EmployeeDetail;
                 _employeeService.AddEmployee(newemployee);
                 return RedirectToAction("Index");
@@ -184,6 +187,7 @@ namespace ABS_LMS.Controllers
                 ReportingManager = GetReportingManagerbyId(Convert.ToInt32(employee.DepartmentId ?? 0)),
                 RoleType = role
             };
+            TempData["EmployeeImage"] = model.EmployeeDetail.EmployeeImage;
 
             return View(model);
         }
@@ -194,8 +198,19 @@ namespace ABS_LMS.Controllers
         {
             try
             {
+                HttpPostedFileBase file = Request.Files["userimage"];
+                var getbyte = ConvertToBytes(file);
                 employee = GetAllDropDownValues(employee);
                 if (!ModelState.IsValid) return View(employee);
+                if (getbyte != null && getbyte.Length > 0)
+                {
+                    employee.EmployeeDetail.EmployeeImage = getbyte;
+                }
+                else
+                {
+                    employee.EmployeeDetail.EmployeeImage = TempData["EmployeeImage"] as byte[];
+                }
+
                 _employeeService.UpdateEmployee(id, employee.EmployeeDetail);
                 return RedirectToAction("Index");
             }
@@ -358,6 +373,13 @@ namespace ABS_LMS.Controllers
                     break;
             }
             return sortedDocuments;
+        }
+        public byte[] ConvertToBytes(HttpPostedFileBase image)
+        {
+            byte[] imageBytes = null;
+            BinaryReader reader = new BinaryReader(image.InputStream);
+            imageBytes = reader.ReadBytes((int)image.ContentLength);
+            return imageBytes;
         }
     }
 }

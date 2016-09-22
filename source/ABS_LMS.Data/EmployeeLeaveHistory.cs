@@ -29,8 +29,9 @@ namespace ABS_LMS.Data
         public Nullable<System.DateTime> UpdatedDateUTC { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
         public string ApprovedPersonName { get; set; }
+        public Nullable<System.DateTime> HalfDayDate { get; set; }
     
-        public virtual Employee Employee { get; set; }
         public virtual LeaveType LeaveType { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }
