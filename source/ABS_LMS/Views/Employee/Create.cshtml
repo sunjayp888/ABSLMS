@@ -128,18 +128,19 @@
 
                 </div>
             </div>
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.PANCard, "", new {@class = "pull-left alert alert-warning"})*@
             <div class="form-group">
                 @Html.LabelFor(model => model.EmployeeDetail.AadharId, htmlAttributes: new {@class = " col-md-4"})
                 <div class="col-md-8">
                     @Html.EditorFor(model => model.EmployeeDetail.AadharId, new {htmlAttributes = new {@class = ""}})
-                    @Html.ValidationMessageFor(model => model.EmployeeDetail.AadharId, "", new {@class = "pull-left alert alert-warning"})
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.AadharId, "", new {@class = "pull-left alert alert-warning"})*@
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.EmployeeDetail.PANCard, htmlAttributes: new {@class = " col-md-4"})
                 <div class="col-md-8">
                     @Html.EditorFor(model => model.EmployeeDetail.PANCard, new {htmlAttributes = new {@class = ""}})
-                    @Html.ValidationMessageFor(model => model.EmployeeDetail.PANCard, "", new {@class = "pull-left alert alert-warning"})
+                    @*@Html.ValidationMessageFor(model => model.EmployeeDetail.Gender, "", new {@class = "pull-left alert alert-warning"})*@
                 </div>
             </div>
 

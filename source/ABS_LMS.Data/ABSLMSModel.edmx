@@ -118,6 +118,7 @@
           <Property Name="UpdatedDateUTC" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
           <Property Name="ApprovedPersonName" Type="nvarchar" MaxLength="500" />
+          <Property Name="HalfDayDateUTC" Type="datetime" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -468,7 +469,11 @@
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="ApprovedPersonName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LeaveType" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_LeaveType" FromRole="EmployeeLeaveHistory" ToRole="LeaveType" />
+<<<<<<< HEAD
           <NavigationProperty Name="Employee" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_Employee" FromRole="EmployeeLeaveHistory" ToRole="Employee" />
+=======
+          <Property Name="HalfDayDateUTC" Type="DateTime" Precision="3" />
+>>>>>>> 64e2dd6775a4352ae964e9b1b8320abc8f06de48
         </EntityType>
         <EntityType Name="Holiday">
           <Key>
@@ -732,6 +737,7 @@
           <EntitySetMapping Name="EmployeeLeaveHistories">
             <EntityTypeMapping TypeName="ABSLMSModel.EmployeeLeaveHistory">
               <MappingFragment StoreEntitySet="EmployeeLeaveHistory">
+                <ScalarProperty Name="HalfDayDateUTC" ColumnName="HalfDayDateUTC" />
                 <ScalarProperty Name="ApprovedPersonName" ColumnName="ApprovedPersonName" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedDateUTC" ColumnName="UpdatedDateUTC" />

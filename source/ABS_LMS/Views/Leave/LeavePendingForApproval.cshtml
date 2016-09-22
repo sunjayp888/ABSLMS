@@ -175,7 +175,7 @@
                 </div>
             }
         </div>
-
+        <div id="divLoading"></div>
         <div>
             Page @(Model.EmployeeLeaveDetails.PageCount < Model.EmployeeLeaveDetails.PageNumber ? 0 : Model.EmployeeLeaveDetails.PageNumber) of @Model.EmployeeLeaveDetails.PageCount
         </div>
@@ -195,6 +195,7 @@
                     status = row.data("status"),
                     historyid = row.data("historyid");
                 if (confirm('Are you sure?')) {
+                    $("#divLoading").html('<image src="../../Content/Base/images/spinner.gif" alt="processing...."/>').show();
                     $.ajax({
                         type: "POST",
                         url: "/Leave/LeaveStatus",
@@ -202,13 +203,13 @@
                         dataType: 'json',
                         success: function (response) {
                             if (parseInt(response) > 0) {
-                                $('#' + historyid).text(status);
-                                $('.' + historyid).text(status);
-                                $('#' + historyid).css("display", 'none');
-                                $('. link - align #' + historyid).css("display", 'none');
+                                $("#divLoading").html("").hide();
+                                var url = '@Url.Action("LeavePendingForApproval", "Leave", new { id = @Model.EmployeeLeaveDetails.FirstOrDefault()?.ApprovedBy })';
+                                window.location.href = url;
                             }
                         },
                         error: function () {
+                            $("#divLoading").html("").hide();
                         }
                     });
                 }

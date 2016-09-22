@@ -272,7 +272,7 @@ namespace ABS_LMS.Controllers
                 ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
                 return View();
             }
-            return Json("PortalAccountCreate", JsonRequestBehavior.DenyGet);
+            return Json(true, JsonRequestBehavior.DenyGet);
         }
 
         public async Task<ActionResult> UpdateUserRole(string aspNetUserId, string userRole)

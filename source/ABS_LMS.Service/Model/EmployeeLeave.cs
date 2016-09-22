@@ -32,7 +32,6 @@ namespace ABS_LMS.Service.Model
 
         public string LeaveTypeName { get; set; }
 
-
         [DisplayName("No Of Days")]
         public int? NoOfDays { get; set; }
 
@@ -66,5 +65,13 @@ namespace ABS_LMS.Service.Model
 
         [DisplayName("Employee Name")]
         public string EmployeeName { get; set; }
+
+        public bool IsHalfDay
+        {
+            get { return HalfDayDateUTC.HasValue; }
+        }
+
+        [DisplayName("HalfDay Date")]
+        public DateTime? HalfDayDateUTC { get; set; }
     }
 }

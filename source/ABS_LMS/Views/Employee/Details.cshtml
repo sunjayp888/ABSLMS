@@ -190,8 +190,8 @@
                         @Html.DisplayFor(model => model.EmployeeDetail.ReportingManagerName)
                     </td>
                 </tr>
-            </table>
-       
+@if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
+{
         </div>
     </div>
     <div class="col-lg-4">
@@ -200,14 +200,15 @@
             <div class="panel-body">
                 <table class="table">
 
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EmployeeDetail.PANCard)
-                        </th>
-                        <td>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeDetail.LeavingDateUTC)
+        </th>
+        <td>
                             @Html.DisplayFor(model => model.EmployeeDetail.PANCard)
-                        </td>
-                    </tr>
+        </td>
+    </tr>
+}
                     <tr>
                         <th>
                             @Html.DisplayNameFor(model => model.EmployeeDetail.AadharId)
@@ -226,6 +227,8 @@
                                 @Html.DisplayFor(model => model.EmployeeDetail.LeavingDateUTC)
                             </td>
                         </tr>
+@if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
+            {
                         <tr>
                             <th>
                                 @Html.DisplayNameFor(model => model.EmployeeDetail.ConfirmationDateUTC)

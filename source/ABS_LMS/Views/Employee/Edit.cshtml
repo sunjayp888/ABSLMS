@@ -210,9 +210,25 @@
             </div>
             <div class="form-group ">
                 <div class="col-md-offset-2 col-md-10" style="display: inline-flex;">
-                    <input type="submit" value="Save" class="btn btn-default" />   &nbsp; &nbsp;<input type="button" style="@(Model.EmployeeDetail.AspNetUserId.IsEmpty() ? "display:block" : "display:none")" value="Create Portal Account" data-employeeid="@Model.EmployeeDetail.EmployeeId" data-firstname="@Model.EmployeeDetail.FirstName" data-lastname="@Model.EmployeeDetail.LastName" data-username="@Model.EmployeeDetail.CompanyEmailId" class="btn btn-default CreatePortalAccount" />
+                    <input type="submit" value="Save" class="btn btn-default" /> &nbsp; &nbsp;<input type="button" style="@(Model.EmployeeDetail.AspNetUserId.IsEmpty() ? "display:block" : "display:none")" value="Create Portal Account" data-employeeid="@Model.EmployeeDetail.EmployeeId" data-firstname="@Model.EmployeeDetail.FirstName" data-lastname="@Model.EmployeeDetail.LastName" data-username="@Model.EmployeeDetail.CompanyEmailId" class="btn btn-default CreatePortalAccount" />
                     &nbsp; &nbsp;
                     <input type="button" style="@(Model.EmployeeDetail.AspNetUserId.IsEmpty() ? "display:none" : "display:block")" value="Update Role" data-aspnetuserid="@Model.EmployeeDetail.AspNetUserId" class="btn btn-default UpdateRole" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divLoading"></div>
+    <div class="modal fade" id="modalpopup">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Message</h4>
+                </div>
+                <div class="modal-body">
+                    @Html.Label("portal", new { id = "message", @class = "col-md-10 modalpopuplabel" })
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
                 </div>
             </div>
         </div>
@@ -305,7 +321,7 @@
                         //userRole = ("#EmployeeDetail_EmployeeRole").text() ;
 
                         userRole = $("#EmployeeDetail_EmployeeRole option:selected").text();
-
+               $("#divLoading").html('<image src="../../Content/Base/images/spinner.gif" alt="processing...."/>').show();
                     $.ajax({
                         type: "POST",
                         url: "/Employee/CreatePortalAccount",
@@ -313,21 +329,28 @@
                         dataType: 'json',
                         success: function (response) {
                             if (response) {
-                                alert("Portal Account Created");
-                                window.location.reload();
+                           $("#divLoading").html("").hide();
+                           $("#message").text("Portal account created successfully.");
+                           $("#modalpopup").modal('show');
                             }
                         },
                         error: function () {
+                       $("#divLoading").html("").hide();
                         }
                     });
                 });
 
+            $("#btnOK").click(function () {
+                $("#modalpopup").modal('hide');
+                window.location.reload();
+            });
+
             $(document)
                 .on("click", ".UpdateRole", function () {
                     var row = $(this),
-                        aspNetUserId = row.data("aspnetuserid");
+                  aspNetUserId = row.data("aspnetuserid");
                     var userRole = $("#EmployeeDetail_EmployeeRole :selected").text();
-
+                  $("#divLoading").html('<image src="../../Content/Base/images/spinner.gif" alt="processing...."/>').show();
                     $.ajax({
                         type: "POST",
                         url: "/Employee/UpdateUserRole",
@@ -335,10 +358,13 @@
                         dataType: 'json',
                         success: function (response) {
                             if (response) {
-                                alert("Role Update");
+                              $("#divLoading").html("").hide();
+                              $("message").val("Role updated successfully");
+                              $("#modalpopup").modal('show');
                             }
                         },
                         error: function () {
+                          $("#divLoading").html("").hide();
                         }
                     });
                 });
