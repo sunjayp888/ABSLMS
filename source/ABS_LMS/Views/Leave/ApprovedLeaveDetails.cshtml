@@ -6,164 +6,166 @@
     }
 
     <h1>Approved Leave Details</h1>
+                      <div class="panel panel-default">
+                          <div class="panel-heading">Approved Leave Details</div>
+                          <div class="panel-body">
+                              @if (Model != null)
+                              {
 
-    @if (Model != null)
-    {
+                              if (@Model.Any())
+                              {
+                              <div class="desktopview">
+                                  <table class="table table-bordered ">
+                                      <tr>
+                                          <th>
+                                              @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.EmployeeName)
+                                          </th>
+                                          <th>
+                                              @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.LeaveStartDate)
+                                          </th>
+                                          <th>
+                                              @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.LeaveEndDate)
+                                          </th>
+                                          <th>
+                                              @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.JoiningDate)
+                                          </th>
+                                          <th>
+                                              @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.LeaveTypeId)
+                                          </th>
+                                          <th>
+                                              @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.NoOfDays)
+                                          </th>
+                                          <th>
+                                              @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.Reason)
+                                          </th>
+                                          <th>
+                                              @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.LeaveStatus)
+                                          </th>
 
-    if (@Model.Any())
-    {
-    <div class="desktopview">
-        <table class="table table-bordered ">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.EmployeeName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.LeaveStartDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.LeaveEndDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.JoiningDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.LeaveTypeId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.NoOfDays)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.Reason)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.LeaveStatus)
-                </th>
+                                          <th></th>
+                                      </tr>
 
-                <th></th>
-            </tr>
+                                      @foreach (var item in Model)
+                                      {
+                                      <tr>
 
-            @foreach (var item in Model)
-            {
-            <tr>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.EmployeeName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.LeaveStartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.LeaveEndDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.JoiningDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.LeaveTypeName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.NoOfDays)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.Reason)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.LeaveStatusName)
-                </td>
-
-
-            </tr>
-
-            }
-
-        </table>
-    </div>
+                                          <td>
+                                              @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.EmployeeName)
+                                          </td>
+                                          <td>
+                                              @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.LeaveStartDate)
+                                          </td>
+                                          <td>
+                                              @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.LeaveEndDate)
+                                          </td>
+                                          <td>
+                                              @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.JoiningDate)
+                                          </td>
+                                          <td>
+                                              @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.LeaveTypeName)
+                                          </td>
+                                          <td>
+                                              @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.NoOfDays)
+                                          </td>
+                                          <td>
+                                              @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.Reason)
+                                          </td>
+                                          <td>
+                                              @Html.DisplayFor(modelItem => item.EmployeeLeaveDetails.LeaveStatusName)
+                                          </td>
 
 
-    <div class="row mobileview">
-        @foreach (var item in Model)
-        {
-        <div class="col-md-12 main">
-            <div class="col-md-6 ">
-                <div class="setfloat">
-                    @Html.LabelFor(modelItem=> item.EmployeeLeaveDetails.EmployeeName)
-                </div>
-                <div class="setfloat">
-                    @item.EmployeeLeaveDetails.EmployeeName
-                </div>
-                <div class="setfloat ">
-                    @Html.LabelFor(modelItem=> item.EmployeeLeaveDetails.LeaveStartDate)
-                </div>
+                                      </tr>
 
-                <div class="setfloat ">
-                    @item.EmployeeLeaveDetails.LeaveStartDate
-                </div>
-                <div class="setfloat ">
-                    @Html.LabelFor(modelItem=> item.EmployeeLeaveDetails.LeaveEndDate)
-                </div>
+                                      }
 
-                <div class="setfloat ">
-                    @item.EmployeeLeaveDetails.LeaveEndDate
-                </div>
-                <div class="setfloat ">
-                    @Html.LabelFor(modelItem=> item.EmployeeLeaveDetails.JoiningDate)
-                </div>
-
-                <div class="setfloat ">
-                    @item.EmployeeLeaveDetails.JoiningDate
-                </div>
-                <div class="setfloat ">
-                    @Html.LabelFor(modelItem=> item.EmployeeLeaveDetails.LeaveTypeName)
-                </div>
-
-                <div class="setfloat ">
-                    @item.EmployeeLeaveDetails.LeaveTypeName
-                </div>
-                <div class="setfloat ">
-                    @Html.LabelFor(modelItem=> item.EmployeeLeaveDetails.NoOfDays)
-                </div>
-
-                <div class="setfloat ">
-                    @item.EmployeeLeaveDetails.NoOfDays
-                </div>
-                <div class="setfloat ">
-                    @Html.LabelFor(modelItem=> item.EmployeeLeaveDetails.Reason)
-                </div>
-
-                <div class="setfloat ">
-                    @item.EmployeeLeaveDetails.Reason
-                </div>
-                <div class="setfloat ">
-                    @Html.LabelFor(modelItem=> item.EmployeeLeaveDetails.LeaveStatusName)
-                </div>
-
-                <div class="setfloat   ">
-                    @item.EmployeeLeaveDetails.LeaveStatusName
-                </div>
-            </div>
+                                  </table>
+                              </div>
 
 
-        </div>
-        }
-    </div>
-    }
-    }
-                      <div>
-                          @Html.ActionLink("Back", "Index", new { id = HttpCurrentUser.EmployeeId })
+                              <div class="row mobileview">
+                                  @foreach (var item in Model)
+                                  {
+                                  <div class="col-md-12 main">
+                                      <div class="col-md-6 ">
+                                          <div class="setfloat">
+                                              @Html.LabelFor(modelItem=> item.EmployeeLeaveDetails.EmployeeName)
+                                          </div>
+                                          <div class="setfloat">
+                                              @item.EmployeeLeaveDetails.EmployeeName
+                                          </div>
+                                          <div class="setfloat ">
+                                              @Html.LabelFor(modelItem=> item.EmployeeLeaveDetails.LeaveStartDate)
+                                          </div>
+
+                                          <div class="setfloat ">
+                                              @item.EmployeeLeaveDetails.LeaveStartDate
+                                          </div>
+                                          <div class="setfloat ">
+                                              @Html.LabelFor(modelItem=> item.EmployeeLeaveDetails.LeaveEndDate)
+                                          </div>
+
+                                          <div class="setfloat ">
+                                              @item.EmployeeLeaveDetails.LeaveEndDate
+                                          </div>
+                                          <div class="setfloat ">
+                                              @Html.LabelFor(modelItem=> item.EmployeeLeaveDetails.JoiningDate)
+                                          </div>
+
+                                          <div class="setfloat ">
+                                              @item.EmployeeLeaveDetails.JoiningDate
+                                          </div>
+                                          <div class="setfloat ">
+                                              @Html.LabelFor(modelItem=> item.EmployeeLeaveDetails.LeaveTypeName)
+                                          </div>
+
+                                          <div class="setfloat ">
+                                              @item.EmployeeLeaveDetails.LeaveTypeName
+                                          </div>
+                                          <div class="setfloat ">
+                                              @Html.LabelFor(modelItem=> item.EmployeeLeaveDetails.NoOfDays)
+                                          </div>
+
+                                          <div class="setfloat ">
+                                              @item.EmployeeLeaveDetails.NoOfDays
+                                          </div>
+                                          <div class="setfloat ">
+                                              @Html.LabelFor(modelItem=> item.EmployeeLeaveDetails.Reason)
+                                          </div>
+
+                                          <div class="setfloat ">
+                                              @item.EmployeeLeaveDetails.Reason
+                                          </div>
+                                          <div class="setfloat ">
+                                              @Html.LabelFor(modelItem=> item.EmployeeLeaveDetails.LeaveStatusName)
+                                          </div>
+
+                                          <div class="setfloat   ">
+                                              @item.EmployeeLeaveDetails.LeaveStatusName
+                                          </div>
+                                      </div>
+
+
+                                  </div>
+                                  }
+                              </div>
+                              }
+                              }
+                              <div>
+                                  @Html.ActionLink("Back", "Index", new { id = HttpCurrentUser.EmployeeId })
+                              </div>
+                          </div>
                       </div>
+            @section Scripts {
 
-    @section Scripts {
+            <script>
 
-    <script>
+                $(document).ready(function () {
+                    $('.nav #Leaves').addClass('active');
 
-        $(document).ready(function () {
-            $('.nav #Leaves').addClass('active');
+                });
 
-        });
-
-    </script>
-
-    }
+            </script>
+            }
 
 

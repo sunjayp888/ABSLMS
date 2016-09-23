@@ -53,8 +53,9 @@ namespace ABS_LMS.Controllers
 
         public ActionResult Delete(int id)
         {
+            var result = 1;
             _eventService.DeleteEvent(id);
-            return RedirectToAction("Index");
+            return Json(result, JsonRequestBehavior.DenyGet);
         }
     }
 }

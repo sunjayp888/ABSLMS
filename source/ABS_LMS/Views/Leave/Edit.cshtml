@@ -7,52 +7,54 @@
 
 <h1>Edit</h1>
 
+<div class="panel panel-default">
+    <div class="panel-heading">Edit Leave</div>
+    <div class="panel-body">
+        @using (Html.BeginForm("Edit", "Leave", FormMethod.Post))
+        {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm("Edit", "Leave", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
+        <div class="row col-md-6 textboxsize">
 
-    <div class="row col-md-6 textboxsize">
+            <hr />
+            @Html.ValidationSummary(false, "", new {@class = "alert alert-warning"})
 
-        <hr />
-        @Html.ValidationSummary(false, "", new { @class = "alert alert-warning" })
-
-        <div class="form-group" style="display:none;">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.EmployeeId, htmlAttributes: new { @class = "col-md-4" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.EmployeeLeaveDetails.EmployeeId, new { htmlAttributes = new { @class = "" } })
-                @Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.EmployeeId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStartDate, htmlAttributes: new { @class = "col-md-4" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveStartDate, "{0:dd-MMM-yyyy}", new { @class = "" })
-                @Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveStartDate, "", new { @class = "pull-left alert alert-warning" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveEndDate, htmlAttributes: new { @class = "col-md-4" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveEndDate, "{0:dd-MMM-yyyy}", new { @class = "" })
-                @Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveEndDate, "", new { @class = "pull-left alert alert-warning", @data_date_format = "mm/dd/yy" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-3" style="padding-left: 0">@Html.Label("HalfDay", htmlAttributes: new { @class = " col-md-5" })</div>
-                    <div class="col-md-2 col-lg-push-1" style="top: 15px;left:20px">@Html.CheckBoxFor(model => model.EmployeeLeaveDetails.IsHalfDay, new { @class = "" })</div>
-                    <div class="col-md-7">@Html.TextBoxFor(model => model.EmployeeLeaveDetails.HalfDayDateUTC, new { @class = "form-control", @Value = "" })</div>
+            <div class="form-group" style="display: none;">
+                @Html.LabelFor(model => model.EmployeeLeaveDetails.EmployeeId, htmlAttributes: new {@class = "col-md-4"})
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.EmployeeLeaveDetails.EmployeeId, new {htmlAttributes = new {@class = ""}})
+                    @Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.EmployeeId, "", new {@class = "text-danger"})
                 </div>
             </div>
-        </div>
 
-        @*<div class="form-group">
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStartDate, htmlAttributes: new {@class = "col-md-4"})
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveStartDate, "{0:dd-MMM-yyyy}", new {@class = ""})
+                    @Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveStartDate, "", new {@class = "pull-left alert alert-warning"})
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveEndDate, htmlAttributes: new {@class = "col-md-4"})
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveEndDate, "{0:dd-MMM-yyyy}", new {@class = ""})
+                    @Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveEndDate, "", new {@class = "pull-left alert alert-warning", @data_date_format = "mm/dd/yy"})
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-3" style="padding-left: 0">@Html.Label("HalfDay", htmlAttributes: new {@class = " col-md-5"})</div>
+                        <div class="col-md-2 col-lg-push-1" style="top: 15px; left: 20px">@Html.CheckBoxFor(model => model.EmployeeLeaveDetails.IsHalfDay, new {@class = ""})</div>
+                        <div class="col-md-7">@Html.TextBoxFor(model => model.EmployeeLeaveDetails.HalfDayDateUTC, new {@class = "form-control", @Value = ""})</div>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="form-group">
                 @Html.LabelFor(model => model.EmployeeLeaveDetails.JoiningDate, htmlAttributes: new { @class = "col-md-4" })
                 <div class="col-md-8">
                     @Html.TextBoxFor(model => model.EmployeeLeaveDetails.JoiningDate, new { htmlAttributes = new { @class = "" } })
@@ -60,181 +62,182 @@
                 </div>
             </div>*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveTypeId, htmlAttributes: new { @class = "col-md-4" })
-            <div class="col-md-8">
-                @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveTypeId, Model.LeaveType, new { @class = "form-control" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveTypeId, htmlAttributes: new {@class = "col-md-4"})
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveTypeId, Model.LeaveType, new {@class = "form-control"})
 
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.NoOfDays, htmlAttributes: new { @class = "col-md-4" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.NoOfDays, new { @class = "", @readonly = "true" })
-                @Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.NoOfDays, "", new { @class = "pull-left alert alert-warning" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.Reason, htmlAttributes: new { @class = "col-md-4" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.EmployeeLeaveDetails.Reason, new { htmlAttributes = new { @class = "", @cols = 80, @rows = 5 } })
-                @Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.Reason, "", new { @class = "pull-left alert alert-warning" })
-            </div>
-        </div>
-
-        <div class="form-group" style="display: none;">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStatus, htmlAttributes: new { @class = " col-md-4" })
-            <div class="col-md-8">
-                @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveStatus, Model.LeaveStatusEnums, new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeLeaveDetails.ApprovedBy, new { @class = "col-md-4" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.ApprovedPersonName, new { @class = "", @readonly = "true" })
-                @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedPersonName)
-                @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedBy)
+                </div>
             </div>
 
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-4 col-md-8">
-                <input type="button" value="Apply Changes" class="btn btn-default leaveApply" />
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeLeaveDetails.NoOfDays, htmlAttributes: new {@class = "col-md-4"})
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.EmployeeLeaveDetails.NoOfDays, new {@class = "", @readonly = "true"})
+                    @Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.NoOfDays, "", new {@class = "pull-left alert alert-warning"})
+                </div>
             </div>
-        </div>
-        <div>
-            @Html.ActionLink("Back to List", "Index", new {id = HttpCurrentUser.EmployeeId})
-        </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeLeaveDetails.Reason, htmlAttributes: new {@class = "col-md-4"})
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.EmployeeLeaveDetails.Reason, new {htmlAttributes = new {@class = "", @cols = 80, @rows = 5}})
+                    @Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.Reason, "", new {@class = "pull-left alert alert-warning"})
+                </div>
+            </div>
+
+            <div class="form-group" style="display: none;">
+                @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStatus, htmlAttributes: new {@class = " col-md-4"})
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveStatus, Model.LeaveStatusEnums, new {@class = "form-control"})
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmployeeLeaveDetails.ApprovedBy, new {@class = "col-md-4"})
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.EmployeeLeaveDetails.ApprovedPersonName, new {@class = "", @readonly = "true"})
+                    @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedPersonName)
+                    @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedBy)
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-8">
+                    <input type="button" value="Apply Changes" class="btn btn-default leaveApply" />
+                </div>
+            </div>
+            <div>
+                @Html.ActionLink("Back to List", "Index", new {id = HttpCurrentUser.EmployeeId})
+            </div>
 
 
-        <div class="modal fade" id="leaveModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4>Confirmation</h4>
-                    </div>
-                    <div class="modal-body">
-                        Are you sure, you want to edit leave details?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
-                        <button type="button" id="btnCancel" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
+            <div class="modal fade" id="leaveModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4>Confirmation</h4>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure, you want to edit leave details?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
+                            <button type="button" id="btnCancel" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div id="divLoading"></div>
         </div>
-        <div id="divLoading"></div>
+        }
     </div>
-}
+</div>
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script>
+        @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script>
 
-        $(document).ready(function () {
-            if ($('#EmployeeLeaveDetails_IsHalfDay').is(':checked')) {
-                $("#EmployeeLeaveDetails_HalfDayDateUTC").show();
-            } else {
-                $("#EmployeeLeaveDetails_HalfDayDateUTC").hide();
-            }
-
-            $('.nav #Leaves').addClass('active');
-            $(".leaveApply").click(function () {
-                $("#leaveModal").modal('show');
-            });
-
-            $("#btnOK").click(function () {
-                $("#leaveModal").modal('hide');
-                $("#EmployeeLeaveDetails_LeaveStatus").val("2");
-                $("#divLoading").html('<image src="../../../Content/Base/images/spinner.gif" alt="processing...."/>').show();
-            });
-
-            $("#btnCancel").click(function () {
-                $("#smsModal").modal('hide');
-            });
-            $("#EmployeeLeaveDetails_LeaveStartDate").datepicker({
-                dateFormat: "dd-M-yy",
-                changeMonth: true,
-                changeYear: true,
-                constrainInput: true,
-                onSelect: function () {
-                    $("#EmployeeLeaveDetails_NoOfDays").val("");
-                    var start = $("#EmployeeLeaveDetails_LeaveStartDate").datepicker("getDate");
-                    var end = $("#EmployeeLeaveDetails_LeaveEndDate").datepicker("getDate");
-                    if (end == null)
-                        return;
-                    if (end >= start) {
-                        GetActualLeave();
-                    } else {
-                        alert("Start Date is greater than End Date");
-                    }
-                }
-            }).val();
-
-            $("#EmployeeLeaveDetails_LeaveEndDate").datepicker({
-                dateFormat: "dd-M-yy",
-                changeMonth: true,
-                changeYear: true,
-                constrainInput: true,
-                onSelect: function () {
-                    $("#EmployeeLeaveDetails_NoOfDays").val("");
-                    var start = $("#EmployeeLeaveDetails_LeaveStartDate").datepicker("getDate");
-                    var end = $("#EmployeeLeaveDetails_LeaveEndDate").datepicker("getDate");
-                    if (start == null)
-                        return;
-                    if (end >= start) {
-                        GetActualLeave();
-                    } else {
-                        alert("Start Date is greater than End Date");
-                    }
-                }
-            }).val();
-
-            $('#EmployeeLeaveDetails_IsHalfDay').click(function () {
-                if ($(this).is(':checked')) {
+            $(document).ready(function () {
+                if ($('#EmployeeLeaveDetails_IsHalfDay').is(':checked')) {
                     $("#EmployeeLeaveDetails_HalfDayDateUTC").show();
                 } else {
                     $("#EmployeeLeaveDetails_HalfDayDateUTC").hide();
-                    $("#EmployeeLeaveDetails_HalfDayDateUTC").val('');
                 }
+
+                $('.nav #Leaves').addClass('active');
+                $(".leaveApply").click(function () {
+                    $("#leaveModal").modal('show');
+                });
+
+                $("#btnOK").click(function () {
+                    $("#leaveModal").modal('hide');
+                    $("#EmployeeLeaveDetails_LeaveStatus").val("2");
+                    $("#divLoading").html('<image src="../../../Content/Base/images/spinner.gif" alt="processing...."/>').show();
+                });
+
+                $("#btnCancel").click(function () {
+                    $("#smsModal").modal('hide');
+                });
+                $("#EmployeeLeaveDetails_LeaveStartDate").datepicker({
+                    dateFormat: "dd-M-yy",
+                    changeMonth: true,
+                    changeYear: true,
+                    constrainInput: true,
+                    onSelect: function () {
+                        $("#EmployeeLeaveDetails_NoOfDays").val("");
+                        var start = $("#EmployeeLeaveDetails_LeaveStartDate").datepicker("getDate");
+                        var end = $("#EmployeeLeaveDetails_LeaveEndDate").datepicker("getDate");
+                        if (end == null)
+                            return;
+                        if (end >= start) {
+                            GetActualLeave();
+                        } else {
+                            alert("Start Date is greater than End Date");
+                        }
+                    }
+                }).val();
+
+                $("#EmployeeLeaveDetails_LeaveEndDate").datepicker({
+                    dateFormat: "dd-M-yy",
+                    changeMonth: true,
+                    changeYear: true,
+                    constrainInput: true,
+                    onSelect: function () {
+                        $("#EmployeeLeaveDetails_NoOfDays").val("");
+                        var start = $("#EmployeeLeaveDetails_LeaveStartDate").datepicker("getDate");
+                        var end = $("#EmployeeLeaveDetails_LeaveEndDate").datepicker("getDate");
+                        if (start == null)
+                            return;
+                        if (end >= start) {
+                            GetActualLeave();
+                        } else {
+                            alert("Start Date is greater than End Date");
+                        }
+                    }
+                }).val();
+
+                $('#EmployeeLeaveDetails_IsHalfDay').click(function () {
+                    if ($(this).is(':checked')) {
+                        $("#EmployeeLeaveDetails_HalfDayDateUTC").show();
+                    } else {
+                        $("#EmployeeLeaveDetails_HalfDayDateUTC").hide();
+                        $("#EmployeeLeaveDetails_HalfDayDateUTC").val('');
+                    }
+                });
+
+                $("#EmployeeLeaveDetails_HalfDayDateUTC").datepicker({
+                    dateFormat: 'dd-M-yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    constrainInput: true
+                }).val();
+
+                $("#EmployeeLeaveDetails_JoiningDate").datepicker().on("changeDate", function (e) {
+                    $(this).datepicker("hide");
+                });
             });
 
-            $("#EmployeeLeaveDetails_HalfDayDateUTC").datepicker({
-                dateFormat: 'dd-M-yy',
-                changeMonth: true,
-                changeYear: true,
-                constrainInput: true
-            }).val();
+            function GetActualLeave() {
+                var url = "/Leave/GetActualLeaveDaysCount/";
+                var start = $("#EmployeeLeaveDetails_LeaveStartDate").val();
+                var end = $("#EmployeeLeaveDetails_LeaveEndDate").val();
+                $.ajax({
+                    url: url,
+                    data: { startDate: start, endDate: end },
+                    cache: false,
+                    dataType: "Json",
+                    type: "POST",
+                    success: function (data) {
+                        //alert("result : " + data["Value"]);
+                        $("#EmployeeLeaveDetails_NoOfDays").val(data["Value"]);
+                    },
+                    error: function (response) {
+                        alert("Error Occurred ");
+                    }
+                });
+            }
 
-            $("#EmployeeLeaveDetails_JoiningDate").datepicker().on("changeDate", function (e) {
-                $(this).datepicker("hide");
-            });
-        });
-
-        function GetActualLeave() {
-            var url = "/Leave/GetActualLeaveDaysCount/";
-            var start = $("#EmployeeLeaveDetails_LeaveStartDate").val();
-            var end = $("#EmployeeLeaveDetails_LeaveEndDate").val();
-            $.ajax({
-                url: url,
-                data: { startDate: start, endDate: end },
-                cache: false,
-                dataType: "Json",
-                type: "POST",
-                success: function (data) {
-                    //alert("result : " + data["Value"]);
-                    $("#EmployeeLeaveDetails_NoOfDays").val(data["Value"]);
-                },
-                error: function (response) {
-                    alert("Error Occurred ");
-                }
-            });
+        </script>
         }
-
-    </script>
-
-}
