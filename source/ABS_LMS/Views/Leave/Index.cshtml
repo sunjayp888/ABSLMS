@@ -8,8 +8,11 @@
 }
 
 <h1>Leave Details </h1>
-@if (Model != null)
-{
+<div class="panel panel-default">
+    <div class="panel-heading">Leave Record</div>
+    <div class="panel-body">
+        @if (Model != null)
+        {
     <p class="Link-btn">
         @if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
         {
@@ -59,7 +62,7 @@
         </div>
         }
     </div>
-    if (@Model.EmployeeLeaveDetails.Any())
+        if (@Model.EmployeeLeaveDetails.Any())
     {<div class="leaveHistory" id="leavehistorytable">
 
             <div class="desktopview">
@@ -214,6 +217,7 @@
                         @if (item.LeaveStatusName != LeaveStatus.Reject.ToString() && item.LeaveStatusName != LeaveStatus.Cancel.ToString())
                              {
                             <div class="@item.EmployeeLeaveHistoryId Linkbtn" style="@(item.LeaveStatusName == LeaveStatus.Cancel.ToString() ? " display:none" : "display:block" )">
+                                : "display:block" )">
                                 <div>
                                     @if (item.LeaveStatusName != LeaveStatus.Approve.ToString())
                                          {
@@ -226,6 +230,7 @@
                                          }
                                     <div>
                                         <input type="button" value="@LeaveStatus.Cancel.ToString()" data-status="Cancel" style="@(item.LeaveStatusName == LeaveStatus.Cancel.ToString() ? "display:none" : "display:block" )" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default cancelbtn statusbtn" />
+                                               "display:block" )" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default cancelbtn statusbtn" />
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +245,7 @@
             </div>
             @Html.PagedListPager(Model.EmployeeLeaveDetails, pagenumber => Url.Action("Index", new {pagenumber}))
         </div>
-    }
+        }
     else
     {
         <div class="row">
@@ -251,7 +256,9 @@
             </div>
         </div>
     }
-}
+        }
+    </div>
+</div>
                 @section Scripts {
 
                     <script>

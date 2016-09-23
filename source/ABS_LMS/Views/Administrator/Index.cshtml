@@ -5,68 +5,73 @@
 }
 
 <h1>Users</h1>
-<p>
-    @Html.ActionLink("Create New User", "Create")
-</p>
-<div class="row textboxsize">
-    @using (Html.BeginForm("Index", "Administrator", FormMethod.Post))
-    {
+<div class="panel panel-default">
+    <div class="panel-heading">Users</div>
+    <div class="panel-body">
+        <p>
+            @Html.ActionLink("Create New User", "Create")
+        </p>
+        <div class="row textboxsize">
+            @using (Html.BeginForm("Index", "Administrator", FormMethod.Post))
+            {
 
-    <div class="searchTextbox" style="display: inline-flex;">
-        <input type="text" name="searchKeyword"  placeholder="Search Users" value="@Model.SearchKeyword" />
+            <div class="searchTextbox" style="display: inline-flex;">
+                <input type="text" name="searchKeyword" placeholder="Search Users" value="@Model.SearchKeyword" />
 
-        &nbsp;&nbsp;
-        <input type="submit" class="" id="searchKeyword" value="Search" />
+                &nbsp;&nbsp;
+                <input type="submit" class="" id="searchKeyword" value="Search" />
+            </div>
+
+
+
+            <br />
+            <div>
+                @if (Model.Users.Any())
+                {
+                <div>
+                    <table class="table table table-bordered table-employees">
+                        <thead>
+                            <tr>
+                                <th>@Html.ActionLink("UserName", "Index", new {sortOrder = "username", sortOrderDesc = ViewBag.SortOrder})</th>
+                                <th>@Html.ActionLink("First Name", "Index", new {sortOrder = "firstname", sortOrderDesc = ViewBag.SortOrder})</th>
+                                <th>@Html.ActionLink("Last Name", "Index", new {sortOrder = "lastname", sortOrderDesc = ViewBag.SortOrder})</th>
+
+                                <th>@Html.ActionLink("Email", "Index", new {sortOrder = "email", sortOrderDesc = ViewBag.SortOrder})</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model.Users)
+                            {
+                            <tr data-id="@user.Id" data-username="@user.UserName">
+                                <td>@user.UserName</td>
+                                <td>@user.FirstName</td>
+                                <td>@user.LastName</td>
+
+                                <td>@user.Email</td>
+
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    Page @(Model.Users.PageCount < Model.Users.PageNumber ? 0 : Model.Users.PageNumber) of @Model.Users.PageCount
+                </div>
+                @Html.PagedListPager(Model.Users, pagenumber => Url.Action("Index", new {searchKeyword = Model.SearchKeyword, pagenumber}))
+                }
+                else
+                {
+                <div class="searchtext">
+
+                    <label>No record found</label>
+                </div>
+                }
+
+            </div>
+            }
+        </div>
     </div>
-
-
-
-    <br />
-    <div>
-        @if (Model.Users.Any())
-        {
-        <div>
-            <table class="table table-hover table-employees">
-                <thead>
-                    <tr>
-                        <th>@Html.ActionLink("UserName", "Index", new { sortOrder = "username", sortOrderDesc = ViewBag.SortOrder })</th>
-                        <th>@Html.ActionLink("First Name", "Index", new { sortOrder = "firstname", sortOrderDesc = ViewBag.SortOrder })</th>
-                        <th>@Html.ActionLink("Last Name", "Index", new { sortOrder = "lastname", sortOrderDesc = ViewBag.SortOrder })</th>
-
-                        <th>@Html.ActionLink("Email", "Index", new { sortOrder = "email", sortOrderDesc = ViewBag.SortOrder })</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var user in Model.Users)
-                    {
-                    <tr data-id="@user.Id" data-username="@user.UserName">
-                        <td>@user.UserName</td>
-                        <td>@user.FirstName</td>
-                        <td>@user.LastName</td>
-
-                        <td>@user.Email</td>
-
-                    </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <div>
-            Page @(Model.Users.PageCount < Model.Users.PageNumber ? 0 : Model.Users.PageNumber) of @Model.Users.PageCount
-        </div>
-        @Html.PagedListPager(Model.Users, pagenumber => Url.Action("Index", new { searchKeyword = Model.SearchKeyword, pagenumber}))
-        }
-        else
-        {
-        <div class="searchtext">
-
-            <label>No record found</label>
-        </div>
-        }
-
-    </div>
-    }
 </div>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">

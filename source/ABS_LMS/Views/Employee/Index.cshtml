@@ -6,89 +6,93 @@
     ViewBag.Title = "Index";
 }
 <div class="row padding-left-10 employeelist">
+
     <h2>Employees</h2>
+    <div class="panel panel-default">
+        <div class="panel-heading">Employees</div>
+        <div class="panel-body">
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+            @using (Html.BeginForm())
+            {
+            <div class="">
+                <div class="col-md-3">
+                    <input type="text" name="searchKeyword"  class="searchboxset" placeholder="Search Employees" value="@Model.SearchKeyword" />
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" id="btnsearch" value="Search">
+                </div>
+            </div>
 
-    @using (Html.BeginForm())
-    {
-        <div class="table">
-            <div class="col-md-4 pull-left">
-                <input type="text" name="searchKeyword" placeholder="Search Employees" value="@Model.SearchKeyword" />
+            }
+
+
+            <table class="table table-bordered ">
+                <tr>
+                    <th>
+                        @Html.ActionLink("Employee Code", "Index", new {sortOrder = "EmployeeCode", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword})
+                    </th>
+                    <th>
+                        @Html.ActionLink("First Name", "Index", new {sortOrder = "FirstName", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword})
+                    </th>
+                    <th>
+                        @Html.ActionLink("Last Name", "Index", new {sortOrder = "LastName", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword})
+                    </th>
+                    <th>
+                        @Html.ActionLink("Gender", "Index", new {sortOrder = "Gender", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword})
+                    </th>
+                    <th>
+                        @Html.ActionLink("Company Email Id", "Index", new {sortOrder = "CompanyEmailId", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword})
+                    </th>
+                    <th>
+                        @Html.ActionLink("Designation", "Index", new {sortOrder = "Designation", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword})
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.EmployeeDetail)
+                {
+                <tr>
+                    <td>
+                        @item.EmployeeCode
+                    </td>
+                    <td>
+                        @item.FirstName
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @item.Gender
+                    </td>
+                    <td>
+                        @item.CompanyEmailId
+                    </td>
+                    <td>
+                        @item.Designation
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", new {id = item.EmployeeId}, new {onclick = "return confirm('Are you sure you wish to delete " + item.FirstName + "?');", @class = "linktobtn"})
+                        @Html.ActionLink("Details", "Details", new {id = item.EmployeeId}, new {@class = "linktobtn"})
+                        @Html.ActionLink("Edit", "Edit", new {id = item.EmployeeId}, new {@class = "linktobtn editbtnlink"})
+                    </td>
+                </tr>
+                }
+            </table>
+            <div>
+                Page @(Model.EmployeeDetail.PageCount < Model.EmployeeDetail.PageNumber ? 0 : Model.EmployeeDetail.PageNumber) of @Model.EmployeeDetail.PageCount
             </div>
-            <div class="col-md-2">
-                <input type="submit" id="btnsearch" value="Search">
-            </div>
+            @Html.PagedListPager(Model.EmployeeDetail, pagenumber => Url.Action("Index", new {id = HttpCurrentUser.EmployeeId, searchKeyword = Model.SearchKeyword, sortOrder = ViewBag.SortOrder, sortOrderDesc = !ViewBag.SortOrderDesc, pagenumber}))
         </div>
-
-    }
-
-
-    <table class="table table-bordered ">
-        <tr>
-            <th>
-                @Html.ActionLink("Employee Code", "Index", new { sortOrder = "EmployeeCode", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
-            </th>
-            <th>
-                @Html.ActionLink("First Name", "Index", new { sortOrder = "FirstName", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
-            </th>
-            <th>
-                @Html.ActionLink("Last Name", "Index", new { sortOrder = "LastName", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
-            </th>
-            <th>
-                @Html.ActionLink("Gender", "Index", new { sortOrder = "Gender", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
-            </th>
-            <th>
-                @Html.ActionLink("Company Email Id", "Index", new { sortOrder = "CompanyEmailId", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
-            </th>
-            <th>
-                @Html.ActionLink("Designation", "Index", new { sortOrder = "Designation", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model.EmployeeDetail)
-        {
-            <tr>
-                <td>
-                    @item.EmployeeCode
-                </td>
-                <td>
-                    @item.FirstName
-                </td>
-                <td>
-                    @item.LastName
-                </td>
-                <td>
-                    @item.Gender
-                </td>
-                <td>
-                    @item.CompanyEmailId
-                </td>
-                <td>
-                    @item.Designation
-                </td>
-                <td>
-                    @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeId }, new { onclick = "return confirm('Are you sure you wish to delete " + item.FirstName + "?');", @class = "linktobtn" })
-                    @Html.ActionLink("Details", "Details", new { id = item.EmployeeId }, new { @class = "linktobtn" })
-                    @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }, new { @class = "linktobtn editbtnlink" })
-                </td>
-            </tr>
-        }
-    </table>
-    <div>
-        Page @(Model.EmployeeDetail.PageCount < Model.EmployeeDetail.PageNumber ? 0 : Model.EmployeeDetail.PageNumber) of @Model.EmployeeDetail.PageCount
     </div>
-    @Html.PagedListPager(Model.EmployeeDetail, pagenumber => Url.Action("Index", new { id = HttpCurrentUser.EmployeeId, searchKeyword = Model.SearchKeyword, sortOrder = ViewBag.SortOrder, sortOrderDesc = !ViewBag.SortOrderDesc, pagenumber }))
 </div>
-
-@section scripts
-{
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.nav #employee').addClass('active');
-        });
-    </script>
-}
+        @section scripts
+        {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.nav #employee').addClass('active');
+            });
+        </script>
+        }
