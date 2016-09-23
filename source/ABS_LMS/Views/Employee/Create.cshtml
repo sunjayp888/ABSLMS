@@ -166,6 +166,14 @@
                         </div>
                     </div>
 
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmployeeDetail.ClientId, htmlAttributes: new { @class = " col-md-4" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(model => model.EmployeeDetail.ClientId, Model.ClientList, new { @class = "form-control" })
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         @Html.LabelFor(model => model.EmployeeDetail.DesignationId, htmlAttributes: new {@class = " col-md-4"})
                         <div class="col-md-8">
@@ -288,20 +296,19 @@
 
             function GetReportingManager() {
                 var url = "/Employee/GetReportingManager/";
-                var departmentId = $('#EmployeeDetail_DepartmentId').val();
-
+                //var departmentId = $('#EmployeeDetail_DepartmentId').val();
                 $.ajax({
                     url: url,
-                    data: { departmentId: departmentId },
+                    //data: { departmentId: departmentId },
                     cache: false,
                     type: "POST",
                     success: function (data) {
-                        var markup = "<option value='0'>Reporting Manager</option>";
-                        for (var x = 0; x < data.length; x++) {
-                            markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
-                        }
-                        $(".reportingmanager").html("");
-                        $(".reportingmanager").html(markup).show();
+                        //var markup = "<option value='0'>Reporting Manager</option>";
+                        //for (var x = 0; x < data.length; x++) {
+                        //    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                        //}
+                        //$(".reportingmanager").html("");
+                        //$(".reportingmanager").html(markup).show();
                     },
                     error: function (reponse) {
                         alert("error : " + reponse);

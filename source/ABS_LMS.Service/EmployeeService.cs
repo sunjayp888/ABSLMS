@@ -48,15 +48,15 @@ namespace ABS_LMS.Service
                 PANCard = employee.PANCard,
                 LeavingDateUTC = employee.LeavingDateUTC,
                 DOJ = employee.DOJ,
-                EmployeeImage = new[] { Convert.ToByte(employee.EmployeeImage) },
-                ReportingManager = employee.ReportingManager
+                EmployeeImage = employee.EmployeeImage,
+                ReportingManager = employee.ReportingManager,
+                ClientId = employee.ClientId
             });
             _unitOfWork.Complete();
         }
 
         public void DeleteEmployee(int employeeId)
         {
-            // _unitOfWork.Employee.Remove(_unitOfWork.Employee.Get(employeeId));
             var employeedetails = _unitOfWork.Employee.Get(employeeId);
             employeedetails.LeavingDateUTC = DateTime.UtcNow;
             _unitOfWork.Complete();
@@ -69,6 +69,16 @@ namespace ABS_LMS.Service
             {
                 DepartmentId = d.DepartmentId,
                 DeparmentName = d.DeparmentName
+            }).ToList();
+        }
+
+        public List<Model.Client> GetClients()
+        {
+            var client = _unitOfWork.Client.GetAll();
+            return client.Select(c => new Model.Client
+            {
+                ClientId = c.ClientId,
+                ClientName = c.Name
             }).ToList();
         }
 
@@ -112,8 +122,8 @@ namespace ABS_LMS.Service
                 LeavingDateUTC = employee.LeavingDateUTC,
                 DOJ = employee.DOJ,
                 EmployeeImage = employee.EmployeeImage,
+                ClientId = employee.ClientId,
                 ReportingManager = employee.ReportingManager
-
             };
         }
 
@@ -134,7 +144,9 @@ namespace ABS_LMS.Service
                 EmployeeImage = e.EmployeeImage,
                 DOB = e.DOB,
                 CompanyEmailId = e.CompanyEmailId,
-                Gender = e.Gender
+                Gender = e.Gender,
+                ClientId = e.ClientId,
+                Client = e.Client.Name
             }).OrderBy(o => o.EmployeeCode).ToList();
         }
 
@@ -168,6 +180,7 @@ namespace ABS_LMS.Service
             employeedetails.DOJ = employee.DOJ;
             employeedetails.EmployeeImage = employee.EmployeeImage;
             employeedetails.ReportingManager = employee.ReportingManager;
+            employeedetails.ClientId = employee.ClientId;
             _unitOfWork.Complete();
         }
     }

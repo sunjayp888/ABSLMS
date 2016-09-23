@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interface\IClientRepository.cs" />
     <Compile Include="Interface\IDesignationRepository.cs" />
     <Compile Include="Interface\IEmployeeLeaveRepository.cs" />
     <Compile Include="Interface\IEventRepository.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Interface\ILeaveTypeRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ClientRepository.cs" />
     <Compile Include="Repositories\DepartmentRepository.cs" />
     <Compile Include="Repositories\DesignationRepository.cs" />
     <Compile Include="Repositories\EmployeeLeaveRepository.cs" />
