@@ -25,16 +25,17 @@
 
     }
 
+
     <table class="table table-bordered ">
         <tr>
             <th>
-                @Html.ActionLink("Employee Code", "Index", new { sortOrder = "EmployeeCode", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword  })
+                @Html.ActionLink("Employee Code", "Index", new { sortOrder = "EmployeeCode", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
             </th>
             <th>
                 @Html.ActionLink("First Name", "Index", new { sortOrder = "FirstName", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
             </th>
             <th>
-                @Html.ActionLink("Last Name", "Index", new {sortOrder = "LastName", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword})
+                @Html.ActionLink("Last Name", "Index", new { sortOrder = "LastName", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
             </th>
             <th>
                 @Html.ActionLink("Gender", "Index", new { sortOrder = "Gender", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })

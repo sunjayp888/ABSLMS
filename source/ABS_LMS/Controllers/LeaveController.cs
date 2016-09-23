@@ -69,11 +69,11 @@ namespace ABS_LMS.Controllers
                 return View(model);
             });
         }
-        public ActionResult History(int id, int pagenumber = 1, int pagesize = 10)
+        public ActionResult History(DateTime FromDate, DateTime ToDate, int pagenumber = 1, int pagesize = 10)
         {
-            return Authorization.HasAccess(Convert.ToString(id), () =>
+            return Authorization.HasAccess(Convert.ToString(HttpCurrentUser.EmployeeId), () =>
             {
-                var leaveDetails = _employeeLeaveService.GetEmployeeLeaveDetails(id);
+                var leaveDetails = _employeeLeaveService.GetEmployeeLeaveDetails(Convert.ToInt32(HttpCurrentUser.EmployeeId)).Where(e=>e.LeaveStartDate>=FromDate && e.LeaveEndDate<=ToDate);
 
                 var model = new EmployeeLeaveIndexViewModel
                 {
