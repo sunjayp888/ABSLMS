@@ -29,14 +29,6 @@ namespace ABS_LMS.Data
         public string EmailId { get; set; }
         public string CompanyEmailId { get; set; }
         public string MobileNo { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-        public string Address3 { get; set; }
-        public string Address4 { get; set; }
-        public string Postcode { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string Country { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
         public Nullable<System.DateTime> DOJ { get; set; }
         public Nullable<int> DepartmentId { get; set; }
@@ -49,6 +41,14 @@ namespace ABS_LMS.Data
         public Nullable<System.DateTime> ConfirmationDateUTC { get; set; }
         public Nullable<int> ReportingManager { get; set; }
         public string Gender { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string Address3 { get; set; }
+        public string Address4 { get; set; }
+        public string PostCode { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Country { get; set; }
         public byte[] EmployeeImage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

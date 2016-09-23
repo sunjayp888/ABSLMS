@@ -17,7 +17,7 @@
         <AssociationConnector Association="ABSLMSModel.FK_Department_Department" />
         <AssociationConnector Association="ABSLMSModel.FK_EmployeeLeaveHistory_LeaveType" />
         <AssociationConnector Association="ABSLMSModel.FK_LeaveDetails_LeaveType" />
-        <EntityTypeShape EntityType="ABSLMSModel.Event" Width="1.5" PointX="10.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ABSLMSModel.Event" Width="1.5" PointX="8.875" PointY="3.25" />
         <EntityTypeShape EntityType="ABSLMSModel.Employee" Width="1.5" PointX="3" PointY="4" />
         <AssociationConnector Association="ABSLMSModel.FK_AspNetUsers_Employee" />
         <AssociationConnector Association="ABSLMSModel.FK_Employee_Department" />

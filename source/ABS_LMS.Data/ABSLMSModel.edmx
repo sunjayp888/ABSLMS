@@ -77,14 +77,6 @@
           <Property Name="EmailId" Type="nvarchar" MaxLength="255" />
           <Property Name="CompanyEmailId" Type="nvarchar" MaxLength="255" />
           <Property Name="MobileNo" Type="nvarchar" MaxLength="255" />
-          <Property Name="Address1" Type="nvarchar(max)" />
-          <Property Name="Address2" Type="nvarchar(max)" />
-          <Property Name="Address3" Type="nvarchar(max)" />
-          <Property Name="Address4" Type="nvarchar(max)" />
-          <Property Name="Postcode" Type="varchar" MaxLength="50" />
-          <Property Name="City" Type="varchar" MaxLength="500" />
-          <Property Name="State" Type="varchar" MaxLength="500" />
-          <Property Name="Country" Type="varchar" MaxLength="500" />
           <Property Name="DOB" Type="datetime" />
           <Property Name="DOJ" Type="datetime" />
           <Property Name="DepartmentId" Type="int" />
@@ -97,7 +89,15 @@
           <Property Name="ConfirmationDateUTC" Type="datetime" />
           <Property Name="ReportingManager" Type="int" />
           <Property Name="Gender" Type="nvarchar" MaxLength="255" />
-          <Property Name="EmployeeImage" Type="binary" MaxLength="500" />
+          <Property Name="Address1" Type="varchar" MaxLength="2000" />
+          <Property Name="Address2" Type="varchar" MaxLength="2000" />
+          <Property Name="Address3" Type="varchar" MaxLength="2000" />
+          <Property Name="Address4" Type="varchar" MaxLength="2000" />
+          <Property Name="PostCode" Type="varchar" MaxLength="100" />
+          <Property Name="City" Type="varchar" MaxLength="500" />
+          <Property Name="State" Type="varchar" MaxLength="500" />
+          <Property Name="Country" Type="varchar" MaxLength="200" />
+          <Property Name="EmployeeImage" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="EmployeeLeaveHistory">
           <Key>
@@ -470,9 +470,8 @@
           <Property Name="ApprovedPersonName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LeaveType" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_LeaveType" FromRole="EmployeeLeaveHistory" ToRole="LeaveType" />
 
-       <NavigationProperty Name="Employee" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_Employee" FromRole="EmployeeLeaveHistory" ToRole="Employee" />
-
           <Property Name="HalfDayDateUTC" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Employee" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_Employee" FromRole="EmployeeLeaveHistory" ToRole="Employee" />
 
         </EntityType>
         <EntityType Name="Holiday">
@@ -579,14 +578,6 @@
           <Property Name="EmailId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="CompanyEmailId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="MobileNo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Address1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Address2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Address3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Address4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Postcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="City" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="State" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Country" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="DOB" Type="DateTime" Precision="3" />
           <Property Name="DOJ" Type="DateTime" Precision="3" />
           <Property Name="DepartmentId" Type="Int32" />
@@ -599,7 +590,15 @@
           <Property Name="ConfirmationDateUTC" Type="DateTime" Precision="3" />
           <Property Name="ReportingManager" Type="Int32" />
           <Property Name="Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="EmployeeImage" Type="Binary" MaxLength="500" FixedLength="true" />
+          <Property Name="Address1" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Address2" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Address3" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Address4" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="PostCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="ABSLMSModel.FK_AspNetUsers_Employee" FromRole="Employee" ToRole="AspNetUser" />
           <NavigationProperty Name="Department" Relationship="ABSLMSModel.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
           <NavigationProperty Name="Designation" Relationship="ABSLMSModel.FK_Employee_Designation" FromRole="Employee" ToRole="Designation" />
@@ -813,6 +812,14 @@
             <EntityTypeMapping TypeName="ABSLMSModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
                 <ScalarProperty Name="EmployeeImage" ColumnName="EmployeeImage" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+                <ScalarProperty Name="Address4" ColumnName="Address4" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="ReportingManager" ColumnName="ReportingManager" />
                 <ScalarProperty Name="ConfirmationDateUTC" ColumnName="ConfirmationDateUTC" />
@@ -825,14 +832,6 @@
                 <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
                 <ScalarProperty Name="DOJ" ColumnName="DOJ" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Postcode" ColumnName="Postcode" />
-                <ScalarProperty Name="Address4" ColumnName="Address4" />
-                <ScalarProperty Name="Address3" ColumnName="Address3" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
                 <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
                 <ScalarProperty Name="CompanyEmailId" ColumnName="CompanyEmailId" />
                 <ScalarProperty Name="EmailId" ColumnName="EmailId" />

@@ -33,8 +33,8 @@ namespace ABS_LMS.Service
                 Address2 = employee.Address2,
                 Address3 = employee.Address3,
                 Address4 = employee.Address4,
-                City     = employee.City,
-                Postcode = employee.PostCode,
+                City = employee.City,
+                PostCode = employee.PostCode,
                 Country = employee.Country,
                 State = employee.State,
                 ConfirmationDateUTC = employee.ConfirmationDateUTC,
@@ -48,15 +48,15 @@ namespace ABS_LMS.Service
                 PANCard = employee.PANCard,
                 LeavingDateUTC = employee.LeavingDateUTC,
                 DOJ = employee.DOJ,
-                EmployeeImage = new[] {Convert.ToByte(employee.EmployeeImage)},
-                ReportingManager=employee.ReportingManager
+                EmployeeImage = new[] { Convert.ToByte(employee.EmployeeImage) },
+                ReportingManager = employee.ReportingManager
             });
             _unitOfWork.Complete();
         }
 
         public void DeleteEmployee(int employeeId)
         {
-           // _unitOfWork.Employee.Remove(_unitOfWork.Employee.Get(employeeId));
+            // _unitOfWork.Employee.Remove(_unitOfWork.Employee.Get(employeeId));
             var employeedetails = _unitOfWork.Employee.Get(employeeId);
             employeedetails.LeavingDateUTC = DateTime.UtcNow;
             _unitOfWork.Complete();
@@ -96,7 +96,7 @@ namespace ABS_LMS.Service
                 Address2 = employee.Address2,
                 Address3 = employee.Address3,
                 Address4 = employee.Address4,
-                PostCode = employee.Postcode,
+                PostCode = employee.PostCode,
                 City = employee.City,
                 State = employee.State,
                 Country = employee.Country,
@@ -111,9 +111,9 @@ namespace ABS_LMS.Service
                 PANCard = employee.PANCard,
                 LeavingDateUTC = employee.LeavingDateUTC,
                 DOJ = employee.DOJ,
-               EmployeeImage = employee.EmployeeImage,
-            ReportingManager =employee.ReportingManager
-                
+                EmployeeImage = employee.EmployeeImage,
+                ReportingManager = employee.ReportingManager
+
             };
         }
 
@@ -130,14 +130,15 @@ namespace ABS_LMS.Service
                 DepartmentId = e.DepartmentId,
                 DesignationId = e.DesignationId,
                 Designation = e.Designation.Name,
-                ReportingManager =e.ReportingManager,
+                ReportingManager = e.ReportingManager,
                 EmployeeImage = e.EmployeeImage,
                 DOB = e.DOB,
-                CompanyEmailId = e.CompanyEmailId
+                CompanyEmailId = e.CompanyEmailId,
+                Gender = e.Gender
             }).OrderBy(o => o.EmployeeCode).ToList();
         }
 
-        
+
 
         public void UpdateEmployee(int employeeId, Model.Employee employee)
         {
@@ -151,9 +152,9 @@ namespace ABS_LMS.Service
             employeedetails.Address3 = employee.Address3;
             employeedetails.Address4 = employee.Address4;
             employeedetails.City = employee.City;
-            employeedetails.Postcode= employee.PostCode;
+            employeedetails.PostCode = employee.PostCode;
             employeedetails.Country = employee.Country;
-            employeedetails.State= employee.State;
+            employeedetails.State = employee.State;
             employeedetails.ConfirmationDateUTC = employee.ConfirmationDateUTC;
             employeedetails.DepartmentId = employee.DepartmentId;
             employeedetails.DesignationId = employee.DesignationId;

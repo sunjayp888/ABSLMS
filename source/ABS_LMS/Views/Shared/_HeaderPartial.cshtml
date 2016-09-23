@@ -36,13 +36,13 @@
                 {
                     if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
                     {
-                        <li>@Html.ActionLink("Employee", "Index", "Employee", null, new { @id = "employee" })</li>
+                        <li>@Html.ActionLink("Employees", "Index", "Employee", null, new { @id = "employee" })</li>
                     }
-                    <li>@Html.ActionLink("Leave Record", "Index", "Leave", new { id = HttpCurrentUser.EmployeeId }, new { @Id = "Leaves" })</li>
+                    <li>@Html.ActionLink("Leave Records", "Index", "Leave", new { id = HttpCurrentUser.EmployeeId }, new { @Id = "Leaves" })</li>
                     if (HttpCurrentUser.IsAdmin)
                     {
                         <li>
-                            @Html.ActionLink("Administrator", "Index", "Administrator", null, new { @Id = "Administrator" })
+                            @Html.ActionLink("Users", "Index", "Administrator", null, new { @Id = "Administrator" })
 
                         </li>
                     }

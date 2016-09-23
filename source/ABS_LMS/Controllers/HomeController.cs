@@ -35,7 +35,7 @@ namespace ABS_LMS.Controllers
         public ActionResult Index()
         {
             var today = DateTime.Today;
-            var events = _eventService.GetEvents().Where(e => Convert.ToDateTime(e.DisplayStartDate) <= today && e.DisplayEndDate > today).ToList();
+            var events = _eventService.GetEvents().Where(e => Convert.ToDateTime(e.DisplayStartDate) <= today && e.DisplayEndDate >= today).ToList();
             var employees = _employeeService.GetEmployees().Where(s => Convert.ToDateTime(s.DOB).Day == today.Day
                             && Convert.ToDateTime(s.DOB).Month == today.Month && !s.LeavingDateUTC.HasValue
                             ).ToList();
