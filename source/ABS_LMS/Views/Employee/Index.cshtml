@@ -17,14 +17,14 @@
 
             @using (Html.BeginForm())
             {
-            <div class="">
-                <div class="col-md-3">
-                    <input type="text" name="searchKeyword"  class="searchboxset" placeholder="Search Employees" value="@Model.SearchKeyword" />
+                <div class="">
+                    <div class="col-md-3">
+                        <input type="text" name="searchKeyword" class="searchboxset" placeholder="Search Employees" value="@Model.SearchKeyword"/>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" id="btnsearch" value="Search">
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    <input type="submit" id="btnsearch" value="Search">
-                </div>
-            </div>
 
             }
 
@@ -54,31 +54,34 @@
 
                 @foreach (var item in Model.EmployeeDetail)
                 {
-                <tr>
-                    <td>
-                        @item.EmployeeCode
-                    </td>
-                    <td>
-                        @item.FirstName
-                    </td>
-                    <td>
-                        @item.LastName
-                    </td>
-                    <td>
-                        @item.Gender
-                    </td>
-                    <td>
-                        @item.CompanyEmailId
-                    </td>
-                    <td>
-                        @item.Designation
-                    </td>
-                    <td>
-                        @Html.ActionLink("Delete", "Delete", new {id = item.EmployeeId}, new {onclick = "return confirm('Are you sure you wish to delete " + item.FirstName + "?');", @class = "linktobtn"})
-                        @Html.ActionLink("Details", "Details", new {id = item.EmployeeId}, new {@class = "linktobtn"})
-                        @Html.ActionLink("Edit", "Edit", new {id = item.EmployeeId}, new {@class = "linktobtn editbtnlink"})
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @item.EmployeeCode
+                        </td>
+                        <td>
+                            @item.FirstName
+                        </td>
+                        <td>
+                            @item.LastName
+                        </td>
+                        <td>
+                            @item.Gender
+                        </td>
+                        <td>
+                            @item.CompanyEmailId
+                        </td>
+                        <td>
+                            @item.Designation
+                        </td>
+                        <td>
+                            @*@Html.ActionLink("Delete", "Delete", new {id = item.EmployeeId}, new {onclick ="deleteEmp(item.EmployeeId,item.FirstName)", @class = "linktobtn deleteEmp"})*@
+                            <input type="button" value="Delete" id="@item.EmployeeId" onclick="deleteEmp(@item.EmployeeId, '@item.FirstName')" class="deleteEmp btn btn-default" />
+                            @Html.ActionLink("Details", "Details", new {id = item.EmployeeId}, new {@class = "linktobtn"})
+                            @Html.ActionLink("Edit", "Edit", new {id = item.EmployeeId}, new {@class = "linktobtn editbtnlink"})
+                            <input type="text" id="EmpIdvalue" style="display: none;"/>
+                            
+                        </td>
+                    </tr>
                 }
             </table>
             <div>
@@ -87,12 +90,62 @@
             @Html.PagedListPager(Model.EmployeeDetail, pagenumber => Url.Action("Index", new {id = HttpCurrentUser.EmployeeId, searchKeyword = Model.SearchKeyword, sortOrder = ViewBag.SortOrder, sortOrderDesc = !ViewBag.SortOrderDesc, pagenumber}))
         </div>
     </div>
+    <div class="modal fade" id="EmployeeModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    Are you sure you wish to delete <lable id="employeeName"></lable>?
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
+                    <button type="button" id="btnCancel" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
         @section scripts
         {
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('.nav #employee').addClass('active');
-            });
-        </script>
+            <script type="text/javascript">
+                function deleteEmp(empId,name) {
+
+                    $('#EmpIdvalue').text('');
+                    $('#employeeName').text('');
+                    $('#EmpIdvalue').text(empId);
+                    $('#employeeName').text(name);
+                    $("#EmployeeModal").modal('show');
+                }
+
+
+                $("#btnOK").click(function () {
+                    $("#EmployeeModal").modal('hide');
+                    var emptId = $('#EmpIdvalue').text();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Employee/Delete",
+                        data: { id: emptId },
+                        dataType: 'json',
+                        success: function (response) {
+                            if (parseInt(response) > 0) {
+                                window.location.reload();
+                            }
+                        },
+                        error: function () {
+
+                        }
+                    });
+                });
+
+                $("#btnCancel").click(function () {
+                    $("#EmployeeModal").modal('hide');
+
+                });
+                $(document).ready(function () {
+                    $('.nav #employee').addClass('active');
+                });
+            </script>
         }

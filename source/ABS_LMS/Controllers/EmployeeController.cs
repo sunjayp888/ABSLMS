@@ -222,19 +222,24 @@ namespace ABS_LMS.Controllers
 
         // GET: Employee/Delete/5
         [Authorize(Roles = "Admin, Hr")]
+        //public ActionResult Delete(int id)
+        //{
+        //    try
+        //    {
+        //        _employeeService.DeleteEmployee(id);
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
         public ActionResult Delete(int id)
         {
-            try
-            {
-                _employeeService.DeleteEmployee(id);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            var result = 1;
+            _employeeService.DeleteEmployee(id);
+            return Json(result, JsonRequestBehavior.DenyGet);
         }
-
         // POST: Employee/Delete/5
 
         //User method
