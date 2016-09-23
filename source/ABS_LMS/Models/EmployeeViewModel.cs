@@ -14,7 +14,7 @@ namespace ABS_LMS.Models
         public Employee EmployeeDetail { get; set; }
 
         public IEnumerable<SelectListItem> DepartmentList { get; set; }
-
+        public IEnumerable<SelectListItem> ClientList { get; set; }
         public IEnumerable<SelectListItem> DesignationList { get; set; }
 
         public IEnumerable<SelectListItem> EmployeeType { get; set; }

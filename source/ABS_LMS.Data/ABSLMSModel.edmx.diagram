@@ -7,7 +7,7 @@
       <Diagram DiagramId="d8dab25a4b644315b27929e9cbab0196" Name="Diagram1" ZoomLevel="82">
         <EntityTypeShape EntityType="ABSLMSModel.AspNetRole" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="ABSLMSModel.AspNetUserLogin" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ABSLMSModel.AspNetUser" Width="1.5" PointX="5.25" PointY="15.5" />
+        <EntityTypeShape EntityType="ABSLMSModel.AspNetUser" Width="1.5" PointX="5.25" PointY="11.75" />
         <EntityTypeShape EntityType="ABSLMSModel.Department" Width="1.5" PointX="0.75" PointY="4.25" />
         <EntityTypeShape EntityType="ABSLMSModel.Designation" Width="1.5" PointX="0.75" PointY="7.5" />
         <EntityTypeShape EntityType="ABSLMSModel.EmployeeLeaveHistory" Width="2.5" PointX="8.25" PointY="6.125" />
@@ -18,8 +18,10 @@
         <AssociationConnector Association="ABSLMSModel.FK_EmployeeLeaveHistory_LeaveType" />
         <AssociationConnector Association="ABSLMSModel.FK_LeaveDetails_LeaveType" />
         <EntityTypeShape EntityType="ABSLMSModel.Event" Width="1.5" PointX="8.875" PointY="3.25" />
-        <EntityTypeShape EntityType="ABSLMSModel.Employee" Width="1.5" PointX="3" PointY="4" />
+        <EntityTypeShape EntityType="ABSLMSModel.Client" Width="1.5" PointX="0.75" PointY="10.125" />
+        <EntityTypeShape EntityType="ABSLMSModel.Employee" Width="1.5" PointX="3" PointY="4.125" />
         <AssociationConnector Association="ABSLMSModel.FK_AspNetUsers_Employee" />
+        <AssociationConnector Association="ABSLMSModel.FK_Employee_Client" />
         <AssociationConnector Association="ABSLMSModel.FK_Employee_Department" />
         <AssociationConnector Association="ABSLMSModel.FK_Employee_Designation" />
         <AssociationConnector Association="ABSLMSModel.FK_EmployeeLeaveHistory_Employee" />

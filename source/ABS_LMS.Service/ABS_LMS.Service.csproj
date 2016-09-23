@@ -60,6 +60,7 @@
     <Compile Include="Interface\IEventService.cs" />
     <Compile Include="Interface\IHolidayService.cs" />
     <Compile Include="Interface\IUnitOfWork.cs" />
+    <Compile Include="Model\Client.cs" />
     <Compile Include="Model\Department.cs" />
     <Compile Include="Model\Designation.cs" />
     <Compile Include="Model\Employee.cs" />

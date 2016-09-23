@@ -20,7 +20,7 @@ namespace ABS_LMS.Service
             LeaveType = new LeaveTypeRepository(_context);
             Holiday = new HolidayRepository(_context);
             Event = new EventRepository(_context);
-
+            Client = new ClientRepository(context);
         }
 
         public IEmployeeRepository Employee { get; private set; }
@@ -31,6 +31,7 @@ namespace ABS_LMS.Service
         public ILeaveTypeRepository LeaveType { get; private set; }
         public IHolidayRepository Holiday { get; private set; }
         public IEventRepository Event { get; private set; }
+        public IClientRepository Client { get; private set; }
 
         public int Complete()
         {

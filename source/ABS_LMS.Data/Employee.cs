@@ -50,9 +50,11 @@ namespace ABS_LMS.Data
         public string State { get; set; }
         public string Country { get; set; }
         public byte[] EmployeeImage { get; set; }
+        public int ClientId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
+        public virtual Client Client { get; set; }
         public virtual Department Department { get; set; }
         public virtual Designation Designation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

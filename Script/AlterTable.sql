@@ -9,3 +9,4 @@ Alter table [dbo].[Employee] Add City varchar(500)
 Alter table [dbo].[Employee] Add [State] varchar(500)
 Alter table [dbo].[Employee] Add Country varchar(200)
 Alter table [dbo].[Employee] Add EmployeeImage binary(500)
+ALTER TABLE [dbo].[Employee] ADD HalfDayDateUTC Datetime
