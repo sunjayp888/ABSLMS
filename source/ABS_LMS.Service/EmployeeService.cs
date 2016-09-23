@@ -48,7 +48,7 @@ namespace ABS_LMS.Service
                 PANCard = employee.PANCard,
                 LeavingDateUTC = employee.LeavingDateUTC,
                 DOJ = employee.DOJ,
-                EmployeeImage = new[] { Convert.ToByte(employee.EmployeeImage) },
+                EmployeeImage = employee.EmployeeImage,
                 ReportingManager = employee.ReportingManager
             });
             _unitOfWork.Complete();
