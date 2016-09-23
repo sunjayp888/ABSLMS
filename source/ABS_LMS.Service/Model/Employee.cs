@@ -58,8 +58,12 @@ namespace ABS_LMS.Service.Model
         [DisplayName("Designation")]
         public int? DesignationId { get; set; }
 
+        [DisplayName("Client")]
+        public int ClientId { get; set; }
+
         public string Department { get; set; }
         public string Designation { get; set; }
+        public string Client { get; set; }
 
         [DisplayName("Leaving Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]

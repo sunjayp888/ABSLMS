@@ -76,6 +76,9 @@
     <Compile Include="AspNetUserLogin.cs">
       <DependentUpon>ABSLMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Client.cs">
+      <DependentUpon>ABSLMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Department.cs">
       <DependentUpon>ABSLMSModel.tt</DependentUpon>
     </Compile>

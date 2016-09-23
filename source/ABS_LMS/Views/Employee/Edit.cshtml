@@ -169,7 +169,12 @@
                         @Html.DropDownListFor(model => model.EmployeeDetail.DepartmentId, Model.DepartmentList, new {@class = "form-control", @onchange = "GetReportingManager();"})
                     </div>
                 </div>
-
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmployeeDetail.ClientId, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.EmployeeDetail.ClientId, Model.ClientList, new { @class = "form-control" })
+                    </div>
+                </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.EmployeeDetail.DesignationId, htmlAttributes: new {@class = "control-label col-md-4"})
                     <div class="col-md-8">
@@ -203,15 +208,18 @@
                         @Html.DropDownListFor(model => model.EmployeeDetail.ReportingManager, Model.ReportingManager, new {@class = "form-control   reportingmanager"})
                     </div>
                 </div>
-            </div>
 
-            <div>
-                <div class="form-group col-md-6">
+                <div class="form-group">
                     @Html.LabelFor(model => model.EmployeeDetail.EmployeeRole, htmlAttributes: new {@class = "control-label col-md-4"})
                     <div class="col-md-8">
                         @Html.DropDownListFor(model => model.EmployeeDetail.EmployeeRole, Model.RoleType, new {@class = "form-control"})
                     </div>
                 </div>
+
+            </div>
+
+            <div>
+               
                 <div class="form-group ">
                     <div class="col-md-offset-2 col-md-10" style="display: inline-flex;">
                         <input type="submit" value="Save" class="btn btn-default" /> &nbsp; &nbsp;<input type="button" style="@(Model.EmployeeDetail.AspNetUserId.IsEmpty() ? "display:block": "display:none" )" value="Create Portal Account" data-employeeid="@Model.EmployeeDetail.EmployeeId" data-firstname="@Model.EmployeeDetail.FirstName" data-lastname="@Model.EmployeeDetail.LastName" data-username="@Model.EmployeeDetail.CompanyEmailId" class="btn btn-default CreatePortalAccount" />
@@ -296,7 +304,6 @@
                 $("#leaveModal").modal('hide');
             });
             function GetReportingManager() {
-
                 var url = "/Employee/GetReportingManager/";
                 var departmentId = $('#EmployeeDetail_DepartmentId').val();
                 var designationId = $('#EmployeeDetail_DesignationId').val();
@@ -306,12 +313,12 @@
                     cache: false,
                     type: "POST",
                     success: function (data) {
-                        var markup = "<option value='0'>Reporting Manager</option>";
-                        for (var x = 0; x < data.length; x++) {
-                            markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
-                        }
-                        $(".reportingmanager").html("");
-                        $(".reportingmanager").html(markup).show();
+                        //var markup = "<option value='0'>Reporting Manager</option>";
+                        //for (var x = 0; x < data.length; x++) {
+                        //    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                        //}
+                        //$(".reportingmanager").html("");
+                        //$(".reportingmanager").html(markup).show();
                     },
                     error: function (reponse) {
                         alert("error : " + reponse);

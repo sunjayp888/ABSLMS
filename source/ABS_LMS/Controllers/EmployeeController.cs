@@ -59,7 +59,9 @@ namespace ABS_LMS.Controllers
             var employees = _employeeService.GetEmployees();
             if (!string.IsNullOrEmpty(searchKeyword))
                 employees = employees.Where( e => e.EmployeeCode.Contains(searchKeyword.Trim())
-                                            || (e.FirstName + " " + e.LastName).ToLower().Contains(searchKeyword.Trim().ToLower())).ToList();
+                                            || (e.FirstName + " " + e.LastName).ToLower().Contains(searchKeyword.Trim().ToLower())
+                                            || e.Client.ToLower().Contains(searchKeyword.Trim().ToLower())
+                                            ).ToList();
 
             var model = new EmployeeIndexViewModel
             {
@@ -78,6 +80,7 @@ namespace ABS_LMS.Controllers
             string reportingManagerName = string.Empty;
             var employee = _employeeService.GetEmployee(id);
             var depatment = _employeeService.GetDepartments().SingleOrDefault(d => d.DepartmentId == employee.DepartmentId);
+            var client = _employeeService.GetClients().SingleOrDefault(c => c.ClientId == employee.ClientId);
             var designation = _employeeService.GetDesignations().SingleOrDefault(d => d.DesignationId == employee.DesignationId);
             if (employee.ReportingManager.HasValue)
             {
@@ -87,6 +90,7 @@ namespace ABS_LMS.Controllers
             employee.Department = depatment.DeparmentName;
             employee.Designation = designation.DesignationName;
             employee.ReportingManagerName = reportingManagerName;
+            employee.Client = client.ClientName;
             var model = new EmployeeViewModel
             {
                 EmployeeDetail = employee,
@@ -136,7 +140,11 @@ namespace ABS_LMS.Controllers
                 Text = d.DesignationName,
                 Value = d.DesignationId.ToString()
             }).ToList();
-
+            var clientslist = _employeeService.GetClients().Select(d => new SelectListItem
+            {
+                Text = d.ClientName,
+                Value = d.ClientId.ToString()
+            }).ToList();
             var role = RoleManager.Roles.Select(r => new SelectListItem
             {
                 Text = r.Name,
@@ -144,8 +152,9 @@ namespace ABS_LMS.Controllers
             }).ToList();
 
             employeeViewModel.DepartmentList = departmentlist;
+            employeeViewModel.ClientList = clientslist;
             employeeViewModel.DesignationList = designationslist;
-            employeeViewModel.ReportingManager = GetReportingManagerbyId(Convert.ToInt32(departmentlist.FirstOrDefault().Value));
+            employeeViewModel.ReportingManager = GetReportingManagerbyId();
             employeeViewModel.RoleType = role;
             return employeeViewModel;
         }
@@ -179,12 +188,19 @@ namespace ABS_LMS.Controllers
                 Text = r.Name,
                 Value = r.Id
             }).ToList();
+            var clientslist = _employeeService.GetClients().Select(d => new SelectListItem
+            {
+                Text = d.ClientName,
+                Value = d.ClientId.ToString()
+            }).ToList();
+
             var model = new EmployeeViewModel
             {
                 EmployeeDetail = employee,
                 DepartmentList = departmentlist,
+                ClientList = clientslist,
                 DesignationList = designationslist,
-                ReportingManager = GetReportingManagerbyId(Convert.ToInt32(employee.DepartmentId ?? 0)),
+                ReportingManager = GetReportingManagerbyId(),
                 RoleType = role
             };
             TempData["EmployeeImage"] = model.EmployeeDetail.EmployeeImage;
@@ -285,11 +301,11 @@ namespace ABS_LMS.Controllers
             return Json("RoleUpdate", JsonRequestBehavior.DenyGet);
         }
         [HttpPost]
-        public ActionResult GetReportingManager(int departmentId)
+        public ActionResult GetReportingManager()
         {
-
-            return Json(GetReportingManagerbyId(departmentId));
+            return Json(GetReportingManagerbyId());
         }
+
         private byte[] ConvertIntoByte(HttpPostedFileBase image)
         {
             byte[] imageBytes = null;
@@ -298,9 +314,9 @@ namespace ABS_LMS.Controllers
             return imageBytes;
         }
 
-        private IEnumerable<SelectListItem> GetReportingManagerbyId(int departmentId)
+        private IEnumerable<SelectListItem> GetReportingManagerbyId()
         {
-            var employee = _employeeService.GetEmployees().Where(e => e.DepartmentId == departmentId).ToList();
+            var employee = _employeeService.GetEmployees().ToList();
             var userByRole = RoleManager.FindByName("Manager").Users.ToList();
             var employeebyUsers = (from u in UserManager.Users.ToList()
                                    join ur in userByRole on u.Id equals ur.UserId
@@ -374,6 +390,10 @@ namespace ABS_LMS.Controllers
                 case "companyemailid":
                     sortedDocuments = sortOrderDesc ? employees.OrderByDescending(s => s.EmailId).ToList() : employees.OrderBy(s => s.EmailId).ToList();
                     break;
+                case "client":
+                    sortedDocuments = sortOrderDesc ? employees.OrderByDescending(s => s.Client).ToList() : employees.OrderBy(s => s.Client).ToList();
+                    break;
+                    
             }
             return sortedDocuments;
         }
