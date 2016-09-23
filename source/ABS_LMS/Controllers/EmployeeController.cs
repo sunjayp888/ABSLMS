@@ -58,9 +58,12 @@ namespace ABS_LMS.Controllers
             ViewBag.SortOrder = sortOrder ?? string.Empty;
             var employees = _employeeService.GetEmployees();
             if (!string.IsNullOrEmpty(searchKeyword))
-                employees = employees.Where( e => e.EmployeeCode.Contains(searchKeyword.Trim())
-                                            || (e.FirstName + " " + e.LastName).ToLower().Contains(searchKeyword.Trim().ToLower())).ToList();
-
+            {
+                employees = employees.Where(e => e.EmployeeCode.Contains(searchKeyword.Trim())
+                                                 ||
+                                                 (e.FirstName + " " + e.LastName).ToLower()
+                                                     .Contains(searchKeyword.Trim().ToLower())).ToList();
+            }
             var model = new EmployeeIndexViewModel
             {
                 SearchKeyword = searchKeyword,

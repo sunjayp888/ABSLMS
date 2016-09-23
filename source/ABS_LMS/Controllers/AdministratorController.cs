@@ -53,9 +53,17 @@ namespace ABS_LMS.Controllers
             ViewBag.SortOrder = !sortOrderDesc;
             searchKeyword = string.IsNullOrEmpty(searchKeyword) ? string.Empty : searchKeyword.Trim().ToLower();
             var users = UserManager.Users;
-
-            var model = new AdminUserViewModel
+            if (!string.IsNullOrEmpty(searchKeyword))
             {
+                searchKeyword = searchKeyword.ToLower().Trim();
+                users =
+                    users.Where(
+                        e =>
+                            e.FirstName.Contains(searchKeyword) || e.UserName.Contains(searchKeyword) ||
+                            e.LastName.Contains(searchKeyword));
+            }
+            var model = new AdminUserViewModel
+            { 
                 Users = !string.IsNullOrEmpty(sortOrder) ? GetSortedUsers(sortOrder, sortOrderDesc, users.ToList()).ToPagedList(pagenumber, pagesize) :
                               users.OrderBy(e => e.UserName)
 

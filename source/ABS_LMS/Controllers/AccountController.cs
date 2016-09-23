@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
@@ -12,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ABS_LMS.Models;
+using ABS_LMS.Service;
+using Microsoft.Win32;
 
 namespace ABS_LMS.Controllers
 {
@@ -60,6 +59,7 @@ namespace ABS_LMS.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    AddApplicationToStartup();
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.Failure:
                 default:
@@ -157,6 +157,22 @@ namespace ABS_LMS.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        private void AddApplicationToStartup()
+        {
+            var cmd = string.Format("@echo off {0}start chrome \"{1}\"", Environment.NewLine, ConfigHelper.PortalUrl);
+            var filename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "ABSLMS.bat");
+            if (
+                System.IO.File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup),
+                    "ABSLMS.bat")))
+
+                System.IO.File.Delete(filename);
+
+            var sw = new StreamWriter(filename, true);
+            sw.Write(cmd);
+            sw.Close();
+
         }
 
         #region Helpers
