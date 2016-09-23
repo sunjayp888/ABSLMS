@@ -18,82 +18,86 @@
             {
                 <div class="">
                     <div class="col-md-3">
-                        <input type="text" name="searchKeyword" class="searchboxset" placeholder="Search Employees" value="@Model.SearchKeyword"/>
+                        <input type="text" name="searchKeyword" class="searchboxset" placeholder="Search Employees" value="@Model.SearchKeyword" />
                     </div>
                     <div class="col-md-2">
                         <input type="submit" id="btnsearch" value="Search">
                     </div>
                 </div>
             }
-           
 
-        <table class="table table-bordered ">
-            <tr>
-                <th>
-                    @Html.ActionLink("Employee Code", "Index", new {sortOrder = "EmployeeCode", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword})
-                </th>
-                <th>
-                    @Html.ActionLink("First Name", "Index", new {sortOrder = "FirstName", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword})
-                </th>
-                <th>
-                    @Html.ActionLink("Last Name", "Index", new {sortOrder = "LastName", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword})
-                </th>
-                <th>
-                    @Html.ActionLink("Gender", "Index", new {sortOrder = "Gender", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword})
-                </th>
-                <th>
-                    @Html.ActionLink("Company Email Id", "Index", new {sortOrder = "CompanyEmailId", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword})
-                </th>
-                <th>
-                    @Html.ActionLink("Client", "Index", new {sortOrder = "Client", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword})
-                </th>
-                <th>
-                    @Html.ActionLink("Designation", "Index", new {sortOrder = "Designation", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword})
-                </th>
-                <th></th>
-            </tr>
 
-            @foreach (var item in Model.EmployeeDetail)
-        {
-        <tr>
-            <td>
-                @item.EmployeeCode
-            </td>
-            <td>
-                @item.FirstName
-            </td>
-            <td>
-                @item.LastName
-            </td>
-            <td>
-                @item.Gender
-            </td>
-            <td>
-                @item.CompanyEmailId
-            </td>
-            <td>
-                @item.Client
+            <table class="table table-bordered ">
+                <tr>
+                    <th>
+                        @Html.ActionLink("Employee Code", "Index", new { sortOrder = "EmployeeCode", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
+                    </th>
+                    <th>
+                        @Html.ActionLink("First Name", "Index", new { sortOrder = "FirstName", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Last Name", "Index", new { sortOrder = "LastName", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Gender", "Index", new { sortOrder = "Gender", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Company Email Id", "Index", new { sortOrder = "CompanyEmailId", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Client", "Index", new { sortOrder = "Client", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Designation", "Index", new { sortOrder = "Designation", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.EmployeeDetail)
+                {
+                    <tr>
+                        <td>
+                            @item.EmployeeCode
                         </td>
                         <td>
-                            @*@Html.ActionLink("Delete", "Delete", new {id = item.EmployeeId}, new {onclick ="deleteEmp(item.EmployeeId,item.FirstName)", @class = "linktobtn deleteEmp"})*@
-                            <input type="button" value="Delete" id="@item.EmployeeId" onclick="deleteEmp(@item.EmployeeId, '@item.FirstName')" class="deleteEmp btn btn-default" />
-            <td class="col-lg-3">
+                            @item.FirstName
+                        </td>
+                        <td>
+                            @item.LastName
+                        </td>
+                        <td>
+                            @item.Gender
+                        </td>
+                        <td>
+                            @item.CompanyEmailId
+                        </td>
+                        <td>
+                            @item.Client
+                        </td>
+                        <td>
+                            @item.Designation
+                        </td>
+
+
+                        <td class="col-lg-3">
+                            <input type="button" value="Delete" id="@item.EmployeeId" onclick="deleteEmp(@item.EmployeeId, '@item.FirstName' ) " class="deleteEmp btn btn-default" />
                             @Html.ActionLink("Details", "Details", new {id = item.EmployeeId}, new {@class = "linktobtn"})
                             @Html.ActionLink("Edit", "Edit", new {id = item.EmployeeId}, new {@class = "linktobtn editbtnlink"})
+
                             <input type="text" id="EmpIdvalue" style="display: none;"/>
-                            
+
                         </td>
                     </tr>
-        }
+                }
 
-        </table>
-        <div>
-            Page @(Model.EmployeeDetail.PageCount < Model.EmployeeDetail.PageNumber ? 0 : Model.EmployeeDetail.PageNumber) of @Model.EmployeeDetail.PageCount
-        </div>
-        @Html.PagedListPager(Model.EmployeeDetail, pagenumber => Url.Action("Index", new { id = HttpCurrentUser.EmployeeId, searchKeyword = Model.SearchKeyword, sortOrder = ViewBag.SortOrder, sortOrderDesc = !ViewBag.SortOrderDesc, pagenumber }))
-     
-     
-           
+            </table>
+            <div>
+                Page @(Model.EmployeeDetail.PageCount < Model.EmployeeDetail.PageNumber ? 0 : Model.EmployeeDetail.PageNumber) of @Model.EmployeeDetail.PageCount
+            </div>
+            @Html.PagedListPager(Model.EmployeeDetail, pagenumber => Url.Action("Index", new { id = HttpCurrentUser.EmployeeId, searchKeyword = Model.SearchKeyword, sortOrder = ViewBag.SortOrder, sortOrderDesc = !ViewBag.SortOrderDesc, pagenumber }))
+
+
+
         </div>
     </div>
     <div class="modal fade" id="EmployeeModal">
@@ -115,43 +119,43 @@
 </div>
 @section scripts
 {
-            <script type="text/javascript">
-                function deleteEmp(empId,name) {
+    <script type="text/javascript">
+        function deleteEmp(empId,name) {
 
-                    $('#EmpIdvalue').text('');
-                    $('#employeeName').text('');
-                    $('#EmpIdvalue').text(empId);
-                    $('#employeeName').text(name);
-                    $("#EmployeeModal").modal('show');
+            $('#EmpIdvalue').text('');
+            $('#employeeName').text('');
+            $('#EmpIdvalue').text(empId);
+            $('#employeeName').text(name);
+            $("#EmployeeModal").modal('show');
+        }
+
+
+        $("#btnOK").click(function () {
+            $("#EmployeeModal").modal('hide');
+            var emptId = $('#EmpIdvalue').text();
+
+            $.ajax({
+                type: "POST",
+                url: "/Employee/Delete",
+                data: { id: emptId },
+                dataType: 'json',
+                success: function (response) {
+                    if (parseInt(response) > 0) {
+                        window.location.reload();
+                    }
+                },
+                error: function () {
+
                 }
+            });
+        });
 
+        $("#btnCancel").click(function () {
+            $("#EmployeeModal").modal('hide');
 
-                $("#btnOK").click(function () {
-                    $("#EmployeeModal").modal('hide');
-                    var emptId = $('#EmpIdvalue').text();
-
-                    $.ajax({
-                        type: "POST",
-                        url: "/Employee/Delete",
-                        data: { id: emptId },
-                        dataType: 'json',
-                        success: function (response) {
-                            if (parseInt(response) > 0) {
-                                window.location.reload();
-                            }
-                        },
-                        error: function () {
-
-                        }
-                    });
-                });
-
-                $("#btnCancel").click(function () {
-                    $("#EmployeeModal").modal('hide');
-
-                });
-                $(document).ready(function () {
-                    $('.nav #employee').addClass('active');
-                });
-            </script>
+        });
+        $(document).ready(function () {
+            $('.nav #employee').addClass('active');
+        });
+    </script>
 }
