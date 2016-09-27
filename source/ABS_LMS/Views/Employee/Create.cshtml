@@ -9,7 +9,7 @@
 <div class="row employeecreate">
     <h1>Create Employee</h1>
     <div class="panel panel-default">
-        <div class="panel-heading">Create Employee</div>
+        <div class="panel-heading">@*Create Employee*@ &nbsp;</div>
         <div class="panel-body">
             @using (Html.BeginForm("Create", "Employee", FormMethod.Post, new {enctype = "multipart/form-data"}))
             {
@@ -124,7 +124,7 @@
                                 <img class="img-circle" id="user_img" height="100" width="90" src="~/Content/themes/LMS/images/profile-img.jpg" style="border: solid;" />
                             </div>
                             <div>
-                                <input type="file" title="Upload image" style="float: left" id="userimage" name="userimage" onchange=" show(this) " />
+                                <input type="file" title="Upload image" style="float: left" id="userimage" name="userimage" onchange="show(this) " />
 
                             </div>
                         </div>

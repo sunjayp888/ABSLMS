@@ -20,7 +20,7 @@ namespace ABS_LMS.Service.Model
     {
         [Display(Name = "Draft")]
         Draft =1,
-        [Display(Name = "Apply")]
+        [Display(Name = "Applied")]
         Submit =2,
         [Display(Name = "Approved")]
         Approve =3,

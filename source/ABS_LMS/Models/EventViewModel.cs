@@ -10,5 +10,6 @@ namespace ABS_LMS.Models
     public class EventViewModel
     {
         public IPagedList<Event> Events { get; set; }
+        public Event EventDetail { get; set; }
     }
 }

@@ -161,17 +161,17 @@ namespace ABS_LMS.Controllers
 
         private void AddApplicationToStartup()
         {
-            var cmd = string.Format("@echo off {0}start chrome \"{1}\"", Environment.NewLine, ConfigHelper.PortalUrl);
-            var filename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "ABSLMS.bat");
-            if (
-                System.IO.File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup),
-                    "ABSLMS.bat")))
+            //var cmd = string.Format("@echo off {0}start chrome \"{1}\"", Environment.NewLine, ConfigHelper.PortalUrl);
+            //var filename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "ABSLMS.bat");
+            //if (
+            //    System.IO.File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup),
+            //        "ABSLMS.bat")))
 
-                System.IO.File.Delete(filename);
+            //    System.IO.File.Delete(filename);
 
-            var sw = new StreamWriter(filename, true);
-            sw.Write(cmd);
-            sw.Close();
+            //var sw = new StreamWriter(filename, true);
+            //sw.Write(cmd);
+            //sw.Close();
 
         }
 

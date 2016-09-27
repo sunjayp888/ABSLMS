@@ -146,7 +146,8 @@ namespace ABS_LMS.Service
                 CompanyEmailId = e.CompanyEmailId,
                 Gender = e.Gender,
                 ClientId = e.ClientId,
-                Client = e.Client.Name
+                Client = e.Client.Name,
+                DOJ = e.DOJ,
             }).OrderBy(o => o.EmployeeCode).ToList();
         }
 

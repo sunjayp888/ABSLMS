@@ -5,9 +5,9 @@
     ViewBag.Title = "Edit";
 }
 
-<h1>Edit Employee</h1>
+<h1><h1>    @Html.DisplayFor(model => model.EmployeeDetail.FirstName)     @Html.DisplayFor(model => model.EmployeeDetail.LastName) - @Html.DisplayFor(model => model.EmployeeDetail.EmployeeCode)</h1></h1>
 <div class="panel panel-default editemp">
-    <div class="panel-heading">Edit Employee</div>
+    <div class="panel-heading">Edit Employee </div>
     <div class="panel-body">
         @using (Html.BeginForm("Edit", "Employee", FormMethod.Post, new {enctype = "multipart/form-data"}))
         {

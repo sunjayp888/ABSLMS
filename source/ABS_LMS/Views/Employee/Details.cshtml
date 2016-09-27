@@ -5,7 +5,7 @@
 }
 
 <div class="row patding-left-10">
-    <h1>Employee Details</h1>
+    <h1>    @Html.DisplayFor(model => model.EmployeeDetail.FirstName)     @Html.DisplayFor(model => model.EmployeeDetail.LastName) - @Html.DisplayFor(model => model.EmployeeDetail.EmployeeCode)</h1>
 
     <div class="col-lg-4">
 
@@ -61,29 +61,7 @@
                         @Html.DisplayFor(model => model.EmployeeDetail.Gender)
                     </td>
                 </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EmployeeDetail.EmailId)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.EmployeeDetail.EmailId)
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EmployeeDetail.CompanyEmailId)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.EmployeeDetail.CompanyEmailId)
-                    </td>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.EmployeeDetail.MobileNo)
-                    </th>
-                    <td>
-                        @Html.DisplayFor(model => model.EmployeeDetail.MobileNo)
-                    </td>
-                </tr>
+         
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.EmployeeDetail.DOB)
@@ -231,7 +209,7 @@
                     </td>
                 </tr>
                 @if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
-                    {
+                {
                     <tr>
                         <th>
                             @Html.DisplayNameFor(model => model.EmployeeDetail.LeavingDateUTC)
@@ -248,7 +226,35 @@
                             @Html.DisplayFor(model => model.EmployeeDetail.ConfirmationDateUTC)
                         </td>
                     </tr>
-                    }
+                }
+            </table>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Contact Details</div>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EmployeeDetail.EmailId)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.EmployeeDetail.EmailId)
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EmployeeDetail.CompanyEmailId)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.EmployeeDetail.CompanyEmailId)
+                    </td>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EmployeeDetail.MobileNo)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(model => model.EmployeeDetail.MobileNo)
+                    </td>
+                </tr>
             </table>
         </div>
     </div>

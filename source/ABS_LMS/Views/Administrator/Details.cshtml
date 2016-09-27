@@ -5,9 +5,9 @@
     ViewBag.Title = String.Format("Employee: {0} {1}", Model.FirstName, Model.LastName);
 }
 <div class="row padding-left-10">
-    <h1>User Details</h1>
+    <h1>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h1>
     <div class="panel panel-default">
-        <div class="panel-heading">User Details</div>
+        <div class="panel-heading">@*User Details*@ &nbsp;</div>
         <div class="panel-body">
             <div class="col-lg-5">
                 <table class="table">

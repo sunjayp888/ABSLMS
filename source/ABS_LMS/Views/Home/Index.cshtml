@@ -37,10 +37,23 @@
                             <div class='item  @(l == 0 ? "active" : "")'>
                                 <div class="panel panel-default">
                                     <div class="panel-heading">@eventitem.Title</div>
-                                    <img src="~/Content/themes/LMS/images/Blank_flag_large.PNG" alt="Flower">
+                                    @if (eventitem.EventImage != null && eventitem.EventImage.Length > 0)
+                                    {
+                                    string imageBase64 = Convert.ToBase64String(eventitem.EventImage);
+                                    string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+                              
+                                    <img src="@imageSrc" alt="Flower">
+
+                                    }
+                                    else
+                                    {<img src="~/Content/themes/LMS/images/Blank_flag_large.PNG" alt="Flower">}
+
+                                  
+
                                     <div class="carousel-caption">
                                             <h3>@eventitem.OrganiseDate.Value.ToShortDateString()</h3>
-                                        <p>@eventitem.Description</p>
+                                        @*<p>@eventitem.Description</p>*@
+                                        <p>@Html.Raw(eventitem.Description)</p>
                                     </div>
 
                                 </div>
@@ -70,15 +83,15 @@
             </div>
 
             <div class="panel panel-default">
-                <div class="panel-heading">Birthday</div>
+                <div class="panel-heading">Announcement</div>
                 <div class="panel-body">
-                    @if (Model.EmployeeBirthday.Count > 0)
+                    @if (Model.Announcements.Count > 0)
                     {
 
                     <div class="carousel slide" data-ride="carousel" id="quote-carousel">
                         <!-- Bottom Carousel Indicators -->
                         <ol class="carousel-indicators">
-                            @for (int i = 0; i <= Model.EmployeeBirthday.Count - 1; i++)
+                            @for (int i = 0; i <= Model.Announcements.Count - 1; i++)
                             {
 
                             <li data-target="#quote-carousel" data-slide-to="@i" class='@(i==0 ? "active":"")'></li>
@@ -92,7 +105,7 @@
 
                             <!-- Quote 1 -->
                             @{int j = 0;}
-                            @foreach (var item in Model.EmployeeBirthday)
+                            @foreach (var item in Model.Announcements)
                             {
                               <div class='item  @(j == 0 ? "active" : "")'>
                                 <blockquote>
@@ -119,8 +132,18 @@
 
                                         </div>
                                         <div class="col-sm-9">
-                                            <p>@item.FirstName @item.LastName</p>
-                                            <small>@item.Designation</small>
+                                            @if (item.Type == "B")
+                                            {
+                                                <p>@item.Content</p>
+                                                <small>@item.Name - @item.Designation</small>
+
+                                            }
+                                            else
+                                            {
+                                            <p>@item.Content</p>
+                                            <small>@item.Name</small>
+                                            }
+
                                         </div>
                                     </div>
                                 </blockquote>
