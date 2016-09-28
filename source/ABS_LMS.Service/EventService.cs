@@ -34,7 +34,8 @@ namespace ABS_LMS.Service
                 OrganiseDate = e.OrganiseDate,
                 CreatedBy = e.CreatedBy,
                 CreatedDate = e.CreatedDate,
-                Title = e.Title
+                Title = e.Title,
+                EventImage = e.EventImage
             }).OrderByDescending(e=>e.CreatedBy).ToList();
         }
 
@@ -47,6 +48,7 @@ namespace ABS_LMS.Service
             eventdetails.Description = events.Description;
             eventdetails.OrganiseDate = events.OrganiseDate;
             eventdetails.Title = events.Title;
+            eventdetails.EventImage = events.EventImage;
             _unitOfWork.Complete();
         }
 
@@ -61,6 +63,7 @@ namespace ABS_LMS.Service
                 OrganiseDate = events.OrganiseDate,
                 StartDate = events.DisplayStartDate,
                 Title = events.Title,
+                EventImage = events.EventImage
                 
             });
             _unitOfWork.Complete();

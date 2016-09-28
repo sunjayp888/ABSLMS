@@ -6,10 +6,11 @@
 
 <h1>Users</h1>
 <div class="panel panel-default">
-    <div class="panel-heading">Users</div>
+    <div class="panel-heading">&nbsp;</div>
     <div class="panel-body">
         <p>
-            @Html.ActionLink("Create New User", "Create")
+       
+            @Html.ActionLink("Create New User", "Create",new {@id="Create"} ,new {@class = "btn btn-default newemp"})
         </p>
         <div class="row textboxsize">
             @using (Html.BeginForm("Index", "Administrator", FormMethod.Post))

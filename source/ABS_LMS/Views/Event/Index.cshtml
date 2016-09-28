@@ -12,11 +12,11 @@
     <h1>Event</h1>
 
     <div class="panel panel-default">
-        <div class="panel-heading">Event</div>
+        <div class="panel-heading">&nbsp;</div>
         <div class="panel-body">
             <p class="addevent">
-                @Html.ActionLink("Add Event", "Create", "", new {@class = "btn btn-default linktobtn"}) &nbsp; &nbsp;
-              
+                @*@Html.ActionLink("Add Event", "Create", "", new {@class = "btn btn-default linktobtn"}) &nbsp; &nbsp;*@
+                @Html.ActionLink("Add Event", "Create") &nbsp; &nbsp;
             </p>
             <br/>
 
@@ -26,6 +26,9 @@
                     <div class="desktopview">
                         <table class="table table-bordered">
                             <tr>
+                                <th>
+                                    Event Image
+                                </th>
                                 <th>
                                     Title
                                 </th>
@@ -53,10 +56,23 @@
                             {
                                 <tr>
                                     <td>
+                                        @if (item.EventImage != null && item.EventImage.Length > 0)
+                                        {
+                                        string imageBase64 = Convert.ToBase64String(item.EventImage);
+                                        string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+                                        <img  id="user_img" height="100" width="180" src="@imageSrc" style="border: solid" />
+
+                                        }
+                                        else
+                                        {<img  id="user_img" src="~/Content/themes/LMS/images/Blank_flag_large.PNG" height="100" width="180">}
+
+
+                                    </td>
+                                    <td>
                                         @item.Title
                                     </td>
                                     <td>
-                                        @item.Description
+                                        @Html.Raw(item.Description) 
                                     </td>
                                     <td>
                                         @if (item.OrganiseDate != null)
@@ -90,8 +106,8 @@
                                                 </td>
                                                 <td>
                                                     @*@Html.ActionLink("Delete", "Delete", new {id = item.EventId}, new {@class = "linktobtn deleteEvent", @id = "DeleteButton", @style = "padding: 5px 15px;"})*@
-                                                    <input type="button" value="Delete" id="@item.EventId"  onclick="deleteEvent(@item.EventId)" class="deleteEvent btn btn-default"/>
-                                                     <input type="text" id="eventIdvalue" style="display: none;"/>
+                                                    <input type="button" value="Delete" id="@item.EventId" onclick="deleteEvent(@item.EventId) " class="deleteEvent btn btn-default"/>
+                                                    <input type="text" id="eventIdvalue" style="display: none;"/>
                                                 </td>
                                             </tr>
                                         </table>

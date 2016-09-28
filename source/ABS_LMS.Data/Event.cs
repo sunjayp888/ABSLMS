@@ -22,5 +22,6 @@ namespace ABS_LMS.Data
         public Nullable<System.DateTime> OrganiseDate { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string CreatedBy { get; set; }
+        public byte[] EventImage { get; set; }
     }
 }

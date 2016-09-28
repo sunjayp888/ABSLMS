@@ -8,10 +8,11 @@
 <div class="row padding-left-10 employeelist">
     <h1>Employees</h1>
     <div class="panel panel-default">
-        <div class="panel-heading">Employees</div>
+        <div class="panel-heading">@*Employees*@ &nbsp;</div>
         <div class="panel-body">
             <p>
-                @Html.ActionLink("Create New", "Create")
+              
+                @Html.ActionLink("Create New", "Create",new {@id="Create"} ,new {@class = "btn btn-default newemp"})
             </p>
 
             @using (Html.BeginForm())

@@ -10,5 +10,6 @@ namespace ABS_LMS.Models
     {
         public List<Employee> EmployeeBirthday { get; set; }
         public List<Event> Events { get; set; }
+        public List<Announcement> Announcements { get; set; }
     }
 }

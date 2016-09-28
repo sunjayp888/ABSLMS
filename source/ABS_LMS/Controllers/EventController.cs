@@ -1,9 +1,13 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using ABS_LMS.Models;
 using ABS_LMS.Service.Interface;
 using PagedList;
 using ABS_LMS.Service.Model;
+using ABS_LMS.Models.Security;
 
 namespace ABS_LMS.Controllers
 {
@@ -27,35 +31,71 @@ namespace ABS_LMS.Controllers
             };
             return View(model);
         }
-
+        [Authorize(Roles = "Admin, Hr")]
         public ActionResult Create()
         {
-            var model = TempData["Event"] as Event;
-            return model != null ? View(model) : View();
+         
+            return  View();
         }
 
-
-        public ActionResult Add(Event model)
+        [HttpPost]
+        public ActionResult Create(Event model)
         {
-            if (model.EventId == 0)
+           
+                HttpPostedFileBase file = Request.Files["userimage"];
+          
+                var getbyte = ConvertToBytes(file);
+                model.EventImage = getbyte;
                 _eventService.AddEvent(model, HttpContext.User.Identity.Name);
-            else
-                _eventService.UpdateEvent(model.EventId, model, HttpContext.User.Identity.Name);
-            return RedirectToAction("Index");
+        
+               return RedirectToAction("Index");
+            
         }
-
+        [Authorize(Roles = "Admin, Hr")]
         public ActionResult Edit(int id)
         {
-            var model = _eventService.GetEvents().FirstOrDefault(e => e.EventId == id);
-            TempData["Event"] = model;
-            return RedirectToAction("Create", model);
+            var eventdetails = _eventService.GetEvents().FirstOrDefault(e => e.EventId == id);
+            var model = new EventViewModel
+            {
+             EventDetail = eventdetails
+            };
+            TempData["EventImage"] = model.EventDetail.EventImage;
+          
+            return View(model);
+
         }
 
+        [HttpPost]
+        public ActionResult Edit(int id,EventViewModel model)
+        {
+            HttpPostedFileBase file = Request.Files["userimage"];
+            var getbyte = ConvertToBytes(file);
+            if (getbyte != null && getbyte.Length > 0)
+            {
+                model.EventDetail.EventImage = getbyte;
+            }
+            else
+            {
+                model.EventDetail.EventImage = TempData["EventImage"] as byte[];
+            }
+            _eventService.UpdateEvent(model.EventDetail.EventId, model.EventDetail, HttpContext.User.Identity.Name);
+           
+            return RedirectToAction("Index");
+
+        }
+        [Authorize(Roles = "Admin, Hr")]
         public ActionResult Delete(int id)
         {
             var result = 1;
             _eventService.DeleteEvent(id);
             return Json(result, JsonRequestBehavior.DenyGet);
+        }
+        public byte[] ConvertToBytes(HttpPostedFileBase image)
+        {
+            byte[] imageBytes = null;
+            BinaryReader reader = new BinaryReader(image.InputStream);
+            imageBytes = reader.ReadBytes((int)image.ContentLength);
+            return imageBytes;
         }
     }
 }
