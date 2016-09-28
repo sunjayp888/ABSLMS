@@ -1,0 +1,77 @@
+﻿@model ABS_LMS.Service.Model.Holiday
+@{
+    ViewBag.Title = "Create";
+}
+@using (Html.BeginForm("Create", "Holiday", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="row col-md-12">
+        <div class="row col-md-6 textboxsize">
+            <h1>Add Holiday</h1>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Add Holiday
+                </div>
+                <div class="panel-body">
+                    @Html.ValidationSummary(true, " ", new { @class = " alert alert-warning" })
+                    <div class="alert alert-warning">
+                        @Html.ValidationMessageFor(model => model.Date, "", htmlAttributes: new {@class = " alert alert-warning"})
+                        @Html.ValidationMessageFor(model => model.Description, "", htmlAttributes: new { @class = " alert alert-warning" })
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Date, htmlAttributes: new {@class = " col-md-4"})
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.Date, "{0:dd-MMM-yyyy}", new {@class = ""})
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new {@class = " col-md-4"})
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(model => model.Description, new {@class = "", @rows = "4"})
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-8">
+                            &nbsp;&nbsp;<input type="submit" value="Save" class="btn btn-default savesubmit"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('.nav #holiday').addClass('active');
+
+            $('.savesubmit').submit(function () {
+                alert('Test');
+                if ($(this).valid()) {
+                    alert('the form is valid');
+                } else {
+                    alert('the form is InValid');
+                }
+            });
+
+            $("#Date").datepicker({
+                dateFormat: 'dd-M-yy',
+                changeMonth: true,
+                changeYear: true,
+                constrainInput: true,
+            }).val();
+        });
+    </script>
+}
+
+

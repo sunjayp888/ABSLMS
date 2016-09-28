@@ -1,0 +1,131 @@
+﻿@using PagedList.Mvc
+@model ABS_LMS.Models.HolidayViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (Model != null)
+{
+    <h1>Holiday</h1>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Holiday</div>
+        <div class="panel-body">
+            <p class="addevent">
+                @Html.ActionLink("Add Holiday", "Create", "", new { @class = "btn btn-default linktobtn" }) &nbsp; &nbsp;
+            </p>
+            <br />
+            @if (@Model.Holidays.Any())
+            {
+                <div>
+                    <div class="desktopview">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>
+                                   @Html.DisplayNameFor(model => model.Holidays.FirstOrDefault().Date)
+                                </th>
+                                <th>
+                                   @Html.DisplayNameFor(model => model.Holidays.FirstOrDefault().Day)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Holidays.FirstOrDefault().Description) 
+                                </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model.Holidays)
+                            {
+                                <tr>
+                                    <td>
+                                        @if (item.Date != null)
+                                        {
+                                            @item.Date.Value.ToString("dd-MMM-yyyy")
+                                        }
+                                    </td>
+                                    <td>
+                                        @item.Day
+                                    </td>
+                                    <td>
+                                        @item.Description
+                                    </td>
+
+                                    <td class="Linkbtn">
+                                        <table class="@item.HolidayId Linkbtn">
+                                            <tr>
+                                                <td>
+                                                    <input type="button" value="Delete" id="@item.HolidayId" onclick="deleteEvent(@item.HolidayId)" class="deleteEvent btn btn-default" />
+                                                    <input type="text" id="holidayIdValue" style="display: none;" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+
+                    <div>
+                        Page @(Model.Holidays.PageCount < Model.Holidays.PageNumber ? 0 : Model.Holidays.PageNumber) of @Model.Holidays.PageCount
+                    </div>
+                    @Html.PagedListPager(Model.Holidays, pagenumber => Url.Action("Index", new { pagenumber }))
+                </div>
+            }
+
+        </div>
+    </div>
+    <div class="modal fade" id="HolidayModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    Are you sure, you want to delete?
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
+                    <button type="button" id="btnCancel" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.nav #holiday').addClass('active');
+        });
+
+        function deleteEvent(eventobj) {
+            $("#holidayIdValue").text('')
+            $("#holidayIdValue").text(eventobj);
+            $("#HolidayModal").modal('show');
+        }
+
+        $("#btnOK").click(function () {
+            $("#HolidayModal").modal('hide');
+            var holidayId = $('#holidayIdValue').text();
+
+            $.ajax({
+                type: "POST",
+                url: "/Holiday/Delete",
+                data: { id: holidayId },
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        window.location.reload();
+                    }
+                },
+                error: function () {
+                }
+            });
+        });
+
+        $("#btnCancel").click(function () {
+            $("#EventModal").modal('hide');
+        });
+
+    </script> 
+}

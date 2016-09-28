@@ -43,7 +43,6 @@
                     {
                         <li>
                             @Html.ActionLink("Users", "Index", "Administrator", null, new { @Id = "Administrator" })
-
                         </li>
                     }
 
@@ -56,7 +55,8 @@
                     }
                     if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
                     {
-                        <li>@Html.ActionLink("Manage Event", "Index", "Event", null, new { @Id = "ManageEvent" })</li>
+                        <li>@Html.ActionLink("Manage Event", "Index", "Event", null, new {@Id = "ManageEvent"})</li>
+                        <li>@Html.ActionLink("Holiday", "Index", "Holiday", null, new { @Id = "holiday" })</li>
                     }
                 }
 
