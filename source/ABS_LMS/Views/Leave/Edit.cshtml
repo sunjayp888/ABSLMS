@@ -49,7 +49,7 @@
                     <div class="col-md-12">
                         <div class="col-md-3" style="padding-left: 0">@Html.Label("HalfDay", htmlAttributes: new {@class = " col-md-5"})</div>
                         <div class="col-md-2 col-lg-push-1" style="top: 15px; left: 20px">@Html.CheckBoxFor(model => model.EmployeeLeaveDetails.IsHalfDay, new {@class = ""})</div>
-                        <div class="col-md-7">@Html.TextBoxFor(model => model.EmployeeLeaveDetails.HalfDayDateUTC, "{0:dd-MMM-yyyy}", new {@class = "form-control"})</div>
+                        <div class="col-md-7">@Html.HiddenFor(model => model.EmployeeLeaveDetails.HalfDayDateUTC, new { @class = "form-control" })</div>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.EmployeeLeaveDetails.NoOfDays, htmlAttributes: new {@class = "col-md-4"})
                 <div class="col-md-8">
-                    @Html.TextBoxFor(model => model.EmployeeLeaveDetails.NoOfDays, new {@class = "", @readonly = "true"})
+                    @Html.TextBoxFor(model => model.EmployeeLeaveDetails.NoOfDays, "{0:n2}", new {@class = ""})
                     @Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.NoOfDays, "", new {@class = "pull-left alert alert-warning"})
                 </div>
             </div>
@@ -133,9 +133,14 @@
 
             $(document).ready(function () {
                 if ($('#EmployeeLeaveDetails_IsHalfDay').is(':checked')) {
-                    $("#EmployeeLeaveDetails_HalfDayDateUTC").show();
+                    $("#EmployeeLeaveDetails_IsHalfDay").prop("disabled", false);
                 } else {
-                    $("#EmployeeLeaveDetails_HalfDayDateUTC").hide();
+                    $("#EmployeeLeaveDetails_IsHalfDay").prop("disabled", true);
+                }
+
+                
+                if (parseInt($("#EmployeeLeaveDetails_NoOfDays").val()) === 1) {
+                    $("#EmployeeLeaveDetails_IsHalfDay").prop("disabled", false);
                 }
 
                 $('.nav #Leaves').addClass('active');
@@ -192,10 +197,10 @@
 
                 $('#EmployeeLeaveDetails_IsHalfDay').click(function () {
                     if ($(this).is(':checked')) {
-                        $("#EmployeeLeaveDetails_HalfDayDateUTC").show();
+                        $("#EmployeeLeaveDetails_NoOfDays").val(0.5);
                     } else {
-                        $("#EmployeeLeaveDetails_HalfDayDateUTC").hide();
-                        $("#EmployeeLeaveDetails_HalfDayDateUTC").val('');
+                        $("#EmployeeLeaveDetails_NoOfDays").val(1);
+                         $("#EmployeeLeaveDetails_HalfDayDateUTC").val('');
                     }
                 });
 
@@ -224,6 +229,13 @@
                     success: function (data) {
                         //alert("result : " + data["Value"]);
                         $("#EmployeeLeaveDetails_NoOfDays").val(data["Value"]);
+                        $("#EmployeeLeaveDetails_IsHalfDay").prop("disabled", true);
+                        $("#EmployeeLeaveDetails_IsHalfDay").prop("checked", false);
+                        $("#EmployeeLeaveDetails_HalfDayDateUTC").val('');
+                        if (data["Value"] === 1) {
+                            $("#EmployeeLeaveDetails_IsHalfDay").prop("disabled", false);
+                            $("#EmployeeLeaveDetails_HalfDayDateUTC").val($("#EmployeeLeaveDetails_LeaveStartDate").val());
+                        }
                     },
                     error: function (response) {
                         alert("Error Occurred ");

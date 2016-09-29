@@ -1436,8 +1436,8 @@ div#divLoading {
   width: 125px;
 }
 .deleteEmp {
-  padding: 5px 12px!important;
-  width: 74px!important;
+  padding: 5px 2px!important;
+  width: 66px!important;
 }
 .user-carousel .item img {
   display: block;
@@ -1461,4 +1461,7 @@ blockquote small:before {
   background-color: #22B500 !important;
   border-color: #22B500 !important;
   color: #FFFFFF !important;
+}
+.leaving-date {
+  background-color: #FB871F !important;
 }

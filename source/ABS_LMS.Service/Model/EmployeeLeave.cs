@@ -33,7 +33,8 @@ namespace ABS_LMS.Service.Model
         public string LeaveTypeName { get; set; }
 
         [DisplayName("No Of Days")]
-        public int? NoOfDays { get; set; }
+        //[DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
+        public decimal NoOfDays { get; set; }
 
         [DataType(DataType.MultilineText)]
         public string Reason { get; set; }

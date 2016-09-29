@@ -399,6 +399,9 @@ namespace ABS_LMS.Controllers
                 case "client":
                     sortedDocuments = sortOrderDesc ? employees.OrderByDescending(s => s.Client).ToList() : employees.OrderBy(s => s.Client).ToList();
                     break;
+                case "leavingdateutc":
+                    sortedDocuments = sortOrderDesc ? employees.OrderByDescending(s => s.LeavingDateUTC).ToList() : employees.OrderBy(s => s.Client).ToList();
+                    break;
                     
             }
             return sortedDocuments;

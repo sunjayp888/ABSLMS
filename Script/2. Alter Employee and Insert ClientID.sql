@@ -4,6 +4,8 @@ GO
 ALTER TABLE [dbo].[Employee] ADD ClientId INT NOT NULL
 GO
 
+ALTER TABLE dbo.EmployeeLeaveHistory ALTER COLUMN NoOfDays decimal(18, 4) not NUll
+GO
 
 UPDATE E SET E.CLIENTID = C.CLIENTID
 FROM EMPLOYEE E 

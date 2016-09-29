@@ -710,13 +710,10 @@
     <Content Include="Views\Home\Event.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Event\Create.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_jquery_full.cshtml" />
-=======
     <Content Include="Views\Holiday\Index.cshtml" />
     <Content Include="Views\Holiday\Create.cshtml" />
->>>>>>> f7f62b9d65e2754064511f136e5459d49e633722
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -757,7 +754,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54304</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:54305/</IISUrl>
+          <IISUrl>http://localhost:5489/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

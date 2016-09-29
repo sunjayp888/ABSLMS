@@ -18,8 +18,8 @@ namespace ABS_LMS.Data
         public Employee()
         {
             this.AspNetUsers = new HashSet<AspNetUser>();
-            this.EmployeeLeaveHistories = new HashSet<EmployeeLeaveHistory>();
             this.LeaveDetails = new HashSet<LeaveDetail>();
+            this.EmployeeLeaveHistories = new HashSet<EmployeeLeaveHistory>();
         }
     
         public int EmployeeId { get; set; }
@@ -58,8 +58,8 @@ namespace ABS_LMS.Data
         public virtual Department Department { get; set; }
         public virtual Designation Designation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EmployeeLeaveHistory> EmployeeLeaveHistories { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeaveDetail> LeaveDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeeLeaveHistory> EmployeeLeaveHistories { get; set; }
     }
 }
