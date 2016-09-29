@@ -148,6 +148,7 @@ namespace ABS_LMS.Service
                 ClientId = e.ClientId,
                 Client = e.Client.Name,
                 DOJ = e.DOJ,
+                LeavingDateUTC = e.LeavingDateUTC
             }).OrderBy(o => o.EmployeeCode).ToList();
         }
 

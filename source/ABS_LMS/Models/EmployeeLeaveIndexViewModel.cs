@@ -7,7 +7,7 @@ namespace ABS_LMS.Models
     public class EmployeeLeaveIndexViewModel
     {
         public IPagedList<EmployeeLeave> EmployeeLeaveDetails { get; set; }
-        public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
     }
 }

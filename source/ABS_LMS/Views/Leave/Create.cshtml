@@ -8,130 +8,130 @@
 @using (Html.BeginForm("Create", "Leave", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-<div class="row col-md-12">
-    <div class="col-md-6 textboxsize">
-        <h1>Create Leave</h1>
+    <div class="row col-md-12">
+        <div class="col-md-6 textboxsize">
+            <h1>Create Leave</h1>
 
-         <div class="panel panel-default">
-            <div class="panel-heading">&nbsp;</div>
-            <div class="panel-body">
-                @Html.ValidationSummary(false, "", new { @class = " alert alert-warning" })
-                @Html.HiddenFor(m => m.IsSave)
-                <div class="form-group" style="display: none;">
-                    @Html.LabelFor(model => model.EmployeeLeaveDetails.EmployeeId, htmlAttributes: new { @class = " col-md-4" })
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.EmployeeLeaveDetails.EmployeeId, new { htmlAttributes = new { @class = "" } })
-                        @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.EmployeeId, "", new { @class = "pull-left alert alert-warning " })*@
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStartDate, htmlAttributes: new { @class = " col-md-4" })
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveStartDate, new { @class = "", @Value = "" })
-                        @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveStartDate, "", new { @class = "pull-left alert alert-warning " })*@
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveEndDate, htmlAttributes: new { @class = " col-md-4" })
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveEndDate, new { @class = "", @Value = "" })
-                        @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveEndDate, "", new { @class = "pull-left alert alert-warning " })*@
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="col-md-3" style="padding-left: 0">@Html.Label("HalfDay", htmlAttributes: new { @class = " col-md-5" })</div>
-                            <div class="col-md-2 col-lg-push-1" style="top: 15px;left:20px">@Html.CheckBoxFor(model => model.EmployeeLeaveDetails.IsHalfDay, new {@class = ""})</div>
-                            <div class="col-md-7">@Html.TextBoxFor(model => model.EmployeeLeaveDetails.HalfDayDateUTC, new {@class = "form-control", @Value = ""})</div>
+            <div class="panel panel-default">
+                <div class="panel-heading">&nbsp;</div>
+                <div class="panel-body">
+                    @Html.ValidationSummary(false, "", new { @class = " alert alert-warning" })
+                    @Html.HiddenFor(m => m.IsSave)
+                    <div class="form-group" style="display: none;">
+                        @Html.LabelFor(model => model.EmployeeLeaveDetails.EmployeeId, htmlAttributes: new { @class = " col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.EmployeeLeaveDetails.EmployeeId, new { htmlAttributes = new { @class = "" } })
+                            @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.EmployeeId, "", new { @class = "pull-left alert alert-warning " })*@
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveTypeId, htmlAttributes: new { @class = " col-md-4" })
-                    <div class="col-md-8">
-                        @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveTypeId, Model.LeaveType, new { @class = "form-control" })
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EmployeeLeaveDetails.NoOfDays, htmlAttributes: new { @class = " col-md-4" })
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(model => model.EmployeeLeaveDetails.NoOfDays, new { @readonly = "readonly" })
-                        @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.NoOfDays, "", new { @class = "pull-left alert alert-warning " })*@
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStartDate, htmlAttributes: new { @class = " col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveStartDate, new { @class = "", @Value = "" })
+                            @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveStartDate, "", new { @class = "pull-left alert alert-warning " })*@
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EmployeeLeaveDetails.Reason, htmlAttributes: new { @class = " col-md-4" })
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.EmployeeLeaveDetails.Reason, new { htmlAttributes = new { @class = "", @cols = 80, @rows = 5 } })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveEndDate, htmlAttributes: new { @class = " col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveEndDate, new { @class = "", @Value = "" })
+                            @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveEndDate, "", new { @class = "pull-left alert alert-warning " })*@
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group" style="display: none;">
-                    @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStatus, htmlAttributes: new { @class = " col-md-4" })
-                    <div class="col-md-8">
-                        @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveStatus, Model.LeaveStatusEnums, new { @class = "form-control" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EmployeeLeaveDetails.ApprovedBy, new { @class = " col-md-4" })
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(model => model.EmployeeLeaveDetails.ApprovedPersonName, new { @readonly = "readonly" })
-                        @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedPersonName)
-                        @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedBy)
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-4 col-md-8">
-                        &nbsp;&nbsp;<input type="button" value="Apply" class="btn btn-default leaveApply" />
-                    </div>
-                </div>
-
-                <div class="modal fade" id="leaveModal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4>Confirmation</h4>
-                            </div>
-                            <div class="modal-body">
-                                Are you sure, you want to apply for leave?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
-                                <button type="button" id="btnCancel" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3" style="padding-left: 0">@Html.Label("HalfDay", htmlAttributes: new { @class = " col-md-5" })</div>
+                                <div class="col-md-2 col-lg-push-1" style="top: 15px;left:20px">@Html.CheckBoxFor(model => model.EmployeeLeaveDetails.IsHalfDay, new { @class = "", @disabled = true })</div>
+                                <div class="col-md-7">@Html.HiddenFor(model => model.EmployeeLeaveDetails.HalfDayDateUTC, new {@class = "form-control", @Value = ""})</div>
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveTypeId, htmlAttributes: new { @class = " col-md-4" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveTypeId, Model.LeaveType, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmployeeLeaveDetails.NoOfDays, htmlAttributes: new { @class = " col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.EmployeeLeaveDetails.NoOfDays, new { @readonly = "readonly" })
+                            @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.NoOfDays, "", new { @class = "pull-left alert alert-warning " })*@
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmployeeLeaveDetails.Reason, htmlAttributes: new { @class = " col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.EmployeeLeaveDetails.Reason, new { htmlAttributes = new { @class = "", @cols = 80, @rows = 5 } })
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="display: none;">
+                        @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStatus, htmlAttributes: new { @class = " col-md-4" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveStatus, Model.LeaveStatusEnums, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EmployeeLeaveDetails.ApprovedBy, new { @class = " col-md-4" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.EmployeeLeaveDetails.ApprovedPersonName, new { @readonly = "readonly" })
+                            @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedPersonName)
+                            @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedBy)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-8">
+                            &nbsp;&nbsp;<input type="button" value="Apply" class="btn btn-default leaveApply" />
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="leaveModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4>Confirmation</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure, you want to apply for leave?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
+                                    <button type="button" id="btnCancel" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div id="divLoading"></div>
             </div>
-            <div id="divLoading"></div>
-        </div>
 
-        <div class="row ">
-            <div class="col-md-12">
-                @Html.ActionLink("Back to List", "Index", new {id = HttpCurrentUser.EmployeeId})
+            <div class="row ">
+                <div class="col-md-12">
+                    @Html.ActionLink("Back to List", "Index", new { id = HttpCurrentUser.EmployeeId })
+                </div>
             </div>
         </div>
     </div>
-</div>
-            }
+}
 
-            @section Scripts {
-<script src="~/Scripts/jquery.validate.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+@section Scripts {
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
-<script>
+    <script>
 
     $(document).ready(function () {
         $('.nav #Leaves').addClass('active');
-        $("#EmployeeLeaveDetails_HalfDayDateUTC").prop('disabled', true);
+
         $(".leaveApply").click(function () {
             $("#leaveModal").modal('show');
         });
@@ -148,12 +148,9 @@
 
         $('#EmployeeLeaveDetails_IsHalfDay').click(function () {
             if ($(this).is(':checked')) {
-                $("#EmployeeLeaveDetails_HalfDayDateUTC").prop('disabled', false);
-                //$("#EmployeeLeaveDetails_HalfDayDateUTC").show();
+                $("#EmployeeLeaveDetails_NoOfDays").val(0.5);
             } else {
-                //$("#EmployeeLeaveDetails_HalfDayDateUTC").hide();
-                $("#EmployeeLeaveDetails_HalfDayDateUTC").prop('disabled', true);
-                $("#EmployeeLeaveDetails_HalfDayDateUTC").val('');
+                $("#EmployeeLeaveDetails_NoOfDays").val(1);
             }
         });
 
@@ -237,9 +234,17 @@
         //    }
         //});
 
-        $.get(url, { startDate: start, endDate: end }, function (data) {
+        $.get(url,
+            { startDate: start, endDate: end },
+            function (data) {
+            $("#EmployeeLeaveDetails_IsHalfDay").prop("disabled", true);
+            $("#EmployeeLeaveDetails_IsHalfDay").prop("checked", false);
+            if (data.Value === 1) {
+                $("#EmployeeLeaveDetails_IsHalfDay").prop("disabled", false);
+                $("#EmployeeLeaveDetails_HalfDayDateUTC").val($("#EmployeeLeaveDetails_LeaveStartDate").val());
+            }
             $("#EmployeeLeaveDetails_NoOfDays").val(data.Value);
         });
     }
-</script>
-            }
+    </script>
+}

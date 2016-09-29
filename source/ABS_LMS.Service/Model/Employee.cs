@@ -34,11 +34,18 @@ namespace ABS_LMS.Service.Model
         [Required(ErrorMessage = "Please Enter Mobile Number")]
         public string MobileNo { get; set; }
 
-        
+        [DisplayName("Flat/Wing")]
         public string Address1 { get; set; }
+
+        [DisplayName("Bldg Name")]
         public string Address2 { get; set; }
+
+        [DisplayName("Locality")]
         public string Address3 { get; set; }
+
+        [DisplayName("Landmark")]
         public string Address4 { get; set; }
+
         public string PostCode { get; set; }
         public string City { get; set; }
         public string State { get; set; }

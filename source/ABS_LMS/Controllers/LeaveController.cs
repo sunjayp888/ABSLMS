@@ -63,7 +63,9 @@ namespace ABS_LMS.Controllers
 
                 var model = new EmployeeLeaveIndexViewModel
                 {
-                    EmployeeLeaveDetails = leaveDetails.ToPagedList(pagenumber, pagesize)
+                    EmployeeLeaveDetails = leaveDetails.ToPagedList(pagenumber, pagesize),
+                    FromDate = null,
+                    ToDate = null,
                 };
 
                 return View(model);
@@ -73,11 +75,17 @@ namespace ABS_LMS.Controllers
         {
             return Authorization.HasAccess(Convert.ToString(HttpCurrentUser.EmployeeId), () =>
             {
-                var leaveDetails = _employeeLeaveService.GetEmployeeLeaveDetails(Convert.ToInt32(HttpCurrentUser.EmployeeId)).Where(e=>e.LeaveStartDate>=FromDate && e.LeaveEndDate<=ToDate);
+                var leaveDetails =
+                    _employeeLeaveService.GetEmployeeLeaveDetails(Convert.ToInt32(HttpCurrentUser.EmployeeId))
+                                    .Where(e => (e.LeaveStartDate >= FromDate && e.LeaveStartDate <= ToDate)
+                                   || (e.LeaveEndDate >= FromDate && e.LeaveEndDate <= ToDate)
+                                   || (e.LeaveStartDate <= FromDate && e.LeaveEndDate >= ToDate));
 
                 var model = new EmployeeLeaveIndexViewModel
                 {
-                    EmployeeLeaveDetails = leaveDetails.ToPagedList(pagenumber, pagesize)
+                    EmployeeLeaveDetails = leaveDetails.ToPagedList(pagenumber, pagesize),
+                    FromDate = FromDate,
+                    ToDate = ToDate
                 };
 
                 return View("Index",model);
@@ -193,15 +201,17 @@ namespace ABS_LMS.Controllers
                 var employee = _employeeService.GetEmployee(newleave.EmployeeId);
                 var leaveDetails = employeeleave.EmployeeLeaveDetails;
                 //Send mail
-
-                if (!employeeleave.IsSave)
+                if (!ConfigHelper.Environment.ToLower().Equals("dev"))
                 {
-                    //To Employee
-                    SendMailToEmployee(employee, leaveDetails);
-                    //To Manager
-                    SendMailToManager(employee, leaveDetails);
-                    //To Hr
-                    //SendMailToHr(employee, leaveDetails);
+                    if (!employeeleave.IsSave)
+                    {
+                        //To Employee
+                        SendMailToEmployee(employee, leaveDetails);
+                        //To Manager
+                        SendMailToManager(employee, leaveDetails);
+                        //To Hr
+                        //SendMailToHr(employee, leaveDetails);
+                    }
                 }
                 return RedirectToAction("Index/" + id + "");
             }
@@ -241,6 +251,7 @@ namespace ABS_LMS.Controllers
                 return View(model);
             });
         }
+
         [HttpPost]
         public ActionResult Edit(int leaveId, EmployeeLeaveViewModel employeeleave)
         {
@@ -253,13 +264,15 @@ namespace ABS_LMS.Controllers
                 employeeleave.EmployeeLeaveDetails.LeaveStartDate.ToShortDateString(),
                 employeeleave.EmployeeLeaveDetails.LeaveEndDate.ToShortDateString());
 
-                //To Employee
-                SendMailToEmployee(employee, leaveDetails);
-                //To Manager
-                SendMailToManager(employee, leaveDetails);
-                //To Hr
-                //SendMailToHr(employee, leaveDetails);
-
+                if (!ConfigHelper.Environment.ToLower().Equals("dev"))
+                {
+                    //To Employee
+                    SendMailToEmployee(employee, leaveDetails);
+                    //To Manager
+                    SendMailToManager(employee, leaveDetails);
+                    //To Hr
+                    //SendMailToHr(employee, leaveDetails);
+                }
                 return RedirectToAction("Index", new { id = employeeleave.EmployeeLeaveDetails.EmployeeId });
             }
             catch

@@ -6,7 +6,7 @@ namespace ABS_LMS.Service
 {
     public static class ConfigHelper
     {
-        private static string Environment
+        public static string Environment
         {
             get { return ConfigurationManager.AppSettings["Environment"]; }
         }

@@ -49,48 +49,51 @@
                         @Html.ActionLink("Client", "Index", new { sortOrder = "Client", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
                     </th>
                     <th>
-                        @Html.ActionLink("Designation", "Index", new { sortOrder = "Designation", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
+                        @Html.ActionLink("Designation", "Index", new {sortOrder = "Designation", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword})
+                    </th>
+                    <th>
+                        @Html.ActionLink("Leaving Date", "Index", new { sortOrder = "LeavingDateUTC", sortOrderDesc = ViewBag.SortOrderDesc, searchKeyword = Model.SearchKeyword })
                     </th>
                     <th></th>
                 </tr>
 
                 @foreach (var item in Model.EmployeeDetail)
                 {
-                    <tr>
-                        <td>
+                   
+                    string style = (@item.LeavingDateUTC.HasValue ? "leaving-date" : "");
+                    <tr >
+                        <td class="@style">
                             @item.EmployeeCode
                         </td>
-                        <td>
+                        <td class="@style">
                             @item.FirstName
                         </td>
-                        <td>
+                        <td class="@style">
                             @item.LastName
                         </td>
-                        <td>
+                        <td class="@style">
                             @item.Gender
                         </td>
-                        <td>
+                        <td class="@style">
                             @item.CompanyEmailId
                         </td>
-                        <td>
+                        <td class="@style">
                             @item.Client
                         </td>
-                        <td>
+                        <td class="@style">
                             @item.Designation
                         </td>
-
-
+                        <td class="@style">
+                            @string.Format("{0:dd-MMM-yyyy}", item.LeavingDateUTC)
+                        </td>
                         <td class="col-lg-3">
-                            <input type="button" value="Delete" id="@item.EmployeeId" onclick="deleteEmp(@item.EmployeeId, '@item.FirstName' ) " class="deleteEmp btn btn-default" />
-                            @Html.ActionLink("Details", "Details", new {id = item.EmployeeId}, new {@class = "linktobtn"})
-                            @Html.ActionLink("Edit", "Edit", new {id = item.EmployeeId}, new {@class = "linktobtn editbtnlink"})
-
-                            <input type="text" id="EmpIdvalue" style="display: none;"/>
-
+                            <input type="button" value="Archive" id="@item.EmployeeId" onclick="deleteEmp(@item.EmployeeId, '@item.FirstName' ) " class="deleteEmp btn btn-default" />
+                            @Html.ActionLink("Details", "Details", new { id = item.EmployeeId }, new { @class = "linktobtn" })
+                            @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }, new { @class = "linktobtn editbtnlink" })
+                            <input type="text" id="EmpIdvalue" style="display: none;" />
                         </td>
                     </tr>
                 }
-
             </table>
             <div>
                 Page @(Model.EmployeeDetail.PageCount < Model.EmployeeDetail.PageNumber ? 0 : Model.EmployeeDetail.PageNumber) of @Model.EmployeeDetail.PageCount
