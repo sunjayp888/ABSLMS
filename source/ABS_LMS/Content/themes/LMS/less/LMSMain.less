@@ -409,12 +409,7 @@ input[type=text], input[type=password] {
                {
                       background: #f9f9f9; 
                }
-.user-carousel .carousel-caption
-{
- color:#333333;
- text-shadow:none;  
- top: 42px; 
-}
+
 #myCarousel .glyphicon-chevron-left,#myCarousel .glyphicon-chevron-right{
      color:#cccccc!important;
 }
@@ -491,6 +486,33 @@ div#divLoading
   line-height: 1;
   /*opacity: 0.1;*/
 }
+
+.user-carousel .carousel-caption
+{
+
+ color:#333333;
+ text-shadow:none;  
+ top:0px; 
+ left:10px!important;
+ right:10px!important;
+ max-height:300px;
+ overflow:hidden;
+ overflow-y:auto;  
+ padding-top:0px; 
+     text-align: initial!important;
+}
+/*.user-control .carousel-control
+{
+ width:3%!important;   
+}
+.user-carousel .glyphicon-chevron-right
+{
+    left:15%;
+
+}*/
+
+
+
 blockquote small:before
 {
     content:none!important;
@@ -507,4 +529,19 @@ blockquote small:before
       background-color:@highlighted-color!important;
     border-color:@highlighted-color!important;
     color:@main-color!important;
+}
+
+@media screen and (min-width: 768px)
+{
+    .user-carousel .carousel-caption
+{
+
+
+ left:10px!important;
+ right:10px!important;
+  
+}
+       .user-control .carousel-indicators  {
+    bottom: -10px;
+    }
 }
