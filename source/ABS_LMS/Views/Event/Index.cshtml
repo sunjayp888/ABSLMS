@@ -32,9 +32,9 @@
                                 <th>
                                     Title
                                 </th>
-                                <th>
+                                @*<th>
                                     Description
-                                </th>
+                                </th>*@
                                 <th>
                                     Event Date
                                 </th>
@@ -71,9 +71,9 @@
                                     <td class="col-md-2">
                                         @item.Title
                                     </td>
-                                    <td class="col-md-2">
+                                    @*<td>
                                         @Html.Raw(item.Description) 
-                                    </td>
+                                    </td>*@
                                     <td class="col-md-2">
                                         @if (item.OrganiseDate != null)
                                         {
