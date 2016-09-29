@@ -60,30 +60,30 @@
                 @foreach (var item in Model.EmployeeDetail)
                 {
                    
-                    string style = (@item.LeavingDateUTC.HasValue ? "leaving-date" : "");
-                    <tr >
-                        <td class="@style">
+                    
+                    <tr class='@(item.LeavingDateUTC.HasValue  ? "leaving-date" : "")' >
+                        <td >
                             @item.EmployeeCode
                         </td>
-                        <td class="@style">
+                        <td >
                             @item.FirstName
                         </td>
-                        <td class="@style">
+                        <td >
                             @item.LastName
                         </td>
-                        <td class="@style">
+                        <td >
                             @item.Gender
                         </td>
-                        <td class="@style">
+                        <td  class="word-break">
                             @item.CompanyEmailId
                         </td>
-                        <td class="@style">
+                        <td >
                             @item.Client
                         </td>
-                        <td class="@style">
+                        <td >
                             @item.Designation
                         </td>
-                        <td class="@style">
+                        <td >
                             @string.Format("{0:dd-MMM-yyyy}", item.LeavingDateUTC)
                         </td>
                         <td class="col-lg-3">

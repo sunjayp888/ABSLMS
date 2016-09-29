@@ -1478,6 +1478,9 @@ blockquote small:before {
   border-color: #22B500 !important;
   color: #FFFFFF !important;
 }
+.leaving-date td {
+  background: #f2dede;
+}
 @media screen and (min-width: 768px) {
   .user-carousel .carousel-caption {
     left: 10px!important;
