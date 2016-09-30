@@ -111,7 +111,7 @@
                     <h4>Confirmation</h4>
                 </div>
                 <div class="modal-body">
-                    Are you sure you wish to delete <lable id="employeeName"></lable>?
+                    Are you sure you wish to archive <label id="employeeName"></label>?
                 </div>
                 <div class="modal-footer">
                     <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
@@ -136,12 +136,12 @@
 
         $("#btnOK").click(function () {
             $("#EmployeeModal").modal('hide');
-            var emptId = $('#EmpIdvalue').text();
+            var empId = $('#EmpIdvalue').text();
 
             $.ajax({
                 type: "POST",
                 url: "/Employee/Delete",
-                data: { id: emptId },
+                data: { id: empId },
                 dataType: 'json',
                 success: function (response) {
                     if (parseInt(response) > 0) {

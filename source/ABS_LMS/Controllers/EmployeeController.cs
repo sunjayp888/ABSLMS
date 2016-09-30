@@ -10,8 +10,10 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.EnterpriseServices;
 using System.IO;
 using ABS_LMS.Helper;
+using ABS_LMS.Models.Security;
 using PagedList;
 
 namespace ABS_LMS.Controllers
@@ -51,12 +53,13 @@ namespace ABS_LMS.Controllers
         }
 
         // GET: Employee
-        [Authorize(Roles = "Admin, Hr")]
+        [Authorize(Roles = "Admin,Hr,Manager")]
         public ActionResult Index(string searchKeyword = "", string sortOrder = null, bool sortOrderDesc = false, int pagenumber = 1, int pagesize = 10)
         {
             ViewBag.SortOrderDesc = !sortOrderDesc;
             ViewBag.SortOrder = sortOrder ?? string.Empty;
-            var employees = _employeeService.GetEmployees();
+            var employees = HttpCurrentUser.IsManager ? GetEmployeeByReportingManager(): _employeeService.GetEmployees();
+
             if (!string.IsNullOrEmpty(searchKeyword))
             {
                 employees = employees.Where(e => e.EmployeeCode.Contains(searchKeyword.Trim())
@@ -251,6 +254,7 @@ namespace ABS_LMS.Controllers
         //        return View();
         //    }
         //}
+        [HttpPost]
         public ActionResult Delete(int id)
         {
             var result = 1;
@@ -402,7 +406,7 @@ namespace ABS_LMS.Controllers
                 case "leavingdateutc":
                     sortedDocuments = sortOrderDesc ? employees.OrderByDescending(s => s.LeavingDateUTC).ToList() : employees.OrderBy(s => s.Client).ToList();
                     break;
-                    
+
             }
             return sortedDocuments;
         }
@@ -412,6 +416,25 @@ namespace ABS_LMS.Controllers
             BinaryReader reader = new BinaryReader(image.InputStream);
             imageBytes = reader.ReadBytes((int)image.ContentLength);
             return imageBytes;
+        }
+
+        private List<Employee> GetEmployeeByReportingManager()
+        {
+            var allEmployees = _employeeService.GetEmployees();
+            var employees = new List<Employee>();
+
+            var employeesForThisManager = allEmployees
+                  .Where(e => e.ReportingManager == Convert.ToInt32(HttpCurrentUser.EmployeeId)).ToList();
+
+            employees.AddRange(employeesForThisManager);
+
+            foreach (var item in employeesForThisManager)
+            {
+                var item1 = item;
+                var lineManagerEmployees = allEmployees.Where(e => e.ReportingManager == item1.EmployeeId);
+                employees.AddRange(lineManagerEmployees);
+            }
+            return employees;
         }
     }
 }

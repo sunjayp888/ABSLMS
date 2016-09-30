@@ -34,7 +34,7 @@
 
                 @if (Request.IsAuthenticated)
                 {
-                    if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
+                    if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin|| HttpCurrentUser.IsManager)
                     {
                         <li>@Html.ActionLink("Employees", "Index", "Employee", null, new { @id = "employee" })</li>
                     }
