@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using ABS_LMS.Data;
@@ -18,6 +19,7 @@ namespace ABS_LMS.Service
         public EmployeeService()
         {
             _unitOfWork = new UnitOfWork(new ABSLMSEntities(ConfigHelper.ConnectionString));
+
         }
 
         public void AddEmployee(Model.Employee employee)
@@ -152,8 +154,6 @@ namespace ABS_LMS.Service
             }).OrderBy(o => o.EmployeeCode).ToList();
         }
 
-
-
         public void UpdateEmployee(int employeeId, Model.Employee employee)
         {
             var employeedetails = _unitOfWork.Employee.Get(employeeId);
@@ -185,5 +185,7 @@ namespace ABS_LMS.Service
             employeedetails.ClientId = employee.ClientId;
             _unitOfWork.Complete();
         }
+
+     
     }
 }

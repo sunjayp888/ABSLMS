@@ -13,7 +13,6 @@ using ABS_LMS.Service;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using PagedList;
-
 namespace ABS_LMS.Controllers
 {
     public class LeaveController : Controller
@@ -45,6 +44,7 @@ namespace ABS_LMS.Controllers
                 return _roleManager;
             }
         }
+
         public LeaveController(IEmployeeLeaveService employeeLeaveService, IEmployeeService employeeService, IHolidayService holidayService)
         {
             _employeeLeaveService = employeeLeaveService;
@@ -54,12 +54,11 @@ namespace ABS_LMS.Controllers
 
         // GET: Leave
 
-        public ActionResult Index(int id,int pagenumber = 1, int pagesize = 10)
+        public ActionResult Index(int id, int pagenumber = 1, int pagesize = 10)
         {
-            DateTime today = DateTime.Today;
             return Authorization.HasAccess(Convert.ToString(id), () =>
             {
-                var leaveDetails = _employeeLeaveService.GetEmployeeLeaveDetails(id).Where(s=>s.LeaveStartDate.Month==today.Month && s.LeaveStartDate.Year==today.Year);
+                var leaveDetails = _employeeLeaveService.GetEmployeeLeaveDetails(id).Where(s => s.LeaveStatus == (int)Service.Model.LeaveStatus.Apply);
 
                 var model = new EmployeeLeaveIndexViewModel
                 {
@@ -67,10 +66,10 @@ namespace ABS_LMS.Controllers
                     FromDate = null,
                     ToDate = null,
                 };
-
                 return View(model);
             });
         }
+
         public ActionResult History(DateTime FromDate, DateTime ToDate, int pagenumber = 1, int pagesize = 10)
         {
             return Authorization.HasAccess(Convert.ToString(HttpCurrentUser.EmployeeId), () =>
@@ -88,7 +87,46 @@ namespace ABS_LMS.Controllers
                     ToDate = ToDate
                 };
 
-                return View("Index",model);
+                return View("Index", model);
+            });
+        }
+
+        [Authorize(Roles = "Hr,Admin,Manager")]
+        public ActionResult EmployeesLeaveHistory(EmployeeLeaveIndexViewModel model, int pagenumber = 1, int pagesize = 10)
+        {
+            return Authorization.HasAccess(HttpCurrentUser.EmployeeId, () =>
+            {
+                model.LeaveStatusList = from leaveStatus in Enum.GetValues(typeof(LeaveStatus)).Cast<LeaveStatus>()
+                                        select new SelectListItem
+                                        {
+                                            Text = _employeeLeaveService.GetEnumsDisplayNameById((int)leaveStatus),
+                                            Value = ((int)leaveStatus).ToString()
+                                        };
+                if (model.FromDate == null || model.ToDate == null)
+                {
+                    model.LeaveStatusId = (int)Service.Model.LeaveStatus.Apply;
+                    return View(model);
+                }
+                var leaveDetails = new List<EmployeeLeave>();
+                if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
+                {
+                    leaveDetails = _employeeLeaveService.GetAllEmployeesLeaveDetails();
+                }
+                else if (HttpCurrentUser.IsManager)
+                {
+                    leaveDetails = _employeeLeaveService.GetAllMapppedEmployeesleaveDetails(Convert.ToInt32(HttpCurrentUser.EmployeeId));
+                }
+                var fromDate = model.FromDate;
+                var toDate = model.ToDate;
+                leaveDetails = leaveDetails.Where(e =>e.LeaveStatus == model.LeaveStatusId && ((e.LeaveStartDate >= fromDate && e.LeaveStartDate <= toDate)
+                                        || (e.LeaveEndDate >= fromDate && e.LeaveEndDate <= toDate)
+                                        || (e.LeaveStartDate <= fromDate && e.LeaveEndDate >= toDate))).ToList();
+
+                model.EmployeeLeaveDetails = leaveDetails.ToPagedList(pagenumber, pagesize);
+                model.FromDate = fromDate;
+                model.ToDate = toDate;
+
+                return View("EmployeesLeaveHistory", model);
             });
         }
         // GET: Leave
@@ -106,7 +144,7 @@ namespace ABS_LMS.Controllers
             });
         }
 
-        [Authorize(Roles = "Hr")]
+        [Authorize(Roles = "Hr,Admin")]
         public ActionResult ApprovedLeaveDetails(int id)
         {
             return Authorization.HasAccess(Convert.ToString(id), () =>
@@ -153,8 +191,8 @@ namespace ABS_LMS.Controllers
                     EmployeeLeaveDetails = new EmployeeLeave { EmployeeId = id },
                     LeaveType = leavetype,
                     LeaveStatusEnums = leaveStatus
-                   //    LeaveSummaries = _employeeLeaveService.GetLeaveSummary(id)
-               };
+                    //    LeaveSummaries = _employeeLeaveService.GetLeaveSummary(id)
+                };
 
                 var firstOrDefault = manager.FirstOrDefault();
                 if (firstOrDefault != null)
@@ -304,11 +342,14 @@ namespace ABS_LMS.Controllers
             return Json(result, JsonRequestBehavior.DenyGet);
         }
 
-        public ActionResult EmployeeReportCsvDownload(int id)
+        [Authorize(Roles = "Hr,Admin")]
+        public ActionResult EmployeeLeaveHistoryReportCsvDownload()
         {
-            var leaveDetails = _employeeLeaveService.GetEmployeeLeaveDetails(id)
+            var leaveDetails = _employeeLeaveService.GetAllEmployeesLeaveDetails()
                 .Select(e => new
                 {
+                    e.EmployeeCode,
+                    e.EmployeeName,
                     StartDate = e.LeaveStartDate.ToString("dd-MMM-yyyy"),
                     EndDate = e.LeaveEndDate.ToString("dd-MMM-yyyy"),
                     LeaveType = e.LeaveTypeName,
@@ -320,7 +361,8 @@ namespace ABS_LMS.Controllers
                 }).ToList();
 
             return File(leaveDetails.ToDataTable().ToCsvStream(), "text/csv",
-                string.Format("Employees-{0:yyyy-MM-dd-hh-mm-ss}.csv", DateTime.Now));
+                string.Format("EmployeesLeaveHistory-{0:yyyy-MM-dd-hh-mm-ss}.csv", DateTime.Now));
+
         }
 
         public ActionResult GetActualLeaveDaysCount(DateTime? startDate, DateTime? endDate)

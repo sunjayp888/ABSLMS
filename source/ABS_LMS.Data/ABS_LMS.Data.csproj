@@ -94,6 +94,9 @@
     <Compile Include="Event.cs">
       <DependentUpon>ABSLMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetAllMappedEmployees_Result.cs">
+      <DependentUpon>ABSLMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Holiday.cs">
       <DependentUpon>ABSLMSModel.tt</DependentUpon>
     </Compile>

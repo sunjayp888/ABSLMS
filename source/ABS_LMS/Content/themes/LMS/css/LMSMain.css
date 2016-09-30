@@ -1478,6 +1478,15 @@ blockquote small:before {
   border-color: #22B500 !important;
   color: #FFFFFF !important;
 }
+.empleavehistory label {
+  width: 52% !important;
+}
+.empleavehistory input[type=text] {
+  margin: 0;
+}
+.empleavehistory input[type=submit] {
+  margin-top: 0;
+}
 @media screen and (min-width: 768px) {
   .user-carousel .carousel-caption {
     left: 10px!important;

@@ -15,21 +15,15 @@
         {
         <p class="Link-btn">
 
-            @if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
-            {
-            @Html.ActionLink("Csv Download", "EmployeeReportCsvDownload", new {id = HttpCurrentUser.EmployeeId}, new {@class = "btn btn-default"})
-            }
             @Html.ActionLink("Create New", "Create", new {id = HttpCurrentUser.EmployeeId}, new {@class = "btn btn-default"}) &nbsp; &nbsp;
             @if (ViewContext.RouteData.GetRequiredString("action") == "Index")
             {
-                @Html.ActionLink("Current Month Leave", "Index", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@Id = "Leaves", @class = "btn btn-default active-btn leaverecord"})
-                
-
+                @Html.ActionLink("Applied Leave", "Index", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@Id = "Leaves", @class = "btn btn-default active-btn leaverecord"})
                 <a id="leavehistory" class="btn btn-default">Leave History</a>
             }
             @if (ViewContext.RouteData.GetRequiredString("action") == "History")
             {
-            @Html.ActionLink("Current Month Leave", "Index", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@Id = "Leaves", @class = "btn btn-default"})
+            @Html.ActionLink("Applied Leave", "Index", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@Id = "Leaves", @class = "btn btn-default"})
          
             <a id="leavehistory" class="btn btn-default active-btn">Leave History</a>
             }
@@ -38,14 +32,12 @@
             {
             @Html.ActionLink("Leave Pending For Approval", "LeavePendingForApproval", new {id = HttpCurrentUser.EmployeeId}, new {@class = "btn btn-default"})
             }
-            @if (HttpCurrentUser.IsHR)
+            @if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin || HttpCurrentUser.IsManager)
             {
-            @Html.ActionLink("Employee Leave Details", "ApprovedLeaveDetails", new {id = HttpCurrentUser.EmployeeId}, new {@class = "btn btn-default"})
+            @Html.ActionLink("Employees Leave History", "EmployeesLeaveHistory", new {id = HttpCurrentUser.EmployeeId}, new {@class = "btn btn-default"})
             }
 
-
         </p>
-
 
         <div class="row">
             @using (Html.BeginForm("History", "Leave", FormMethod.Post))
@@ -80,16 +72,13 @@
         </div>
         if (@Model.EmployeeLeaveDetails.Any())
         {<div class="leaveHistory" id="leavehistorytable">
-
             <div class="desktopview">
                 <br />
-
                 <br />
                 <table class="table table-bordered">
                     <tr>
                         <th>
                             @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().LeaveStartDate)
-
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().LeaveEndDate)
@@ -153,10 +142,10 @@
                                     <td>
                                         @Html.ActionLink("Edit", "Edit", new {id = HttpCurrentUser.EmployeeId, leaveId = item.EmployeeLeaveHistoryId}, new {@class = "linktobtn"})
                                     </td>
-                                    <td>
-                                        <input type="button" value="@LeaveStatus.Submit.ToString()" 
-                                            style="@(item.LeaveStatusName == LeaveStatus.Submit.ToString() ? "display:none" : "display:block" )" data-status="Submit" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default submitbtn statusbtn" />
-                                    </td>
+                                    @*<td>
+                                        <input type="button" value="@LeaveStatus.Apply.ToString()" 
+                                            style="@(item.LeaveStatusName == LeaveStatus.Apply.ToString() ? "display:none" : "display:block" )" data-status="Apply" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default submitbtn statusbtn" />
+                                    </td>*@
                                     }
                                     <td>
                                         <input type="button" value="@LeaveStatus.Cancel.ToString()" data-status="Cancel" 
@@ -244,8 +233,8 @@
                                         @Html.ActionLink("Edit", "Edit", new {id = HttpCurrentUser.EmployeeId, leaveId = item.EmployeeLeaveHistoryId}, new {@class = "linktobtn"})
                                     </div>
                                     <div>
-                                        <input type="button" value="@LeaveStatus.Submit.ToString()" 
-                                style="@(item.LeaveStatusName == LeaveStatus.Submit.ToString() ? "display:none"  :  "display:block" )" data-status="Submit" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default submitbtn statusbtn" />
+                                        <input type="button" value="@LeaveStatus.Apply.ToString()" 
+                                style="@(item.LeaveStatusName == LeaveStatus.Apply.ToString() ? "display:none"  :  "display:block" )" data-status="Apply" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default submitbtn statusbtn" />
                                     </div>
                                     }
                                     <div>

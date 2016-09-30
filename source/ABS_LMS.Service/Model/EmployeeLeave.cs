@@ -12,6 +12,9 @@ namespace ABS_LMS.Service.Model
         [DisplayName("Employee Id")]
         public int EmployeeId { get; set; }
 
+        [DisplayName("Employee Code")]
+        public string EmployeeCode { get; set; }
+
         [DisplayName("Start Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yy}")]
         [Required(ErrorMessage = "Please Enter Leave Start Date")]

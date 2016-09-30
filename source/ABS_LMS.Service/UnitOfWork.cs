@@ -1,4 +1,5 @@
-﻿using ABS_LMS.Data;
+﻿using System.Collections.Generic;
+using ABS_LMS.Data;
 using ABS_LMS.Repository.Interface;
 using ABS_LMS.Repository.Repositories;
 using ABS_LMS.Service.Interface;
@@ -32,6 +33,11 @@ namespace ABS_LMS.Service
         public IHolidayRepository Holiday { get; private set; }
         public IEventRepository Event { get; private set; }
         public IClientRepository Client { get; private set; }
+
+        //public IEnumerable<GetAllMappedEmployees_Result> GetAllMappedEmployees(int employeeId)
+        //{
+        //    return _context.GetAllMappedEmployees(employeeId);
+        //}
 
         public int Complete()
         {

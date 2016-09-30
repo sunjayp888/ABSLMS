@@ -18,10 +18,10 @@ namespace ABS_LMS.Service.Model
 
     public enum LeaveStatus
     {
-        [Display(Name = "Draft")]
-        Draft =1,
+        //[Display(Name = "Draft")]
+        //Draft =1,
         [Display(Name = "Applied")]
-        Submit =2,
+        Apply =2,
         [Display(Name = "Approved")]
         Approve =3,
         [Display(Name = "Rejected")]

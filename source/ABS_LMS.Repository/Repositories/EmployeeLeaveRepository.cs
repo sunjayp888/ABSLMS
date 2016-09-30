@@ -8,7 +8,7 @@ using ABS_LMS.Repository.Interface;
 
 namespace ABS_LMS.Repository.Repositories
 {
-  public  class EmployeeLeaveRepository : Repository<Data.EmployeeLeaveHistory>, IEmployeeLeaveRepository
+  public  class EmployeeLeaveRepository : Repository<EmployeeLeaveHistory>, IEmployeeLeaveRepository
     {
         public EmployeeLeaveRepository(ABSLMSEntities context)
             : base(context)
@@ -27,6 +27,11 @@ namespace ABS_LMS.Repository.Repositories
         public IEnumerable<EmployeeLeaveHistory> GetApprovedLeave()
         {
             return AbsContext.EmployeeLeaveHistories.Where(e => e.LeaveStatus >= 3);
+        }
+
+        public IEnumerable<EmployeeLeaveHistory> GetAllEmployeesLeave()
+        {
+            return AbsContext.EmployeeLeaveHistories;
         }
     }
   

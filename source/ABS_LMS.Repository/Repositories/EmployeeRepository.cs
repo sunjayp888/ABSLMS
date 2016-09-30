@@ -9,11 +9,14 @@ namespace ABS_LMS.Repository.Repositories
 {
     public class EmployeeRepository : Repository<Employee>, IEmployeeRepository
     {
-        public EmployeeRepository(ABSLMSEntities context)
-            : base(context)
+        public EmployeeRepository(ABSLMSEntities context) : base(context)
         {
         }
         public ABSLMSEntities AbsContext => Context as ABSLMSEntities;
 
+        public IEnumerable<GetAllMappedEmployees_Result> GetAllMappedEmployees(int lineManagerId)
+        {
+            return AbsContext.GetAllMappedEmployees(lineManagerId);
+        }
     }
 }
