@@ -39,7 +39,7 @@ namespace ABS_LMS.Helper
                                    employee.NoOfDays.ToString(),
                                    employee.LeaveStartDate.ToString(),
                                    employee.LeaveEndDate.ToString(),
-                                   employee.Reason, LeaveStatus.Submit.ToString());
+                                   employee.Reason, LeaveStatus.Apply.ToString());
 
             Send(to, "Leave Application", leaveTemplate);
         }

@@ -26,6 +26,7 @@ namespace ABS_LMS.Service.Interface
         List<LeaveSummary> GetLeaveSummary(int employeeId);
         void UpdateLeaveDetails(int employeeId);
         string GetLeaveTypeNameById(int leaveTypeId);
-
+        List<EmployeeLeave> GetAllMapppedEmployeesleaveDetails(int lineManagerId);
+        List<EmployeeLeave> GetAllEmployeesLeaveDetails();
     }
 }

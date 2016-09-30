@@ -46,38 +46,35 @@ namespace ABS_LMS.Service
         }
 
         public List<EmployeeLeave> GetEmployeeLeaveDetails(int employeeId)
-        {
-            
-            var employeedetails = _unitOfWork.EmployeeLeave.GetEmployeeLeaveDetails(employeeId);
-            var leaveTypeList = _unitOfWork.LeaveType.GetAll();
-
-            return employeedetails.Select(employeeLeaveDetails => new EmployeeLeave
+        {   
+            var employeeLeaveDetails = _unitOfWork.EmployeeLeave.GetEmployeeLeaveDetails(employeeId).ToList();
+           
+            return employeeLeaveDetails.Select(leaveDetails => new EmployeeLeave
             {
-                EmployeeLeaveHistoryId = employeeLeaveDetails.EmployeeLeaveHistoryId,
-                EmployeeId = employeeLeaveDetails.EmployeeId,
-                LeaveStartDate = employeeLeaveDetails.LeaveStartDate,
-                LeaveEndDate = employeeLeaveDetails.LeaveEndDate,
-                JoiningDate = employeeLeaveDetails.JoiningDate,
-                NoOfDays = employeeLeaveDetails.NoOfDays,
-                Reason = employeeLeaveDetails.Reason,
-                LeaveStatus = employeeLeaveDetails.LeaveStatus,
-                ApprovedBy = employeeLeaveDetails.ApprovedBy,
-                CreatedDateUTC = employeeLeaveDetails.CreatedDateUTC,
-                CreatedBy = employeeLeaveDetails.CreatedBy,
-                UpdatedDateUTC = employeeLeaveDetails.UpdatedDateUTC,
-                UpdatedBy = employeeLeaveDetails.CreatedBy,
-                LeaveTypeId = employeeLeaveDetails.LeaveTypeId,
-                LeaveStatusName = GetEnumsNameById(Convert.ToInt32(employeeLeaveDetails.LeaveStatus)),
-                LeaveStatusDisplayName = GetEnumsDisplayNameById(Convert.ToInt32(employeeLeaveDetails.LeaveStatus)),
-                LeaveTypeName = leaveTypeList.FirstOrDefault(l => l.LeaveTypeId == employeeLeaveDetails.LeaveTypeId).Name.ToString(),
-                ApprovedPersonName = employeeLeaveDetails.ApprovedPersonName,
-                HalfDayDateUTC = employeeLeaveDetails.HalfDayDateUTC
+                EmployeeLeaveHistoryId = leaveDetails.EmployeeLeaveHistoryId,
+                EmployeeId = leaveDetails.EmployeeId,
+                LeaveStartDate = leaveDetails.LeaveStartDate,
+                LeaveEndDate = leaveDetails.LeaveEndDate,
+                JoiningDate = leaveDetails.JoiningDate,
+                NoOfDays = leaveDetails.NoOfDays,
+                Reason = leaveDetails.Reason,
+                LeaveStatus = leaveDetails.LeaveStatus,
+                ApprovedBy = leaveDetails.ApprovedBy,
+                CreatedDateUTC = leaveDetails.CreatedDateUTC,
+                CreatedBy = leaveDetails.CreatedBy,
+                UpdatedDateUTC = leaveDetails.UpdatedDateUTC,
+                UpdatedBy = leaveDetails.CreatedBy,
+                LeaveTypeId = leaveDetails.LeaveTypeId,
+                LeaveStatusName = GetEnumsNameById(Convert.ToInt32(leaveDetails.LeaveStatus)),
+                LeaveStatusDisplayName = GetEnumsDisplayNameById(Convert.ToInt32(leaveDetails.LeaveStatus)),
+                LeaveTypeName = leaveDetails.LeaveType.Name,
+                EmployeeName = leaveDetails.Employee.FirstName + " " + leaveDetails.Employee.LastName,
+                EmployeeCode = leaveDetails.Employee.EmployeeCode,
+                ApprovedPersonName = leaveDetails.ApprovedPersonName,
+                HalfDayDateUTC = leaveDetails.HalfDayDateUTC
             }).OrderByDescending(o => o.CreatedDateUTC).ToList();
-
         }
-
-
-
+        
         public List<Leave> GetEmployeeLeaveSummary(int employeeId)
         {
             throw new NotImplementedException();
@@ -287,6 +284,46 @@ namespace ABS_LMS.Service
             //int stringValue = enumDisplayStatus.ToString();
             //return stringValue;
             return (int)id;
+        }
+
+        public List<EmployeeLeave> GetAllMapppedEmployeesleaveDetails(int lineManagerId)
+        {
+            var employeeLeaves = new List<EmployeeLeave>();
+            var allMappedEmployees = _unitOfWork.Employee.GetAllMappedEmployees(lineManagerId).ToList();
+            foreach (var emp in allMappedEmployees)
+            {
+                employeeLeaves.AddRange(GetEmployeeLeaveDetails(emp.EmployeeID??0));
+            }
+            return employeeLeaves.OrderByDescending(r => r.EmployeeId).ToList();
+        }
+
+        public List<EmployeeLeave> GetAllEmployeesLeaveDetails()
+        {
+            var employeeLeaveDetails = _unitOfWork.EmployeeLeave.GetAllEmployeesLeave().ToList();
+            return employeeLeaveDetails.Select(leaveDetails => new EmployeeLeave
+            {
+                EmployeeLeaveHistoryId = leaveDetails.EmployeeLeaveHistoryId,
+                EmployeeId = leaveDetails.EmployeeId,
+                LeaveStartDate = leaveDetails.LeaveStartDate,
+                LeaveEndDate = leaveDetails.LeaveEndDate,
+                JoiningDate = leaveDetails.JoiningDate,
+                NoOfDays = leaveDetails.NoOfDays,
+                Reason = leaveDetails.Reason,
+                LeaveStatus = leaveDetails.LeaveStatus,
+                ApprovedBy = leaveDetails.ApprovedBy,
+                CreatedDateUTC = leaveDetails.CreatedDateUTC,
+                CreatedBy = leaveDetails.CreatedBy,
+                UpdatedDateUTC = leaveDetails.UpdatedDateUTC,
+                UpdatedBy = leaveDetails.CreatedBy,
+                LeaveTypeId = leaveDetails.LeaveTypeId,
+                LeaveStatusDisplayName = GetEnumsDisplayNameById(Convert.ToInt32(leaveDetails.LeaveStatus)),
+                LeaveStatusName = GetEnumsNameById(Convert.ToInt32(leaveDetails.LeaveStatus)),
+                LeaveTypeName = leaveDetails.LeaveType.Name,
+                EmployeeName = leaveDetails.Employee.FirstName + " " + leaveDetails.Employee.LastName,
+                EmployeeCode = leaveDetails.Employee.EmployeeCode,
+                ApprovedPersonName = leaveDetails.ApprovedPersonName,
+                HalfDayDateUTC = leaveDetails.HalfDayDateUTC
+            }).ToList();
         }
     }
 }

@@ -45,8 +45,13 @@ namespace ABS_LMS.Data
             var employeeIdParameter = employeeId.HasValue ?
                 new ObjectParameter("EmployeeId", employeeId) :
                 new ObjectParameter("EmployeeId", typeof(int));
-    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_LeaveSummary_Result>("sp_LeaveSummary", employeeIdParameter);
+        }
+    
+        public virtual ObjectResult<GetAllMappedEmployees_Result> GetAllMappedEmployees(Nullable<int> employeeID)
+        {
+            var employeeIDParameter = employeeID.HasValue ? new ObjectParameter("EmployeeID", employeeID) : new ObjectParameter("EmployeeID", typeof(int));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllMappedEmployees_Result>("GetAllMappedEmployees", employeeIDParameter);
         }
     }
 }
