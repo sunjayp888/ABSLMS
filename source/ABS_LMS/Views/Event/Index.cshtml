@@ -150,7 +150,7 @@
                 $("#btnOK").click(function() {
                     $("#EventModal").modal('hide');
                     var eventId = $('#eventIdvalue').text();
-                 
+                    onBegin();
                     $.ajax({
                         type: "POST",
                         url: "/Event/Delete",
@@ -162,7 +162,7 @@
                             }
                         },
                         error: function () {
-
+                        onComplete();
                         }
                     });
                 });

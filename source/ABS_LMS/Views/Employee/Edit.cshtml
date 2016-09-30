@@ -229,7 +229,7 @@
                 </div>
             </div>
         </div>
-        <div id="divLoading"></div>
+     
         <div class="modal fade" id="modalpopup">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -363,7 +363,7 @@
                             //userRole = ("#EmployeeDetail_EmployeeRole").text() ;
 
                             userRole = $("#EmployeeDetail_EmployeeRole option:selected").text();
-                        $("#divLoading").html('<image src="../../Content/Base/images/spinner.gif" alt="processing...."/>').show();
+                   
                         $.ajax({
                             type: "POST",
                             url: "/Employee/CreatePortalAccount",
@@ -371,13 +371,13 @@
                             dataType: 'json',
                             success: function (response) {
                                 if (response) {
-                                    $("#divLoading").html("").hide();
+                            
                                     $("#message").text("Portal account created successfully.");
                                     $("#modalpopup").modal('show');
                                 }
                             },
                             error: function () {
-                                $("#divLoading").html("").hide();
+                              
                             }
                         });
                     });
@@ -392,7 +392,7 @@
                         var row = $(this),
                       aspNetUserId = row.data("aspnetuserid");
                         var userRole = $("#EmployeeDetail_EmployeeRole :selected").text();
-                        $("#divLoading").html('<image src="../../Content/Base/images/spinner.gif" alt="processing...."/>').show();
+                    onBegin();
                         $.ajax({
                             type: "POST",
                             url: "/Employee/UpdateUserRole",
@@ -400,13 +400,14 @@
                             dataType: 'json',
                             success: function (response) {
                                 if (response) {
-                                    $("#divLoading").html("").hide();
+                                   
                                     $("#message").val("Role updated successfully");
+                                    onComplete();
                                     $("#modalpopup").modal('show');
                                 }
                             },
                             error: function () {
-                                $("#divLoading").html("").hide();
+                                onComplete();
                             }
                         });
                     });

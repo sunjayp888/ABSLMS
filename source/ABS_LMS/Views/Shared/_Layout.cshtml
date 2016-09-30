@@ -19,12 +19,14 @@
             @Html.Partial("~/Views/Shared/_HeaderPartial.cshtml")
         </div>
     </div>
-    <div class="container">
-        @RenderBody()
-    </div>
+<div class="container">
+    <div id="divLoading" ></div>
+    @RenderBody()
+</div>
     <div class="clear"></div>
     <div class="footer container">
         <p>
+          
             <span>&copy; @DateTime.Today.Year AndersonBPO</span>
             <span class="Telephone">Tel: 12345678</span>
             <span>Email: <a href="mailto:andersonbpo.com">andersonbpo.com</a></span>
@@ -34,5 +36,16 @@
      @Scripts.Render("~/bundles/jquerylib")
     <script src="~/Scripts/bootstrap.min.js"></script>
     @RenderSection("scripts", required: false)
+<script type="text/javascript">
+    
+    function onBegin() {
+    
+        $("#divLoading").html('<div style="background-color: rgb(102, 102, 102);   top: 0; left: 0; width: 100%; height: 100%; opacity: .5; position: fixed; z-index: 1234; "> <image src="/Content/themes/LMS/images/anderson.gif" alt="Loading, please wait" style="z-index: 12345;position: fixed; top: 40%; left: 45%;" />');
+        
+    }
+    function onComplete() {
+        $("#divLoading").html("");
+    }
+</script>
 </body>
 </html>

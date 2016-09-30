@@ -107,7 +107,7 @@
         $("#btnOK").click(function () {
             $("#HolidayModal").modal('hide');
             var holidayId = $('#holidayIdValue').text();
-
+            onBegin();
             $.ajax({
                 type: "POST",
                 url: "/Holiday/Delete",
@@ -119,6 +119,7 @@
                     }
                 },
                 error: function () {
+                    onComplete();
                 }
             });
         });
