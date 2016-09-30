@@ -1479,7 +1479,10 @@ blockquote small:before {
   color: #FFFFFF !important;
 }
 .leaving-date td {
-  background: #f2dede;
+  background: #f2dede !important;
+}
+.word-break {
+  word-break: break-all;
 }
 @media screen and (min-width: 768px) {
   .user-carousel .carousel-caption {
