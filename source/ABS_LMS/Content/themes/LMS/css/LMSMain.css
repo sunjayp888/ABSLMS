@@ -1107,6 +1107,9 @@ h2 a {
 .header .user-menu li {
   width: 25% !important;
 }
+.header .manager-menu li {
+  width: 20% !important;
+}
 .header .logo-container {
   text-align: center;
   background-color: #FFFFFF;

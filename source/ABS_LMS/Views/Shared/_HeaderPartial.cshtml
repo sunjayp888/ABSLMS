@@ -27,37 +27,40 @@
             </a>
         </div>
         <div id="navbar-menuitems" class="navbar-collapse navbar-left collapse">
-            <ul class='nav navbar-nav @(HttpCurrentUser.IsUser || HttpCurrentUser.IsManager? "user-menu" : "")'>
+            <ul class='nav navbar-nav @(HttpCurrentUser.IsUser ? "user-menu" : "")  @(HttpCurrentUser.IsManager ? "manager-menu" : "")'>
                 <li>
                     @Html.ActionLink("Home", "Index", "Home", null, new { @id = "Home" })
                 </li>
 
                 @if (Request.IsAuthenticated)
                 {
-                    if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin|| HttpCurrentUser.IsManager)
-                    {
-                        <li>@Html.ActionLink("Employees", "Index", "Employee", null, new { @id = "employee" })</li>
-                    }
-                    <li>@Html.ActionLink("Leave Records", "Index", "Leave", new { id = HttpCurrentUser.EmployeeId }, new { @Id = "Leaves" })</li>
-                    if (HttpCurrentUser.IsAdmin)
-                    {
-                        <li>
-                            @Html.ActionLink("Users", "Index", "Administrator", null, new { @Id = "Administrator" })
-                        </li>
-                    }
+                if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin|| HttpCurrentUser.IsManager)
+                {
+                <li>@Html.ActionLink("Employees", "Index", "Employee", null, new { @id = "employee" })</li>
+                }
+                <li>
+                    @Html.ActionLink("Leave Records", "Index", "Leave", new { id = HttpCurrentUser.EmployeeId }, new { @Id = "Leaves" })
+                 </li>
 
-                    <li>@Html.ActionLink("Profile", "Details", "Employee", new { id = HttpCurrentUser.EmployeeId }, new { @Id = "Profile" })</li>
+                if (HttpCurrentUser.IsAdmin)
+                {
+                <li>
+                    @Html.ActionLink("Users", "Index", "Administrator", null, new { @Id = "Administrator" })
+                </li>
+                }
+
+                <li>@Html.ActionLink("Profile", "Details", "Employee", new { id = HttpCurrentUser.EmployeeId }, new { @Id = "Profile" })</li>
 
 
-                    if (HttpCurrentUser.IsManager || HttpCurrentUser.IsHR || HttpCurrentUser.IsUser)
-                    {
-                        <li>@Html.ActionLink("Reset Password", "ResetPassword", "Administrator", new { userName = HttpCurrentUser.Name }, new { @Id = "ResetPassword" })</li>
-                    }
-                    if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
-                    {
-                        <li>@Html.ActionLink("Manage Event", "Index", "Event", null, new {@Id = "ManageEvent"})</li>
-                        <li>@Html.ActionLink("Holiday", "Index", "Holiday", null, new { @Id = "holiday" })</li>
-                    }
+                if (HttpCurrentUser.IsManager || HttpCurrentUser.IsHR || HttpCurrentUser.IsUser)
+                {
+                <li>@Html.ActionLink("Reset Password", "ResetPassword", "Administrator", new { userName = HttpCurrentUser.Name }, new { @Id = "ResetPassword" })</li>
+                }
+                if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
+                {
+                <li>@Html.ActionLink("Manage Event", "Index", "Event", null, new {@Id = "ManageEvent"})</li>
+                <li>@Html.ActionLink("Holiday", "Index", "Holiday",null, new { @Id = "holiday" })</li>
+                }
                 }
 
             </ul>
