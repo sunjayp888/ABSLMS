@@ -325,6 +325,7 @@
                 $("#leaveModal").modal('hide');
                 var historyid = $('#EmployeeLeaveHistoryId').text();
                 var status = $('#LeaveStatus').text();
+                onBegin();
                 $.ajax({
                     type: "POST",
                     url: "/Leave/LeaveStatus",
@@ -336,7 +337,7 @@
                         }
                     },
                     error: function () {
-                        $("#divLoading").html("").hide();
+                        onComplete();
                     }
                 });
             });
