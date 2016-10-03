@@ -60,7 +60,9 @@ namespace ABS_LMS.Controllers
 
             return data.Select(item => new Announcement()
             {
-                Type = "B", Content = string.Format("Happy Birthday"), Designation = item.Designation, Name = item.FirstName + ' ' + item.LastName,EmployeeImage = item.EmployeeImage,
+                Type = "B", Content = string.Format("Happy Birthday"), Designation = item.Designation,
+                Name = string.Format("{0} {1} - {2}",item.FirstName,item.LastName,item.Designation),
+                EmployeeImage = item.EmployeeImage,
             }).ToList();
         }
 
