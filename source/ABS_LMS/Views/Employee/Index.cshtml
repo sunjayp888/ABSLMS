@@ -11,20 +11,20 @@
         <div class="panel-heading">@*Employees*@ &nbsp;</div>
         <div class="panel-body">
             <p>
-              
+
                 @Html.ActionLink("Create New", "Create",new {@id="Create"} ,new {@class = "btn btn-default newemp"})
             </p>
 
             @using (Html.BeginForm())
             {
-                <div class="">
-                    <div class="col-md-3">
-                        <input type="text" name="searchKeyword" class="searchboxset" placeholder="Search Employees" value="@Model.SearchKeyword" />
-                    </div>
-                    <div class="col-md-2">
-                        <input type="submit" id="btnsearch" value="Search">
-                    </div>
+            <div class="">
+                <div class="col-md-3">
+                    <input type="text" name="searchKeyword" class="searchboxset" placeholder="Search Employees" value="@Model.SearchKeyword" />
                 </div>
+                <div class="col-md-2">
+                    <input type="submit" id="btnsearch" value="Search">
+                </div>
+            </div>
             }
 
 
@@ -59,40 +59,49 @@
 
                 @foreach (var item in Model.EmployeeDetail)
                 {
-                   
-                    
-                    <tr class='@(item.LeavingDateUTC.HasValue  ? "leaving-date" : "")' >
-                        <td >
-                            @item.EmployeeCode
-                        </td>
-                        <td >
-                            @item.FirstName
-                        </td>
-                        <td >
-                            @item.LastName
-                        </td>
-                        <td >
-                            @item.Gender
-                        </td>
-                        <td  class="word-break">
-                            @item.CompanyEmailId
-                        </td>
-                        <td >
-                            @item.Client
-                        </td>
-                        <td >
-                            @item.Designation
-                        </td>
-                        <td >
-                            @string.Format("{0:dd-MMM-yyyy}", item.LeavingDateUTC)
-                        </td>
-                        <td class="col-lg-3">
-                            <input type="button" value="Archive" id="@item.EmployeeId" onclick="deleteEmp(@item.EmployeeId, '@item.FirstName' ) " class="deleteEmp btn btn-default" />
-                            @Html.ActionLink("Details", "Details", new { id = item.EmployeeId }, new { @class = "linktobtn" })
-                            @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }, new { @class = "linktobtn editbtnlink" })
-                            <input type="text" id="EmpIdvalue" style="display: none;" />
-                        </td>
-                    </tr>
+
+
+                <tr class='@(item.LeavingDateUTC.HasValue  ? "leaving-date" : "")'>
+                    <td>
+                        @item.EmployeeCode
+                    </td>
+                    <td>
+                        @item.FirstName
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @item.Gender
+                    </td>
+                    <td class="word-break">
+                        @item.CompanyEmailId
+                    </td>
+                    <td>
+                        @item.Client
+                    </td>
+                    <td>
+                        @item.Designation
+                    </td>
+                    <td>
+                        @string.Format("{0:dd-MMM-yyyy}", item.LeavingDateUTC)
+                    </td>
+                    <td class="col-lg-3">
+                        @if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
+                        {
+                        <input type="button" value="Archive" id="@item.EmployeeId" onclick="deleteEmp(@item.EmployeeId, '@item.FirstName') " class="deleteEmp btn btn-default" />
+                        }
+                        @if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
+                        {
+                            @Html.ActionLink("Edit", "Edit", new {id = item.EmployeeId}, new {@class = "linktobtn editbtnlink"})
+                      
+                        }
+                        @Html.ActionLink("Details", "Details", new {id = item.EmployeeId}, new {@class = "linktobtn"})
+                      
+                       
+                        <input type="text" id="EmpIdvalue" style="display: none;"/>
+                    </td>
+                </tr>
                 }
             </table>
             <div>
@@ -123,43 +132,43 @@
 </div>
 @section scripts
 {
-    <script type="text/javascript">
-        function deleteEmp(empId,name) {
+<script type="text/javascript">
+    function deleteEmp(empId,name) {
 
-            $('#EmpIdvalue').text('');
-            $('#employeeName').text('');
-            $('#EmpIdvalue').text(empId);
-            $('#employeeName').text(name);
-            $("#EmployeeModal").modal('show');
-        }
+        $('#EmpIdvalue').text('');
+        $('#employeeName').text('');
+        $('#EmpIdvalue').text(empId);
+        $('#employeeName').text(name);
+        $("#EmployeeModal").modal('show');
+    }
 
 
-        $("#btnOK").click(function () {
-            $("#EmployeeModal").modal('hide');
-            var empId = $('#EmpIdvalue').text();
-            onBegin();
-            $.ajax({
-                type: "POST",
-                url: "/Employee/Delete",
-                data: { id: empId },
-                dataType: 'json',
-                success: function (response) {
-                    if (parseInt(response) > 0) {
-                        window.location.reload();
-                    }
-                },
-                error: function () {
-                    onComplete();
+    $("#btnOK").click(function () {
+        $("#EmployeeModal").modal('hide');
+        var empId = $('#EmpIdvalue').text();
+        onBegin();
+        $.ajax({
+            type: "POST",
+            url: "/Employee/Delete",
+            data: { id: empId },
+            dataType: 'json',
+            success: function (response) {
+                if (parseInt(response) > 0) {
+                    window.location.reload();
                 }
-            });
+            },
+            error: function () {
+                onComplete();
+            }
         });
+    });
 
-        $("#btnCancel").click(function () {
-            $("#EmployeeModal").modal('hide');
+    $("#btnCancel").click(function () {
+        $("#EmployeeModal").modal('hide');
 
-        });
-        $(document).ready(function () {
-            $('.nav #employee').addClass('active');
-        });
-    </script>
+    });
+    $(document).ready(function () {
+        $('.nav #employee').addClass('active');
+    });
+</script>
 }

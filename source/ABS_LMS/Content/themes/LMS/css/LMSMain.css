@@ -1107,6 +1107,9 @@ h2 a {
 .header .user-menu li {
   width: 25% !important;
 }
+.header .manager-menu li {
+  width: 20% !important;
+}
 .header .logo-container {
   text-align: center;
   background-color: #FFFFFF;
@@ -1479,13 +1482,6 @@ blockquote small:before {
   border-color: #22B500 !important;
   color: #FFFFFF !important;
 }
-<<<<<<< HEAD
-.leaving-date td {
-  background: #f2dede !important;
-}
-.word-break {
-  word-break: break-all;
-=======
 .empleavehistory label {
   width: 52% !important;
 }
@@ -1494,7 +1490,12 @@ blockquote small:before {
 }
 .empleavehistory input[type=submit] {
   margin-top: 0;
->>>>>>> b346b7ec91315640dfd04c27d002693621d615a6
+}
+.leaving-date td {
+  background: #f2dede !important;
+}
+.word-break {
+  word-break: break-all;
 }
 @media screen and (min-width: 768px) {
   .user-carousel .carousel-caption {

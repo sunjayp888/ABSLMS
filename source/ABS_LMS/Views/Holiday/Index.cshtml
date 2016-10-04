@@ -12,7 +12,7 @@
         <div class="panel-heading">Holiday</div>
         <div class="panel-body">
             <p class="addevent">
-                @Html.ActionLink("Add Holiday", "Create", "", new { @class = "btn btn-default linktobtn" }) &nbsp; &nbsp;
+                @Html.ActionLink("Add Holiday", "Create",null, new { @class = "btn btn-default linktobtn" }) &nbsp; &nbsp;
             </p>
             <br />
             @if (@Model.Holidays.Any())
