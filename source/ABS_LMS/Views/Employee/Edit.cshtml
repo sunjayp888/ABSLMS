@@ -363,7 +363,7 @@
                             //userRole = ("#EmployeeDetail_EmployeeRole").text() ;
 
                             userRole = $("#EmployeeDetail_EmployeeRole option:selected").text();
-                   
+                        onBegin();
                         $.ajax({
                             type: "POST",
                             url: "/Employee/CreatePortalAccount",
@@ -371,13 +371,13 @@
                             dataType: 'json',
                             success: function (response) {
                                 if (response) {
-                            
+                                    onComplete();
                                     $("#message").text("Portal account created successfully.");
                                     $("#modalpopup").modal('show');
                                 }
                             },
                             error: function () {
-                              
+                                onComplete();
                             }
                         });
                     });

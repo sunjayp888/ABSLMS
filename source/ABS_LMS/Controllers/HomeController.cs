@@ -55,7 +55,7 @@ namespace ABS_LMS.Controllers
         private List<Announcement> GetAnnouncementForBirthDay()
         {
             var data = _employeeService.GetEmployees().Where(s => Convert.ToDateTime(s.DOB).Day == Today.Day
-                            && Convert.ToDateTime(s.DOB).Month == Today.Month && !s.LeavingDateUTC.HasValue
+                            && Convert.ToDateTime(s.DOB).Month == Today.Month && !s.IsArchive
                              ).ToList();
 
             return data.Select(item => new Announcement()
@@ -71,7 +71,7 @@ namespace ABS_LMS.Controllers
             var y = Today.Year;
             var d = Today.Day;
             var m = Today.Month;
-            var data = _employeeService.GetEmployees().Where(s => Convert.ToDateTime(s.DOJ).Day == Today.Day && Convert.ToDateTime(s.DOJ).Month == Today.Month && Convert.ToDateTime(s.DOJ).Year < Today.Year && !s.LeavingDateUTC.HasValue && s.EmployeeCode!="1002").ToList();
+            var data = _employeeService.GetEmployees().Where(s => Convert.ToDateTime(s.DOJ).Day == Today.Day && Convert.ToDateTime(s.DOJ).Month == Today.Month && Convert.ToDateTime(s.DOJ).Year < Today.Year && !s.IsArchive && s.EmployeeCode!="1002").ToList();
             return data.Select(item => new Announcement()
             {
                 Type = "Y",

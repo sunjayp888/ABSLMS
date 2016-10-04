@@ -58,7 +58,7 @@ namespace ABS_LMS.Controllers
         {
             ViewBag.SortOrderDesc = !sortOrderDesc;
             ViewBag.SortOrder = sortOrder ?? string.Empty;
-            var employees = HttpCurrentUser.IsManager ? GetEmployeeByReportingManager(): _employeeService.GetEmployees();
+            var employees = HttpCurrentUser.IsManager ? GetEmployeeByReportingManager(): _employeeService.GetEmployees().Where(e=>!e.IsArchive);
 
             if (!string.IsNullOrEmpty(searchKeyword))
             {
@@ -424,7 +424,7 @@ namespace ABS_LMS.Controllers
             var employees = new List<Employee>();
 
             var employeesForThisManager = allEmployees
-                  .Where(e => e.ReportingManager == Convert.ToInt32(HttpCurrentUser.EmployeeId)).ToList();
+                  .Where(e => e.ReportingManager == Convert.ToInt32(HttpCurrentUser.EmployeeId) && !e.IsArchive).ToList();
 
             employees.AddRange(employeesForThisManager);
 

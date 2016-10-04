@@ -53,6 +53,7 @@ namespace ABS_LMS.Service
                 EmployeeImage = employee.EmployeeImage,
                 ReportingManager = employee.ReportingManager,
                 ClientId = employee.ClientId
+               
             });
             _unitOfWork.Complete();
         }
@@ -60,7 +61,7 @@ namespace ABS_LMS.Service
         public void DeleteEmployee(int employeeId)
         {
             var employeedetails = _unitOfWork.Employee.Get(employeeId);
-            employeedetails.LeavingDateUTC = DateTime.UtcNow;
+            employeedetails.IsArchive = true;
             _unitOfWork.Complete();
         }
 
@@ -125,7 +126,8 @@ namespace ABS_LMS.Service
                 DOJ = employee.DOJ,
                 EmployeeImage = employee.EmployeeImage,
                 ClientId = employee.ClientId,
-                ReportingManager = employee.ReportingManager
+                ReportingManager = employee.ReportingManager,
+                IsArchive = employee.IsArchive
             };
         }
 
@@ -150,7 +152,8 @@ namespace ABS_LMS.Service
                 ClientId = e.ClientId,
                 Client = e.Client.Name,
                 DOJ = e.DOJ,
-                LeavingDateUTC = e.LeavingDateUTC
+                LeavingDateUTC = e.LeavingDateUTC,
+                IsArchive = e.IsArchive
             }).OrderBy(o => o.EmployeeCode).ToList();
         }
 
