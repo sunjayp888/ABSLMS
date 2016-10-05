@@ -6,19 +6,20 @@
 }
 
 
-
-@using (Html.BeginForm("Create", "Event",FormMethod.Post, new {enctype = "multipart/form-data"}))
-{
+<div class="form-margin">
+    @using (Html.BeginForm("Create", "Event",FormMethod.Post, new {enctype = "multipart/form-data" }))
+    {
 
     @Html.AntiForgeryToken()
 
     <div class="row col-md-12 textboxsize">
-      <h1>Add Event</h1>
+        <h1>Add Event</h1>
 
         <div class="panel panel-default">
             <div class="panel-heading">
-               
-              <div>&nbsp;</div></div>
+
+                <div>&nbsp;</div>
+            </div>
             <div class="panel-body">
                 @Html.ValidationSummary(false, "", new {@class = " alert alert-warning"})
 
@@ -40,18 +41,18 @@
                 <div class="form-group">
                     <label>Event Image</label>
                     <div class="col-md-8">
-                      
-                            <div>
-                                <img  id="user_img" height="100" width="180" src="~/Content/themes/LMS/images/Blank_flag_large.PNG" style="border: solid;" />
-                            </div>
-                            <div>
-                                <input type="file" title="Upload image" style="float: left" id="userimage" name="userimage" onchange="show(this)" />
 
-                            </div>
+                        <div>
+                            <img id="user_img" height="100" width="180" src="~/Content/themes/LMS/images/Blank_flag_large.PNG" style="border: solid;" />
+                        </div>
+                        <div>
+                            <input type="file" title="Upload image" style="float: left" id="userimage" name="userimage" onchange="show(this)" />
 
                         </div>
-                  
-                    
+
+                    </div>
+
+
                 </div>
 
                 <div class="form-group">
@@ -76,7 +77,7 @@
                     </div>
                 </div>
 
-             
+
                 <div class="form-group">
                     @*@Html.Label("Description", htmlAttributes: new { @class = " col-md-4" })*@
                     <label>Description</label>
@@ -89,31 +90,31 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-4 col-md-8">
-                        &nbsp;&nbsp;<input type="submit" value="Save" class="btn btn-default savesubmit"/>
+                        &nbsp;&nbsp;<input type="submit" value="Save" class="btn btn-default savesubmit" />
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
-<div class="modal fade" id="leaveModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4>Error</h4>
-            </div>
-            <div class="modal-body" style="padding: 15px !important;">
-                <label style="width: 100%; float: none; margin: 0px 0; font-size: 14px; font-weight: bold;" id="errormsg"></label>
-            </div>
-            <div class="modal-footer">
+    <div class="modal fade" id="leaveModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Error</h4>
+                </div>
+                <div class="modal-body" style="padding: 15px !important;">
+                    <label style="width: 100%; float: none; margin: 0px 0; font-size: 14px; font-weight: bold;" id="errormsg"></label>
+                </div>
+                <div class="modal-footer">
 
-                <button type="button" id="btnCancel" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="btnCancel" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
+    }
 </div>
-        }
-
 
         @section Scripts {
 <script src="~/Scripts/jquery.validate.js"></script>

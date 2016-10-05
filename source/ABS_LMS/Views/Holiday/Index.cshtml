@@ -3,9 +3,9 @@
 @{
     ViewBag.Title = "Index";
 }
-
-@if (Model != null)
-{
+<div class="padding-left-20">
+    @if (Model != null)
+    {
     <h1>Holiday</h1>
 
     <div class="panel panel-default">
@@ -17,58 +17,58 @@
             <br />
             @if (@Model.Holidays.Any())
             {
-                <div>
-                    <div class="desktopview">
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>
-                                   @Html.DisplayNameFor(model => model.Holidays.FirstOrDefault().Date)
-                                </th>
-                                <th>
-                                   @Html.DisplayNameFor(model => model.Holidays.FirstOrDefault().Day)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Holidays.FirstOrDefault().Description) 
-                                </th>
-                                <th></th>
-                            </tr>
+            <div>
+                <div class="desktopview">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Holidays.FirstOrDefault().Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Holidays.FirstOrDefault().Day)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Holidays.FirstOrDefault().Description)
+                            </th>
+                            <th></th>
+                        </tr>
 
-                            @foreach (var item in Model.Holidays)
-                            {
-                                <tr>
-                                    <td>
-                                        @if (item.Date != null)
-                                        {
-                                            @item.Date.Value.ToString("dd-MMM-yyyy")
-                                        }
-                                    </td>
-                                    <td>
-                                        @item.Day
-                                    </td>
-                                    <td>
-                                        @item.Description
-                                    </td>
+                        @foreach (var item in Model.Holidays)
+                        {
+                        <tr>
+                            <td>
+                                @if (item.Date != null)
+                                {
+                                @item.Date.Value.ToString("dd-MMM-yyyy")
+                                }
+                            </td>
+                            <td>
+                                @item.Day
+                            </td>
+                            <td>
+                                @item.Description
+                            </td>
 
-                                    <td class="Linkbtn">
-                                        <table class="@item.HolidayId Linkbtn">
-                                            <tr>
-                                                <td>
-                                                    <input type="button" value="Delete" id="@item.HolidayId" onclick="deleteEvent(@item.HolidayId)" class="deleteEvent btn btn-default" />
-                                                    <input type="text" id="holidayIdValue" style="display: none;" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            }
-                        </table>
-                    </div>
-
-                    <div>
-                        Page @(Model.Holidays.PageCount < Model.Holidays.PageNumber ? 0 : Model.Holidays.PageNumber) of @Model.Holidays.PageCount
-                    </div>
-                    @Html.PagedListPager(Model.Holidays, pagenumber => Url.Action("Index", new { pagenumber }))
+                            <td class="Linkbtn">
+                                <table class="@item.HolidayId Linkbtn">
+                                    <tr>
+                                        <td>
+                                            <input type="button" value="Delete" id="@item.HolidayId" onclick="deleteEvent(@item.HolidayId)" class="deleteEvent btn btn-default" />
+                                            <input type="text" id="holidayIdValue" style="display: none;" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        }
+                    </table>
                 </div>
+
+                <div>
+                    Page @(Model.Holidays.PageCount < Model.Holidays.PageNumber ? 0 : Model.Holidays.PageNumber) of @Model.Holidays.PageCount
+                </div>
+                @Html.PagedListPager(Model.Holidays, pagenumber => Url.Action("Index", new { pagenumber }))
+            </div>
             }
             else
             {
@@ -93,10 +93,10 @@
             </div>
         </div>
     </div>
-}
-
-@section scripts
-{
+    }
+</div>
+    @section scripts
+    {
     <script type="text/javascript">
         $(document).ready(function () {
             $('.nav #holiday').addClass('active');
@@ -132,5 +132,5 @@
             $("#EventModal").modal('hide');
         });
 
-    </script> 
-}
+    </script>
+    }

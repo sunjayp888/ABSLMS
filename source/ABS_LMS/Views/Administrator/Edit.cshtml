@@ -7,7 +7,7 @@
 @using (Html.BeginForm("Edit", "Administrator", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-<div class="row textboxsize col-md-6 ">
+<div class="padding-left-row  textboxsize col-md-6 ">
     <h1>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h1>
 
     <div class="panel panel-default">

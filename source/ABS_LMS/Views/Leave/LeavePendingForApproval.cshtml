@@ -218,6 +218,8 @@
 <script>
     $(document).ready(function () {
         $('.nav #Leaves').addClass('active');
+        $('.sub-menu').removeClass('active-btn');
+        $(".pending").addClass('active-btn');
         $("#btnOK").click(function () {
             $("#EmployeeModal").modal('hide');
             var status = $('#Empstatus').text();

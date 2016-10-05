@@ -78,7 +78,7 @@ namespace ABS_LMS.Controllers
         }
 
         // GET: Employee/Details/5
-        [Authorize(Roles = "Admin, HR,User,Manager")]
+        [Authorize(Roles = "Admin, Hr,User,Manager")]
         public ActionResult Details(int id)
         {
             string reportingManagerName = string.Empty;
