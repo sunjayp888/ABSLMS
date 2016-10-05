@@ -234,6 +234,10 @@
     </div>
     @Html.PagedListPager(Model.EmployeeLeaveDetails, pagenumber => Url.Action("EmployeesLeaveHistory", new {Model.LeaveStatusId, Model.FromDate, Model.ToDate, pagenumber}))
 }
+else
+{
+ <div class="desktopview">No Record Found. </div>
+}
 
 <div class="row ">
     <div class="col-md-12">
@@ -250,8 +254,9 @@
                 Are you sure, you want to reject leave?
             </div>
             <div class="modal-footer">
-                <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
                 <button type="button" id="btnCancel" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
+                <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
+
             </div>
         </div>
     </div>

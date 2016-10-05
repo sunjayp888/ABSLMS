@@ -70,7 +70,10 @@
                     @Html.PagedListPager(Model.Holidays, pagenumber => Url.Action("Index", new { pagenumber }))
                 </div>
             }
-
+            else
+            {
+            <div class="desktopview">No Record Found. </div>
+            }
         </div>
     </div>
     <div class="modal fade" id="HolidayModal">
@@ -83,8 +86,9 @@
                     Are you sure, you want to delete?
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
                     <button type="button" id="btnCancel" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
+                    <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
+
                 </div>
             </div>
         </div>

@@ -18,115 +18,123 @@
                 @*@Html.ActionLink("Add Event", "Create", "", new {@class = "btn btn-default linktobtn"}) &nbsp; &nbsp;*@
                 @Html.ActionLink("Add Event", "Create") &nbsp; &nbsp;
             </p>
-            <br/>
+            <br />
 
             @if (@Model.Events.Any())
             {
-                <div class="leaveHistory">
-                    <div class="desktopview">
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>
-                                    Event Image
-                                </th>
-                                <th>
-                                    Title
-                                </th>
-                                @*<th>
-                                    Description
-                                </th>*@
-                                <th>
-                                    Event Date
-                                </th>
-                                @*
-                        <th>
-                            Display Start Date
-                        </th>
-                        <th>
-                            Display End Date
-                        </th>*@
-                                <th>
-                                    Created By
-                                </th>
-                                <th></th>
+            <div class="leaveHistory">
+                <div class="desktopview">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>
+                                Event Image
+                            </th>
+                            <th>
+                                Title
+                            </th>
+                            @*
+                            <th>
+                                Description
+                            </th>*@
+                            <th>
+                                Event Date
+                            </th>
+                            @*
+                            <th>
+                                Display Start Date
+                            </th>
+                            <th>
+                                Display End Date
+                            </th>*@
+                            <th>
+                                Created By
+                            </th>
+                            <th></th>
 
-                            </tr>
+                        </tr>
 
-                            @foreach (var item in Model.Events)
-                            {
-                                <tr>
-                                    <td>
-                                        @if (item.EventImage != null && item.EventImage.Length > 0)
-                                        {
-                                        string imageBase64 = Convert.ToBase64String(item.EventImage);
-                                        string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
-                                        <img  id="user_img" height="100" width="180" src="@imageSrc" style="border: solid" />
+                        @foreach (var item in Model.Events)
+                        {
+                        <tr>
+                            <td>
+                                @if (item.EventImage != null && item.EventImage.Length > 0)
+                                {
+                                string imageBase64 = Convert.ToBase64String(item.EventImage);
+                                string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+                                <img id="user_img" height="100" width="180" src="@imageSrc" style="border: solid" />
 
-                                        }
-                                        else
-                                        {<img  id="user_img" src="~/Content/themes/LMS/images/Blank_flag_large.PNG" height="100" width="180">}
+                                }
+                                else
+                                {<img id="user_img" src="~/Content/themes/LMS/images/Blank_flag_large.PNG" height="100" width="180">}
 
 
-                                    </td>
-                                    <td class="col-md-2">
-                                        @item.Title
-                                    </td>
-                                    @*<td>
-                                        @Html.Raw(item.Description) 
-                                    </td>*@
-                                    <td class="col-md-2">
-                                        @if (item.OrganiseDate != null)
-                                        {
-                                            @item.OrganiseDate.Value.ToString("dd-MMM-yyyy")
-                                        }
-                                    </td>
-                                    @*
-                        <td>
-                            @if (item.DisplayStartDate != null)
-                            {
-                            @item.DisplayStartDate.Value.ToString("dd-MMM-yyyy")
-                            }
-                        </td>
-                        <td>
-                            @if (item.DisplayEndDate != null)
-                            {
-                            @item.DisplayEndDate.Value.ToString("dd-MMM-yyyy")
-                            }
-                        </td>*@
-                                    <td>
-                                        @item.CreatedBy
-                                    </td>
+                            </td>
+                            <td class="col-md-2">
+                                @item.Title
+                            </td>
+                            @*
+                            <td>
+                                @Html.Raw(item.Description)
+                            </td>*@
+                            <td class="col-md-2">
+                                @if (item.OrganiseDate != null)
+                                {
+                                @item.OrganiseDate.Value.ToString("dd-MMM-yyyy")
+                                }
+                            </td>
+                            @*
+                            <td>
+                                @if (item.DisplayStartDate != null)
+                                {
+                                @item.DisplayStartDate.Value.ToString("dd-MMM-yyyy")
+                                }
+                            </td>
+                            <td>
+                                @if (item.DisplayEndDate != null)
+                                {
+                                @item.DisplayEndDate.Value.ToString("dd-MMM-yyyy")
+                                }
+                            </td>*@
+                            <td>
+                                @item.CreatedBy
+                            </td>
 
-                                    <td class="Linkbtn">
+                            <td class="Linkbtn">
 
-                                        <table class="@item.EventId Linkbtn">
-                                            <tr>
-                                                <td>
-                                                    @Html.ActionLink("Edit", "Edit", new {id = item.EventId}, new {@class = "linktobtn"})
-                                                </td>
-                                                <td>
-                                                    @*@Html.ActionLink("Delete", "Delete", new {id = item.EventId}, new {@class = "linktobtn deleteEvent", @id = "DeleteButton", @style = "padding: 5px 15px;"})*@
-                                                    <input type="button" value="Delete" id="@item.EventId" onclick="deleteEvent(@item.EventId) " class="deleteEvent btn btn-default"/>
-                                                    <input type="text" id="eventIdvalue" style="display: none;"/>
-                                                </td>
-                                            </tr>
-                                        </table>
+                                <table class="@item.EventId Linkbtn">
+                                    <tr>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new {id = item.EventId}, new {@class = "linktobtn"})
+                                        </td>
+                                        <td>
+                                            @*@Html.ActionLink("Delete", "Delete", new {id = item.EventId}, new {@class = "linktobtn deleteEvent", @id = "DeleteButton", @style = "padding: 5px 15px;"})*@
+                                            <input type="button" value="Delete" id="@item.EventId" onclick="deleteEvent(@item.EventId) " class="deleteEvent btn btn-default" />
+                                            <input type="text" id="eventIdvalue" style="display: none;" />
+                                        </td>
+                                    </tr>
+                                </table>
 
-                                    </td>
-                                </tr>
-                            }
-                        </table>
-                    </div>
-
-                    <div>
-                        Page @(Model.Events.PageCount < Model.Events.PageNumber ? 0 : Model.Events.PageNumber) of @Model.Events.PageCount
-                    </div>
-                    @Html.PagedListPager(Model.Events, pagenumber => Url.Action("Index", new {pagenumber}))
+                            </td>
+                        </tr>
+                        }
+                    </table>
                 </div>
-            }
 
+                <div>
+                    Page @(Model.Events.PageCount < Model.Events.PageNumber ? 0 : Model.Events.PageNumber) of @Model.Events.PageCount
+                </div>
+                @Html.PagedListPager(Model.Events, pagenumber => Url.Action("Index", new {pagenumber}))
+            </div>
+            }
+            else
+            {
+            <div class="leaveHistory">
+                <div class="desktopview">No Record Found. </div>
+            </div>
+                }
+
+            </div>
         </div>
-    </div>
 <div class="modal fade" id="EventModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -137,8 +145,9 @@
                 Are you sure, you want to delete?
             </div>
             <div class="modal-footer">
-                <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
                 <button type="button" id="btnCancel" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
+                <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
+
             </div>
         </div>
     </div>

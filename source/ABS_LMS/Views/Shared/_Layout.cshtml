@@ -37,10 +37,11 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     @RenderSection("scripts", required: false)
 <script type="text/javascript">
-    
+   
+ 
     function onBegin() {
     
-        $("#divLoading").html('<div style="background-color: rgb(102, 102, 102);   top: 0; left: 0; width: 100%; height: 100%; opacity: .5; position: fixed; z-index: 1234; "> <image src="/Content/themes/LMS/images/anderson.gif" alt="Loading, please wait" style="z-index: 12345;position: fixed; top: 40%; left: 45%;" />');
+        $("#divLoading").html('<div style="background-color: rgb(102, 102, 102);   top: 0; left: 0; width: 100%; height: 100%; opacity: .5; position: fixed; z-index: 1234; "> <image src="../Content/themes/LMS/images/anderson.gif" alt="Loading, please wait" style="z-index: 12345;position: fixed; top: 40%; left: 45%;" />');
         
     }
     function onComplete() {
