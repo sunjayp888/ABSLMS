@@ -4,19 +4,19 @@
 @{
     ViewBag.Title = "Edit";
 }
+<div class="col-md-6 textboxsize ">
+    <h1>Edit Leave</h1>
 
-<h1>Edit Leave</h1>
+    <div class="panel panel-default">
+        <div class="panel-heading">&nbsp;</div>
+        <div class="panel-body">
+            @using (Html.BeginForm("Edit", "Leave", FormMethod.Post))
+            {
+            @Html.AntiForgeryToken()
 
-<div class="panel panel-default">
-    <div class="panel-heading">&nbsp;</div>
-    <div class="panel-body">
-        @using (Html.BeginForm("Edit", "Leave", FormMethod.Post))
-        {
-        @Html.AntiForgeryToken()
 
-        <div class="row col-md-6 textboxsize">
 
-            <hr />
+           
             @Html.ValidationSummary(false, "", new {@class = "alert alert-warning"})
 
             <div class="form-group" style="display: none;">
@@ -121,12 +121,12 @@
                     </div>
                 </div>
             </div>
-           
+
+
+            }
         </div>
-        }
     </div>
 </div>
-
 
         @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")

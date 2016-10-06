@@ -1,5 +1,6 @@
 ﻿@using ABS_LMS.Models.Security
-<div class="col-xs-4 col-md-2 logo-container">
+
+<div class="col-xs-4 logo-container">
     <a href="/"><img class="logo" src="~/Content/themes/LMS/images/andersonBPO_logo.png" alt="Anderson Group" /></a>
 </div>
 <div class="col-xs-8 header-top">
@@ -8,7 +9,7 @@
         {
             <a href="#" class="userName" style="width: 34%">WELCOME @HttpCurrentUser.FirstName </a>
         }
-        @*<a href="tel:12345678" class="tel">Call 12345678</a>*@
+       
         @Html.Partial("_LoginPartial")
     </div>
 </div>
@@ -40,6 +41,30 @@
                 }
                 <li>
                     @Html.ActionLink("Leave Records", "Index", "Leave", new { id = HttpCurrentUser.EmployeeId }, new { @Id = "Leaves" })
+                    <ul class="dropdown sub-menu">
+       
+                        @Html.ActionLink("Request Leave", "Create","Leave", new {id = HttpCurrentUser.EmployeeId}, new {@class = "createLeave"})
+                        @if (ViewContext.RouteData.GetRequiredString("action") != "History")
+                        {
+                        @Html.ActionLink("Applied Leave", "Index", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@Id = "Leaves", @class = "leaverecord"})
+                        <a id="leavehistory" class="">Leave History</a>
+                        }
+                        @if (ViewContext.RouteData.GetRequiredString("action") == "History")
+                        {
+                        @Html.ActionLink("Applied Leave", "Index", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@Id = "Leaves", @class = ""})
+
+                        <a id="leavehistory" class="btn btn-default">Leave History</a>
+                        }
+                        @if (HttpCurrentUser.IsManager)
+                        {
+                        @Html.ActionLink("Approval Pending", "LeavePendingForApproval", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@class = "pending"})
+                        }
+                        @if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin || HttpCurrentUser.IsManager)
+                        {
+                        @Html.ActionLink("Employees History", "EmployeesLeaveHistory", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@class = "empfullhistory"})
+                        }
+
+                    </ul>
                  </li>
 
                 if (HttpCurrentUser.IsAdmin)
@@ -66,4 +91,7 @@
             </ul>
         </div>
     </nav>
+
 }
+
+   

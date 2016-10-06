@@ -10,7 +10,7 @@ body a:focus {
   cursor: pointer;
 }
 body .blanklabel {
-  color: #FFFFFF;
+  color: #E8ECF0;
 }
 body h1 {
   font-size: 36px;
@@ -489,6 +489,7 @@ input[type="button"] {
 }
 .row {
   margin-right: 0;
+  margin-left: 0;
 }
 .weektotal td {
   padding: 5px 5px 5px 5px;
@@ -1098,10 +1099,13 @@ h2 a {
   font-weight: normal;
   font-style: normal;
 }
+body {
+  background-color: #E8ECF0;
+}
 .header {
   position: relative;
   display: block;
-  border-bottom: 3px solid #22B500;
+  /*border-bottom: 3px solid @highlighted-color;*/
   background-color: #FFFFFF;
 }
 .header .user-menu li {
@@ -1111,7 +1115,7 @@ h2 a {
   width: 20% !important;
 }
 .header .logo-container {
-  text-align: center;
+  /*text-align: center;*/
   background-color: #FFFFFF;
 }
 .header .logo {
@@ -1120,14 +1124,14 @@ h2 a {
   margin: 5px 0;
 }
 .header .row {
-  margin-left: -15px !important;
+  /*margin-left: -15px !important;*/
 }
 .header .header-top div {
   position: absolute;
   width: 100%;
   left: 0;
   display: block;
-  background-color: #FB871F;
+  /*background-color: @header-top-background-color;*/
   overflow: auto;
 }
 .header .header-top div a {
@@ -1144,8 +1148,8 @@ h2 a {
   color: #FFFFFF;
 }
 .header .header-top div .log-out {
-  background-color: #000000;
-  color: #FFFFFF;
+  /*background-color: @logout-Link;*/
+  color: #333333;
 }
 .header .navbar {
   padding: 0;
@@ -1163,32 +1167,41 @@ h2 a {
   width: 100% !important;
 }
 .header .navbar .nav {
-  width: 100% !important;
+  /*width: 100% !important;*/
 }
 .header .navbar .nav > li {
   position: relative;
   display: block;
   float: left;
-  width: 14.28%;
+  width: auto;
   height: 30px;
+  padding: 10px;
 }
 .header .navbar .nav > li > a {
-  line-height: 30px;
+  /*line-height: 30px;*/
   font-size: 12px;
-  font-weight: 700;
+  /*font-weight: 700;*/
   text-decoration: none;
   text-transform: uppercase;
   text-align: center;
   color: #000000;
   letter-spacing: 1px;
+  padding: 0 !important;
 }
 .header .navbar .nav > li > a.active {
-  background-color: #22B500;
-  color: #FFFFFF;
+  color: #22B500;
+  font-weight: 900;
+  border-bottom: solid;
+  border-bottom-color: #22B500;
 }
 .header .navbar .nav > li > a:hover {
-  background-color: #22B500;
-  color: #FFFFFF;
+  background-color: #FFFFFF;
+  color: #22B500;
+  border-bottom: solid;
+  border-bottom-color: #22B500;
+}
+.navbar-nav {
+  float: right;
 }
 input[type=text],
 input[type=password] {
@@ -1207,14 +1220,15 @@ input[type=password] {
     }
 }*/
 .userName {
-  right: 66.6% !important;
+  right: 12% !important;
+  text-align: right !important;
 }
 @media only screen and (min-width: 769px) {
   .header .logo-container {
     background-color: #FFFFFF;
   }
   .header .logo {
-    height: 93px;
+    height: 80px;
     margin: 20px 0;
   }
   .header .header-top div {
@@ -1223,19 +1237,21 @@ input[type=password] {
   }
   .header .header-top div a {
     position: absolute;
-    right: 33.3333%;
-    width: 33.3333%;
+    /*right: 33.3333%;
+                width: 33.3333%;*/
     padding: 5px 0;
     line-height: 33px;
     font-size: 12px;
     letter-spacing: 1px;
+    color: #333333;
   }
   .header .header-top div a.log-out {
-    right: 0;
+    right: 10px;
+    text-align: right !important;
   }
   .header .header-top div a:hover {
-    background-color: #22B500;
-    color: #FFFFFF;
+    /*background-color: @highlighted-color;*/
+    color: #333333;
   }
   .header .navbar .navbar-toggle,
   .header .navbar .navbar-header {
@@ -1245,7 +1261,7 @@ input[type=password] {
     padding: 0 15px;
   }
   .header .navbar .nav a {
-    padding: 30px 0;
+    /*padding: 30px 0;*/
   }
 }
 @media only screen and (max-width: 768px) {
@@ -1337,13 +1353,13 @@ input[type=password] {
   background-color: #22B500;
   color: #FFFFFF !important;
   border-color: #22B500;
-  text-transform: uppercase!important;
+  text-transform: uppercase !important;
 }
 .employeelist .linktobtn {
   padding: 5px 12px;
 }
 .editbtnlink {
-  padding: 5px 22px!important;
+  padding: 5px 22px !important;
 }
 .desktopview .button,
 .mobileview .button,
@@ -1361,7 +1377,7 @@ input[type=password] {
 }
 .CreatePortalAccount {
   padding: 5px 30px !important;
-  width: 242px!important;
+  width: 242px !important;
 }
 #quote-carousel .carousel-indicators li,
 #myCarousel .carousel-indicators li {
@@ -1376,7 +1392,7 @@ input[type=password] {
 }
 #myCarousel .glyphicon-chevron-left,
 #myCarousel .glyphicon-chevron-right {
-  color: #cccccc!important;
+  color: #cccccc !important;
 }
 .carousel-control.left,
 .carousel-control.right {
@@ -1435,8 +1451,8 @@ input[type=password] {
   width: 125px;
 }
 .deleteEmp {
-  padding: 5px 2px!important;
-  width: 66px!important;
+  padding: 5px 2px !important;
+  width: 66px !important;
 }
 .user-carousel .item img {
   display: block;
@@ -1451,13 +1467,13 @@ input[type=password] {
   color: #333333;
   text-shadow: none;
   top: 0px;
-  left: 10px!important;
-  right: 10px!important;
+  left: 10px !important;
+  right: 10px !important;
   max-height: 300px;
   overflow: hidden;
   overflow-y: auto;
   padding-top: 0px;
-  text-align: initial!important;
+  text-align: initial !important;
 }
 /*.user-control .carousel-control
 {
@@ -1469,14 +1485,13 @@ input[type=password] {
 
 }*/
 blockquote small:before {
-  content: none!important;
+  content: none !important;
 }
-.active-btn,
-.active-btn:hover {
-  background-color: #FB871F !important;
-  border-color: #FB871F !important;
-  background: #FB871F !important;
-}
+/*.active-btn, .active-btn:hover {
+    background-color: @link-text !important;
+    border-color: @link-text !important;
+    background: @link-text !important;
+}*/
 .newemp {
   background-color: #22B500 !important;
   border-color: #22B500 !important;
@@ -1499,10 +1514,71 @@ blockquote small:before {
 }
 @media screen and (min-width: 768px) {
   .user-carousel .carousel-caption {
-    left: 10px!important;
-    right: 10px!important;
+    left: 10px !important;
+    right: 10px !important;
   }
   .user-control .carousel-indicators {
     bottom: -10px;
   }
+}
+.padding-left-10 {
+  padding-left: 10px;
+}
+.padding-left-20 {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.padding-left-row {
+  padding-left: 0;
+}
+.form-margin form {
+  margin: 0;
+}
+#headerText {
+  padding-left: 15px;
+}
+/*, .active-btn:hover*/
+.active-btn {
+  border-bottom: 1px solid;
+  border-bottom-color: #22B500;
+}
+ul {
+  padding: 0;
+  list-style: none;
+  /*background: #f2f2f2;*/
+}
+ul li {
+  display: inline-block;
+  position: relative;
+  line-height: 21px;
+  text-align: left;
+}
+ul li a {
+  display: block;
+  padding: 8px 8px;
+  color: #FFFFFF;
+  text-decoration: none !important;
+}
+ul li a:hover {
+  color: #FFFFFF;
+  /*background: #939393;*/
+  border-bottom: 1px solid;
+  border-bottom-color: #22B500;
+}
+ul li ul.dropdown {
+  min-width: 100%;
+  /* Set width of the dropdown */
+  background: #333333;
+  display: none;
+  position: absolute;
+  z-index: 999;
+  left: 0;
+  left: auto;
+}
+ul li:hover ul.dropdown {
+  display: block;
+  /* Display the dropdown */
+}
+ul li ul.dropdown li {
+  display: block;
 }

@@ -6,293 +6,301 @@
 @{
     ViewBag.Title = "Index";
 }
+<div class="padding-left-20">
+    <h1>Leave Records</h1>
+    <div class="panel panel-default">
+        <div class="panel-heading">@*Leave Records*@ &nbsp;</div>
+        <div class="panel-body">
+            @if (Model != null)
+            {
+            @*<p class="Link-btn">
 
-<h1>Leave Records</h1>
-<div class="panel panel-default">
-    <div class="panel-heading">@*Leave Records*@ &nbsp;</div>
-<div class="panel-body">
-@if (Model != null)
-{
-    <p class="Link-btn">
-
-        @Html.ActionLink("Create New", "Create", new {id = HttpCurrentUser.EmployeeId}, new {@class = "btn btn-default"}) &nbsp; &nbsp;
-        @if (ViewContext.RouteData.GetRequiredString("action") == "Index")
-        {
+                @Html.ActionLink("Create New", "Create", new {id = HttpCurrentUser.EmployeeId}, new {@class = "btn btn-default"}) &nbsp; &nbsp;
+                @if (ViewContext.RouteData.GetRequiredString("action") == "Index")
+                {
                 @Html.ActionLink("Applied Leave", "Index", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@Id = "Leaves", @class = "btn btn-default active-btn leaverecord"})
-            <a id="leavehistory" class="btn btn-default">Leave History</a>
-        }
-        @if (ViewContext.RouteData.GetRequiredString("action") == "History")
-        {
-            @Html.ActionLink("Applied Leave", "Index", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@Id = "Leaves", @class = "btn btn-default"})
+                <a id="leavehistory2" class="btn btn-default">Leave History</a>
+                }
+                @if (ViewContext.RouteData.GetRequiredString("action") == "History")
+                {
+                @Html.ActionLink("Applied Leave", "Index", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@Id = "Leaves", @class = "btn btn-default"})
 
-            <a id="leavehistory" class="btn btn-default active-btn">Leave History</a>
-        }
-            @*@Html.ActionLink("Leave History", "History", "Leave", new { id = HttpCurrentUser.EmployeeId }, new { @Id = "Leaves", @class = "btn btn-default" }) &nbsp; &nbsp;*@@if (HttpCurrentUser.IsManager)
-                                                                                                                                                                                {
-                                                                                                                                                                                    @Html.ActionLink("Leave Pending For Approval", "LeavePendingForApproval", new {id = HttpCurrentUser.EmployeeId}, new {@class = "btn btn-default"})
-                                                                                                                                                                                }
-            @if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin || HttpCurrentUser.IsManager)
-        {
-            @Html.ActionLink("Employees Leave History", "EmployeesLeaveHistory", new {id = HttpCurrentUser.EmployeeId}, new {@class = "btn btn-default"})
-        }
+                <a id="leavehistory21" class="btn btn-default active-btn">Leave History</a>
+                }
+                @if (HttpCurrentUser.IsManager)
+                {
+                @Html.ActionLink("Leave Pending For Approval", "LeavePendingForApproval", new {id = HttpCurrentUser.EmployeeId}, new {@class = "btn btn-default"})
+                }
+                @if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin || HttpCurrentUser.IsManager)
+                {
+                @Html.ActionLink("Employees Leave History", "EmployeesLeaveHistory", new {id = HttpCurrentUser.EmployeeId}, new {@class = "btn btn-default"})
+                }
 
-    </p>
+            </p>*@
 
-    <div class="row">
-        @using (Html.BeginForm("History", "Leave", FormMethod.Post))
-        {
-            bool hasAction = ViewContext.RouteData.GetRequiredString("action") == "History";
-            <div class="row" style='@(hasAction ? "display:block" : "display:none" )' id="leavehistorysearchpanel">
-                <div class="col-lg-7">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Select Range</div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="col-lg-4">
-                                    @Html.Label("FromDate:")
-                                    @Html.TextBoxFor(model => model.FromDate, new {@class = "form-control"})
-                                </div>
-                                <div class="col-lg-8">
-                                    <div class="col-lg-6">
-                                        @Html.Label("ToDate:")
-                                        @Html.TextBoxFor(model => model.ToDate, new {@class = "form-control"})
+            <div class="row">
+                @using (Html.BeginForm("History", "Leave", FormMethod.Post))
+                {
+                bool hasAction = ViewContext.RouteData.GetRequiredString("action") == "History";
+                <div class="row" style='@(hasAction ? "display:block" : "display:none" )' id="leavehistorysearchpanel">
+                    <div class="col-lg-7">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Select Range</div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-4">
+                                        @Html.Label("FromDate:")
+                                        @Html.TextBoxFor(model => model.FromDate, new {@class = "form-control"})
                                     </div>
-                                    <div class="col-lg-6">
-                                        @Html.Label("White", new {@style = "color: white;"})
-                                        <input type="submit" readonly value="Submit" id="leavehistorysubmitbutton"/>
+                                    <div class="col-lg-8">
+                                        <div class="col-lg-6">
+                                            @Html.Label("ToDate:")
+                                            @Html.TextBoxFor(model => model.ToDate, new {@class = "form-control"})
+                                        </div>
+                                        <div class="col-lg-6">
+                                            @Html.Label("White", new {@style = "color: white;"})
+                                            <input type="submit" readonly value="Submit" id="leavehistorysubmitbutton" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                }
             </div>
-        }
-    </div>
-    if (@Model.EmployeeLeaveDetails.Any())
-    {<div class="leaveHistory" id="leavehistorytable">
-         <div class="desktopview">
-             <br/>
-             <br/>
-             <table class="table table-bordered">
-                 <tr>
-                     <th>
-                         @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().LeaveStartDate)
-                     </th>
-                     <th>
-                         @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().LeaveEndDate)
-                     </th>
-                     <th>
-                         @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().LeaveTypeId)
-                     </th>
-                     <th>
-                         @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().NoOfDays)
-                     </th>
-                     <th>
-                         @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().Reason)
-                     </th>
-                     <th>
-                         @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().LeaveStatus)
-                     </th>
-                     <th>
-                         @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().ApprovedBy)
-                     </th>
-                     <th>
-                         @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().CreatedDateUTC)
-                     </th>
-                     <th></th>
-                 </tr>
+            if (@Model.EmployeeLeaveDetails.Any())
+            {<div class="leaveHistory" id="leavehistorytable">
+                <div class="desktopview">
+                    <br />
+                    <br />
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().LeaveStartDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().LeaveEndDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().LeaveTypeId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().NoOfDays)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().Reason)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().LeaveStatus)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().ApprovedBy)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().CreatedDateUTC)
+                            </th>
+                            <th></th>
+                        </tr>
 
-                 @foreach (var item in Model.EmployeeLeaveDetails)
-                 {
-                     <tr>
-                         <td>
-                             @item.LeaveStartDate.ToString("dd-MMM-yyyy")
-                         </td>
-                         <td>
-                             @item.LeaveEndDate.ToString("dd-MMM-yyyy")
-                         </td>
-                         <td>
-                             @item.LeaveTypeName
-                         </td>
-                         <td>
-                             @item.NoOfDays
-                         </td>
-                         <td>
-                             @item.Reason
-                         </td>
-                         <td id="@item.EmployeeLeaveHistoryId">
-                             @item.LeaveStatusDisplayName
-                         </td>
-                         <td>
-                             @item.ApprovedPersonName
-                         </td>
-                         <td>
-                             @string.Format("{0:dd-MMM-yyyy}", item.CreatedDateUTC)
-                         </td>
-                         <td class="Linkbtn">
-                             @if (item.LeaveStatusName != LeaveStatus.Reject.ToString() && item.LeaveStatusName != LeaveStatus.Cancel.ToString())
-                             {
-                                 <table class="@item.EmployeeLeaveHistoryId Linkbtn"
-                                        style="@(item.LeaveStatusName == LeaveStatus.Cancel.ToString() ? "display:none" : "display:block" )">
-                                     <tr>
-                                         @if (item.LeaveStatusName != LeaveStatus.Approve.ToString())
-                                         {
-                                             <td>
-                                                 @Html.ActionLink("Edit", "Edit", new {id = HttpCurrentUser.EmployeeId, leaveId = item.EmployeeLeaveHistoryId}, new {@class = "linktobtn"})
-                                             </td>
-                                    @*<td>
-                                        <input type="button" value="@LeaveStatus.Apply.ToString()" 
-                                            style="@(item.LeaveStatusName == LeaveStatus.Apply.ToString() ? "display:none" : "display:block" )" data-status="Apply" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default submitbtn statusbtn" />
-                                    </td>*@
-                                         }
-                                         <td>
-                                             <input type="button" value="@LeaveStatus.Cancel.ToString()" data-status="Cancel"
-                                                    style="@(item.LeaveStatusName == LeaveStatus.Cancel.ToString() ? "display:none" : "display:block" )" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default cancelbtn statusbtn"/>
-                                         </td>
-                                     </tr>
-                                 </table>
-                             }
-                         </td>
-                     </tr>
-                 }
-             </table>
-         </div>
-         <div class="row mobileview">
-             @foreach (var item in Model.EmployeeLeaveDetails)
-             {
-                 <div class="col-md-12 main">
-                     <div class="col-md-6 ">
-                         <div class="setfloat">
-                             @Html.LabelFor(modelItem => item.LeaveStartDate)
-                         </div>
-                         <div class="setfloat">
-                             @item.LeaveStartDate.ToString("dd-MMM-yyyy")
-                         </div>
-                         <div class="setfloat ">
-                             @Html.LabelFor(modelItem => item.LeaveEndDate)
-                         </div>
+                        @foreach (var item in Model.EmployeeLeaveDetails)
+                        {
+                        <tr>
+                            <td>
+                                @item.LeaveStartDate.ToString("dd-MMM-yyyy")
+                            </td>
+                            <td>
+                                @item.LeaveEndDate.ToString("dd-MMM-yyyy")
+                            </td>
+                            <td>
+                                @item.LeaveTypeName
+                            </td>
+                            <td>
+                                @item.NoOfDays
+                            </td>
+                            <td>
+                                @item.Reason
+                            </td>
+                            <td id="@item.EmployeeLeaveHistoryId">
+                                @item.LeaveStatusDisplayName
+                            </td>
+                            <td>
+                                @item.ApprovedPersonName
+                            </td>
+                            <td>
+                                @string.Format("{0:dd-MMM-yyyy}", item.CreatedDateUTC)
+                            </td>
+                            <td class="Linkbtn">
+                                @if (item.LeaveStatusName != LeaveStatus.Reject.ToString() && item.LeaveStatusName != LeaveStatus.Cancel.ToString())
+                                {
+                                <table class="@item.EmployeeLeaveHistoryId Linkbtn"
+                                       style="@(item.LeaveStatusName == LeaveStatus.Cancel.ToString() ? " display:none"
+                                     :  "display:block" )">
+                                    <tr>
+                                        @if (item.LeaveStatusName != LeaveStatus.Approve.ToString())
+                                        {
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new {id = HttpCurrentUser.EmployeeId, leaveId = item.EmployeeLeaveHistoryId}, new {@class = "linktobtn"})
+                                        </td>
+                                        @*
+                                        <td>
+                                            <input type="button" value="@LeaveStatus.Apply.ToString()"
+                                                   style="@(item.LeaveStatusName == LeaveStatus.Apply.ToString() ? " display:none"
+                                                   : "display:block" )" data-status="Apply" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default submitbtn statusbtn" />
+                                        </td>*@
+                                        }
+                                        <td>
+                                            <input type="button" value="@LeaveStatus.Cancel.ToString()" data-status="Cancel"
+                                                   style="@(item.LeaveStatusName == LeaveStatus.Cancel.ToString() ? " display:none"
+                                                 :  "display:block" )" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default cancelbtn statusbtn" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                }
+                            </td>
+                        </tr>
+                        }
+                    </table>
+                </div>
+                <div class="row mobileview">
+                    @foreach (var item in Model.EmployeeLeaveDetails)
+                    {
+                    <div class="col-md-12 main">
+                        <div class="col-md-6 ">
+                            <div class="setfloat">
+                                @Html.LabelFor(modelItem => item.LeaveStartDate)
+                            </div>
+                            <div class="setfloat">
+                                @item.LeaveStartDate.ToString("dd-MMM-yyyy")
+                            </div>
+                            <div class="setfloat ">
+                                @Html.LabelFor(modelItem => item.LeaveEndDate)
+                            </div>
 
-                         <div class="setfloat ">
-                             @item.LeaveEndDate.ToString("dd-MMM-yyyy")
-                         </div>
-                         <div class="setfloat ">
-                             @Html.LabelFor(modelItem => item.LeaveTypeName)
-                         </div>
+                            <div class="setfloat ">
+                                @item.LeaveEndDate.ToString("dd-MMM-yyyy")
+                            </div>
+                            <div class="setfloat ">
+                                @Html.LabelFor(modelItem => item.LeaveTypeName)
+                            </div>
 
-                         <div class="setfloat ">
-                             @item.LeaveTypeName
-                         </div>
-                         <div class="setfloat ">
-                             @Html.LabelFor(modelItem => item.NoOfDays)
-                         </div>
+                            <div class="setfloat ">
+                                @item.LeaveTypeName
+                            </div>
+                            <div class="setfloat ">
+                                @Html.LabelFor(modelItem => item.NoOfDays)
+                            </div>
 
-                         <div class="setfloat ">
-                             @item.NoOfDays
-                         </div>
-                         <div class="setfloat ">
-                             @Html.LabelFor(modelItem => item.Reason)
-                         </div>
+                            <div class="setfloat ">
+                                @item.NoOfDays
+                            </div>
+                            <div class="setfloat ">
+                                @Html.LabelFor(modelItem => item.Reason)
+                            </div>
 
-                         <div class="setfloat ">
-                             @item.Reason
-                         </div>
-                         <div class="setfloat ">
-                             @Html.LabelFor(modelItem => item.LeaveStatusName)
-                         </div>
+                            <div class="setfloat ">
+                                @item.Reason
+                            </div>
+                            <div class="setfloat ">
+                                @Html.LabelFor(modelItem => item.LeaveStatusName)
+                            </div>
 
-                         <div class="setfloat  @item.EmployeeLeaveHistoryId ">
-                             @item.LeaveStatusDisplayName
-                         </div>
-                         <div class="setfloat ">
-                             @Html.LabelFor(modelItem => item.ApprovedPersonName)
-                         </div>
+                            <div class="setfloat  @item.EmployeeLeaveHistoryId ">
+                                @item.LeaveStatusDisplayName
+                            </div>
+                            <div class="setfloat ">
+                                @Html.LabelFor(modelItem => item.ApprovedPersonName)
+                            </div>
 
-                         <div class="setfloat ">
-                             @item.ApprovedPersonName
-                         </div>
-                         <div class="setfloat ">
-                             @Html.LabelFor(modelItem => item.CreatedDateUTC)
-                         </div>
-                         <div class="setfloat ">
-                             @string.Format("{0:dd-MMM-yyyy}", item.CreatedDateUTC)
-                         </div>
-                     </div>
+                            <div class="setfloat ">
+                                @item.ApprovedPersonName
+                            </div>
+                            <div class="setfloat ">
+                                @Html.LabelFor(modelItem => item.CreatedDateUTC)
+                            </div>
+                            <div class="setfloat ">
+                                @string.Format("{0:dd-MMM-yyyy}", item.CreatedDateUTC)
+                            </div>
+                        </div>
 
-                     <div class="col-md-6">
-                         <div class="setfloat link-align">
-                             @if (item.LeaveStatusName != LeaveStatus.Reject.ToString() && item.LeaveStatusName != LeaveStatus.Cancel.ToString())
-                             {
-                                 <div class="@item.EmployeeLeaveHistoryId Linkbtn"
-                                      style="@(item.LeaveStatusName == LeaveStatus.Cancel.ToString() ? "display:none" : "display:block" )">
-                                     <div>
-                                         @if (item.LeaveStatusName != LeaveStatus.Approve.ToString())
-                                         {
-                                             <div>
-                                                 @Html.ActionLink("Edit", "Edit", new {id = HttpCurrentUser.EmployeeId, leaveId = item.EmployeeLeaveHistoryId}, new {@class = "linktobtn"})
-                                             </div>
-                                             <div>
-                                        <input type="button" value="@LeaveStatus.Apply.ToString()" 
-                                style="@(item.LeaveStatusName == LeaveStatus.Apply.ToString() ? "display:none"  :  "display:block" )" data-status="Apply" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default submitbtn statusbtn" />
-                                             </div>
-                                         }
-                                         <div>
-                                             <input type="button" value="@LeaveStatus.Cancel.ToString()" data-status="Cancel"
-                                                    style="@(item.LeaveStatusName == LeaveStatus.Cancel.ToString() ? "display:none" : "display:block" )" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default cancelbtn statusbtn"/>
-                                         </div>
-                                     </div>
-                                 </div>
-                             }
-                         </div>
-                     </div>
-                 </div>
-             }
-         </div>
-         <div>
-             Page @(Model.EmployeeLeaveDetails.PageCount < Model.EmployeeLeaveDetails.PageNumber ? 0 : Model.EmployeeLeaveDetails.PageNumber) of @Model.EmployeeLeaveDetails.PageCount
-         </div>
-         @Html.PagedListPager(Model.EmployeeLeaveDetails, pagenumber => Url.Action("Index", new {pagenumber}))
-     </div>
-    }
-    else
-    {
-        <div class="row">
-            <div class="col-lg-7">
-                <div class="panel panel-default">
-                    <div class="panel-heading">No Record Found.</div>
+                        <div class="col-md-6">
+                            <div class="setfloat link-align">
+                                @if (item.LeaveStatusName != LeaveStatus.Reject.ToString() && item.LeaveStatusName != LeaveStatus.Cancel.ToString())
+                                {
+                                <div class="@item.EmployeeLeaveHistoryId Linkbtn"
+                                     style="@(item.LeaveStatusName == LeaveStatus.Cancel.ToString() ? " display:none"
+                                   :  "display:block" )">
+                                    <div>
+                                        @if (item.LeaveStatusName != LeaveStatus.Approve.ToString())
+                                        {
+                                        <div>
+                                            @Html.ActionLink("Edit", "Edit", new {id = HttpCurrentUser.EmployeeId, leaveId = item.EmployeeLeaveHistoryId}, new {@class = "linktobtn"})
+                                        </div>
+                                        <div>
+                                            <input type="button" value="@LeaveStatus.Apply.ToString()"
+                                                   style="@(item.LeaveStatusName == LeaveStatus.Apply.ToString() ? " display:none"
+                                                :   "display:block" )" data-status="Apply" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default submitbtn statusbtn" />
+                                        </div>
+                                        }
+                                        <div>
+                                            <input type="button" value="@LeaveStatus.Cancel.ToString()" data-status="Cancel"
+                                                   style="@(item.LeaveStatusName == LeaveStatus.Cancel.ToString() ? " display:none"
+                                                 :  "display:block" )" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default cancelbtn statusbtn" />
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+                <div>
+                    Page @(Model.EmployeeLeaveDetails.PageCount < Model.EmployeeLeaveDetails.PageNumber ? 0 : Model.EmployeeLeaveDetails.PageNumber) of @Model.EmployeeLeaveDetails.PageCount
+                </div>
+                @Html.PagedListPager(Model.EmployeeLeaveDetails, pagenumber => Url.Action("Index", new {pagenumber}))
+            </div>
+            }
+            else
+            {
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">No Record Found.</div>
+                    </div>
+                </div>
+            </div>
+            }
+            }
+        </div>
+        <input type="text" id="Empstatus" style="display: none;" />
+        <input type="text" id="Emphistoryid" style="display: none;" />
+        <div class="modal fade" id="EmployeeModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Confirmation</h4>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnCancel" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
+                        <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
+
+                    </div>
                 </div>
             </div>
         </div>
-    }
-}
-</div>
-<input type="text" id="Empstatus" style="display: none;"/>
-<input type="text" id="Emphistoryid" style="display: none;"/>
-    <div class="modal fade" id="EmployeeModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>Confirmation</h4>
-                </div>
-                <div class="modal-body">
-                    Are you sure?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="btnCancel" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
-                    <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
-
-                </div>
-            </div>
-        </div>
     </div>
 </div>
-                @section Scripts {
+    @section Scripts {
 
 <script>
 
     $(document).ready(function () {
         $('.nav #Leaves').addClass('active');
-   
+
 
         $("#btnOK").click(function () {
             $("#EmployeeModal").modal('hide');
@@ -337,7 +345,7 @@
             $('#Empstatus').text(status);
             $('#Emphistoryid').text(historyid);
             $("#EmployeeModal").modal('show');
-         
+
         });
 
 
@@ -392,5 +400,4 @@
     });
 
 </script>
-
-                }
+    }

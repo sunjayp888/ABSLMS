@@ -6,9 +6,9 @@
 @{
     ViewBag.Title = "Index";
 }
-
-@if (Model != null)
-{
+<div class="padding-left-20">
+    @if (Model != null)
+    {
     <h1>Event</h1>
 
     <div class="panel panel-default">
@@ -108,7 +108,7 @@
                                         </td>
                                         <td>
                                             @*@Html.ActionLink("Delete", "Delete", new {id = item.EventId}, new {@class = "linktobtn deleteEvent", @id = "DeleteButton", @style = "padding: 5px 15px;"})*@
-                                            <input type="button" value="Delete" id="@item.EventId" onclick="deleteEvent(@item.EventId) " class="deleteEvent btn btn-default" />
+                                            <input type="button" value="Delete" id="@item.EventId" onclick=" deleteEvent(@item.EventId) " class="deleteEvent btn btn-default" />
                                             <input type="text" id="eventIdvalue" style="display: none;" />
                                         </td>
                                     </tr>
@@ -131,79 +131,80 @@
             <div class="leaveHistory">
                 <div class="desktopview">No Record Found. </div>
             </div>
-                }
+            }
 
-            </div>
         </div>
-<div class="modal fade" id="EventModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4>Confirmation</h4>
-            </div>
-            <div class="modal-body">
-                Are you sure, you want to delete?
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="btnCancel" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
-                <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
+    </div>
+    <div class="modal fade" id="EventModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    Are you sure, you want to delete?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnCancel" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
+                    <button type="submit" id="btnOK" class="btn modalpopupbtn">Ok</button> &nbsp;&nbsp;
 
+                </div>
             </div>
         </div>
     </div>
+    }
 </div>
-   }
-        @section scripts
-        {
-            <script type="text/javascript">
-                $("#btnOK").click(function() {
-                    $("#EventModal").modal('hide');
-                    var eventId = $('#eventIdvalue').text();
-                    onBegin();
-                    $.ajax({
-                        type: "POST",
-                        url: "/Event/Delete",
-                        data: { id: eventId},
-                        dataType: 'json',
-                        success: function (response) {
-                            if (parseInt(response) > 0) {
-                                window.location.reload();
-                            }
-                        },
-                        error: function () {
-                        onComplete();
-                        }
-                    });
-                });
-
-                $("#btnCancel").click(function() {
-                    $("#EventModal").modal('hide');
-
-                });
-                var resultmodel = false;
-                $(document).ready(function() {
-                    $('.nav #ManageEvent').addClass('active');
-                    //$("#DeleteButton").click(function () {
-                    //    //alert("save and submit click called");
-                    //    if (confirm("Are you sure, you want to delete?")) {
-                    //        return true;
-                    //    }
-                    //    return false;
-                    //});
-                  
-                   
-            });
-
-                function  deleteEvent(eventobj) {
-                
-                    $('#eventIdvalue').text('');
-                    $('#eventIdvalue').text(eventobj);
-                 
-                    $("#EventModal").modal('show');
+    @section scripts
+    {
+    <script type="text/javascript">
+        $("#btnOK").click(function() {
+            $("#EventModal").modal('hide');
+            var eventId = $('#eventIdvalue').text();
+            onBegin();
+            $.ajax({
+                type: "POST",
+                url: "/Event/Delete",
+                data: { id: eventId},
+                dataType: 'json',
+                success: function (response) {
+                    if (parseInt(response) > 0) {
+                        window.location.reload();
+                    }
+                },
+                error: function () {
+                    onComplete();
                 }
-                       
-                          
-                        
-                 
-            </script>
+            });
+        });
+
+        $("#btnCancel").click(function() {
+            $("#EventModal").modal('hide');
+
+        });
+        var resultmodel = false;
+        $(document).ready(function() {
+            $('.nav #ManageEvent').addClass('active');
+            //$("#DeleteButton").click(function () {
+            //    //alert("save and submit click called");
+            //    if (confirm("Are you sure, you want to delete?")) {
+            //        return true;
+            //    }
+            //    return false;
+            //});
+
+
+        });
+
+        function  deleteEvent(eventobj) {
+
+            $('#eventIdvalue').text('');
+            $('#eventIdvalue').text(eventobj);
+
+            $("#EventModal").modal('show');
         }
+
+
+
+
+    </script>
+    }

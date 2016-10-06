@@ -21,7 +21,7 @@ namespace ABS_LMS.Controllers
         }
 
         // GET: Event
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Hr")]
         public ActionResult Index(int pagenumber = 1, int pagesize = 10)
         {
             var leaveDetails = _eventService.GetEvents();
@@ -37,7 +37,7 @@ namespace ABS_LMS.Controllers
          
             return  View();
         }
-
+        [Authorize(Roles = "Admin, Hr")]
         [HttpPost]
         public ActionResult Create(Event model)
         {
@@ -64,7 +64,7 @@ namespace ABS_LMS.Controllers
             return View(model);
 
         }
-
+        [Authorize(Roles = "Admin, Hr")]
         [HttpPost]
         public ActionResult Edit(int id,EventViewModel model)
         {

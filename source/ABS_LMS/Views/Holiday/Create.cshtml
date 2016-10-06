@@ -2,8 +2,10 @@
 @{
     ViewBag.Title = "Create";
 }
-@using (Html.BeginForm("Create", "Holiday", FormMethod.Post))
-{
+
+<div class="form-margin">
+    @using (Html.BeginForm("Create", "Holiday", FormMethod.Post))
+    {
     @Html.AntiForgeryToken()
     <div class="row col-md-12">
         <div class="row col-md-6 textboxsize">
@@ -13,8 +15,8 @@
                     Add Holiday
                 </div>
                 <div class="panel-body">
-                  
-                    <br/>
+
+                    <br />
                     <div class="form-group">
                         @Html.LabelFor(model => model.Date, htmlAttributes: new {@class = " col-md-4"})
                         <div class="col-md-8">
@@ -32,16 +34,16 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-4 col-md-8">
-                            &nbsp;&nbsp;<input type="submit" value="Save" class="btn btn-default savesubmit"/>
+                            &nbsp;&nbsp;<input type="submit" value="Save" class="btn btn-default savesubmit" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-}
-
-@section Scripts {
+    }
+</div>
+    @section Scripts {
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
@@ -67,6 +69,6 @@
             }).val();
         });
     </script>
-}
+    }
 
 
