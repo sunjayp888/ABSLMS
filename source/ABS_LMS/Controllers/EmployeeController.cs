@@ -81,25 +81,33 @@ namespace ABS_LMS.Controllers
         [Authorize(Roles = "Admin, Hr,User,Manager")]
         public ActionResult Details(int id)
         {
-            string reportingManagerName = string.Empty;
-            var employee = _employeeService.GetEmployee(id);
-            var depatment = _employeeService.GetDepartments().SingleOrDefault(d => d.DepartmentId == employee.DepartmentId);
-            var client = _employeeService.GetClients().SingleOrDefault(c => c.ClientId == employee.ClientId);
-            var designation = _employeeService.GetDesignations().SingleOrDefault(d => d.DesignationId == employee.DesignationId);
-            if (employee.ReportingManager.HasValue)
+            return Authorization.HasAccessEmployee(Convert.ToString(id), () =>
             {
-                reportingManagerName = _employeeService.GetEmployee(Convert.ToInt32(employee.ReportingManager)).FirstName.ToString() + " " + _employeeService.GetEmployee(Convert.ToInt32(employee.ReportingManager)).LastName.ToString();
-            }
+                string reportingManagerName = string.Empty;
+                var employee = _employeeService.GetEmployee(id);
+                var depatment =
+                    _employeeService.GetDepartments().SingleOrDefault(d => d.DepartmentId == employee.DepartmentId);
+                var client = _employeeService.GetClients().SingleOrDefault(c => c.ClientId == employee.ClientId);
+                var designation =
+                    _employeeService.GetDesignations().SingleOrDefault(d => d.DesignationId == employee.DesignationId);
+                if (employee.ReportingManager.HasValue)
+                {
+                    reportingManagerName =
+                        _employeeService.GetEmployee(Convert.ToInt32(employee.ReportingManager)).FirstName.ToString() +
+                        " " +
+                        _employeeService.GetEmployee(Convert.ToInt32(employee.ReportingManager)).LastName.ToString();
+                }
 
-            employee.Department = depatment.DeparmentName;
-            employee.Designation = designation.DesignationName;
-            employee.ReportingManagerName = reportingManagerName;
-            employee.Client = client.ClientName;
-            var model = new EmployeeViewModel
-            {
-                EmployeeDetail = employee,
-            };
-            return View(model);
+                employee.Department = depatment.DeparmentName;
+                employee.Designation = designation.DesignationName;
+                employee.ReportingManagerName = reportingManagerName;
+                employee.Client = client.ClientName;
+                var model = new EmployeeViewModel
+                {
+                    EmployeeDetail = employee,
+                };
+                return View(model);
+            });
         }
 
         // GET: Employee/Create

@@ -90,7 +90,7 @@ namespace ABS_LMS.Controllers
                 var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userName = user.UserName, code = code }, protocol: Request.Url.Scheme);
                 var link = callbackUrl;
-                var body = Template.ForgotPassword(user.Id, link);
+                var body = Template.ForgotPassword(user.FirstName, link);
                 //await UserManager.SendEmailAsync(user.Id, "Leave Management Reset Password", body);
                 SmtpHelper.Send(user.Email, "Leave Management Reset Password", body);
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
