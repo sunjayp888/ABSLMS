@@ -296,12 +296,25 @@ input[type=text], input[type=password] {
 
 
 @media only screen and (max-width:768px) {
-
+    .container
+    {
+        padding-left:0!important;
+        padding-right:0!important;
+    }
+   
     .header-top {
         height: 60px !important;
     }
-
+   .header .navbar .nav > li > a:hover
+    {
+     background-color:@header-top-background-color;   
+    }
+   ul li ul.dropdown
+   {
+    position:relative!important;   
+   }
     .navbar {
+        border-radius:0;   
         margin-bottom: 0;
         background-color: @header-top-background-color;
         width: 100%;

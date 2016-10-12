@@ -85,7 +85,10 @@
                         <th>
                             @Html.DisplayNameFor(model => model.EmployeeLeaveDetails.FirstOrDefault().CreatedDateUTC)
                         </th>
-                        <th>Action</th>
+                        @if (HttpCurrentUser.IsManager)
+                        {
+                        <th>Action</th>}
+                       
                     </tr>
 
                     @foreach (var item in Model.EmployeeLeaveDetails)
@@ -121,19 +124,22 @@
                         <td>
                             @string.Format("{0:dd-MMM-yyyy}", item.CreatedDateUTC)
                         </td>
-                        <td>
-                            <div>
-                                @if (item.LeaveStatusName == LeaveStatus.Approve.ToString())
-                                {
-                                <div id="@item.EmployeeLeaveHistoryId">
-                                    <input type="button" id="RejectLeave" value="@LeaveStatus.Reject.ToString()" data-status="@LeaveStatus.Reject.ToString()" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default" />
-                                </div>
-                                }
-                                <input type="text" id="EmployeeLeaveHistoryId" style="display: none;" />
-                                <input type="text" id="LeaveStatus" style="display: none;" />
-                            </div>
+@if (HttpCurrentUser.IsManager)
+{
+    <td>
+        <div>
+            @if (item.LeaveStatusName == LeaveStatus.Approve.ToString())
+            {
+                <div id="@item.EmployeeLeaveHistoryId">
+                    <input type="button" id="RejectLeave" value="@LeaveStatus.Reject.ToString()" data-status="@LeaveStatus.Reject.ToString()" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default"/>
+                </div>
+            }
+            <input type="text" id="EmployeeLeaveHistoryId" style="display: none;"/>
+            <input type="text" id="LeaveStatus" style="display: none;"/>
+        </div>
 
-                        </td>
+    </td>
+}
                     </tr>
                     }
                 </table>
