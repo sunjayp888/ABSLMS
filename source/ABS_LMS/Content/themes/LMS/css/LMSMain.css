@@ -1149,7 +1149,7 @@ body {
 }
 .header .header-top div .log-out {
   /*background-color: @logout-Link;*/
-  color: #333333;
+  color: #FB871F;
 }
 .header .navbar {
   padding: 0;
@@ -1251,7 +1251,7 @@ input[type=password] {
   }
   .header .header-top div a:hover {
     /*background-color: @highlighted-color;*/
-    color: #333333;
+    color: #FB871F;
   }
   .header .navbar .navbar-toggle,
   .header .navbar .navbar-header {
@@ -1265,10 +1265,21 @@ input[type=password] {
   }
 }
 @media only screen and (max-width: 768px) {
+  .container {
+    padding-left: 0!important;
+    padding-right: 0!important;
+  }
   .header-top {
     height: 60px !important;
   }
+  .header .navbar .nav > li > a:hover {
+    background-color: #FB871F;
+  }
+  ul li ul.dropdown {
+    position: relative!important;
+  }
   .navbar {
+    border-radius: 0;
     margin-bottom: 0;
     background-color: #FB871F;
     width: 100%;
@@ -1454,7 +1465,7 @@ input[type=password] {
   padding: 5px 2px !important;
   width: 66px !important;
 }
-.user-carousel .item img {
+.user-carousel .item .imgwidth {
   display: block;
   height: 320px;
   min-width: 100%;
@@ -1467,8 +1478,8 @@ input[type=password] {
   color: #333333;
   text-shadow: none;
   top: 0px;
-  left: 10px !important;
-  right: 10px !important;
+  left: 5px !important;
+  right: 0px !important;
   max-height: 300px;
   overflow: hidden;
   overflow-y: auto;
@@ -1514,8 +1525,8 @@ blockquote small:before {
 }
 @media screen and (min-width: 768px) {
   .user-carousel .carousel-caption {
-    left: 10px !important;
-    right: 10px !important;
+    left: 5px !important;
+    right: 0px !important;
   }
   .user-control .carousel-indicators {
     bottom: -10px;

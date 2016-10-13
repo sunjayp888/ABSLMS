@@ -7,10 +7,43 @@
     ViewBag.Title = "Index";
 }
 <div class="padding-left-20">
-    <h1>Applied Leave</h1>
+    <h1>Leave History</h1>
     <div class="panel panel-default">
         <div class="panel-heading">@*Leave Records*@ &nbsp;</div>
         <div class="panel-body">
+          
+         
+
+            <div class="row">
+                @using (Html.BeginForm("History", "Leave", FormMethod.Post))
+                {
+                <div class="row" style="display:block;" >
+                    <div class="col-lg-7">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Select Range</div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-4">
+                                        @Html.Label("FromDate:")
+                                        @Html.TextBoxFor(model => model.FromDate, new {@class = "form-control"})
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="col-lg-6">
+                                            @Html.Label("ToDate:")
+                                            @Html.TextBoxFor(model => model.ToDate, new {@class = "form-control"})
+                                        </div>
+                                        <div class="col-lg-6">
+                                            @Html.Label("White", new {@style = "color: white;"})
+                                            <input type="submit" style="left: 25px;" readonly value="Submit" id="leavehistorysubmitbutton" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
           
             @if (@Model.EmployeeLeaveDetails!=null && @Model.EmployeeLeaveDetails.Count>0)
             {
@@ -205,7 +238,17 @@
                 @Html.PagedListPager(Model.EmployeeLeaveDetails, pagenumber => Url.Action("Index", new {pagenumber}))
             </div>
             }
-            else
+            @if (@Model.FromDate==null && @Model.ToDate==null && @Model.EmployeeLeaveDetails==null )
+            {
+           <div class="row norecord">
+                <div class="col-lg-7">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">No Record Found.</div>
+                    </div>
+                </div>
+            </div>
+            }
+            @if (@Model.EmployeeLeaveDetails!=null &&  @Model.EmployeeLeaveDetails.Count==0)
             {
             <div class="row norecord">
                 <div class="col-lg-7">
@@ -215,7 +258,6 @@
                 </div>
             </div>
             }
-           
         </div>
         <input type="text" id="Empstatus" style="display: none;" />
         <input type="text" id="Emphistoryid" style="display: none;" />
@@ -244,8 +286,9 @@
 
     $(document).ready(function () {
         $('.nav #Leaves').addClass('active');
+
         $('.sub-menu').removeClass('active-btn');
-        $("#appliedLeave").addClass('active-btn');
+        $("#leavehistory").addClass('active-btn');
         $("#btnOK").click(function () {
             $("#EmployeeModal").modal('hide');
             var status = $('#Empstatus').text();
@@ -292,9 +335,49 @@
 
         });
 
-      
 
-    
+     
+
+        $("#leavehistorysubmitbutton").click(function () {
+         
+            var start = $("#FromDate").datepicker("getDate");
+            var end = $("#ToDate").datepicker("getDate");
+            if (end >= start) {
+            } else {
+                alert("Start Date is greater than End Date");
+            }
+            if ($("#FromDate").val() == '' || $("#ToDate").val() == '') {
+                alert("Select valid date range.");
+                return false;
+            }
+        });
+
+        $("#FromDate").datepicker({
+            dateFormat: "dd-M-yy",
+            changeMonth: true,
+            changeYear: true,
+            constrainInput: true,
+            onSelect: function () {
+
+            }
+        }).val();
+        $("#ToDate").datepicker({
+            dateFormat: "dd-M-yy",
+            changeMonth: true,
+            changeYear: true,
+            constrainInput: true,
+            onSelect: function () {
+                $("#EmployeeLeaveDetails_NoOfDays").val("");
+                var start = $("#FromDate").datepicker("getDate");
+                var end = $("#ToDate").datepicker("getDate");
+                if (start == null)
+                    return;
+                if (end >= start) {
+                } else {
+                    alert("Start Date is greater than End Date");
+                }
+            }
+        }).val();
     });
 
 </script>

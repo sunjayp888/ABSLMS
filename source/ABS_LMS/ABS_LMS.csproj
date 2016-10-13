@@ -363,6 +363,8 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\themes\LMS\css\LMSMain.css" />
     <Content Include="Content\themes\LMS\css\LMSMain.min.css" />
+    <Content Include="Content\themes\LMS\css\test.css" />
+    <Content Include="Content\themes\LMS\images\anderson.gif" />
     <Content Include="Content\themes\LMS\images\andersonBPO_logo.png" />
     <Content Include="Content\themes\LMS\images\Blank_flag_large.PNG" />
     <Content Include="Content\themes\LMS\images\New-logo.jpg" />
@@ -385,6 +387,7 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <None Include="Properties\PublishProfiles\LmsNew.pubxml" />
     <None Include="Properties\PublishProfiles\NewLMSABS.pubxml" />
     <None Include="Properties\PublishProfiles\pankaj.pubxml" />
     <None Include="Properties\PublishProfiles\sanjay.pubxml" />
@@ -714,6 +717,7 @@
     <Content Include="Views\Shared\EditorTemplates\tinymce_jquery_full.cshtml" />
     <Content Include="Views\Holiday\Index.cshtml" />
     <Content Include="Views\Holiday\Create.cshtml" />
+    <Content Include="Views\Leave\History.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

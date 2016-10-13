@@ -1,97 +1,90 @@
 ﻿@using ABS_LMS.Models.Security
 
-<div class="col-xs-4 logo-container">
+<div class="col-xs-3 logo-container">
     <a href="/"><img class="logo" src="~/Content/themes/LMS/images/andersonBPO_logo.png" alt="Anderson Group" /></a>
 </div>
-<div class="col-xs-8 header-top">
+<div class="col-xs-9 header-top">
     <div>
         @if (Request.IsAuthenticated)
         {
-            <a href="#" class="userName" style="width: 34%">WELCOME @HttpCurrentUser.FirstName </a>
+        <a href="#" class="userName" style="width: 34%">WELCOME @HttpCurrentUser.FirstName </a>
         }
-       
+
         @Html.Partial("_LoginPartial")
     </div>
 </div>
 @if (Request.IsAuthenticated)
 {
-    <nav class="navbar col-xs-8" role="navigation">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menuitems">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <div class="navbar-header collapsed" data-toggle="collapse" data-target="#navbar-menuitems">
-            <a class="navbar-brand" rel="home" href="#" title="Help">
-                Menu
-            </a>
-        </div>
-        <div id="navbar-menuitems" class="navbar-collapse navbar-left collapse">
-            <ul class='nav navbar-nav @(HttpCurrentUser.IsUser ? "user-menu" : "")  @(HttpCurrentUser.IsManager ? "manager-menu" : "")'>
-                <li>
-                    @Html.ActionLink("Home", "Index", "Home", null, new { @id = "Home" })
-                </li>
+<nav class="navbar col-xs-9" role="navigation">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menuitems">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <div class="navbar-header collapsed" data-toggle="collapse" data-target="#navbar-menuitems">
+        <a class="navbar-brand" rel="home" href="#" title="Help">
+            Menu
+        </a>
+    </div>
+    <div id="navbar-menuitems" class="navbar-collapse navbar-left collapse">
+        <ul class="nav navbar-nav">
+            <li>
+                @Html.ActionLink("Home", "Index", "Home", null, new { @id = "Home" })
+            </li>
 
-                @if (Request.IsAuthenticated)
-                {
-                if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin|| HttpCurrentUser.IsManager)
-                {
-                <li>@Html.ActionLink("Employees", "Index", "Employee", null, new { @id = "employee" })</li>
-                }
-                <li>
-                    @Html.ActionLink("Leave Records", "Index", "Leave", new { id = HttpCurrentUser.EmployeeId }, new { @Id = "Leaves" })
-                    <ul class="dropdown sub-menu">
-       
-                        @Html.ActionLink("Request Leave", "Create","Leave", new {id = HttpCurrentUser.EmployeeId}, new {@class = "createLeave"})
-                        @if (ViewContext.RouteData.GetRequiredString("action") != "History")
-                        {
-                        @Html.ActionLink("Applied Leave", "Index", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@Id = "Leaves", @class = "leaverecord"})
-                        <a id="leavehistory" class="">Leave History</a>
-                        }
-                        @if (ViewContext.RouteData.GetRequiredString("action") == "History")
-                        {
-                        @Html.ActionLink("Applied Leave", "Index", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@Id = "Leaves", @class = ""})
+            @if (Request.IsAuthenticated)
+            {
+            if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin|| HttpCurrentUser.IsManager)
+            {
+            <li>@Html.ActionLink("Employees", "Index", "Employee", null, new { @id = "employee" })</li>
+            }
+            <li>
+                @Html.ActionLink("Leave Records", "Index", "Leave", new { id = HttpCurrentUser.EmployeeId }, new { @Id = "Leaves" })
+                <ul class="dropdown sub-menu">
 
-                        <a id="leavehistory" class="btn btn-default">Leave History</a>
-                        }
-                        @if (HttpCurrentUser.IsManager)
-                        {
-                        @Html.ActionLink("Approval Pending", "LeavePendingForApproval", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@class = "pending"})
-                        }
-                        @if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin || HttpCurrentUser.IsManager)
-                        {
-                        @Html.ActionLink("Employees History", "EmployeesLeaveHistory", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@class = "empfullhistory"})
-                        }
+                    @Html.ActionLink("Request Leave", "Create","Leave", new {id = HttpCurrentUser.EmployeeId}, new {@class = "createLeave"})
 
-                    </ul>
-                 </li>
+                    @Html.ActionLink("Applied Leave", "Index", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@Id = "appliedLeave", @class = "leaverecord"})
 
-                if (HttpCurrentUser.IsAdmin)
-                {
-                <li>
-                    @Html.ActionLink("Users", "Index", "Administrator", null, new { @Id = "Administrator" })
-                </li>
-                }
+                    @Html.ActionLink("Leave History", "History", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@Id = "leavehistory", @class = "leaverecord"})
 
-                <li>@Html.ActionLink("Profile", "Details", "Employee", new { id = HttpCurrentUser.EmployeeId }, new { @Id = "Profile" })</li>
+                    @if (HttpCurrentUser.IsManager)
+                    {
+                    @Html.ActionLink("Approval Pending", "LeavePendingForApproval", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@class = "pending"})
+                    }
+                    @if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin || HttpCurrentUser.IsManager)
+                    {
+                    @Html.ActionLink("Employees History", "EmployeesLeaveHistory", "Leave", new {id = HttpCurrentUser.EmployeeId}, new {@class = "empfullhistory"})
+                    }
+
+                </ul>
+            </li>
+
+            if (HttpCurrentUser.IsAdmin)
+            {
+            <li>
+                @Html.ActionLink("Users", "Index", "Administrator", null, new { @Id = "Administrator" })
+            </li>
+            }
+
+            <li>@Html.ActionLink("Profile", "Details", "Employee", new { id = HttpCurrentUser.EmployeeId }, new { @Id = "Profile" })</li>
 
 
-                if (HttpCurrentUser.IsManager || HttpCurrentUser.IsHR || HttpCurrentUser.IsUser)
-                {
-                <li>@Html.ActionLink("Reset Password", "ResetPassword", "Administrator", new { userName = HttpCurrentUser.Name }, new { @Id = "ResetPassword" })</li>
-                }
-                if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
-                {
-                <li>@Html.ActionLink("Manage Event", "Index", "Event", null, new {@Id = "ManageEvent"})</li>
-                <li>@Html.ActionLink("Holiday", "Index", "Holiday",null, new { @Id = "holiday" })</li>
-                }
-                }
+            if (HttpCurrentUser.IsManager || HttpCurrentUser.IsHR || HttpCurrentUser.IsUser)
+            {
+            <li>@Html.ActionLink("Reset Password", "ResetPassword", "Administrator", new { userName = HttpCurrentUser.Name }, new { @Id = "ResetPassword" })</li>
+            }
+            if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
+            {
+            <li>@Html.ActionLink("Manage Event", "Index", "Event", null, new {@Id = "ManageEvent"})</li>
+            <li>@Html.ActionLink("Holiday", "Index", "Holiday",null, new { @Id = "holiday" })</li>
+            }
+            }
 
-            </ul>
-        </div>
-    </nav>
+        </ul>
+    </div>
+</nav>
 
 }
 
-   

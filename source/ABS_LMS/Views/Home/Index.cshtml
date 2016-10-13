@@ -42,11 +42,11 @@
                                     string imageBase64 = Convert.ToBase64String(eventitem.EventImage);
                                     string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
                               
-                                    <img src="@imageSrc" alt="Flower">
+                                    <img src="@imageSrc"  class="imgwidth" alt="Flower">
 
                                     }
                                     else
-                                    {<img src="~/Content/themes/LMS/images/Blank_flag_large.PNG" alt="Flower">}
+                                    {<img src="~/Content/themes/LMS/images/Blank_flag_large.PNG" class="imgwidth" alt="Flower">}
 
                                   
 

@@ -35,7 +35,30 @@ namespace ABS_LMS.Models.Security
                 return exceptionFunction(ex);
             }
         }
+        private static bool HasAccessEmployee(string employeeId) => HttpCurrentUser.IsAdmin || HttpCurrentUser.IsManager || HttpCurrentUser.IsHR || (HttpCurrentUser.EmployeeId == employeeId && HttpCurrentUser.EmployeeId== employeeId);
 
+        public static ActionResult HasAccessEmployee(string employeeId, Func<ActionResult> function)
+        {
+            if (!HasAccessEmployee(employeeId))
+                return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Error", action = "AccessDenied" }));
+
+            //if (!DoesCurrentRouteControllerMatch("Contract") && BusinessService.HasUnsignedContracts(HttpCurrentUser.ContractorId))
+            //    return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Contract", action = "Index", contractorId }));
+
+            return function();
+        }
+
+        public static ActionResult HasAccessEmployee(string employeeId, Func<ActionResult> function, Func<Exception, ActionResult> exceptionFunction)
+        {
+            try
+            {
+                return HasAccessEmployee(employeeId, function);
+            }
+            catch (Exception ex)
+            {
+                return exceptionFunction(ex);
+            }
+        }
         private static bool DoesCurrentRouteControllerMatch(string controller)
         {
             var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;

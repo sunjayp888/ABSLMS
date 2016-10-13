@@ -70,8 +70,12 @@ namespace ABS_LMS.Controllers
             });
         }
 
-        public ActionResult History(DateTime FromDate, DateTime ToDate, int pagenumber = 1, int pagesize = 10)
+        public ActionResult History(DateTime? FromDate, DateTime? ToDate, int pagenumber = 1, int pagesize = 10)
         {
+            if (FromDate!=null && ToDate != null)
+            {
+                //DateTime is null
+      
             return Authorization.HasAccess(Convert.ToString(HttpCurrentUser.EmployeeId), () =>
             {
                 var leaveDetails =
@@ -87,8 +91,19 @@ namespace ABS_LMS.Controllers
                     ToDate = ToDate
                 };
 
-                return View("Index", model);
+                return View("History", model);
             });
+            }
+            else
+            {
+                var model = new EmployeeLeaveIndexViewModel
+                {
+                    EmployeeLeaveDetails = null,
+                    FromDate = FromDate,
+                    ToDate = ToDate
+                };
+                return View("History", model);
+            }
         }
 
         [Authorize(Roles = "Hr,Admin,Manager")]
