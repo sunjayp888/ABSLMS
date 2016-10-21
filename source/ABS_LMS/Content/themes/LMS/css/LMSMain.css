@@ -1266,8 +1266,8 @@ input[type=password] {
 }
 @media only screen and (max-width: 768px) {
   .container {
-    padding-left: 0!important;
-    padding-right: 0!important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
   .header-top {
     height: 60px !important;
@@ -1276,7 +1276,7 @@ input[type=password] {
     background-color: #FB871F;
   }
   ul li ul.dropdown {
-    position: relative!important;
+    position: relative !important;
   }
   .navbar {
     border-radius: 0;
@@ -1592,4 +1592,24 @@ ul li:hover ul.dropdown {
 }
 ul li ul.dropdown li {
   display: block;
+}
+.google-visualization-orgchart-node {
+  border: none!important;
+  background: #22B500 !important;
+  background-color: #22B500 !important;
+  color: #FFFFFF !important;
+}
+#chart {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  padding-top: 50px;
+  white-space: nowrap;
+}
+#btnChart {
+  width: 180px;
+}
+#btnFullChart {
+  width: 218px;
 }

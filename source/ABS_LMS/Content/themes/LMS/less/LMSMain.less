@@ -296,25 +296,25 @@ input[type=text], input[type=password] {
 
 
 @media only screen and (max-width:768px) {
-    .container
-    {
-        padding-left:0!important;
-        padding-right:0!important;
+    .container {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
-   
+
     .header-top {
         height: 60px !important;
     }
-   .header .navbar .nav > li > a:hover
-    {
-     background-color:@header-top-background-color;   
+
+    .header .navbar .nav > li > a:hover {
+        background-color: @header-top-background-color;
     }
-   ul li ul.dropdown
-   {
-    position:relative!important;   
-   }
+
+    ul li ul.dropdown {
+        position: relative !important;
+    }
+
     .navbar {
-        border-radius:0;   
+        border-radius: 0;
         margin-bottom: 0;
         background-color: @header-top-background-color;
         width: 100%;
@@ -622,6 +622,7 @@ blockquote small:before {
     border-bottom: 1px solid;
     border-bottom-color: @menu-active-hover-color;
 }
+
 ul {
     padding: 0;
     list-style: none;
@@ -656,7 +657,7 @@ ul li ul.dropdown {
     position: absolute;
     z-index: 999;
     left: 0;
-        left: auto;
+    left: auto;
 }
 
 ul li:hover ul.dropdown {
@@ -666,3 +667,28 @@ ul li:hover ul.dropdown {
 ul li ul.dropdown li {
     display: block;
 }
+.google-visualization-orgchart-node
+{
+    border:none!important;
+    background:@highlighted-color!important;
+    background-color:@highlighted-color!important;
+    color:@main-color!important;
+
+}
+#chart{
+        overflow: hidden;
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+       padding-top: 50px;
+    white-space: nowrap;
+ 
+}
+#btnChart {
+    width: 180px;
+}
+
+#btnFullChart {
+    width: 218px;
+}
+
