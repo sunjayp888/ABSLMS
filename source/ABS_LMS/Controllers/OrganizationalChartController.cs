@@ -45,6 +45,7 @@ namespace ABS_LMS.Controllers
                 return _roleManager;
             }
         }
+        [Authorize(Roles = "Admin, Hr,User,Manager")]
         public ActionResult Index()
         {
             return View();
@@ -79,6 +80,51 @@ namespace ABS_LMS.Controllers
                 });
             return Json(chartData, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public JsonResult GetFullChartDataNew()
+        {
+            List<EmployeeChart> chartData = new List<EmployeeChart>();
+            var employees = _employeeService.GetEmployees().Where(e => !e.IsArchive);
+            foreach (var employee in employees)
+            {
+                var employeeNew=new EmployeeChart
+                {
+                    EmployeeId =employee.EmployeeId,
+                    EmployeeName = employee.FirstName + ' ' + employee.LastName,
+                    Designation = employee.Designation,
+                    ReportingManager = employee.EmployeeCode=="1002"?null:employee.ReportingManager,
+                    EmployeeImageUrl = GetEmployeeImageUrl(employee.EmployeeImage, employee.Gender)
+                };
+
+                           chartData.Add(employeeNew);
+            }
+
+            var jsonResult = Json(chartData, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+            //return Json(chartData, JsonRequestBehavior.AllowGet);
+        }
+
+        public string GetEmployeeImageUrl(byte[] imagebBytes,string gender)
+        {
+            string imageUrl;
+            if (imagebBytes != null && imagebBytes.Length > 0)
+            {
+                string imageBase64 = Convert.ToBase64String(imagebBytes);
+                imageUrl = string.Format("data:image/gif;base64,{0}", imageBase64);
+               
+
+            }
+            else
+            {
+                imageUrl = gender.ToLower()!= "female" ? "/Content/themes/LMS/images/profile-img.jpg" : "/Content/themes/LMS/images/female.jpg";
+                
+              
+            }
+
+     return imageUrl;
+        }
+
         [HttpPost]
         public JsonResult GetFullChartData()
         {
@@ -130,5 +176,15 @@ namespace ABS_LMS.Controllers
             return reportingManager;
         }
 
+
+        public class EmployeeChart
+        {
+            public string EmployeeName { get; set; }
+            public int EmployeeId { get; set; }
+            public string Designation { get; set; }
+            public int? ReportingManager { get; set; }
+            public string EmployeeImageUrl { get; set; }
+        }
     }
+    
 }

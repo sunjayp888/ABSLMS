@@ -63,6 +63,8 @@ namespace ABS_LMS.Controllers
                 Type = "B", Content = string.Format("Happy Birthday"), Designation = item.Designation,
                 Name = string.Format("{0} {1} - {2}",item.FirstName,item.LastName,item.Designation),
                 EmployeeImage = item.EmployeeImage,
+                Gender = item.Gender,
+               
             }).ToList();
         }
 
@@ -79,6 +81,7 @@ namespace ABS_LMS.Controllers
                 Designation = item.Designation,
                 Name = string.Format("On behalf of ABS family,We congratulate {0} - {1}  who has completed {2} of dedicated service at ABS", item.FirstName + ' ' + item.LastName,item.Designation, Today.Year - Convert.ToDateTime(item.DOJ).Year),
                 EmployeeImage = item.EmployeeImage,
+                Gender = item.Gender,
             }).ToList();
         }
 

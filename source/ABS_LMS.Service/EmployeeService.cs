@@ -147,6 +147,7 @@ namespace ABS_LMS.Service
                 ReportingManager = e.ReportingManager,
                 EmployeeImage = e.EmployeeImage,
                 DOB = e.DOB,
+                MobileNo = e.MobileNo,
                 CompanyEmailId = e.CompanyEmailId,
                 Gender = e.Gender,
                 ClientId = e.ClientId,

@@ -1,7 +1,7 @@
 ﻿@using ABS_LMS.Models.Security
 
 <div class="col-xs-2 logo-container">
-    <a href="/"><img class="logo" src="~/Content/themes/LMS/images/andersonBPO_logo.png" alt="Anderson Group" /></a>
+    <a href='@Url.Action("Index", "Home")'><img class="logo" src="~/Content/themes/LMS/images/andersonBPO_logo.png" alt="Anderson Group" /></a>
 </div>
 <div class="col-xs-10 header-top">
     <div>
@@ -80,7 +80,7 @@
             <li>@Html.ActionLink("Manage Event", "Index", "Event", null, new {@Id = "ManageEvent"})</li>
             <li>@Html.ActionLink("Holiday", "Index", "Holiday",null, new { @Id = "holiday" })</li>
                 }
-                <li>@Html.ActionLink("Organizational Chart", "Index", "OrganizationalChart", null, new { @Id = "OrganizationalChart" })</li>
+                <li>@Html.ActionLink("Organization Chart", "Index", "OrganizationalChart", null, new { @Id = "OrganizationalChart" })</li>
             }
           
         </ul>

@@ -13,5 +13,7 @@ namespace ABS_LMS.Models
         public DateTime? ToDate { get; set; }
         public IEnumerable<SelectListItem> LeaveStatusList { get; set; }
         public int LeaveStatusId { get; set; }
+        public string Seachtext { get; set; }
+        public int Empid { get; set; }
     }
 }
