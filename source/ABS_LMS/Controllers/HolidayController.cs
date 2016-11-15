@@ -6,7 +6,7 @@ using PagedList;
 
 namespace ABS_LMS.Controllers
 {
-    [Authorize(Roles = ("HR,Admin"))]
+    [Authorize(Roles = ("Hr,Admin"))]
     public class HolidayController : Controller
     {
         private readonly IHolidayService _holidayService;

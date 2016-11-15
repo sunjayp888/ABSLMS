@@ -24,23 +24,33 @@
                         <div class="panel-heading">Select Range</div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="col-lg-3">
+
+                                <div class="col-lg-4">
                                     @Html.Label("From Date:")
-                                    @Html.TextBoxFor(model => model.FromDate, "{0:dd-MMM-yyyy}", new {@class = "form-control", @Value = Model.FromDate?.ToString("dd-MMM-yyyy")})
+                                    @Html.TextBoxFor(model => model.FromDate, "{0:dd-MMM-yyyy}", new { @class = "form-control", @Value = Model.FromDate?.ToString("dd-MMM-yyyy") })
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                     @Html.Label("To Date:")
-                                    @Html.TextBoxFor(model => model.ToDate, "{0:dd-MMM-yyyy}", new {@class = "form-control", @Value = Model.ToDate?.ToString("dd-MMM-yyyy")})
+                                    @Html.TextBoxFor(model => model.ToDate, "{0:dd-MMM-yyyy}", new { @class = "form-control", @Value = Model.ToDate?.ToString("dd-MMM-yyyy") })
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                     @Html.Label("Leave Status")
-                                    @Html.DropDownListFor(model => model.LeaveStatusId, Model.LeaveStatusList, new {@class = "form-control"})
+                                    @Html.DropDownListFor(model => model.LeaveStatusId, Model.LeaveStatusList, new { @class = "form-control" })
                                 </div>
-                                <div class="col-lg-3">
-                                    <br />
-                                    <br />
-                                    <br />
-                                    <input type="submit" value="Submit" id="leavehistorysubmitbutton" />
+                             
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="col-lg-6">
+                                    @Html.Label("Search By Employee")
+                                    @Html.TextBoxFor(model => model.Seachtext, new { @class = "form-control" })
+                                    <input type="hidden" id="hfEmpId" name="EmployeeId"/>
+                                    @Html.HiddenFor(m=>m.Empid)
+                                </div>
+                                <div class="col-lg-3 pull-right">
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <input type="submit" value="Submit" id="leavehistorysubmitbutton"/>
                                 </div>
                             </div>
                         </div>
@@ -283,6 +293,8 @@
     </div>
 </div>
 @section Scripts {
+
+
     <script>
         $(document).ready(function () {
             $('.nav #Leaves').addClass('active');
@@ -359,7 +371,39 @@
             $("#btnCancel").click(function () {
                 $("#leaveModal").modal('hide');
             });
-        });
-    </script>
 
+            //Employee Serch
+            $("#Seachtext").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Leave/EmployeeList",
+                    data: "{ 'prefix': '" + request.term + "'}",
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function(item) {
+                            return item;
+                        }));
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                $("#hfEmpId").val(i.item.val);
+                $("#Empid").val(i.item.val);
+              
+            },
+            minLength: 1
+        });
+       
+        
+        });
+ 
+        </script>
 }

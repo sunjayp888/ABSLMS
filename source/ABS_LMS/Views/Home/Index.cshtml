@@ -76,7 +76,7 @@
                     }
                     else
                     {
-                    <div>Watch out for future updates</div>
+                    <div class="event">Watch out for future updates</div>
                     }
                 </div>
 
@@ -121,12 +121,17 @@
                                             string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
                                           
                                             <img class="img-circle" src="@imageSrc" style="width: 100px; height: 100px;">
-                                            }
-                                            else
-                                            {
-                                            <img class="img-circle" src="~/Content/themes/LMS/images/profile-img.jpg" style="width: 100px; height: 100px;">
+                                                }
+                                                else
+                                                {
+                                                    if (item.Gender.ToLower() != "female")
+                                                    { <img class="img-circle" src="~/Content/themes/LMS/images/profile-img.jpg" style="width: 100px; height: 100px;">}
+                                                    else
+                                                    {
+                                                        <img class="img-circle" src="~/Content/themes/LMS/images/female.jpg" style="width: 100px; height: 100px;">
+                                                    }
 
-                                            }
+                                                }
 
                                             }
 
@@ -151,7 +156,7 @@
                     }
                     else
                     {
-                    <div>No record found</div>
+                    @*<div>No record found</div>*@
                     }
 
                 </div>

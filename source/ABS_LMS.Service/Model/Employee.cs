@@ -112,7 +112,7 @@ namespace ABS_LMS.Service.Model
         }
         [DisplayName("Employee Image")]
         public byte[] EmployeeImage { get; set; }
-
+        public string EmployeeImageUrl { get; set; }
         public bool IsArchive { get; set; }
     }
 

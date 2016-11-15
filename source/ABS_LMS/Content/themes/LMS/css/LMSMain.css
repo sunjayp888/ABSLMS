@@ -1,5 +1,6 @@
 ﻿body {
-  font-family: futura-pt, sans-serif;
+  /*font-family: futura-pt,sans-serif;*/
+  font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
   background-color: #FFFFFF;
   color: #666666;
 }
@@ -19,7 +20,7 @@ body h1 {
   font-weight: 300;
   letter-spacing: 2px;
   margin: 30px 0;
-  font-family: 'cronos', sans-serif;
+  font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
 }
 body .hour {
   width: 48px;
@@ -868,7 +869,7 @@ input[type="button"] {
   width: auto;
 }
 .ui-autocomplete li {
-  font-family: futura-pt, sans-serif !important;
+  font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif !important;
 }
 .ui-autocomplete li:hover {
   color: #FB871F;
@@ -1092,15 +1093,16 @@ h2 a {
 @colour9: #ECECEC;
 @colour10: #da6438;
 @colour11: #eb704f;*/
-@font-face {
-  font-family: 'cronos';
-  src: url('../Content/Theme/AndersonGroup/fonts/Cronos-MM-webfont.eot');
-  src: url('../Content/Theme/AndersonGroup/fonts/Cronos-MM-webfont.eot?#iefix') format('embedded-opentype'), url('../Content/Theme/AndersonGroup/fonts/Cronos-MM-webfont.woff2') format('woff2'), url('../Content/Theme/AndersonGroup/fonts/Cronos-MM-webfont.woff') format('woff'), url('../Content/Theme/AndersonGroup/fonts/Cronos-MM-webfont.ttf') format('truetype'), url('../Content/Theme/AndersonGroup/fonts/Cronos-MM-webfont.svg#cronos_mmregular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
+/*@font-face {
+    font-family: 'cronos';
+    src: url('../Content/Theme/AndersonGroup/fonts/Cronos-MM-webfont.eot');
+    src: url('../Content/Theme/AndersonGroup/fonts/Cronos-MM-webfont.eot?#iefix') format('embedded-opentype'), url('../Content/Theme/AndersonGroup/fonts/Cronos-MM-webfont.woff2') format('woff2'), url('../Content/Theme/AndersonGroup/fonts/Cronos-MM-webfont.woff') format('woff'), url('../Content/Theme/AndersonGroup/fonts/Cronos-MM-webfont.ttf') format('truetype'), url('../Content/Theme/AndersonGroup/fonts/Cronos-MM-webfont.svg#cronos_mmregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}*/
 body {
   background-color: #E8ECF0;
+  font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
 }
 .header {
   position: relative;
@@ -1266,8 +1268,8 @@ input[type=password] {
 }
 @media only screen and (max-width: 768px) {
   .container {
-    padding-left: 0!important;
-    padding-right: 0!important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
   .header-top {
     height: 60px !important;
@@ -1276,7 +1278,7 @@ input[type=password] {
     background-color: #FB871F;
   }
   ul li ul.dropdown {
-    position: relative!important;
+    position: relative !important;
   }
   .navbar {
     border-radius: 0;
@@ -1592,4 +1594,63 @@ ul li:hover ul.dropdown {
 }
 ul li ul.dropdown li {
   display: block;
+}
+.google-visualization-orgchart-node {
+  border: none!important;
+  background: #22B500 !important;
+  background-color: #22B500 !important;
+  color: #FFFFFF !important;
+}
+#chart {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  padding-top: 50px;
+  white-space: nowrap;
+}
+#btnChart {
+  width: 180px;
+}
+#btnFullChart {
+  width: 218px;
+}
+.ui-autocomplete,
+.ui-menu,
+.ui-widget,
+.ui-widget-content,
+.ui-corner-all {
+  /*width:auto!important;*/
+}
+.ui-menu-item {
+  display: block;
+}
+.ui-menu-item:hover {
+  background-color: #22B500 !important;
+  color: #FFFFFF !important;
+}
+.event {
+  margin-left: 18px;
+}
+.ui-state-focus {
+  background-color: #22B500 !important;
+  color: #FFFFFF !important;
+}
+.get-blue.get-org-chart {
+  /*background-color: #F7FFE5!important;*/
+  background-color: #FFEFE5!important;
+}
+.get-blue.get-org-chart .get-oc-tb {
+  /*background-color:#22B500!important;*/
+  background-color: #FB871F !important;
+}
+.get-blue .get-box,
+g.get-blue .get-box {
+  /*fill: #22B500!important;
+    stroke: #97D800!important;*/
+  fill: #FB871F !important;
+  stroke: #D85A00!important;
+}
+#people image {
+  height: 203px;
 }
