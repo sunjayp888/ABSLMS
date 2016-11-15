@@ -138,7 +138,7 @@ namespace ABS_LMS.Controllers
                     {
                         leaveDetails = _employeeLeaveService.GetAllEmployeesLeaveDetails();
                     }
-                        
+
                 }
                 else if (HttpCurrentUser.IsManager)
                 {
@@ -152,7 +152,7 @@ namespace ABS_LMS.Controllers
                     {
                         leaveDetails = _employeeLeaveService.GetAllMapppedEmployeesleaveDetails(Convert.ToInt32(HttpCurrentUser.EmployeeId));
                     }
-                    
+
                 }
                 var fromDate = model.FromDate;
                 var toDate = model.ToDate;
@@ -346,21 +346,21 @@ namespace ABS_LMS.Controllers
                 employeeleave.EmployeeLeaveDetails.LeaveStartDate.ToShortDateString(),
                 employeeleave.EmployeeLeaveDetails.LeaveEndDate.ToShortDateString());
 
-            
+
                 if (leaveDetails.EmployeeId != Convert.ToInt32(HttpCurrentUser.EmployeeId))
                 {
                     if (!ConfigHelper.Environment.ToLower().Equals("dev"))
                     {
                         //To Employee
                         SendMailToEmployee(employee, leaveDetails);
-                       
-                     
+
+
                     }
-                    return RedirectToAction("LeavePendingForApproval","Leave", new { id = HttpCurrentUser.EmployeeId });
+                    return RedirectToAction("LeavePendingForApproval", "Leave", new { id = HttpCurrentUser.EmployeeId });
                 }
                 else
                 {
-                     if (!ConfigHelper.Environment.ToLower().Equals("dev"))
+                    if (!ConfigHelper.Environment.ToLower().Equals("dev"))
                     {
                         //To Employee
                         SendMailToEmployee(employee, leaveDetails);
@@ -371,7 +371,7 @@ namespace ABS_LMS.Controllers
                     }
                     return RedirectToAction("Index", new { id = employeeleave.EmployeeLeaveDetails.EmployeeId });
                 }
-                
+
             }
             catch
             {
@@ -392,7 +392,7 @@ namespace ABS_LMS.Controllers
                 var employeeleave = _employeeLeaveService.GetLeavedetails(historyid);
                 var employee = _employeeService.GetEmployee(employeeleave.EmployeeId);
                 //Update Holiday Entitlement
-                _employeeLeaveService.UpdateHolidayEntitlement(employeeleave.EmployeeId,employeeleave.LeaveTypeId, employeeleave.NoOfDays);
+                _employeeLeaveService.UpdateHolidayEntitlement(employeeleave.EmployeeId, employeeleave.LeaveTypeId, employeeleave.NoOfDays);
                 //To Employee
                 SendMailToEmployee(employee, employeeleave);
                 //To Hr
@@ -520,9 +520,9 @@ namespace ABS_LMS.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             return Json(true, JsonRequestBehavior.AllowGet);
-            }
-}
-[HttpPost]
+        }
+
+        [HttpPost]
         public JsonResult EmployeeList(string Prefix)
         {
             var employees = HttpCurrentUser.IsManager ? GetEmployeeByReportingManager() : _employeeService.GetEmployees().Where(e => !e.IsArchive);
@@ -536,10 +536,11 @@ namespace ABS_LMS.Controllers
             }
             //Searching records from list using LINQ query  
             var employeeslist = (from e in employees
-                                 where   (e.FirstName +' '+e.LastName).ToLower().StartsWith(Prefix.ToLower().Trim()) ||  e.EmployeeCode.ToLower().StartsWith(Prefix.ToLower().Trim())
-                               select new { label = e.FirstName+' '+e.LastName+'('+e.EmployeeCode+')', val=e.EmployeeId }).ToList();
+                                 where (e.FirstName + ' ' + e.LastName).ToLower().StartsWith(Prefix.ToLower().Trim()) || e.EmployeeCode.ToLower().StartsWith(Prefix.ToLower().Trim())
+                                 select new { label = e.FirstName + ' ' + e.LastName + '(' + e.EmployeeCode + ')', val = e.EmployeeId }).ToList();
             return Json(employeeslist, JsonRequestBehavior.AllowGet);
         }
+
         private List<Employee> GetEmployeeByReportingManager()
         {
             var allEmployees = _employeeService.GetEmployees();
