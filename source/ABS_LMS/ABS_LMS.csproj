@@ -239,6 +239,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HRController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
+    <Compile Include="Controllers\OrganizationalChartController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -268,6 +269,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Base\images\animated-overlay.gif" />
+    <Content Include="Content\Base\images\spinner.gif" />
     <Content Include="Content\Base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\Base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\Base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -369,6 +371,8 @@
     <Content Include="Content\themes\LMS\images\anderson.gif" />
     <Content Include="Content\themes\LMS\images\andersonBPO_logo.png" />
     <Content Include="Content\themes\LMS\images\Blank_flag_large.PNG" />
+    <Content Include="Content\themes\LMS\images\demo.jpg" />
+    <Content Include="Content\themes\LMS\images\female.jpg" />
     <Content Include="Content\themes\LMS\images\New-logo.jpg" />
     <Content Include="Content\themes\LMS\images\profile-img.jpg" />
     <Content Include="favicon.ico" />
@@ -377,6 +381,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -394,6 +399,9 @@
     <None Include="Properties\PublishProfiles\pankaj.pubxml" />
     <None Include="Properties\PublishProfiles\sanjay.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\getorgchart.css" />
+    <Content Include="Scripts\getorgchart.js" />
+    <Content Include="Scripts\graphics.png" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.11.1.min.js" />
@@ -720,6 +728,7 @@
     <Content Include="Views\Holiday\Index.cshtml" />
     <Content Include="Views\Holiday\Create.cshtml" />
     <Content Include="Views\Leave\History.cshtml" />
+    <Content Include="Views\OrganizationalChart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
