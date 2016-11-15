@@ -72,27 +72,27 @@ namespace ABS_LMS.Controllers
 
         public ActionResult History(DateTime? FromDate, DateTime? ToDate, int pagenumber = 1, int pagesize = 10)
         {
-            if (FromDate!=null && ToDate != null)
+            if (FromDate != null && ToDate != null)
             {
                 //DateTime is null
-      
-            return Authorization.HasAccess(Convert.ToString(HttpCurrentUser.EmployeeId), () =>
-            {
-                var leaveDetails =
-                    _employeeLeaveService.GetEmployeeLeaveDetails(Convert.ToInt32(HttpCurrentUser.EmployeeId))
-                                    .Where(e => (e.LeaveStartDate >= FromDate && e.LeaveStartDate <= ToDate)
-                                   || (e.LeaveEndDate >= FromDate && e.LeaveEndDate <= ToDate)
-                                   || (e.LeaveStartDate <= FromDate && e.LeaveEndDate >= ToDate));
 
-                var model = new EmployeeLeaveIndexViewModel
+                return Authorization.HasAccess(Convert.ToString(HttpCurrentUser.EmployeeId), () =>
                 {
-                    EmployeeLeaveDetails = leaveDetails.ToPagedList(pagenumber, pagesize),
-                    FromDate = FromDate,
-                    ToDate = ToDate
-                };
+                    var leaveDetails =
+                        _employeeLeaveService.GetEmployeeLeaveDetails(Convert.ToInt32(HttpCurrentUser.EmployeeId))
+                                        .Where(e => (e.LeaveStartDate >= FromDate && e.LeaveStartDate <= ToDate)
+                                       || (e.LeaveEndDate >= FromDate && e.LeaveEndDate <= ToDate)
+                                       || (e.LeaveStartDate <= FromDate && e.LeaveEndDate >= ToDate));
 
-                return View("History", model);
-            });
+                    var model = new EmployeeLeaveIndexViewModel
+                    {
+                        EmployeeLeaveDetails = leaveDetails.ToPagedList(pagenumber, pagesize),
+                        FromDate = FromDate,
+                        ToDate = ToDate
+                    };
+
+                    return View("History", model);
+                });
             }
             else
             {
@@ -133,7 +133,7 @@ namespace ABS_LMS.Controllers
                 }
                 var fromDate = model.FromDate;
                 var toDate = model.ToDate;
-                leaveDetails = leaveDetails.Where(e =>e.LeaveStatus == model.LeaveStatusId && ((e.LeaveStartDate >= fromDate && e.LeaveStartDate <= toDate)
+                leaveDetails = leaveDetails.Where(e => e.LeaveStatus == model.LeaveStatusId && ((e.LeaveStartDate >= fromDate && e.LeaveStartDate <= toDate)
                                         || (e.LeaveEndDate >= fromDate && e.LeaveEndDate <= toDate)
                                         || (e.LeaveStartDate <= fromDate && e.LeaveEndDate >= toDate))).ToList();
 
@@ -189,10 +189,11 @@ namespace ABS_LMS.Controllers
 
                 var leaveStatus = enumValues.Select(enumValue => new SelectListItem
                 {
-
                     Value = ((int)enumValue).ToString(),
                     Text = _employeeLeaveService.GetEnumsNameById(Convert.ToInt32(enumValue))
                 }).ToList();
+
+
                 var manager = (from e in _employeeService.GetEmployees()
                                join m in _employeeService.GetEmployees() on e.ReportingManager equals m.EmployeeId
                                where e.EmployeeId.Equals(id)
@@ -201,12 +202,17 @@ namespace ABS_LMS.Controllers
                                    managerId = e.ReportingManager,
                                    managerName = m.FirstName + " " + m.LastName,
                                }).ToList();
+                var leave = new LeaveCalculation.LeaveCalculation();
+
                 var model = new EmployeeLeaveViewModel
                 {
                     EmployeeLeaveDetails = new EmployeeLeave { EmployeeId = id },
                     LeaveType = leavetype,
-                    LeaveStatusEnums = leaveStatus
-                    //    LeaveSummaries = _employeeLeaveService.GetLeaveSummary(id)
+                    LeaveStatusEnums = leaveStatus,
+                    HolidayEntitlements = leave.GetEmployeeEntitlement(id)
+                    //  IsCasualApplicable = LeaveCalculation.LeaveCalculation.IsCasualApplicable(id)
+
+                    //    LeaveSummaries = _employeeLeaveService.GetBalanceLeave(id)
                 };
 
                 var firstOrDefault = manager.FirstOrDefault();
@@ -346,10 +352,10 @@ namespace ABS_LMS.Controllers
             {
                 var employeeleave = _employeeLeaveService.GetLeavedetails(historyid);
                 var employee = _employeeService.GetEmployee(employeeleave.EmployeeId);
+                //Update Holiday Entitlement
+                _employeeLeaveService.UpdateHolidayEntitlement(employeeleave.EmployeeId,employeeleave.LeaveTypeId, employeeleave.NoOfDays);
                 //To Employee
                 SendMailToEmployee(employee, employeeleave);
-                //To Manager
-                //SendMailToManager(employee, employeeleave);
                 //To Hr
                 if (Service.Model.LeaveStatus.Approve.ToString().ToLower().Equals(status.ToLower()))
                     SendMailToHr(employee, employeeleave);
@@ -463,6 +469,18 @@ namespace ABS_LMS.Controllers
                                           employeeLeave.LeaveEndDate.ToString("dd-MMM-yyyy"), employeeLeave.Reason, _employeeLeaveService.GetEnumsNameById(Convert.ToInt32(employeeLeave.LeaveStatus)));
 
             SmtpHelper.Send(ConfigHelper.HrEmail, Subject.Leave, employeetemplate);
+        }
+
+
+        public ActionResult GetApplicableLeaveType(EmployeeLeave employeeLeave)
+        {
+            var leave = new LeaveCalculation.LeaveCalculation();
+            if (employeeLeave.LeaveTypeName.ToLower() == "casual")
+            {
+                var result = leave.IsCasualApplicable(employeeLeave);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
 }

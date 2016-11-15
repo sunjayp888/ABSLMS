@@ -8,36 +8,36 @@
 @using (Html.BeginForm("Create", "Leave", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    <div class="">
-        <div class="">
+    <div class="row">
+        <div class="col-lg-12">
             <div class="col-md-6 textboxsize padding-left-row">
                 <h1>Request Leave</h1>
 
                 <div class="panel panel-default">
                     <div class="panel-heading">&nbsp;</div>
                     <div class="panel-body">
-                        @Html.ValidationSummary(false, "", new {@class = " alert alert-warning"})
+                        @Html.ValidationSummary(false, "", new { @class = " alert alert-warning" })
                         @Html.HiddenFor(m => m.IsSave)
                         <div class="form-group" style="display: none;">
-                            @Html.LabelFor(model => model.EmployeeLeaveDetails.EmployeeId, htmlAttributes: new {@class = " col-md-4"})
+                            @Html.LabelFor(model => model.EmployeeLeaveDetails.EmployeeId, htmlAttributes: new { @class = " col-md-4" })
                             <div class="col-md-8">
-                                @Html.EditorFor(model => model.EmployeeLeaveDetails.EmployeeId, new {htmlAttributes = new {@class = ""}})
+                                @Html.EditorFor(model => model.EmployeeLeaveDetails.EmployeeId, new { htmlAttributes = new { @class = "" } })
                                 @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.EmployeeId, "", new { @class = "pull-left alert alert-warning " })*@
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStartDate, htmlAttributes: new {@class = " col-md-4"})
+                            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStartDate, htmlAttributes: new { @class = " col-md-4" })
                             <div class="col-md-8">
-                                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveStartDate, new {@class = "", @Value = ""})
+                                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveStartDate, new { @class = "", @Value = "" })
                                 @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveStartDate, "", new { @class = "pull-left alert alert-warning " })*@
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveEndDate, htmlAttributes: new {@class = " col-md-4"})
+                            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveEndDate, htmlAttributes: new { @class = " col-md-4" })
                             <div class="col-md-8">
-                                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveEndDate, new {@class = "", @Value = ""})
+                                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.LeaveEndDate, new { @class = "", @Value = "" })
                                 @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.LeaveEndDate, "", new { @class = "pull-left alert alert-warning " })*@
                             </div>
                         </div>
@@ -45,45 +45,45 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="col-md-3" style="padding-left: 0">@Html.Label("HalfDay", htmlAttributes: new {@class = " col-md-5"})</div>
-                                    <div class="col-md-2 col-lg-push-1" style="top: 15px; left: 20px">@Html.CheckBoxFor(model => model.EmployeeLeaveDetails.IsHalfDay, new {@class = "", @disabled = true})</div>
-                                    <div class="col-md-7">@Html.HiddenFor(model => model.EmployeeLeaveDetails.HalfDayDateUTC, new {@class = "form-control", @Value = ""})</div>
+                                    <div class="col-md-3" style="padding-left: 0">@Html.Label("HalfDay", htmlAttributes: new { @class = " col-md-5" })</div>
+                                    <div class="col-md-2 col-lg-push-1" style="top: 15px; left: 20px">@Html.CheckBoxFor(model => model.EmployeeLeaveDetails.IsHalfDay, new { @class = "", @disabled = true })</div>
+                                    <div class="col-md-7">@Html.HiddenFor(model => model.EmployeeLeaveDetails.HalfDayDateUTC, new { @class = "form-control", @Value = "" })</div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveTypeId, htmlAttributes: new {@class = " col-md-4"})
+                            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveTypeId, htmlAttributes: new { @class = " col-md-4" })
                             <div class="col-md-8">
-                                @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveTypeId, Model.LeaveType, new {@class = "form-control"})
+                                @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveTypeId, Model.LeaveType, new { @class = "form-control" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.EmployeeLeaveDetails.NoOfDays, htmlAttributes: new {@class = " col-md-4"})
+                            @Html.LabelFor(model => model.EmployeeLeaveDetails.NoOfDays, htmlAttributes: new { @class = " col-md-4" })
                             <div class="col-md-8">
-                                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.NoOfDays, new {@readonly = "readonly"})
+                                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.NoOfDays, new { @readonly = "readonly" })
                                 @*@Html.ValidationMessageFor(model => model.EmployeeLeaveDetails.NoOfDays, "", new { @class = "pull-left alert alert-warning " })*@
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.EmployeeLeaveDetails.Reason, htmlAttributes: new {@class = " col-md-4"})
+                            @Html.LabelFor(model => model.EmployeeLeaveDetails.Reason, htmlAttributes: new { @class = " col-md-4" })
                             <div class="col-md-8">
-                                @Html.EditorFor(model => model.EmployeeLeaveDetails.Reason, new {htmlAttributes = new {@class = "", @cols = 80, @rows = 5}})
+                                @Html.EditorFor(model => model.EmployeeLeaveDetails.Reason, new { htmlAttributes = new { @class = "", @cols = 80, @rows = 5 } })
                             </div>
                         </div>
 
                         <div class="form-group" style="display: none;">
-                            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStatus, htmlAttributes: new {@class = " col-md-4"})
+                            @Html.LabelFor(model => model.EmployeeLeaveDetails.LeaveStatus, htmlAttributes: new { @class = " col-md-4" })
                             <div class="col-md-8">
-                                @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveStatus, Model.LeaveStatusEnums, new {@class = "form-control"})
+                                @Html.DropDownListFor(model => model.EmployeeLeaveDetails.LeaveStatus, Model.LeaveStatusEnums, new { @class = "form-control" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.EmployeeLeaveDetails.ApprovedBy, new {@class = " col-md-4"})
+                            @Html.LabelFor(model => model.EmployeeLeaveDetails.ApprovedBy, new { @class = " col-md-4" })
                             <div class="col-md-8">
-                                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.ApprovedPersonName, new {@readonly = "readonly"})
+                                @Html.TextBoxFor(model => model.EmployeeLeaveDetails.ApprovedPersonName, new { @readonly = "readonly" })
                                 @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedPersonName)
                                 @Html.HiddenFor(model => model.EmployeeLeaveDetails.ApprovedBy)
                             </div>
@@ -91,7 +91,7 @@
 
                         <div class="form-group">
                             <div class="col-md-offset-4 col-md-8">
-                                &nbsp;&nbsp;<input type="button" value="Apply" class="btn btn-default leaveApply"/>
+                                &nbsp;&nbsp;<input type="button" value="Apply" class="btn btn-default leaveApply" />
                             </div>
                         </div>
 
@@ -112,21 +112,63 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="modal fade" id="leaveTypeValidationModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4>Confirmation</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Not eligible for this leave.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id="btnCancelleaveTypeValidationModal" class="btn modalpopupbtn" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
 
                 <div class="row ">
                     <div class="col-md-12">
-                        @Html.ActionLink("Back to List", "Index", new {id = HttpCurrentUser.EmployeeId})
+                        @Html.ActionLink("Back to List", "Index", new { id = HttpCurrentUser.EmployeeId })
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    }
+        <div class="col-lg-6">
+            <div>
+                <table class="table table-bordered">
 
-    @section Scripts {
+                    <thead>
+                        <tr>
+                            <th>Leave Type</th>
+                            <th>Opening Balance</th>
+                            <th>Leave Taken</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.HolidayEntitlements)
+                        {
+                            <tr>
+                                <td>@item.LeaveType</td>
+                                <td>@item.OpeningBalance</td>
+                                <td>@item.LeaveTaken</td>
+                                <td>@item.Balance</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div> 
+        </div>
+    </div>
+}
+
+@section Scripts {
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
@@ -136,19 +178,19 @@
             $('.nav #Leaves').addClass('active');
             $('.sub-menu a').removeClass('active-btn');
             $(".createLeave").addClass('active-btn');
-            $(".leaveApply").click(function () {
-                $("#leaveModal").modal('show');
-            });
+           
 
             $("#btnOK").click(function () {
                 $("#leaveModal").modal('hide');
                 $("#EmployeeLeaveDetails_LeaveStatus").val("2");
                 onBegin();
-
-
             });
 
             $("#btnCancel").click(function () {
+                $("#leaveModal").modal('hide');
+            });
+
+            $("#btnCancelleaveTypeValidationModal").click(function () {
                 $("#leaveModal").modal('hide');
             });
 
@@ -214,6 +256,9 @@
             }).val();
         });
 
+        $(".leaveApply").click(function () {
+            CheckValidLeaveType();
+        });
 
         function formattedDate(date) {
             var data = date.split("-");
@@ -252,5 +297,34 @@
                     $("#EmployeeLeaveDetails_NoOfDays").val(data.Value);
                 });
         }
+
+        function CheckValidLeaveType() {
+            var url = '../GetApplicableLeaveType';
+            var employeeLeaveObject = {
+                EmployeeId : @Model.EmployeeLeaveDetails.EmployeeId,
+                LeaveStartDate : formattedDate($("#EmployeeLeaveDetails_LeaveStartDate").val()),
+                LeaveEndDate :formattedDate($("#EmployeeLeaveDetails_LeaveEndDate").val()),
+                NoOfDays:$("#EmployeeLeaveDetails_NoOfDays").val(),
+                LeaveTypeName:$("#EmployeeLeaveDetails_LeaveTypeId").find("option:selected").text()
+            }
+
+            $.ajax({
+                url: url,
+                data: { employeeLeave:employeeLeaveObject},
+                cache: false,
+                dataType: "Json",
+                type: "POST",
+                success: function(data) {
+                    if (data) {
+                        $("#leaveModal").modal('show');
+                    } else {
+                        $("#leaveTypeValidationModal").modal('show');
+                    }
+                },
+                error: function(response) {
+                    alert("Error Occurred ");
+                }
+            });
+        }
     </script>
-    }
+}

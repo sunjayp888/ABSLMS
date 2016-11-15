@@ -23,10 +23,11 @@ namespace ABS_LMS.Service.Interface
         List<EmployeeLeave> GetLeaveDetailsPendingForApproval(int approvedBy);
         List<EmployeeLeave> GetApprovedLeaves();
         int UpdateLeaveStatus(string status, int leaveHistoryId);
-        List<LeaveSummary> GetLeaveSummary(int employeeId);
+        List<EntitlementSummary> GetBalanceLeave(int employeeId);
         void UpdateLeaveDetails(int employeeId);
         string GetLeaveTypeNameById(int leaveTypeId);
         List<EmployeeLeave> GetAllMapppedEmployeesleaveDetails(int lineManagerId);
         List<EmployeeLeave> GetAllEmployeesLeaveDetails();
+        void UpdateHolidayEntitlement(int employeeId, int leaveTypeId,decimal? leaveTaken);
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ABS_LMS.Service.Model
 {
-    public  class LeaveSummary
+    public  class EntitlementSummary
     {
         public int? LeaveTypeId { get; set; }
         public string Name { get; set; }
@@ -17,5 +17,6 @@ namespace ABS_LMS.Service.Model
         public decimal? LeaveTaken { get; set; }
         public decimal? CarryForward { get; set; }
         public decimal? Balance { get; set; }
+        public decimal? OpeningBalance { get; set; }
     }
 }

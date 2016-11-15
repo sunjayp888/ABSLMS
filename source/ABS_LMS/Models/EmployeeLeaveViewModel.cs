@@ -11,7 +11,9 @@ namespace ABS_LMS.Models
         public EmployeeLeave EmployeeLeaveDetails { get; set; }
         public IEnumerable<SelectListItem> LeaveType { get; set; }
         public IEnumerable<SelectListItem> LeaveStatusEnums { get; set; }
-        public List<LeaveSummary> LeaveSummaries { get; set; }
+        public List<EntitlementSummary> LeaveSummaries { get; set; }
         public bool IsSave { get; set; }
+        public bool IsCasualApplicable { get; set; }
+        public List<HolidayEntitlement> HolidayEntitlements { get; set; }
     }
 }

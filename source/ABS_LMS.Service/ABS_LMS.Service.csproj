@@ -71,7 +71,7 @@
     <Compile Include="Model\Event.cs" />
     <Compile Include="Model\Holiday.cs" />
     <Compile Include="Model\Leave.cs" />
-    <Compile Include="Model\LeaveSummary.cs" />
+    <Compile Include="Model\EntitlementSummary.cs" />
     <Compile Include="Model\LeaveType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork.cs" />

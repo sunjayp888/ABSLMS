@@ -18,8 +18,8 @@ namespace ABS_LMS.Data
         public Employee()
         {
             this.AspNetUsers = new HashSet<AspNetUser>();
+            this.HolidayEntitlements = new HashSet<HolidayEntitlement>();
             this.EmployeeLeaveHistories = new HashSet<EmployeeLeaveHistory>();
-            this.LeaveDetails = new HashSet<LeaveDetail>();
         }
     
         public int EmployeeId { get; set; }
@@ -52,6 +52,8 @@ namespace ABS_LMS.Data
         public byte[] EmployeeImage { get; set; }
         public int ClientId { get; set; }
         public bool IsArchive { get; set; }
+        public string MachineName { get; set; }
+        public string EnvironmentUsername { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
@@ -59,8 +61,8 @@ namespace ABS_LMS.Data
         public virtual Department Department { get; set; }
         public virtual Designation Designation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EmployeeLeaveHistory> EmployeeLeaveHistories { get; set; }
+        public virtual ICollection<HolidayEntitlement> HolidayEntitlements { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LeaveDetail> LeaveDetails { get; set; }
+        public virtual ICollection<EmployeeLeaveHistory> EmployeeLeaveHistories { get; set; }
     }
 }

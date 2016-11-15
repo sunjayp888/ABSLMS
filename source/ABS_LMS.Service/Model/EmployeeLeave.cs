@@ -31,7 +31,7 @@ namespace ABS_LMS.Service.Model
         public DateTime? JoiningDate { get; set; }
 
         [DisplayName("Leave Type")]
-        public int? LeaveTypeId { get; set; }
+        public int LeaveTypeId { get; set; }
 
         public string LeaveTypeName { get; set; }
 

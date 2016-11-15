@@ -19,7 +19,7 @@ namespace ABS_LMS.Data
         public System.DateTime LeaveStartDate { get; set; }
         public System.DateTime LeaveEndDate { get; set; }
         public Nullable<System.DateTime> JoiningDate { get; set; }
-        public Nullable<int> LeaveTypeId { get; set; }
+        public int LeaveTypeId { get; set; }
         public decimal NoOfDays { get; set; }
         public string Reason { get; set; }
         public int LeaveStatus { get; set; }
@@ -30,6 +30,7 @@ namespace ABS_LMS.Data
         public Nullable<int> UpdatedBy { get; set; }
         public string ApprovedPersonName { get; set; }
         public Nullable<System.DateTime> HalfDayDateUTC { get; set; }
+        public string NotificationStatus { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual LeaveType LeaveType { get; set; }

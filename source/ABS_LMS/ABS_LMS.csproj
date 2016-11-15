@@ -247,6 +247,7 @@
     <Compile Include="Helper\Template.cs" />
     <Compile Include="Helper\LeaveType.cs" />
     <Compile Include="Helper\SmtpHelper.cs" />
+    <Compile Include="LeaveCalculation\LeaveCalculation.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -255,6 +256,7 @@
     <Compile Include="Models\EmployeeLeaveViewModel.cs" />
     <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\EventViewModel.cs" />
+    <Compile Include="Models\HolidayEntitlement.cs" />
     <Compile Include="Models\HolidayViewModel.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />

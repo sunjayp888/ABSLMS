@@ -17,7 +17,7 @@ namespace ABS_LMS.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LeaveType()
         {
-            this.LeaveDetails = new HashSet<LeaveDetail>();
+            this.HolidayEntitlements = new HashSet<HolidayEntitlement>();
             this.EmployeeLeaveHistories = new HashSet<EmployeeLeaveHistory>();
         }
     
@@ -28,7 +28,7 @@ namespace ABS_LMS.Data
         public string EmployeeType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LeaveDetail> LeaveDetails { get; set; }
+        public virtual ICollection<HolidayEntitlement> HolidayEntitlements { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeLeaveHistory> EmployeeLeaveHistories { get; set; }
     }

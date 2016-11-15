@@ -33,11 +33,11 @@ namespace ABS_LMS.Data
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Designation> Designations { get; set; }
         public virtual DbSet<Holiday> Holidays { get; set; }
-        public virtual DbSet<LeaveDetail> LeaveDetails { get; set; }
         public virtual DbSet<LeaveType> LeaveTypes { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<HolidayEntitlement> HolidayEntitlements { get; set; }
         public virtual DbSet<EmployeeLeaveHistory> EmployeeLeaveHistories { get; set; }
     
         public virtual ObjectResult<sp_LeaveSummary_Result> sp_LeaveSummary(Nullable<int> employeeId)
@@ -45,12 +45,16 @@ namespace ABS_LMS.Data
             var employeeIdParameter = employeeId.HasValue ?
                 new ObjectParameter("EmployeeId", employeeId) :
                 new ObjectParameter("EmployeeId", typeof(int));
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_LeaveSummary_Result>("sp_LeaveSummary", employeeIdParameter);
         }
     
         public virtual ObjectResult<GetAllMappedEmployees_Result> GetAllMappedEmployees(Nullable<int> employeeID)
         {
-            var employeeIDParameter = employeeID.HasValue ? new ObjectParameter("EmployeeID", employeeID) : new ObjectParameter("EmployeeID", typeof(int));
+            var employeeIDParameter = employeeID.HasValue ?
+                new ObjectParameter("EmployeeID", employeeID) :
+                new ObjectParameter("EmployeeID", typeof(int));
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllMappedEmployees_Result>("GetAllMappedEmployees", employeeIDParameter);
         }
     }

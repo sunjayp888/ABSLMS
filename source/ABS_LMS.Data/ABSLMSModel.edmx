@@ -106,6 +106,9 @@
           <Property Name="Country" Type="varchar" MaxLength="200" />
           <Property Name="EmployeeImage" Type="varbinary(max)" />
           <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="IsArchive" Type="bit" Nullable="false" />
+          <Property Name="MachineName" Type="nvarchar" MaxLength="500" />
+          <Property Name="EnvironmentUsername" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="EmployeeLeaveHistory">
           <Key>
@@ -116,7 +119,7 @@
           <Property Name="LeaveStartDate" Type="datetime" Nullable="false" />
           <Property Name="LeaveEndDate" Type="datetime" Nullable="false" />
           <Property Name="JoiningDate" Type="datetime" />
-          <Property Name="LeaveTypeId" Type="int" />
+          <Property Name="LeaveTypeId" Type="int" Nullable="false" />
           <Property Name="NoOfDays" Type="decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="Reason" Type="nvarchar" MaxLength="1000" />
           <Property Name="LeaveStatus" Type="int" Nullable="false" />
@@ -127,6 +130,7 @@
           <Property Name="UpdatedBy" Type="int" />
           <Property Name="ApprovedPersonName" Type="nvarchar" MaxLength="500" />
           <Property Name="HalfDayDateUTC" Type="datetime" />
+          <Property Name="NotificationStatus" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -152,11 +156,11 @@
           <Property Name="Type" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="250" />
         </EntityType>
-        <EntityType Name="LeaveDetails">
+        <EntityType Name="HolidayEntitlement">
           <Key>
-            <PropertyRef Name="LeaveDetailsId" />
+            <PropertyRef Name="HolidayEntitlementId" />
           </Key>
-          <Property Name="LeaveDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HolidayEntitlementId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="LeaveTypeId" Type="int" Nullable="false" />
           <Property Name="OpeningBalance" Type="decimal" Precision="18" Scale="2" />
@@ -255,7 +259,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EmployeeLeaveHistory_LeaveType">
-          <End Role="LeaveType" Type="Self.LeaveType" Multiplicity="0..1">
+          <End Role="LeaveType" Type="Self.LeaveType" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="EmployeeLeaveHistory" Type="Self.EmployeeLeaveHistory" Multiplicity="*" />
@@ -272,12 +276,12 @@
           <End Role="Employee" Type="Self.Employee" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="LeaveDetails" Type="Self.LeaveDetails" Multiplicity="*" />
+          <End Role="HolidayEntitlement" Type="Self.HolidayEntitlement" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="EmployeeId" />
             </Principal>
-            <Dependent Role="LeaveDetails">
+            <Dependent Role="HolidayEntitlement">
               <PropertyRef Name="EmployeeId" />
             </Dependent>
           </ReferentialConstraint>
@@ -286,12 +290,12 @@
           <End Role="LeaveType" Type="Self.LeaveType" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="LeaveDetails" Type="Self.LeaveDetails" Multiplicity="*" />
+          <End Role="HolidayEntitlement" Type="Self.HolidayEntitlement" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LeaveType">
               <PropertyRef Name="LeaveTypeId" />
             </Principal>
-            <Dependent Role="LeaveDetails">
+            <Dependent Role="HolidayEntitlement">
               <PropertyRef Name="LeaveTypeId" />
             </Dependent>
           </ReferentialConstraint>
@@ -310,7 +314,7 @@
           <EntitySet Name="EmployeeLeaveHistory" EntityType="Self.EmployeeLeaveHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Holiday" EntityType="Self.Holiday" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="LeaveDetails" EntityType="Self.LeaveDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HolidayEntitlement" EntityType="Self.HolidayEntitlement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveType" EntityType="Self.LeaveType" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AspNetUsers_Employee" Association="Self.FK_AspNetUsers_Employee">
             <End Role="Employee" EntitySet="Employee" />
@@ -342,11 +346,11 @@
           </AssociationSet>
           <AssociationSet Name="FK_LeaveDetails_Employee" Association="Self.FK_LeaveDetails_Employee">
             <End Role="Employee" EntitySet="Employee" />
-            <End Role="LeaveDetails" EntitySet="LeaveDetails" />
+            <End Role="HolidayEntitlement" EntitySet="HolidayEntitlement" />
           </AssociationSet>
           <AssociationSet Name="FK_LeaveDetails_LeaveType" Association="Self.FK_LeaveDetails_LeaveType">
             <End Role="LeaveType" EntitySet="LeaveType" />
-            <End Role="LeaveDetails" EntitySet="LeaveDetails" />
+            <End Role="HolidayEntitlement" EntitySet="HolidayEntitlement" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -363,15 +367,10 @@
           <EntitySet Name="Departments" EntityType="ABSLMSModel.Department" />
           <EntitySet Name="Designations" EntityType="ABSLMSModel.Designation" />
           <EntitySet Name="Holidays" EntityType="ABSLMSModel.Holiday" />
-          <EntitySet Name="LeaveDetails" EntityType="ABSLMSModel.LeaveDetail" />
           <EntitySet Name="LeaveTypes" EntityType="ABSLMSModel.LeaveType" />
           <AssociationSet Name="FK_Department_Department" Association="ABSLMSModel.FK_Department_Department">
             <End Role="Department" EntitySet="Departments" />
             <End Role="Department1" EntitySet="Departments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LeaveDetails_LeaveType" Association="ABSLMSModel.FK_LeaveDetails_LeaveType">
-            <End Role="LeaveType" EntitySet="LeaveTypes" />
-            <End Role="LeaveDetail" EntitySet="LeaveDetails" />
           </AssociationSet>
           <EntitySet Name="Events" EntityType="ABSLMSModel.Event" />
           <EntitySet Name="Clients" EntityType="ABSLMSModel.Client" />
@@ -392,9 +391,17 @@
             <End Role="Designation" EntitySet="Designations" />
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
+          <FunctionImport Name="GetAllMappedEmployees" ReturnType="Collection(ABSLMSModel.GetAllMappedEmployees_Result)">
+          <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="HolidayEntitlements" EntityType="ABSLMSModel.HolidayEntitlement" />
           <AssociationSet Name="FK_LeaveDetails_Employee" Association="ABSLMSModel.FK_LeaveDetails_Employee">
             <End Role="Employee" EntitySet="Employees" />
-            <End Role="LeaveDetail" EntitySet="LeaveDetails" />
+            <End Role="HolidayEntitlement" EntitySet="HolidayEntitlements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveDetails_LeaveType" Association="ABSLMSModel.FK_LeaveDetails_LeaveType">
+            <End Role="LeaveType" EntitySet="LeaveTypes" />
+            <End Role="HolidayEntitlement" EntitySet="HolidayEntitlements" />
           </AssociationSet>
           <EntitySet Name="EmployeeLeaveHistories" EntityType="ABSLMSModel.EmployeeLeaveHistory" />
           <AssociationSet Name="FK_EmployeeLeaveHistory_Employee" Association="ABSLMSModel.FK_EmployeeLeaveHistory_Employee">
@@ -405,9 +412,6 @@
             <End Role="LeaveType" EntitySet="LeaveTypes" />
             <End Role="EmployeeLeaveHistory" EntitySet="EmployeeLeaveHistories" />
           </AssociationSet>
-          <FunctionImport Name="GetAllMappedEmployees" ReturnType="Collection(ABSLMSModel.GetAllMappedEmployees_Result)">
-          <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
-          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_LeaveSummary_Result">
           <Property Type="Int32" Name="LeaveTypeId" Nullable="false" />
@@ -496,24 +500,6 @@
           <Property Name="Type" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="LeaveDetail">
-          <Key>
-            <PropertyRef Name="LeaveDetailsId" />
-          </Key>
-          <Property Name="LeaveDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
-          <Property Name="LeaveTypeId" Type="Int32" Nullable="false" />
-          <Property Name="OpeningBalance" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Earned" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="LeaveTaken" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Approved" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CarryForward" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Balance" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Year" Type="Int32" />
-          <Property Name="Month" Type="Int32" />
-          <NavigationProperty Name="LeaveType" Relationship="ABSLMSModel.FK_LeaveDetails_LeaveType" FromRole="LeaveDetail" ToRole="LeaveType" />
-          <NavigationProperty Name="Employee" Relationship="ABSLMSModel.FK_LeaveDetails_Employee" FromRole="LeaveDetail" ToRole="Employee" />
-        </EntityType>
         <EntityType Name="LeaveType">
           <Key>
             <PropertyRef Name="LeaveTypeId" />
@@ -523,7 +509,7 @@
           <Property Name="Count" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Frequency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EmployeeType" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LeaveDetails" Relationship="ABSLMSModel.FK_LeaveDetails_LeaveType" FromRole="LeaveType" ToRole="LeaveDetail" />
+          <NavigationProperty Name="HolidayEntitlements" Relationship="ABSLMSModel.FK_LeaveDetails_LeaveType" FromRole="LeaveType" ToRole="HolidayEntitlement" />
           <NavigationProperty Name="EmployeeLeaveHistories" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_LeaveType" FromRole="LeaveType" ToRole="EmployeeLeaveHistory" />
         </EntityType>
         <Association Name="FK_Department_Department">
@@ -535,20 +521,6 @@
             </Principal>
             <Dependent Role="Department1">
               <PropertyRef Name="DepartmentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LeaveDetails_LeaveType">
-          <End Type="ABSLMSModel.LeaveType" Role="LeaveType" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ABSLMSModel.LeaveDetail" Role="LeaveDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LeaveType">
-              <PropertyRef Name="LeaveTypeId" />
-            </Principal>
-            <Dependent Role="LeaveDetail">
-              <PropertyRef Name="LeaveTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -611,7 +583,10 @@
           <NavigationProperty Name="Client" Relationship="ABSLMSModel.FK_Employee_Client" FromRole="Employee" ToRole="Client" />
           <NavigationProperty Name="Department" Relationship="ABSLMSModel.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
           <NavigationProperty Name="Designation" Relationship="ABSLMSModel.FK_Employee_Designation" FromRole="Employee" ToRole="Designation" />
-          <NavigationProperty Name="LeaveDetails" Relationship="ABSLMSModel.FK_LeaveDetails_Employee" FromRole="Employee" ToRole="LeaveDetail" />
+          <Property Name="IsArchive" Type="Boolean" Nullable="false" />
+          <Property Name="MachineName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EnvironmentUsername" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HolidayEntitlements" Relationship="ABSLMSModel.FK_LeaveDetails_Employee" FromRole="Employee" ToRole="HolidayEntitlement" />
           <NavigationProperty Name="EmployeeLeaveHistories" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_Employee" FromRole="Employee" ToRole="EmployeeLeaveHistory" />
         </EntityType>
         <Association Name="FK_AspNetUsers_Employee">
@@ -664,17 +639,58 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="GetAllMappedEmployees_Result">
+          <Property Type="Int32" Name="EmployeeID" Nullable="true" />
+          <Property Type="String" Name="EmployeeCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="ReportingManager" Nullable="true" />
+          <Property Type="Int32" Name="ClientId" Nullable="true" />
+          <Property Type="Int32" Name="DepartmentId" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="HolidayEntitlement">
+          <Key>
+            <PropertyRef Name="HolidayEntitlementId" />
+          </Key>
+          <Property Name="HolidayEntitlementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="LeaveTypeId" Type="Int32" Nullable="false" />
+          <Property Name="OpeningBalance" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Earned" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LeaveTaken" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Approved" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CarryForward" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Balance" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="Month" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="ABSLMSModel.FK_LeaveDetails_Employee" FromRole="HolidayEntitlement" ToRole="Employee" />
+          <NavigationProperty Name="LeaveType" Relationship="ABSLMSModel.FK_LeaveDetails_LeaveType" FromRole="HolidayEntitlement" ToRole="LeaveType" />
+        </EntityType>
         <Association Name="FK_LeaveDetails_Employee">
           <End Type="ABSLMSModel.Employee" Role="Employee" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="ABSLMSModel.LeaveDetail" Role="LeaveDetail" Multiplicity="*" />
+          <End Type="ABSLMSModel.HolidayEntitlement" Role="HolidayEntitlement" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="EmployeeId" />
             </Principal>
-            <Dependent Role="LeaveDetail">
+            <Dependent Role="HolidayEntitlement">
               <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveDetails_LeaveType">
+          <End Type="ABSLMSModel.LeaveType" Role="LeaveType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ABSLMSModel.HolidayEntitlement" Role="HolidayEntitlement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LeaveType">
+              <PropertyRef Name="LeaveTypeId" />
+            </Principal>
+            <Dependent Role="HolidayEntitlement">
+              <PropertyRef Name="LeaveTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -687,7 +703,7 @@
           <Property Name="LeaveStartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LeaveEndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="JoiningDate" Type="DateTime" Precision="3" />
-          <Property Name="LeaveTypeId" Type="Int32" />
+          <Property Name="LeaveTypeId" Type="Int32" Nullable="false" />
           <Property Name="NoOfDays" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
           <Property Name="Reason" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="LeaveStatus" Type="Int32" Nullable="false" />
@@ -698,6 +714,7 @@
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="ApprovedPersonName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="HalfDayDateUTC" Type="DateTime" Precision="3" />
+          <Property Name="NotificationStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employee" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_Employee" FromRole="EmployeeLeaveHistory" ToRole="Employee" />
           <NavigationProperty Name="LeaveType" Relationship="ABSLMSModel.FK_EmployeeLeaveHistory_LeaveType" FromRole="EmployeeLeaveHistory" ToRole="LeaveType" />
         </EntityType>
@@ -716,7 +733,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EmployeeLeaveHistory_LeaveType">
-          <End Type="ABSLMSModel.LeaveType" Role="LeaveType" Multiplicity="0..1">
+          <End Type="ABSLMSModel.LeaveType" Role="LeaveType" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Type="ABSLMSModel.EmployeeLeaveHistory" Role="EmployeeLeaveHistory" Multiplicity="*" />
@@ -729,15 +746,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="GetAllMappedEmployees_Result">
-          <Property Type="Int32" Name="EmployeeID" Nullable="true" />
-          <Property Type="String" Name="EmployeeCode" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="255" />
-          <Property Type="String" Name="LastName" Nullable="true" MaxLength="255" />
-          <Property Type="Int32" Name="ReportingManager" Nullable="true" />
-          <Property Type="Int32" Name="ClientId" Nullable="true" />
-          <Property Type="Int32" Name="DepartmentId" Nullable="true" />
-        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -811,23 +819,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LeaveDetails">
-            <EntityTypeMapping TypeName="ABSLMSModel.LeaveDetail">
-              <MappingFragment StoreEntitySet="LeaveDetails">
-                <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Balance" ColumnName="Balance" />
-                <ScalarProperty Name="CarryForward" ColumnName="CarryForward" />
-                <ScalarProperty Name="Approved" ColumnName="Approved" />
-                <ScalarProperty Name="LeaveTaken" ColumnName="LeaveTaken" />
-                <ScalarProperty Name="Earned" ColumnName="Earned" />
-                <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
-                <ScalarProperty Name="LeaveTypeId" ColumnName="LeaveTypeId" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="LeaveDetailsId" ColumnName="LeaveDetailsId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="LeaveTypes">
             <EntityTypeMapping TypeName="ABSLMSModel.LeaveType">
               <MappingFragment StoreEntitySet="LeaveType">
@@ -865,6 +856,9 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="ABSLMSModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EnvironmentUsername" ColumnName="EnvironmentUsername" />
+                <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+                <ScalarProperty Name="IsArchive" ColumnName="IsArchive" />
                 <ScalarProperty Name="ClientId" ColumnName="ClientId" />
                 <ScalarProperty Name="EmployeeImage" ColumnName="EmployeeImage" />
                 <ScalarProperty Name="Country" ColumnName="Country" />
@@ -897,9 +891,40 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetAllMappedEmployees" FunctionName="ABSLMSModel.Store.GetAllMappedEmployees">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ABSLMSModel.GetAllMappedEmployees_Result">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="ReportingManager" ColumnName="ReportingManager" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="HolidayEntitlements">
+            <EntityTypeMapping TypeName="ABSLMSModel.HolidayEntitlement">
+              <MappingFragment StoreEntitySet="HolidayEntitlement">
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="CarryForward" ColumnName="CarryForward" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="LeaveTaken" ColumnName="LeaveTaken" />
+                <ScalarProperty Name="Earned" ColumnName="Earned" />
+                <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
+                <ScalarProperty Name="LeaveTypeId" ColumnName="LeaveTypeId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="HolidayEntitlementId" ColumnName="HolidayEntitlementId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="EmployeeLeaveHistories">
             <EntityTypeMapping TypeName="ABSLMSModel.EmployeeLeaveHistory">
               <MappingFragment StoreEntitySet="EmployeeLeaveHistory">
+                <ScalarProperty Name="NotificationStatus" ColumnName="NotificationStatus" />
                 <ScalarProperty Name="HalfDayDateUTC" ColumnName="HalfDayDateUTC" />
                 <ScalarProperty Name="ApprovedPersonName" ColumnName="ApprovedPersonName" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
@@ -919,19 +944,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetAllMappedEmployees" FunctionName="ABSLMSModel.Store.GetAllMappedEmployees">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ABSLMSModel.GetAllMappedEmployees_Result">
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="ReportingManager" ColumnName="ReportingManager" />
-                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

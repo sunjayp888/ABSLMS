@@ -100,7 +100,7 @@
     <Compile Include="Holiday.cs">
       <DependentUpon>ABSLMSModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="LeaveDetail.cs">
+    <Compile Include="HolidayEntitlement.cs">
       <DependentUpon>ABSLMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="LeaveType.cs">

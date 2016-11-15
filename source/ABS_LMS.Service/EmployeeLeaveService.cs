@@ -40,15 +40,15 @@ namespace ABS_LMS.Service
                 UpdatedDateUTC = DateTime.UtcNow,
                 UpdatedBy = employeeLeaveDetails.CreatedBy,
                 ApprovedPersonName = employeeLeaveDetails.ApprovedPersonName,
-                HalfDayDateUTC =  employeeLeaveDetails.HalfDayDateUTC 
+                HalfDayDateUTC = employeeLeaveDetails.HalfDayDateUTC
             });
             _unitOfWork.Complete();
         }
 
         public List<EmployeeLeave> GetEmployeeLeaveDetails(int employeeId)
-        {   
+        {
             var employeeLeaveDetails = _unitOfWork.EmployeeLeave.GetEmployeeLeaveDetails(employeeId).ToList();
-           
+
             return employeeLeaveDetails.Select(leaveDetails => new EmployeeLeave
             {
                 EmployeeLeaveHistoryId = leaveDetails.EmployeeLeaveHistoryId,
@@ -74,7 +74,7 @@ namespace ABS_LMS.Service
                 HalfDayDateUTC = leaveDetails.HalfDayDateUTC
             }).OrderByDescending(o => o.CreatedDateUTC).ToList();
         }
-        
+
         public List<Leave> GetEmployeeLeaveSummary(int employeeId)
         {
             throw new NotImplementedException();
@@ -137,12 +137,12 @@ namespace ABS_LMS.Service
         {
             foreach (var item in _unitOfWork.LeaveType.GetAll())
             {
-                _unitOfWork.LeaveDetails.Add(new Data.LeaveDetail
+                _unitOfWork.HolidayEntitlementDetails.Add(new Data.HolidayEntitlement
                 {
                     EmployeeId = employeeId,
                     LeaveTypeId = item.LeaveTypeId
                 });
-            }           
+            }
             _unitOfWork.Complete();
         }
 
@@ -218,43 +218,59 @@ namespace ABS_LMS.Service
         }
 
 
-        public List<LeaveSummary> GetLeaveSummary(int employeeId)
+        public List<EntitlementSummary> GetBalanceLeave(int employeeId)
         {
 
-            var leaveSummary = from lt in _unitOfWork.LeaveType.GetAll().ToList()
-                               join ld in _unitOfWork.LeaveDetails.GetAll().ToList().Where(l=>l.EmployeeId==employeeId) on new { LeaveTypeId = lt.LeaveTypeId } equals
-                                   new { LeaveTypeId = ld.LeaveTypeId } into ld_join
-                               from ld in ld_join.DefaultIfEmpty()
-                               join e in _unitOfWork.Employee.GetAll().ToList().Where(e => e.EmployeeId == employeeId) on ld.EmployeeId equals e.EmployeeId into e_join
-                               from e in e_join.DefaultIfEmpty()
-                               where
-           ld.EmployeeId == employeeId
-                               select new LeaveSummary
-                               {
-                                   LeaveTypeId = (int?)lt.LeaveTypeId,
-                                   Name = lt.Name,
-                                   Count = lt.Count,
-                                   Frequency = lt.Frequency,
-                                   EmployeeType = lt.EmployeeType,
-                                   Total = (decimal?)Convert.ToDecimal((
-                                    lt.Name == "Earned" &&
-  e.ConfirmationDateUTC != null ? (lt.Count * (
- Convert.ToDateTime(DateTime.Now).Year != Convert.ToDateTime(Convert.ToDateTime(e.ConfirmationDateUTC)).Year ? (System.Decimal)Convert.ToDateTime(DateTime.Now).Month : (Convert.ToDateTime(DateTime.Now).Month - Convert.ToDateTime(Convert.ToDateTime(e.ConfirmationDateUTC)).Month + (30 - Convert.ToDateTime(Convert.ToDateTime(e.ConfirmationDateUTC)).Day * lt.Count) / 30))) :
-  lt.Name == "Casual" &&
-                                             e.ConfirmationDateUTC != null
-                                               ? lt.Count
-                                               : lt.Name == "Sick" ? lt.Count : 0)),
-                                   LeaveTaken = ((System.Decimal?)ld.LeaveTaken ?? (System.Decimal?)0),
-                                   CarryForward = ((System.Decimal?)ld.CarryForward ?? (System.Decimal?)0),
-                                   Balance = ((System.Decimal?)ld.Balance ?? (System.Decimal?)0)
-                               };
+            //           var leaveSummary = from lt in _unitOfWork.LeaveType.GetAll().ToList()
+            //                              join ld in _unitOfWork.HolidayEntitlementDetails.GetAll().ToList().Where(l => l.EmployeeId == employeeId) on new { LeaveTypeId = lt.LeaveTypeId } equals
+            //                                  new { LeaveTypeId = ld.LeaveTypeId } into ld_join
+            //                              from ld in ld_join.DefaultIfEmpty()
+            //                              join e in _unitOfWork.Employee.GetAll().ToList().Where(e => e.EmployeeId == employeeId) on ld.EmployeeId equals e.EmployeeId into e_join
+            //                              from e in e_join.DefaultIfEmpty()
+            //                              where
+            //          ld.EmployeeId == employeeId
+            //                              select new EntitlementSummary
+            //                              {
+            //                                  LeaveTypeId = (int?)lt.LeaveTypeId,
+            //                                  Name = lt.Name,
+            //                                  Count = lt.Count,
+            //                                  Frequency = lt.Frequency,
+            //                                  EmployeeType = lt.EmployeeType,
+            //                                  Total = (decimal?)Convert.ToDecimal((
+            //                                   lt.Name == "Earned" &&
+            // e.ConfirmationDateUTC != null ? (lt.Count * (
+            //Convert.ToDateTime(DateTime.Now).Year != Convert.ToDateTime(Convert.ToDateTime(e.ConfirmationDateUTC)).Year ? (System.Decimal)Convert.ToDateTime(DateTime.Now).Month : (Convert.ToDateTime(DateTime.Now).Month - Convert.ToDateTime(Convert.ToDateTime(e.ConfirmationDateUTC)).Month + (30 - Convert.ToDateTime(Convert.ToDateTime(e.ConfirmationDateUTC)).Day * lt.Count) / 30))) :
+            // lt.Name == "Casual" &&
+            //                                            e.ConfirmationDateUTC != null
+            //                                              ? lt.Count
+            //                                              : lt.Name == "Sick" ? lt.Count : 0)),
+            //                                  LeaveTaken = ((System.Decimal?)ld.LeaveTaken ?? (System.Decimal?)0),
+            //                                  CarryForward = ((System.Decimal?)ld.CarryForward ?? (System.Decimal?)0),
+            //                                  Balance = ((System.Decimal?)ld.Balance ?? (System.Decimal?)0)
+            //                              };
 
-            return leaveSummary.ToList();
+            //           return leaveSummary.ToList();
+            var leaveType = new string[] { "casual", "sick", "earned" };
+
+            var data =
+                       from lt in _unitOfWork.LeaveType.GetAll()
+                       where leaveType.Contains(lt.Name.ToLower())
+                       from he in _unitOfWork.HolidayEntitlementDetails.GetAll().ToList().Where(e => e.EmployeeId == employeeId && e.LeaveTypeId == lt.LeaveTypeId).DefaultIfEmpty()
+                       select new EntitlementSummary
+                       {
+                           LeaveTypeId = lt.LeaveTypeId,
+                           Name = lt.Name,
+                           Count = 10,
+                           LeaveTaken = he?.LeaveTaken,
+                           Balance = he?.Balance,
+                           OpeningBalance = he?.OpeningBalance
+                       };
+            return data.ToList();
         }
         public string GetLeaveTypeNameById(int leaveTypeId)
         {
-            var LeaveTypeName = _unitOfWork.LeaveType.GetAll().FirstOrDefault(s => s.LeaveTypeId == leaveTypeId).Name;
-            return LeaveTypeName;
+            var leaveTypeName = _unitOfWork.LeaveType.GetAll().FirstOrDefault(s => s.LeaveTypeId == leaveTypeId).Name;
+            return leaveTypeName;
         }
 
         public string GetEnumsNameById(int enumId)
@@ -292,7 +308,7 @@ namespace ABS_LMS.Service
             var allMappedEmployees = _unitOfWork.Employee.GetAllMappedEmployees(lineManagerId).ToList();
             foreach (var emp in allMappedEmployees)
             {
-                employeeLeaves.AddRange(GetEmployeeLeaveDetails(emp.EmployeeID??0));
+                employeeLeaves.AddRange(GetEmployeeLeaveDetails(emp.EmployeeID ?? 0));
             }
             return employeeLeaves.OrderByDescending(r => r.EmployeeId).ToList();
         }
@@ -324,6 +340,33 @@ namespace ABS_LMS.Service
                 ApprovedPersonName = leaveDetails.ApprovedPersonName,
                 HalfDayDateUTC = leaveDetails.HalfDayDateUTC
             }).ToList();
+        }
+
+        public void UpdateHolidayEntitlement(int employeeId, int leaveTypeId, decimal? leaveTaken)
+        {
+
+            var data = _unitOfWork.HolidayEntitlementDetails.GetAll()
+                    .Where(e => e.EmployeeId == employeeId && e.LeaveTypeId == leaveTypeId && e.Year == DateTime.Now.Year);
+
+            if (leaveTypeId == 2) //check for earned Leave
+            {
+                var earnedEntitlement = data.FirstOrDefault(e => e.Month == DateTime.Now.Month);
+                if (earnedEntitlement != null)
+                {
+                    earnedEntitlement.LeaveTaken = leaveTaken;
+                    earnedEntitlement.Balance = earnedEntitlement.OpeningBalance.Value - leaveTaken;
+                }
+            }
+            else
+            {
+                var casualOrSick = data.FirstOrDefault();
+                if (casualOrSick != null)
+                {
+                    casualOrSick.LeaveTaken = leaveTaken;
+                    casualOrSick.Balance = casualOrSick.OpeningBalance.Value - leaveTaken;
+                }
+            }
+            _unitOfWork.Complete();
         }
     }
 }

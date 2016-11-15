@@ -14,7 +14,7 @@ namespace ABS_LMS.Service
         {
             _context = context;
             Employee = new EmployeeRepository(_context);
-            LeaveDetails = new  LeaveRepository (_context);
+            HolidayEntitlementDetails = new  HolidayEntitlementRepository (_context);
             EmployeeLeave = new EmployeeLeaveRepository (_context);
             Department = new DepartmentRepository(_context);
             Designation = new DesignationRepository(_context);
@@ -25,7 +25,7 @@ namespace ABS_LMS.Service
         }
 
         public IEmployeeRepository Employee { get; private set; }
-        public ILeaveRepository LeaveDetails { get; private set; }
+        public IHolidayEntitlementRepository HolidayEntitlementDetails { get; private set; }
         public IEmployeeLeaveRepository EmployeeLeave { get; private set; }
         public IDepartmentRepository Department { get; private set; }
         public IDesignationRepository Designation { get; private set; }

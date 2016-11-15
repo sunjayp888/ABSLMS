@@ -55,7 +55,7 @@
     <Compile Include="Interface\IEmployeeLeaveRepository.cs" />
     <Compile Include="Interface\IEventRepository.cs" />
     <Compile Include="Interface\IHolidayRepository.cs" />
-    <Compile Include="Interface\ILeaveRepository.cs" />
+    <Compile Include="Interface\IHolidayEntitlementRepository.cs" />
     <Compile Include="Interface\IDepartmentRepository.cs" />
     <Compile Include="Interface\IEmployeeRepository.cs" />
     <Compile Include="Interface\ILeaveTypeRepository.cs" />
@@ -68,7 +68,7 @@
     <Compile Include="Repositories\EmployeeRepository.cs" />
     <Compile Include="Repositories\EventRepository.cs" />
     <Compile Include="Repositories\HolidayRepository.cs" />
-    <Compile Include="Repositories\LeaveRepository.cs" />
+    <Compile Include="Repositories\HolidayEntitlementRepository.cs" />
     <Compile Include="Repositories\LeaveTypeRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
   </ItemGroup>

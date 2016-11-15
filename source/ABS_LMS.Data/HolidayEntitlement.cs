@@ -12,9 +12,9 @@ namespace ABS_LMS.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class LeaveDetail
+    public partial class HolidayEntitlement
     {
-        public int LeaveDetailsId { get; set; }
+        public int HolidayEntitlementId { get; set; }
         public int EmployeeId { get; set; }
         public int LeaveTypeId { get; set; }
         public Nullable<decimal> OpeningBalance { get; set; }
@@ -26,7 +26,7 @@ namespace ABS_LMS.Data
         public Nullable<int> Year { get; set; }
         public Nullable<int> Month { get; set; }
     
-        public virtual LeaveType LeaveType { get; set; }
         public virtual Employee Employee { get; set; }
+        public virtual LeaveType LeaveType { get; set; }
     }
 }
