@@ -122,14 +122,37 @@ namespace ABS_LMS.Controllers
                     model.LeaveStatusId = (int)Service.Model.LeaveStatus.Apply;
                     return View(model);
                 }
+                var p = model.Seachtext;
+                var p1 = model.Empid;
                 var leaveDetails = new List<EmployeeLeave>();
                 if (HttpCurrentUser.IsHR || HttpCurrentUser.IsAdmin)
                 {
-                    leaveDetails = _employeeLeaveService.GetAllEmployeesLeaveDetails();
+                    if (!string.IsNullOrEmpty(model.Seachtext))
+                    {
+                        leaveDetails =
+                            _employeeLeaveService.GetAllEmployeesLeaveDetails()
+                                .Where(e => e.EmployeeId == model.Empid)
+                                .ToList();
+                    }
+                    else
+                    {
+                        leaveDetails = _employeeLeaveService.GetAllEmployeesLeaveDetails();
+                    }
+                        
                 }
                 else if (HttpCurrentUser.IsManager)
                 {
-                    leaveDetails = _employeeLeaveService.GetAllMapppedEmployeesleaveDetails(Convert.ToInt32(HttpCurrentUser.EmployeeId));
+                    if (!string.IsNullOrEmpty(model.Seachtext))
+                    {
+                        leaveDetails = _employeeLeaveService.GetAllMapppedEmployeesleaveDetails(Convert.ToInt32(HttpCurrentUser.EmployeeId))
+                                .Where(e => e.EmployeeId == model.Empid)
+                                .ToList();
+                    }
+                    else
+                    {
+                        leaveDetails = _employeeLeaveService.GetAllMapppedEmployeesleaveDetails(Convert.ToInt32(HttpCurrentUser.EmployeeId));
+                    }
+                    
                 }
                 var fromDate = model.FromDate;
                 var toDate = model.ToDate;
@@ -323,16 +346,32 @@ namespace ABS_LMS.Controllers
                 employeeleave.EmployeeLeaveDetails.LeaveStartDate.ToShortDateString(),
                 employeeleave.EmployeeLeaveDetails.LeaveEndDate.ToShortDateString());
 
-                if (!ConfigHelper.Environment.ToLower().Equals("dev"))
+            
+                if (leaveDetails.EmployeeId != Convert.ToInt32(HttpCurrentUser.EmployeeId))
                 {
-                    //To Employee
-                    SendMailToEmployee(employee, leaveDetails);
-                    //To Manager
-                    SendMailToManager(employee, leaveDetails);
-                    //To Hr
-                    //SendMailToHr(employee, leaveDetails);
+                    if (!ConfigHelper.Environment.ToLower().Equals("dev"))
+                    {
+                        //To Employee
+                        SendMailToEmployee(employee, leaveDetails);
+                       
+                     
+                    }
+                    return RedirectToAction("LeavePendingForApproval","Leave", new { id = HttpCurrentUser.EmployeeId });
                 }
-                return RedirectToAction("Index", new { id = employeeleave.EmployeeLeaveDetails.EmployeeId });
+                else
+                {
+                     if (!ConfigHelper.Environment.ToLower().Equals("dev"))
+                    {
+                        //To Employee
+                        SendMailToEmployee(employee, leaveDetails);
+                        //To Manager
+                        SendMailToManager(employee, leaveDetails);
+                        //To Hr
+                        //SendMailToHr(employee, leaveDetails);
+                    }
+                    return RedirectToAction("Index", new { id = employeeleave.EmployeeLeaveDetails.EmployeeId });
+                }
+                
             }
             catch
             {
@@ -481,6 +520,43 @@ namespace ABS_LMS.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             return Json(true, JsonRequestBehavior.AllowGet);
+            }
+}
+[HttpPost]
+        public JsonResult EmployeeList(string Prefix)
+        {
+            var employees = HttpCurrentUser.IsManager ? GetEmployeeByReportingManager() : _employeeService.GetEmployees().Where(e => !e.IsArchive);
+
+            if (!string.IsNullOrEmpty(Prefix))
+            {
+                employees = employees.Where(e => e.EmployeeCode.Contains(Prefix.Trim())
+                                            || (e.FirstName + " " + e.LastName).ToLower().Contains(Prefix.Trim().ToLower())
+                                            || e.EmployeeCode.ToLower().Contains(Prefix.Trim().ToLower())
+                                            ).ToList();
+            }
+            //Searching records from list using LINQ query  
+            var employeeslist = (from e in employees
+                                 where   (e.FirstName +' '+e.LastName).ToLower().StartsWith(Prefix.ToLower().Trim()) ||  e.EmployeeCode.ToLower().StartsWith(Prefix.ToLower().Trim())
+                               select new { label = e.FirstName+' '+e.LastName+'('+e.EmployeeCode+')', val=e.EmployeeId }).ToList();
+            return Json(employeeslist, JsonRequestBehavior.AllowGet);
+        }
+        private List<Employee> GetEmployeeByReportingManager()
+        {
+            var allEmployees = _employeeService.GetEmployees();
+            var employees = new List<Employee>();
+
+            var employeesForThisManager = allEmployees
+                  .Where(e => e.ReportingManager == Convert.ToInt32(HttpCurrentUser.EmployeeId) && !e.IsArchive).ToList();
+
+            employees.AddRange(employeesForThisManager);
+
+            foreach (var item in employeesForThisManager)
+            {
+                var item1 = item;
+                var lineManagerEmployees = allEmployees.Where(e => e.ReportingManager == item1.EmployeeId);
+                employees.AddRange(lineManagerEmployees);
+            }
+            return employees;
         }
     }
 }

@@ -125,7 +125,15 @@
 
                     }
                     else
-                    {<img class="img-circle" id="user_img" src="~/Content/themes/LMS/images/profile-img.jpg" height="100" width="90">}
+                    {
+                        @*<img class="img-circle" id="user_img" src="~/Content/themes/LMS/images/profile-img.jpg" height="100" width="90">*@
+                        if (Model.EmployeeDetail.Gender.ToLower() != "female")
+                        { <img class="img-circle" src="~/Content/themes/LMS/images/profile-img.jpg" style="width: 100px; height: 90px;">}
+                        else
+                        {
+                            <img class="img-circle" src="~/Content/themes/LMS/images/female.jpg" style="width: 100px; height: 90px;">
+                        }
+                    }
 
 
 

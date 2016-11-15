@@ -1,0 +1,255 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="padding-left-20">
+    <h1>Organizational Chart</h1>
+    <div class="panel panel-default">
+        <div class="panel-heading">@*Leave Records*@ &nbsp;</div>
+        <div class="panel-body">
+            <div>
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <select class="reportingmanager form-control"></select>
+                    </div>
+                    <div class="col-md-3">
+
+                        @*<button type="button" class="col-sm-offset-1" id="btnFullChart">GET Full CHART</button>*@
+                        <button type="button" class="col-sm-offset-1" id="btnChart">GET CHART</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="chart">
+            </div>
+            <div id="people"></div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    html, body {
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+        height: 100%;
+        /*overflow: hidden;*/
+    }
+
+    #people {
+        width: 100%;
+        height: 100%;
+    }
+    .get-org-chart .get-text-0 {
+        font-size: 20px!important;
+        }
+      .get-org-chart .get-text-1 {
+        font-size: 30px!important;
+        }
+</style>
+@*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>*@
+
+@section Scripts {
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    @*<script type="text/javascript" src="https://www.google.com/jsapi"></script>*@
+
+    <script src="~/Scripts/getorgchart.js"></script>
+<link href="~/Scripts/getorgchart.css" rel="stylesheet" />
+
+
+
+
+    <script type="text/javascript">
+        var readUrl = "@Url.Action("GetFullChartDataNew")";
+        var orgChart = new getOrgChart(document.getElementById("people"), {
+
+            //EmployeeId =employee.EmployeeId,
+            //FirstName = employee.FirstName + ' ' + employee.LastName,
+            //Designation = employee.Designation,
+            //ReportingManager = employee.ReportingManager
+            theme: "sara",
+            orientation: getOrgChart.RO_LEFT_PARENT_TOP,
+            primaryFields: ["Designation", "EmployeeName"],
+            photoFields: ["EmployeeImageUrl"],
+            idField: "EmployeeId",
+            parentIdField: "ReportingManager"
+         
+        });
+        //$.getJSON(readUrl, function (data) {
+        //    debugger;
+        //    orgChart.loadFromJSON(data);
+        //});
+
+        $.ajax({
+            type: "POST",
+            url: "/OrganizationalChart/GetFullChartDataNew",
+            data: '{ }',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                
+                debugger;
+                orgChart.loadFromJSON(data);
+            }, error: function (jqXHR, textStatus, errorThrown) {
+                alert('Error: ' + errorThrown);
+            }
+           
+        });
+   
+
+        //google.load("visualization", "1", { packages: ["orgchart"] });
+
+        $(document).ready(function() {
+            $('.nav #OrganizationalChart').addClass('active');
+            //GetReportingManager();
+            //$("#btnChart").click(function() {
+
+            //    //google.setOnLoadCallback(drawChart);
+            //    var id = $('.reportingmanager').val();
+            //    if (id != 0) {
+            //        alert('a');
+            //        drawChart();
+            //    } else {
+            //        alert('b');
+            //        drawFullChart();
+            //    }
+
+            //});
+
+        });
+
+        //function drawChart() {
+        //    onBegin();
+        //    var id = $('.reportingmanager').val();
+        //    if (id != 0) {
+
+        //        $.ajax({
+        //            type: "POST",
+        //            url: "/OrganizationalChart/GetChartData",
+        //            data: JSON.stringify({ 'id': id }),
+        //            contentType: "application/json; charset=utf-8",
+        //            dataType: "json",
+        //            success: function(r) {
+        //                var data = new google.visualization.DataTable();
+        //                data.addColumn('string', 'Entity');
+        //                data.addColumn('string', 'ParentEntity');
+        //                data.addColumn('string', 'ToolTip');
+        //                for (var i = 0; i < r.length; i++) {
+        //                    var employeeId = r[i][0].toString();
+        //                    var employeeName = r[i][1];
+        //                    var designation = r[i][2];
+        //                    var reportingManager = r[i][3] != null ? r[i][3].toString() : '';
+        //                    data.addRows([
+        //                        [
+        //                            {
+        //                                v: employeeId,
+        //                                f: employeeName + '<div>(<span>' + designation + '</span>)</div>'
+        //                            }, reportingManager, designation
+        //                        ]
+        //                    ]);
+        //                }
+        //                var chart = new google.visualization.OrgChart($("#chart")[0]);
+        //                chart.draw(data, { allowHtml: true });
+        //                //chart.draw(data, { allowHtml: true, allowCollapse: true });
+        //                //var allIndexes = chart.getChildrenIndexes(0);
+        //                //for (var j = 0; j < allIndexes.length; j++) {
+
+        //                //    chart.collapse(allIndexes[j], true);
+        //                //}
+
+        //                onComplete();
+        //            },
+        //            failure: function(r) {
+        //                //alert(r);
+        //                onComplete();
+        //            },
+        //            error: function(r) {
+        //                //alert(r);
+        //                onComplete();
+        //            }
+        //        });
+        //    }
+
+        //}
+
+        //function drawFullChart() {
+        //    onBegin();
+
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/OrganizationalChart/GetFullChartData",
+        //        data: '{ }',
+        //        contentType: "application/json; charset=utf-8",
+        //        dataType: "json",
+        //        success: function(r) {
+        //            var data = new google.visualization.DataTable();
+        //            data.addColumn('string', 'Entity');
+        //            data.addColumn('string', 'ParentEntity');
+        //            data.addColumn('string', 'ToolTip');
+        //            for (var i = 0; i < r.length; i++) {
+        //                var employeeId = r[i][0].toString();
+        //                var employeeName = r[i][1];
+        //                var designation = r[i][2];
+        //                var reportingManager = r[i][3] != null ? r[i][3].toString() : '';
+        //                data.addRows([
+        //                    [
+        //                        {
+        //                            v: employeeId,
+        //                            f: employeeName + '<div>(<span>' + designation + '</span>)</div>'
+        //                        }, reportingManager, designation
+        //                    ]
+        //                ]);
+        //            }
+        //            var chart = new google.visualization.OrgChart($("#chart")[0]);
+        //            chart.draw(data, { allowHtml: true });
+        //            //chart.draw(data, { allowHtml: true, allowCollapse: true });
+        //            //var allIndexes = chart.getChildrenIndexes(0);
+        //            //for (var j = 0; j < allIndexes.length; j++) {
+
+        //            //    chart.collapse(allIndexes[j], true);
+        //            //}
+
+        //            onComplete();
+        //        },
+        //        failure: function(r) {
+        //            //alert(r);
+        //            onComplete();
+        //        },
+        //        error: function(r) {
+        //            //alert(r);
+        //            onComplete();
+        //        }
+        //    });
+
+
+        //}
+
+        //function GetReportingManager() {
+        //    onBegin();
+        //    var url = "/OrganizationalChart/GetReportingManager/";
+        //    //var departmentId = $('#EmployeeDetail_DepartmentId').val();
+        //    $.ajax({
+        //        url: url,
+        //        //data: { departmentId: departmentId },
+        //        cache: false,
+        //        type: "POST",
+        //        success: function(data) {
+        //            var markup = "<option value='0'>All</option>";
+        //            for (var x = 0; x < data.length; x++) {
+        //                markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+        //            }
+        //            $(".reportingmanager").html("");
+        //            $(".reportingmanager").html(markup).show();
+        //            onComplete();
+        //        },
+        //        error: function(reponse) {
+        //            onComplete();
+        //            // alert("error : " + reponse);
+        //        }
+        //    });
+
+        //}
+    </script>
+}

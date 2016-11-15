@@ -81,11 +81,19 @@
                                     @if (item.LeaveStatusName != LeaveStatus.Reject.ToString() && item.LeaveStatusName != LeaveStatus.Approve.ToString())
                                     {
                                         <div id="@item.EmployeeLeaveHistoryId" class="pendingLeave">
-                                            <input type="button" value="@LeaveStatus.Approve.ToString()" data-status="@LeaveStatus.Approve.ToString()" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default"/>
+                                            <input type="button" value="@LeaveStatus.Approve.ToString()" data-status="@LeaveStatus.Approve.ToString()" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default" />
                                             &nbsp; &nbsp;
-                                            <input type="button" value="@LeaveStatus.Reject.ToString()" data-status="@LeaveStatus.Reject.ToString()" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default"/>
+                                            <input type="button" value="@LeaveStatus.Reject.ToString()" data-status="@LeaveStatus.Reject.ToString()" data-historyid="@item.EmployeeLeaveHistoryId" class="btn btn-default" />
+                                            @if (item.LeaveStatusName == LeaveStatus.Apply.ToString() && HttpCurrentUser.IsManager)
+                                            {
+                                                //&nbsp; &nbsp;
+                                                @Html.ActionLink("Edit", "Edit", new { id = HttpCurrentUser.EmployeeId, leaveId = item.EmployeeLeaveHistoryId }, new { @class = "linktobtn" })
+
+
+                                            }
                                         </div>
                                     }
+                                   
                                 </td>
                             </tr>
 

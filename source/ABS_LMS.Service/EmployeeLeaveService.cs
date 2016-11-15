@@ -125,6 +125,7 @@ namespace ABS_LMS.Service
             leaveDetails.NoOfDays = employeeLeaveDetails.NoOfDays;
             leaveDetails.Reason = employeeLeaveDetails.Reason;
             leaveDetails.LeaveStatus = employeeLeaveDetails.LeaveStatus;
+            leaveDetails.LeaveTypeId = employeeLeaveDetails.LeaveTypeId;
             leaveDetails.UpdatedDateUTC = DateTime.UtcNow;
             leaveDetails.CreatedBy = employeeLeaveDetails.UpdatedBy;
             leaveDetails.ApprovedPersonName = employeeLeaveDetails.ApprovedPersonName;

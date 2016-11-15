@@ -12,5 +12,6 @@ namespace ABS_LMS.Models
         public string Name { get; set; }
         public string Designation { get; set; }
         public byte[] EmployeeImage { get; set; }
+        public string Gender { get; set; }
     }
 }
